@@ -30,7 +30,7 @@ To perform switchover, preserving data consistency, replication-manager uses an 
 
 ## Traffic routing
 
-__replication-manager__ is commonly used as an arbitrator with a proxy that routes the database traffic to the leader database node (aka the MASTER). We can advise usage of:
+__replication-manager__ is commonly used as an arbitrator with a layer that routes the database traffic to the leader database node (aka the MASTER):
 
   - [x] Layer 7 proxy as MariaDB MaxScale that can transparently follow a newly elected topology
   - [x]  With monitor-less proxies, __replication-manager__ can call scripts that set and reload the new configuration of the leader route. A common scenario is an VRRP Active Passive HAProxy sharing configuration via a network disk with the __replication-manager__ scripts           

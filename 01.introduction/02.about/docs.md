@@ -20,18 +20,19 @@ This is achieved via the following drawbacks:
   - [x] READ on replica can be COMMITTED READ under usage of the 10.2 semi-sync no slave behind feature
 
 
-Leader Election Asynchronous Cluster can guarantee continuity of service at no cost for the leader and in some conditions with "No Data Loss", __replication-manager__ will track failover SLA (Service Level Availability).
+Leader Election Asynchronous Cluster can guarantee continuity of service at no performance cost for the leader and in some specific conditions with "No Data Loss",
+
+In the field, a regular scenario is to have long periods of time between hardware crashes: it is fine to analyze the state of the replication when crash happens, but  __replication-manager__ will track failover SLA(Service Level Availability) to give an historical view of the replication stream latency.
 
 
-Because it is not always desirable to perform an automatic failover in an asynchronous cluster, __replication-manager__ enforces some tunable settings to constraint the architecture state in which the failover can happen.
+It is not always desirable to perform  automatic failover in an asynchronous cluster, __replication-manager__ enforces some tunable settings to constraint the architecture state in which the failover can happen.
 
-In the field, a regular scenario is to have long periods of time between hardware crashes: what was the state of the replication when crash happens?
 
-We can classify SLA and failover scenario into 3 cases:
+We can classify SLA for automatic failover scenario into 3 states:
 
   - [x] Replica stream in sync   
-  - [x] Replica stream not sync but state allows failover      
-  - [x] Replica stream not sync but state does not allow failover
+  - [x] Replica stream not sync but state allows automatic failover      
+  - [x] Replica stream not sync but state does not allow automatic failover
 
 ! Staying in sync
 !
