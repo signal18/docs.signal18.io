@@ -11,7 +11,7 @@ The following command line flags are also used to manually run the monitoring da
 
 ## Command Line Flags
 
-##### `config`
+##### `config` (0.7)
 
 | Item | Value |
 | ---- | ----- |
