@@ -17,21 +17,6 @@ failover-mode = "manual"
 ```
 ## Server daemon configuration (`monitoring`,`log`)
 
-##### `config`
-
-| Item | Value |
-| ---- | ----- |
-| Description | Full path to configuration file. |
-| Type | string |
-| Default | "/etc/replication-manager/config.toml" |
-
-##### `cluster` (2.0), `config-group` (1.1)
-
-| Item | Value |
-| ---- | ----- |
-| Description | Only monitor the given cluster list. cluster are define with sections like [cluster1], every parameters from the [default] section apply to all cluster, and are overwrite by the cluster section, any command line parameters will be ignored if they are define in a section.  |
-| Type | list |
-| Example | "cluster1,cluster2" |
 
 ##### `log-file`
 
@@ -106,6 +91,14 @@ failover-mode = "manual"
 | Type          | string |
 | Default Value | "/usr/share/replication-manager" |
 
+##### `monitoring-basedir` (2.0)
+
+| Item          | Value |
+| ----          | ----- |
+| Description   | Path to a basedir where a data and share directory can be found, used mostly for developer or collocation of the product with a tar.gz deployment. |
+| Type          | string |
+| Default Value | "/usr/local/replication-manger" |
+
 ##### `monitoring-ticker` (2.0), `read-timeout` (1.1)
 
 | Item          | Value |
@@ -114,13 +107,6 @@ failover-mode = "manual"
 | Type          | integer |
 | Default Value | 2 |
 
-##### `monitoring-basedir` (2.0)
-
-| Item          | Value |
-| ----          | ----- |
-| Description   | Path to a basedir where a data and share directory can be found, used mostly for developer or collocation of the product with a tar.gz deployment. |
-| Type          | string |
-| Default Value | "/usr/local/replication-manger" |
 
 ##### `title`
 

@@ -2,14 +2,67 @@
 title: False Positive Detection
 ---
 
+##### `failover-falsepositive-ping-counter` (1.1)
+
+| Item          | Value |
+| ----          | ----- |
+| Description   |  Failover after this number of ping failures, interval is driven by `failover-falsepositive-heartbeat`. |
+| Type          | integer |
+| Default Value | 5 |
+
+##### `failover-falsepositive-heartbeat` (1.1)
+
+| Item          | Value |
+| ----          | ----- |
+| Description   | Cancel failover if one slave can still fetch events from the master. |
+| Type          | boolean |
+| Default Value | true |
+
+##### `failover-falsepositive-heartbeat-timeout` (1.1)
+
+| Item          | Value |
+| ----          | ----- |
+| Description   | Failover wait this timer in second that replication detect the failed master for `failover-falsepositive-heartbeat`. |
+| Type          | integer |
+| Default Value | 3 |
+
+##### `failover-falsepositive-external` (1.1)
+
+| Item          | Value |
+| ----          | ----- |
+| Description   | Cancel failover when http call to host of the master port 80 return header response code 200 OK, some inetd scripts can be googled to make external monitoring. |
+| Type          | boolean |
+| Default Value | false |
+
+##### `failover-falsepositive-external` (1.1)
+
+| Item          | Value |
+| ----          | ----- |
+| Description   | Cancel failover when http call to host of the master, return header response code 200 OK, some inetd scripts can be googled to make external monitoring. |
+| Type          | boolean |
+| Default Value | false |
+
+##### `failover-falsepositive-external-port` (1.1)
+
+| Item          | Value |
+| ----          | ----- |
+| Description   | Custom TCP port for external check `failover-falsepositive-external`. |
+| Type          | integer |
+| Default Value | 80 |
 
 
+##### `failover-falsepositive-maxscale` (1.1), (2.0-osc), (2.0-pro)
 
---failover-falsepositive-external                Failover checks that http//master:80 does not reponse 200 OK header
---failover-falsepositive-external-port int       Failover checks external port (default 80)
---failover-falsepositive-heartbeat               Failover checks that slaves do not receive hearbeat (default true)
---failover-falsepositive-heartbeat-timeout int   Failover checks that slaves do not receive hearbeat detection timeout  (default 3)
---failover-falsepositive-maxscale                Failover checks that maxscale detect failed master
---failover-falsepositive-maxscale-timeout int    Failover checks that maxscale detect failed master (default 14)
---failover-falsepositive-ping-counter int        Failover after this number of ping failures (interval 1s) (default 5)
-)
+| Item          | Value |
+| ----          | ----- |
+| Description   | Failover checks that maxscale monitor detect failed master. See the maxscale configuration section for more details  |
+| Type          | boolean |
+| Default Value | "false"|
+
+##### `failover-falsepositive-maxscale-timeout` (1.1), (2.0-osc), (2.0-pro)
+
+| Item          | Value |
+| ----          | ----- |
+| Description   | Failover wait this timer in second that MaxScale monitor detect the failed master for `failover-falsepositive-maxscale`.  |
+| Type          | integer |
+| Default Value | 14 |
