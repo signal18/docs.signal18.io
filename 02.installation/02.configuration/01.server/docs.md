@@ -15,7 +15,7 @@ replication-credential = "skysql:skyvodka"
 failover-mode = "manual"
 
 ```
-## Server daemon configuration
+## Server daemon configuration (`monitoring`,`log`)
 
 ##### `config`
 

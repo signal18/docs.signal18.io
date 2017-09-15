@@ -34,7 +34,7 @@ title: Database Configuration
 | ----          | ----- |
 | Description   | Database list of hosts to ignore for master election |
 | Type          | list |
-| Example       | "127.0.0.1:5057" |
+| Example       | "127.0.0.1:5057,127.0.0.1:5058" |
 
 ##### `db-servers-connect-timeout` (2.0), `connect-timeout` (1.1)
 
