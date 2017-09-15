@@ -122,6 +122,13 @@ failover-mode = "manual"
 | Type          | string |
 | Default Value | "/usr/local/replication-manger" |
 
+##### `title`
+
+| Item          | Value |
+| ----          | ----- |
+| Description   | An explicit description of the managed cluster  |
+| Type          | string |
+| Default Value | "CRM production MariaDB cluster" |
 
 ### Deprecated
 
