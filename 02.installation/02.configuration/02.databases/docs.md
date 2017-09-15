@@ -52,10 +52,34 @@ title: Database Configuration
 | Type          | integer |
 | Default Value | 15 |
 
-##### `db-servers-read-timeout` (2.0), `read-timeout` (1.1)
+##### `db-servers-tls-ca-cert` (2.0)
 
 | Item          | Value |
 | ----          | ----- |
-| Description   | Database I/O read timeout in seconds. The server will timeout if, on an already established connection, no data is received during a period equal to this option's value. |
-| Type          | integer |
-| Default Value | 15 |
+| Description   | Path to the database connection TLS authority certificate. |
+| Type          | string |
+| Default Value | "" |
+
+##### `db-servers-tls-client-cert` (2.0)
+
+| Item          | Value |
+| ----          | ----- |
+| Description   | Path to the database connection TLS client certificate. |
+| Type          | string |
+| Default Value | "" |
+
+##### `db-servers-tls-client-key` (2.0)
+
+| Item          | Value |
+| ----          | ----- |
+| Description   | Database TLS client key. |
+| Type          | string |
+| Default Value | "" |
+
+##### `db-servers-binary-path` (2.0), `mariadb-binary-path` (1.1)
+
+| Item          | Value |
+| ----          | ----- |
+| Description   | Path to mysqld binary for **replication-manager-tst** package to provisioning local clusters. |
+| Type          | string |
+| Default Value | "/usr/local/mysql/bin" |
