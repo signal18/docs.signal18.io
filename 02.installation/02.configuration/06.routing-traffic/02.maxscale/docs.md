@@ -16,7 +16,7 @@ With **replication-manager** one can get Maxscale Servers State in the HTTP serv
 
 **replication-manager** will monitor that the Maxscale Write Port point to the master in topology
 
-##### `maxscale` (1.1)
+##### `maxscale` (0.7)
 
 | Item | Value |
 | ---- | ----- |
@@ -24,7 +24,7 @@ With **replication-manager** one can get Maxscale Servers State in the HTTP serv
 | Type | boolean |
 | Default Value | false |  
 
-##### `maxscale-servers` (1.1)
+##### `maxscale-servers` (0.7)
 
 | Item | Value |
 | ---- | ----- |
@@ -59,7 +59,7 @@ With **replication-manager** one can get Maxscale Servers State in the HTTP serv
 
 **replication-manager** default monitoring method is to use MaxScale tcp row protocol. Configuration can be setup to use the MaxScale maxinfo plugin that provide a JSON REST service. In new Maxscale release a true REST API is now available but **replication-manager** do not use it yet.  
 
-##### `maxscale-get-info-method` (1.1)
+##### `maxscale-get-info-method` (0.7)
 
 | Item | Value |
 | ---- | ----- |
@@ -69,7 +69,7 @@ With **replication-manager** one can get Maxscale Servers State in the HTTP serv
 | Default Value | maxadmin |  
 
 
-##### `maxscale-port` (1.1)
+##### `maxscale-port` (0.7)
 
 | Item | Value |
 | ---- | ----- |
@@ -77,7 +77,7 @@ With **replication-manager** one can get Maxscale Servers State in the HTTP serv
 | Type | Integer |
 | Default Value | 6603 |
 
-##### `maxscale-user` (1.1)
+##### `maxscale-user` (0.7)
 
 | Item | Value |
 | ---- | ----- |
@@ -85,7 +85,7 @@ With **replication-manager** one can get Maxscale Servers State in the HTTP serv
 | Type | String |
 | Default Value | "admin" |
 
-##### `maxscale-password` (1.1)
+##### `maxscale-password` (0.7)
 
 | Item | Value |
 | ---- | ----- |
@@ -93,7 +93,7 @@ With **replication-manager** one can get Maxscale Servers State in the HTTP serv
 | Type | String |
 | Default Value | "mariadb" |
 
-##### `maxscale-maxinfo-port` (1.1)
+##### `maxscale-maxinfo-port` (0.7)
 
 | Item | Value |
 | ---- | ----- |
