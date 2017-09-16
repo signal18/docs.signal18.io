@@ -6,13 +6,12 @@ taxonomy:
 
 ### System requirements
 
-**replication-manager** is a self-contained binary
-
-No extra system libraries are needed at the operating system level.
+**replication-manager** is a self-contained binary, no extra system libraries are needed at the operating system level.
 
 Database replication is advice to use GTID and version
 
 MariaDB Version >= 10
+MySQL Version >= 5.6
 
 Web browser IE is reported not working with http interface.
 

@@ -1,6 +1,7 @@
 ---
 title: Switchover Configuration
 ---
+## Switchover Configuration
 
 ##### `switchover-at-equal-gtid` (1.1), `gtidcheck` (0.7)
 
