@@ -2,7 +2,7 @@
 title: False Positive Detection
 ---
 
-##### `failover-falsepositive-ping-counter` (1.1)
+##### `failover-falsepositive-ping-counter` (2.0)  `failcount` (0.7)
 
 | Item          | Value |
 | ----          | ----- |
@@ -51,7 +51,7 @@ title: False Positive Detection
 | Default Value | 80 |
 
 
-##### `failover-falsepositive-maxscale` (1.1), (2.0-osc), (2.0-pro)
+##### `failover-falsepositive-maxscale` (1.1, 2.0-osc, 2.0-pro)
 
 | Item          | Value |
 | ----          | ----- |
@@ -59,7 +59,7 @@ title: False Positive Detection
 | Type          | boolean |
 | Default Value | "false"|
 
-##### `failover-falsepositive-maxscale-timeout` (1.1), (2.0-osc), (2.0-pro)
+##### `failover-falsepositive-maxscale-timeout` (1.1, 2.0-osc, 2.0-pro)
 
 | Item          | Value |
 | ----          | ----- |

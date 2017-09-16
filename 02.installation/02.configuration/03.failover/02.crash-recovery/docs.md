@@ -106,7 +106,7 @@ High availability when false
 | MS-KM-KK-KM-SM      | RW-RW-EE-RW-RW |
 | MS-KM-KK-SK-SM      | RW-RW-EE-RE-RW |
 
-We can change this default to flavor HA against protecting over data lost and do failover on first node to ping: after a full DC crash or if the master never show up.  
+Change the `failover-restart-unsafe` to flavor HA against protecting over data lost and do failover on first slave to ping: after a full DC crash or if the master never show up. It was reported to work with PeaceMaker when **replication-manager** is failover and the last node available is a slave. This mode rediscover the master from this slave from the replication information.     
 
 High availability when false
 |  Master/Slave/Kill  | Read/Write/Err | Lost |
