@@ -4,11 +4,17 @@ title: Haproxy Configuration
 
 #### Maxscale Configuration
 
-**replication-manager** can operate with MaxScale in 3 modes.  Read the following sections to route traffic using Maxscale.
+**replication-manager** can operate with MaxScale with different modes.  
+
+Read the following sections to route dataabse traffic using Maxscale.
+
+Using **replication-manager** we can speed up the failover process of Maxscale, **replication-manager** will instruct MaxScale about the new master so that the Maxscale monitor delay is shortcut. This bring less risk against MaxScale sending traffic to the old master during the monitoring delay, **replication-manager** put extra barriers against writes during failover and switchover on the database level but not forever.     
 
 ##### Maxscale Monitor Status Configuration  
 
-In **replication-manager** one can get Maxscale Servers State in the HTTP server proxy tab.
+With **replication-manager** one can get Maxscale Servers State in the HTTP server proxy tab.
+
+**replication-manager** will monitor that the Maxscale Write Port point to the master in topology
 
 ##### `maxscale` (1.1)
 
@@ -17,6 +23,38 @@ In **replication-manager** one can get Maxscale Servers State in the HTTP server
 | Description | Enable MaxScale monitoring |
 | Type | boolean |
 | Default Value | false |  
+
+##### `maxscale-servers` (1.1)
+
+| Item | Value |
+| ---- | ----- |
+| Description | Comma separated list of the MaxScale hosts. |
+| Type | String |
+| Default Value | "" |  
+
+##### `maxscale-write-port` (1.1)
+
+| Item | Value |
+| ---- | ----- |
+| Description | MaxScale port to get database connection in WRITE. |
+| Type | Integer |
+| Default Value | 3306 |  
+
+##### `maxscale-read-port` (1.1)
+
+| Item | Value |
+| ---- | ----- |
+| Description | MaxScale port to load balance read connection to all databases. |
+| Type | Integer |
+| Default Value | 3306 |  
+
+##### `maxscale-read-write-port` (1.1)
+
+| Item | Value |
+| ---- | ----- |
+| Description | MaxScale port to a read write spilling connection.  |
+| Type | Integer |
+| Default Value | 3306 |  
 
 
 **replication-manager** default monitoring method is to use MaxScale tcp row protocol. Configuration can be setup to use the MaxScale maxinfo plugin that provide a JSON REST service. In new Maxscale release a true REST API is now available but **replication-manager** do not use it yet.  
@@ -30,13 +68,6 @@ In **replication-manager** one can get Maxscale Servers State in the HTTP server
 | Possible Values | maxinfo,maxadmin,maxapi |  
 | Default Value | maxadmin |  
 
-##### `maxscale-servers` (1.1)
-
-| Item | Value |
-| ---- | ----- |
-| Description | Comma separated list of the MaxScale hosts. |
-| Type | String |
-| Default Value | "" |  
 
 ##### `maxscale-port` (1.1)
 
@@ -44,7 +75,23 @@ In **replication-manager** one can get Maxscale Servers State in the HTTP server
 | ---- | ----- |
 | Description | MaxAdmin port to send command in tcp raw protocol. |
 | Type | Integer |
-| Default Value | 4003 |
+| Default Value | 6603 |
+
+##### `maxscale-user` (1.1)
+
+| Item | Value |
+| ---- | ----- |
+| Description | MaxAdmin user in tcp raw protocol. |
+| Type | String |
+| Default Value | "admin" |
+
+##### `maxscale-password` (1.1)
+
+| Item | Value |
+| ---- | ----- |
+| Description | MaxAdmin password in tcp raw protocol. |
+| Type | String |
+| Default Value | "mariadb" |
 
 ##### `maxscale-maxinfo-port` (1.1)
 
