@@ -53,4 +53,4 @@ All cluster down lead to some situation where it is possible to first restart a 
 
 Previous scenario is not that frequent and one can flavor availability in case the master never show up again. The DC crash would have bring down all the nodes around the same time. So data lost can be mitigated if you automate starting a slave node and failover on it via failover-restart-unsafe=true if the master can't or takes to long to recover from the crash.  
 
-![failover](/doc/failover.png)
+![failover](/images/failover.png)
