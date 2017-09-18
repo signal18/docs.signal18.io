@@ -65,7 +65,3 @@ Create a symlink
 Copy some systemd or init files in your system:
 
 `sudo cp /usr/local/replication-manager/share/replication-manager.init /etc/init.d/replication-manager`
-
-Copy a sample configuration file to config.toml auto loaded configuration:
-
-`sudo cp /usr/local/replication-manager/etc/config.toml.sample.masterslave-haproxy  /usr/local/replication-manager/etc/config.toml`
