@@ -62,6 +62,6 @@ Create a symlink
 
 `sudo ln -s /usr/local/replication-manager-1.1.2 /usr/local/replication-manager`
 
-Copy some systemd or init files in your system:
+Copy the systemd or init files in your system:
 
 `sudo cp /usr/local/replication-manager/share/replication-manager.init /etc/init.d/replication-manager`

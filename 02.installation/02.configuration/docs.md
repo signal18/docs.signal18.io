@@ -4,11 +4,11 @@ taxonomy:
     category: docs
 ---
 
-**replication-manager** bundle some example configuration files located in in different place based on the previously selected installation process.  
+**replication-manager** bundle some example configuration files located in in different places based on the previously selected installation process.  
 
 Use or create a `config.toml` file in the location explained in following section.
 
-**replication-manager** binaries are looking for `config.toml` in ./ ./etc/replication-manager or /usr/local/replication-manager if nothing is specified in `--config` command line flag.
+**replication-manager** binaries are looking for `config.toml` in ./ ./etc/replication-manager or /usr/local/replication-manager when nothing is specified in `--config` command line flag.
 
 ## Minimal configuration
 

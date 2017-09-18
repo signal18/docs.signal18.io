@@ -6,7 +6,7 @@ taxonomy:
 
 ### Packages hierarchy
 
-Packages installation will deploy a set of directories
+Packages installation will deploy a set of directories and files
 
   - [x] /etc/replication-manager/
     Default and example conf file
