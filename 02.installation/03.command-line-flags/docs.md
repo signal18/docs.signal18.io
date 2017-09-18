@@ -2,12 +2,14 @@
 title: Command Line Flags
 ---
 
-By default *replication-manager* read a the config file  /etc/replication-manager/default.yaml  
+By default **replication-manager** read a the config file  /etc/replication-manager/config.toml  
 It load the default section in the file and all the cluster sections.
 
 The default init.d or systemd scripts can be changed to pick specific configuration file or to load only some of the clusters define in the config.     
 
 The following command line flags are also used to manually run the monitoring daemon in shell and get the output printed to terminal.  
+
+> Command line flags are overwrite by variables found in the config.toml file.
 
 ## Command Line Flags
 
