@@ -4,11 +4,11 @@ title: Alerting Configuration
 
 ## Alert Configuration
 
-replication-manager offer multiple way of alerting on cluster server status change
+**replication-manager** offer multiple way of alerting on cluster node status change
 
 ### External Script Configuration
 
-An alert script can be trigger if enable via this config file parameter
+An alert script can be trigger when enable via this config file parameter:
 
 
 ##### `alert-script` (2.0)
@@ -27,7 +27,7 @@ The following arguments are passed to the script
 
 ### Email Configuration
 
-An email can be send via postfix using the following parameters
+An email can be send via postfix using the following parameters:
 
 ##### `mail-from` (0.7)
 
@@ -69,9 +69,9 @@ The logs can be send to syslog services via
 | Default Value | false |  
 
 
-User can lookup for tag type=state to trigger some custom alerting
+User can lookup in logs for tag type=state to trigger some custom alerting.
 
-We can improve log facilities to send messages to various log analyze systems, contact signal18.io for NRE
+We can improve log facilities to send messages to various log analyze systems, contact signal18.io for NRE.
 
 
 ### External status monitoring
