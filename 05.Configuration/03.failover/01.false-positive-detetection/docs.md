@@ -1,5 +1,5 @@
 ---
-title: False Positive Detection
+title: False Positive Configuration
 ---
 
 ##### `failover-falsepositive-ping-counter` (2.0)  `failcount` (0.7)

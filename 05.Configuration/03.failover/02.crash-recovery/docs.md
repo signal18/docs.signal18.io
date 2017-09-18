@@ -1,5 +1,5 @@
 ---
-title: Crash Recovery
+title: Crash Recovery Configuration
 ---
 
 ## Crash recovery
