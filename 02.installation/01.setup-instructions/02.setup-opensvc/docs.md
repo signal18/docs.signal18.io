@@ -27,7 +27,7 @@ https://docs.opensvc.com/collector.evaluation.html
 When done a fist run of replication-manager is needed to configure the collector and load the playbook
 
 ```
-./replication-manager monitor --opensvc
+./replication-manager-pro monitor --opensvc
 ```
 
 This run give similar output
