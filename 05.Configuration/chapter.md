@@ -1,6 +1,6 @@
 ---
-title: Configuration Files
+title: Configuration Variables
 ---
 ### Chapter 5
 
-# Configuration
+# Configuration Variables
