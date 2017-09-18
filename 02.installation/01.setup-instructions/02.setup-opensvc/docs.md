@@ -1,12 +1,14 @@
 ---
-title: Setup Instructions
+title: Setup OpenSVC
 taxonomy:
     category: docs
 ---
 
 ## Setup OpenSVC
 
-OpenSVC collector is a commercial software that collect all the informations send from the OpenSVC open source agents.  
+**replication-manager-pro** stand for provisioning and work in conjonction with OpenSVC.
+
+OpenSVC collector is a commercial software that collect all the informations send from the OpenSVC open source agents. The OpenSVC Collector also deliver node configuration when bootstrapping Mico services.    
 
 ### First step
 

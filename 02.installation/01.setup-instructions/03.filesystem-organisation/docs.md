@@ -1,10 +1,10 @@
 ---
-title: Filesystem Organization
+title: Filesystem Hierarchy
 taxonomy:
     category: docs
 ---
 
-### Packages organization
+### Packages hierarchy
 
 Packages installation will deploy a set of directories
 
@@ -25,7 +25,7 @@ Packages installation will deploy a set of directories
 Log can be found in /var/log/replication-manager.log
 
 
-####  tar.gz organization
+####  Archive hierarchy
 
 
 - [x] /usr/local/replication-manager/ect
