@@ -1,5 +1,5 @@
 ---
-title: Configuration Files
+title: Routing Configuration
 ---
 ### Chapter 2.2.6
 
