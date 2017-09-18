@@ -89,6 +89,6 @@ Set the replication-manager host or IP address to tell where to found the graphi
 Replication and some databases status metrics are pushed inside carbon, the metrics are pushed with the server-id prefix name. to get unicity against nodes  
 
 
-![graphs](/doc/graphs.png)
+![graphs](/images/graphs.png)
 
 We can advise usage of Statd and Collectd on each database node to add extra system metrics to the cluster.
