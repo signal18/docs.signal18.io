@@ -2,7 +2,68 @@
 title: ProxySQL Configuration
 ---
 
-## Minimal configuration
+### ProxySQL Configuration
 
+##### `proxysql` (2.0)
 
-## Optional configuration
+| Item | Value |
+| ---- | ----- |
+| Description | Enable Driving ProxySQL. |
+| Type | boolean |
+| Default Value | false |  
+
+##### `proxysql-binary-path` (0.7)
+
+| Item | Value |
+| ---- | ----- |
+| Description | Full path to ProxySQL binary. |
+| Type | String |
+| Default Value | "/usr/sbin/proxysql" |  
+
+##### `proxysql-servers` (0.7)
+
+| Item | Value |
+| ---- | ----- |
+| Description | Comma separated list of the ProxySQL hosts. |
+| Type | String |
+| Default Value | "127.0.0.1" |  
+
+##### `proxysql-write-port` (0.7)
+
+| Item | Value |
+| ---- | ----- |
+| Description | ProxySQL port to get database connection in WRITE. |
+| Type | Integer |
+| Default Value | 3306 |  
+
+##### `proxysql-ip-write-bind` (0.7)
+
+| Item | Value |
+| ---- | ----- |
+| Description | If WRITE traffic bing to specific IP. |
+| Type | String |
+| Default Value | "0.0.0.0" |  
+
+##### `proxysql-read-port` (0.7)
+
+| Item | Value |
+| ---- | ----- |
+| Description | ProxySQL port to load balance read connection to all databases. |
+| Type | Integer |
+| Default Value | 3306 |  
+
+##### `proxysql-ip-read-bind` (0.7)
+
+| Item | Value |
+| ---- | ----- |
+| Description |  If READ traffic bing to specific ProxySQL IP. |
+| Type | String |
+| Default Value | "0.0.0.0" |  
+
+##### `proxysql-stat-port` (0.7)
+
+| Item | Value |
+| ---- | ----- |
+| Description | ProxySQL port to collect statistics.  |
+| Type | Integer |
+| Default Value | 1988 |  
