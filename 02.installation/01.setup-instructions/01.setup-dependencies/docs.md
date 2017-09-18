@@ -15,28 +15,17 @@ MySQL Version >= 5.6
 
 Web browser IE is reported not working with http interface.
 
-
-### Downloads
-
-As of today we build portable binary tarballs, Debian Jessie, Ubuntu, CentOS 6 & 7 packages.
-
-Check https://github.com/signal18/replication-manager/releases for official releases.
-
-Nightly builds available on https://orient.dragonscale.eu/replication-manager/nightly
-
-
 ####  Extra testing dependencies
 
-MariaDB-Server package minimum 10.2 server need to be install if you plan to use following features
+If you plan to use **replication-manager-tst** for automatic bootstrap of some local cluster un run some tests MariaDB-Server 10.2 package need be install
 - [x] Automatic node rejoin
-- [x] Non regression testing  
-- [x] Binlog Backups
+- [x] Local non regression testing  
 - [x] MariaDBShardProxy
 
-HaProxy package need to be install to benefit from haproxy bootstrap mode
-Sysbench package are used for some of the non regression tests
+HaProxy package need to be install to benefit from haproxy  
+Sysbench package are used for some non regression tests
 
-Can be setup according to following configuration options
+**replication-manager-tst** can be setup with following configuration options
 
 ```
 mariadb-binary-path = "/usr/sbin"

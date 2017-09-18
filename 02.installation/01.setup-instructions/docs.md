@@ -8,6 +8,12 @@ taxonomy:
 
 For convenience, we provide packages for Debian/Ubuntu and Centos/RHEL and derivatives.
 
+As of today we build portable binary tarballs, Debian Jessie, Ubuntu, CentOS 6 & 7 packages.
+
+Check https://github.com/signal18/replication-manager/releases for official releases.
+
+Continuous integration builds are available on http://ci.signal18.io/mrm/builds/
+
 ### Installation from our repository
 
 #### CentOS/RHEL
@@ -52,4 +58,14 @@ You can now unpack the tarball in your local directory:
 
 `sudo tar zxvf replication-manager-1.1.2.tar gz -C /usr/local/`
 
+Create a symlink
 
+`sudo ln -s /usr/local/replication-manager-1.1.2 /usr/local/replication-manager`
+
+Copy some systemd or init files in your system:
+
+`sudo cp /usr/local/replication-manager/share/replication-manager.init /etc/init.d/replication-manager`
+
+Copy a sample configuration file to config.toml auto loaded configuration:
+
+`sudo cp /usr/local/replication-manager/etc/config.toml.sample.masterslave-haproxy  /usr/local/replication-manager/etc/config.toml`
