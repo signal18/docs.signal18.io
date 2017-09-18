@@ -4,8 +4,7 @@ title: Alerting Configuration
 
 ## Alert Configuration
 
-replication-manager offer multiple way of alerting on server status change
-
+replication-manager offer multiple way of alerting on cluster server status change
 
 ### External Script Configuration
 

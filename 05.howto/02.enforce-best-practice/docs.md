@@ -6,11 +6,14 @@ title: Enforce Best Practice
 
 **replication-manager** (1.1) can dynamically enforce best database practices around the replication usage.
 
-It dynamically configure the MariaDB it monitor via SET GLOBAL VARIABLES.
+It can dynamically configure the MariaDB it monitor via SET GLOBAL VARIABLES when it is possibel to do so without database restart.
 
 >Enforcement can be lost if replication manager monitoring is shutdown and the database is restarted.
 
-**replication-manager** (2.0) produce warnings if one of the possible enforcement is not found in the database nodes and not dynamically enforced.
+**replication-manager** (2.0) produce warnings if one of the possible enforcement is not found in the database nodes and not dynamically enforced. Some non tunable warnings are produced for  
+
+- [x] missing log-slave-updates  
+- [x] non GTID strict mode  
 
 **replication-manager** ignore enforcement and warnings on the nodes excluded from election with using the ignore list.   
 
