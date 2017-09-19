@@ -1,6 +1,9 @@
 ---
-title: HTTP Server Usage
+title: HTTP Client Usage
 ---
+
+## HTTP Client Usage
+
 *replication-manager**  when started to monitor your clusters, provide an internal HTTP server:
 
 it is accessible on http://localhost:10001.

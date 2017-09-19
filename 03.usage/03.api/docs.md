@@ -2,7 +2,8 @@
 title: API Client Usage
 ---
 
-## API Usage
+## API Client Usage
+
 The rest API is using JWT TLS and is served by default on port 3000 by the  replication-manager monitor
 
 One can customize  credential via setting your own user password in configuration file  
