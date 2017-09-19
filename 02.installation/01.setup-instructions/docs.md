@@ -10,9 +10,9 @@ For convenience, we provide packages for Debian/Ubuntu and Centos/RHEL and deriv
 
 As of today we build portable binary tarballs, Debian Jessie, Ubuntu, CentOS 6 & 7 packages.
 
-Check https://github.com/signal18/replication-manager/releases for official releases.
+Check out [GitHub Releases](https://github.com/signal18/replication-manager/releases) for official releases.
 
-Continuous integration builds are available on http://ci.signal18.io/mrm/builds/
+Development builds are also available on our [Continuous Integration Server](http://ci.signal18.io/mrm/builds/)
 
 ### Installation from our repository
 
