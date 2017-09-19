@@ -12,7 +12,7 @@ title: ProxySQL Configuration
 | Type | boolean |
 | Default Value | false |  
 
-##### `proxysql-binary-path` (0.7)
+##### `proxysql-binary-path` (2.0)
 
 | Item | Value |
 | ---- | ----- |
@@ -20,7 +20,7 @@ title: ProxySQL Configuration
 | Type | String |
 | Default Value | "/usr/sbin/proxysql" |  
 
-##### `proxysql-servers` (0.7)
+##### `proxysql-servers` (2.0)
 
 | Item | Value |
 | ---- | ----- |
@@ -28,7 +28,7 @@ title: ProxySQL Configuration
 | Type | String |
 | Default Value | "127.0.0.1" |  
 
-##### `proxysql-write-port` (0.7)
+##### `proxysql-write-port` (2.0)
 
 | Item | Value |
 | ---- | ----- |
@@ -36,7 +36,7 @@ title: ProxySQL Configuration
 | Type | Integer |
 | Default Value | 3306 |  
 
-##### `proxysql-ip-write-bind` (0.7)
+##### `proxysql-ip-write-bind` (2.0)
 
 | Item | Value |
 | ---- | ----- |
@@ -44,7 +44,7 @@ title: ProxySQL Configuration
 | Type | String |
 | Default Value | "0.0.0.0" |  
 
-##### `proxysql-read-port` (0.7)
+##### `proxysql-read-port` (2.0)
 
 | Item | Value |
 | ---- | ----- |
@@ -52,7 +52,7 @@ title: ProxySQL Configuration
 | Type | Integer |
 | Default Value | 3306 |  
 
-##### `proxysql-ip-read-bind` (0.7)
+##### `proxysql-ip-read-bind` (2.0)
 
 | Item | Value |
 | ---- | ----- |
@@ -60,7 +60,7 @@ title: ProxySQL Configuration
 | Type | String |
 | Default Value | "0.0.0.0" |  
 
-##### `proxysql-stat-port` (0.7)
+##### `proxysql-stat-port` (2.0)
 
 | Item | Value |
 | ---- | ----- |
