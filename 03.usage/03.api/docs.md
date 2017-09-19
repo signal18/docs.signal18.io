@@ -34,7 +34,7 @@ At startup **replication-manager** monitor will generate in memory extra self si
 API can be call via command line client to simplify curl syntax with JWT token
 
 ```
-./replication-manager api  --url="https://127.0.0.1:3000/api/clusters/ux_dck_zpool_loop/servers/actions/add/192.168.1.73/3306"   --cluster="ux_dck_zpool_loop"
+./replication-manager-cli api  --url="https://127.0.0.1:3000/api/clusters/ux_dck_zpool_loop/servers/actions/add/192.168.1.73/3306"   --cluster="ux_dck_zpool_loop"
 ```
 
 ### API Unprotected Endpoints
