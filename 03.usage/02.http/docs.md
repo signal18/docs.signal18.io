@@ -4,11 +4,11 @@ title: HTTP Client Usage
 
 ## HTTP Client Usage
 
-*replication-manager**  when started to monitor your clusters, provide an internal HTTP server:
+**replication-manager**  once started for monitoring your clusters, provide internal HTTP interface:
 
-it is accessible on http://localhost:10001.
+Access it via pointing a web browser to  http://localhost:10001.
 
-By default it is bind only to `localhost` and need to be changed to bind address to get access on the network.
+By default it is bind  to `localhost` and this need to be changed to bind address to get remote access on the network.
 
 It looks like this:
 
