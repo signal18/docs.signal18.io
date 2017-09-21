@@ -15,4 +15,10 @@ taxonomy:
 * CORE: Support save and reload SLA
 * CORE: Support adding node to monitor
 * CORE: Support basedir installation
+* CORE: Support old style switchover/failover of extra slaves via relay catch 
+
 * PROXY: Support ProxySQL
+* PROXY: Support Database Maintenance
+
+* CLIENT: Support cluster status
+* CLIENT: Support monitoring status

@@ -76,11 +76,29 @@ apt-get install -y wget
 ```
 
 Docker advices:
-
 Usage of ubuntu server is preferred because better support for ZFS and docker in that distribution. This is not a requirement if you feel more comfortable with other distributions.
 
-It's a loose of time to try some Docker deployments on OSX and may be Windows(not experimented myself) for  deployments, docker is not mature enough on those distributions. It looks it can work but you will quickly hit some network and performance degradations.   
+>It's a loose of time to try some Docker deployments on OSX and may be Windows(not experimented myself) for  deployments, docker is not mature enough on those distributions. It looks it can work but you will quickly hit some network and performance degradations.   
 
+About using docker CE 17.06 & front bridge issue
+docker CE 17.06 now loads the br_netfilter kmod blocks the port-to-port bridge transit if netfilter is not configured to allow it.
+
+Disable filtering:
+
+/etc/udev/rules.d/99-bridge.rules:
+
+```
+ACTION=="add", SUBSYSTEM=="module", KERNEL=="br_netfilter", \
+      RUN+="/lib/systemd/systemd-sysctl --prefix=/net/bridge"
+```
+
+/etc/sysctl.d/bridge.conf:
+
+```
+net.bridge.bridge-nf-call-ip6tables = 0
+net.bridge.bridge-nf-call-iptables = 0
+net.bridge.bridge-nf-call-arptables = 0
+```
 
 Instruct you cluster agents where to found your fresh collector and replication-manager modules
 
