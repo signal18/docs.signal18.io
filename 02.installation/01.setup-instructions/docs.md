@@ -65,3 +65,21 @@ Create a symlink
 Copy the systemd or init files in your system:
 
 `sudo cp /usr/local/replication-manager/share/replication-manager.init /etc/init.d/replication-manager`
+
+### Building from source
+
+To build from source, you need to install first the [Go 1.8 binary release](https://golang.org/dl/).
+
+Clone the source on [GitHub](https://github.com/signal18/replication-manager) and follow the steps:
+```
+git clone https://github.com/signal18/replication-manager.git ~/go/src/github.com/replication-manager
+cd ~/go/src/github.com/replication-manager
+make bin
+```
+
+This will build all the binary releases.
+
+If you want to build the packages, use the following make recipe:
+```
+make package
+```
