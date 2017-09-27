@@ -34,13 +34,6 @@ title: False Positive Configuration
 | Type          | boolean |
 | Default Value | false |
 
-##### `failover-falsepositive-external` (1.1)
-
-| Item          | Value |
-| ----          | ----- |
-| Description   | Cancel failover when http call to host of the master, return header response code 200 OK, some inetd scripts can be googled to make external monitoring. |
-| Type          | boolean |
-| Default Value | false |
 
 ##### `failover-falsepositive-external-port` (1.1)
 

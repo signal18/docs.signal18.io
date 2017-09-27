@@ -78,7 +78,7 @@ title: Monitoring Configuration
 
 
 HTTP Graph are display via the giraffe JS library. One can create custom dashboard via Grafana.
-Customizing the trends can be done modifying
+Customizing the trends can be done modifying. The port to use as direct data source in grafan is drive by `graphite-carbon-api-port` default 10002.
 
 ```
 /usr/share/replication-manager/dashboard/static/graph.js

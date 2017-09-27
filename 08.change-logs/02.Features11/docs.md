@@ -1,5 +1,5 @@
 ---
-title: 1.0 Features
+title: 1.1 Features
 taxonomy:
     category: docs
 ---
