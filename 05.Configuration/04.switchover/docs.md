@@ -44,3 +44,11 @@ title: Switchover Configuration
 | Description | Switchover is cancel after this timeout in second if can't return from FTWRL. |
 | Type | integer |
 | Default Value | 10 |
+
+##### `switchover-slave-wait-catch` (2.0)
+
+| Item | Value |
+| ---- | ----- |
+| Description | Switchover wait for replication to catch up before switching extra slaves, when using GTID don't wait can speed up switchover but may hide issues liek writing on the old master with super user |
+| Type | boolean |
+| Default Value | true |
