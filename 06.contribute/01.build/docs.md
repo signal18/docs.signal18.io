@@ -16,17 +16,19 @@ title: Build
 
 It is possible to disable features via the following tags
 
-WithProvisioning      ON/OFF
-WithArbitration       ON/OFF
-WithArbitrationClient ON/OFF
-WithProxysql          ON/OFF
-WithHaproxy           ON/OFF
-WithMaxscale          ON/OFF
-WithMariadbshardproxy ON/OFF
-WithMonitoring        ON/OFF
-WithMail              ON/OFF
-WithHttp              ON/OFF
-WithSpider            ON/OFF
-WithEnforce           ON/OFF
-WithDeprecate         ON/OFF
-WithTargz             ON/OFF
+| Flags | Value |
+| ----- | ----- |
+| WithProvisioning | ON/OFF |
+| WithArbitration | ON/OFF |
+| WithArbitrationClient | ON/OFF |
+| WithProxysql | ON/OFF |
+| WithHaproxy | ON/OFF |
+| WithMaxscale | ON/OFF |
+| WithMariadbshardproxy | ON/OFF |
+| WithMonitoring | ON/OFF |
+| WithMail | ON/OFF |
+| WithHttp | ON/OFF |
+| WithSpider | ON/OFF |
+| WithEnforce | ON/OFF |
+| WithDeprecate | ON/OFF |
+| WithTargz | ON/OFF | 
