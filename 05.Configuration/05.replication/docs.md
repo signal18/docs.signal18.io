@@ -70,7 +70,7 @@ By default **replication-manager** assume a flat topology but can enable multi-t
 
 | Item | Value |
 | ---- | ----- |
-| Description | Enable relay slaves topology |
+| Description | Enable Master-Master topology |
 | Type | boolean |
 | Default Value | false |  
 
