@@ -1,5 +1,5 @@
 ---
-title: Setup Docker
+title: Docker
 taxonomy:
     category: docs
 ---

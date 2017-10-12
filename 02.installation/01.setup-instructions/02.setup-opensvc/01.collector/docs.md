@@ -1,5 +1,5 @@
 ---
-title: Setup OpenSVC Collector
+title: Collector
 taxonomy:
     category: docs
 ---

@@ -1,5 +1,5 @@
 ---
-title: Setup Provisioning
+title: Provisioning
 taxonomy:
     category: docs
 ---

@@ -1,5 +1,5 @@
 ---
-title: Setup OpenSVC Cluster Agents
+title: Cluster Agents
 taxonomy:
     category: docs
 ---
@@ -9,7 +9,9 @@ Install the agents on the nodes of your provisioning cluster.
 
 A minimum set of packages are advice for file system support, virtualization of micro services and network debugging purpose.
 
-####Debian, Ubuntu:
+[Download](https://repo.opensvc.com/)
+
+###Debian, Ubuntu:
 ```  
 apt-get install -y python net-tools docker-io psmisc zfsutils-linux system-config-lvm xfsprogs wget
 ```
@@ -25,6 +27,9 @@ sudo ln -s docker-runc-current docker-runc
 echo "PATH=\$PATH:/usr/libexec/docker" >>/etc/sysconfig/opensvc
 sed -i -e "s/: false/: true/" /etc/oci-register-machine.conf
 ```
+
+Installing ZFS
+http://lampros.chaidas.com/index.php?controller=post&action=view&id_post=101
 
 
 Instruct your cluster agents where to find the collector and replication-manager modules:
