@@ -19,7 +19,7 @@ title: Server Configuration
 | ---- | ----- |
 | Description | Write messages to log file per default messages are output to stdout|
 | Type | string |
-| Example | "/var/log/replication-manager.log" |
+| Example | `/var/log/replication-manager.log` |
 
 ##### `log-level`
 
@@ -59,7 +59,7 @@ title: Server Configuration
 | ----          | ----- |
 | Description   | Write a memory profile to a file readable by pprof. |
 | Type          | string |
-| Default       | "/tmp/repmgr.mprof" |
+| Default       | `/tmp/repmgr.mprof` |
 
 
 ##### `monitoring-datadir` (2.0), `working-directory` (1.1)
@@ -68,7 +68,7 @@ title: Server Configuration
 | ----          | ----- |
 | Description   | Path to write temporary and persistent files |
 | Type          | string |
-| Example       | "/var/lib/replication-manager" |
+| Example       | `/var/lib/replication-manager` |
 
 ##### `monitoring-sharedir` (2.0), `share-directory` (1.1)
 
@@ -76,7 +76,7 @@ title: Server Configuration
 | ----          | ----- |
 | Description   | Path to the share files provided with packaging with no write access |
 | Type          | string |
-| Default Value | "/usr/share/replication-manager" |
+| Default Value | `/usr/share/replication-manager` |
 
 ##### `monitoring-basedir` (2.0)
 
@@ -84,7 +84,7 @@ title: Server Configuration
 | ----          | ----- |
 | Description   | Path to a basedir where a data and share directory can be found, used mostly for developer or collocation of the product with a tar.gz deployment. |
 | Type          | string |
-| Default Value | "/usr/local/replication-manger" |
+| Default Value | `/usr/local/replication-manger` |
 
 ##### `monitoring-ticker` (2.0), `read-timeout` (1.1)
 
@@ -101,7 +101,7 @@ title: Server Configuration
 | ----          | ----- |
 | Description   | An explicit description of the managed cluster  |
 | Type          | string |
-| Default Value | "CRM production MariaDB cluster" |
+| Default Value | `CRM production MariaDB cluster` |
 
 ### Deprecated
 

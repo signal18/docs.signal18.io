@@ -18,8 +18,12 @@ Trigger replication-manager in non-interactive to perform a failover ,
 
 #### Command line replication bootstrap
 
-With some already exiting database nodes but no replication setup in place replication-manager enable you to init the replication on various topology
-master-slave | master-slave-no-gtid | maxscale-binlog | multi-master | multi-tier-slave
+With some already existing database nodes but no replication setup in place, replication-manager enables you to initialize the replication on various topologies:
+* master-slave
+* master-slave-no-gtid
+* maxscale-binlog
+* multi-master
+* multi-tier-slave
 
 `replication-manager-cli --cluster="cluster_test_3_nodes" bootstrap --clean-all --topology="multi-tier-slave"`
 

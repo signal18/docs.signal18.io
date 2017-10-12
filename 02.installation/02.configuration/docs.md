@@ -4,7 +4,7 @@ taxonomy:
     category: docs
 ---
 
-**replication-manager** bundle some example configuration files located in in different places based on the previously selected installation process.  
+**replication-manager** bundles some example configuration files located in in different places based on the previously selected installation process.  
 
 Use or create a `config.toml` file in the location explained in following section.
 
@@ -21,7 +21,6 @@ db-servers-hosts = "127.0.0.1:5055,127.0.0.1:5056"
 db-servers-credential = "skysql:skyvodka"
 replication-credential = "skysql:skyvodka"
 failover-mode = "manual"
-
 ```
 
 Copy a sample configuration file to config.toml auto loaded configuration:

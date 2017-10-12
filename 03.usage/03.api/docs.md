@@ -4,16 +4,16 @@ title: API Client Usage
 
 ## API Client Usage
 
-The rest API is using JWT TLS and is served by default on port 3000 by the  replication-manager monitor
+The rest API is using JWT TLS and is served by default on port 3000 by the replication-manager monitor/
 
-One can customize  credential via setting your own user password in configuration file  
+Credentials can be customized by setting your own user and password in configuration file.  
 
 ```
 api-port ="3000"
 api-credential = "admin:repman"
 ```
 
-At startup of the monitor some x509 certificates are loaded from the replication-manager share directory to ensure TLS https secure communication.
+At startup of the monitor, X509 certificates are loaded from the replication-manager share directory to ensure TLS https secure communication.
 
 Replace those files with your own certificate to make sure your deployment is secured.
 
@@ -27,11 +27,11 @@ openssl ecparam -genkey -name secp384r1 -out server.key
 openssl req -new -x509 -sha256 -key server.key -out server.crt -days 3650
 ```
 
-At startup **replication-manager** monitor will generate in memory extra self signed RSA certificate to ensure token encryption exchange for JWT   
+At startup **replication-manager** monitor will generate in memory extra self-signed RSA certificate to ensure token encryption exchange for JWT.
 
-# Calling API via client
+# Calling API via the client
 
-API can be call via command line client to simplify curl syntax with JWT token
+API can be called via command line client to simplify curl syntax with JWT token.
 
 ```
 ./replication-manager-cli api  --url="https://127.0.0.1:3000/api/clusters/ux_dck_zpool_loop/servers/actions/add/192.168.1.73/3306"   --cluster="ux_dck_zpool_loop"

@@ -9,26 +9,27 @@ taxonomy:
 
 **replication-manager** is a self-contained binary, no extra system libraries are needed at the operating system level.
 
-Database replication is advice to use GTID and version
+It is advised to use GTID for replication and following database versions:
 
-- [x] MariaDB Version >= 10
-- [x] MySQL Version >= 5.6
+* MariaDB Version >= 10.0
+* MySQL Version >= 5.6
 
-Web browser IE is reported not working with http interface.
+Internet Explorer Web browser is reported as not functioning with the http interface.
 
 ####  Extra Dependencies
 
-If you plan to use **replication-manager-tst** for automatic bootstrap of some local cluster un run some tests MariaDB-Server 10.2 package need be install.
+If you plan to use **replication-manager-tst** for automatic bootstrap of a local cluster and run some tests, MariaDB Server 10.2 packages need to be installed.
 
-- [x] Localhost regression testing  
-- [x] MariaDBShardProxy
+* Localhost regression testing  
+* MariaDBShardProxy
 
-- [x] HaProxy package need to be install to benefit from haproxy  
-- [x] Sysbench package are used for some non regression tests
-- [x] MariaDB or MySQL packages
+* HAProxy packages need to be installed to benefit from haproxy
+* Sysbench package is used for some non-regression tests
+* MariaDB or MySQL packages
 
-**replication-manager-tst** can be setup with following configuration options
+**replication-manager-tst** can be setup with following configuration options:
 
 ```
 mariadb-binary-path = "/usr/sbin"
 haproxy-binary-path = "/usr/sbin/haproxy"
+```

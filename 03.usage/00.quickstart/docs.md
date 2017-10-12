@@ -4,7 +4,7 @@ title: Quick Start
 
 Prior to  **replication-manager (2.0)** all features are available inside a single binary command.
 
-Since 2.0 the architecture have been split in multiple flavors of the monitor server daemon: min, osc, tst, pro, arb, that package different features.   
+Since 2.0 the architecture has been split in multiple flavors of the monitor server daemon: min, osc, tst, pro, arb. Each package includes different features.   
 
 | Item | Flavor       | Description |
 | ---- | ------       | ----------- |
@@ -30,12 +30,12 @@ You can permanently start the monitor via
 systemctl enable replication-manager   
 ```
 
-**replication-manager-cli (2.0)** allow command line interaction with the monitor daemon
+**replication-manager-cli (2.0)** allows command line interaction with the monitor daemon.
 
-Command line help can be display via
+Command line help can be displayed via
 ```
 replication-manager-cli --help
 replication-manager-cli switchover --help
 ```
 
-In the next section we will explore how to quicky sitchover using the interactive command line console.
+In the next section we will explore how to quickly switchover using the interactive command-line console.

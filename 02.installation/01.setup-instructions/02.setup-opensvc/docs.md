@@ -6,9 +6,9 @@ taxonomy:
 
 ## Setup OpenSVC
 
-**replication-manager-pro** stand for provisioning and work in conjonction with OpenSVC.
+**replication-manager-pro** stands for provisioning and work in conjunction with OpenSVC.
 
-OpenSVC collector is a commercial software that collect all the informations send from the OpenSVC open source agents. The OpenSVC Collector also deliver node configuration when bootstrapping Mico services.    
+[OpenSVC](https://www.opensvc.com/) collector is a commercial software that collect alls the informations sent from the OpenSVC open source agents. The OpenSVC Collector also deliver node configuration when bootstrapping microservices.    
 
 ### First step
 
@@ -19,18 +19,17 @@ apt-get install -y net-tools
 apt-get install -y psmisc
 ```
 
-To install a collector first step is to install the OpenSVC agent that will also be used later on the other cluster nodes. This first agent will be in charge to manage the deployment of the collector as a docker service.
+To install a collector, the first step is to install the OpenSVC agent that will also be used later on the other cluster nodes. This first agent will be in charge to manage the deployment of the collector as a docker service.
 
-Follow the instructions to install the agent and the collector
-https://docs.opensvc.com/collector.evaluation.html
+Follow the instructions to install the agent and the collector on https://docs.opensvc.com/collector.evaluation.html
 
-When done a fist run of replication-manager is needed to configure the collector and load the playbook
+When done, a first run of replication-manager is needed to configure the collector and load the playbook:
 
 ```
 ./replication-manager-pro monitor --opensvc
 ```
 
-This run give similar output
+This run gives similar output to:
 ```
 2017/07/13 11:45:43 {
 	"info": "change group replication-manager: privilege: False => F",
@@ -49,13 +48,13 @@ This run give similar output
 2017/07/13 11:45:44 {
 ```
 
-At startup it create a replication-manager user with password mariadb , a group and application group named "mariadb" is affected to this user. The needed roles and grants to this group are created.
+At startup it creates a replication-manager user with password `mariadb`, a group and application group named `mariadb` is affected to this user. The needed roles and grants for this group are created.
 
-repication-manager load some playbooks call compliance in OpenSVC from the replication share/opensvc directory.
+repication-manager loads some playbooks call compliance in OpenSVC from the replication share/opensvc directory.
 
-Some compliance hardcoded rules are also serve by replication-manager to the agents. They are compile in a tar.gz file name current in share/opensvc including all the modules of the directory share/opensvc/compliance
+Some compliance hardcoded rules are also served by replication-manager to the agents. They are compiled in a tar.gz file named `current` in the `share/opensvc` subdirectory including all the modules of the directory `share/opensvc/compliance`.
 
-Those rules can be recompile via the publish_modude.sh script
+Those rules can be recompiled via the publish_module.sh script.
 
 If you need to adapt the modules, each agent will have to collect the rules via this command
 ```
@@ -64,35 +63,30 @@ nodemgr updatecomp
 
 ### Next step
 
-Install the agents on the nodes of your cluster a minimum set of packages are needed to make a good provisioning agent.
+Install the agents on the nodes of your cluster. A minimum set of packages are needed for the provisioning agent to function correctly.
 ```  
-apt-get install -y python
-apt-get install -y net-tools
-apt-get install -y psmisc
-apt-get install -y zfsutils-linux
-apt-get install -y system-config-lvm
-apt-get install -y xfsprogs
-apt-get install -y wget
+apt-get install -y python net-tools psmisc zfsutils-linux system-config-lvm xfsprogs wget
 ```
 
-Docker advices:
-Usage of ubuntu server is preferred because better support for ZFS and docker in that distribution. This is not a requirement if you feel more comfortable with other distributions.
+#### Docker advice
 
->It's a loose of time to try some Docker deployments on OSX and may be Windows(not experimented myself) for  deployments, docker is not mature enough on those distributions. It looks it can work but you will quickly hit some network and performance degradations.   
+Usage of Ubuntu Server is preferred because of better support for ZFS and docker in that distribution. This is not a requirement if you feel more comfortable with other distributions.
+
+> It's a loss of time to try some Docker deployments on OSX and maybe Windows (not tested) for deployments, docker is not mature enough on those distributions. It looks like it can work but you will quickly hit some network and performance degradations.   
 
 About using docker CE 17.06 & front bridge issue
 docker CE 17.06 now loads the br_netfilter kmod blocks the port-to-port bridge transit if netfilter is not configured to allow it.
 
 Disable filtering:
 
-/etc/udev/rules.d/99-bridge.rules:
+`/etc/udev/rules.d/99-bridge.rules`
 
 ```
 ACTION=="add", SUBSYSTEM=="module", KERNEL=="br_netfilter", \
       RUN+="/lib/systemd/systemd-sysctl --prefix=/net/bridge"
 ```
 
-/etc/sysctl.d/bridge.conf:
+`/etc/sysctl.d/bridge.conf`
 
 ```
 net.bridge.bridge-nf-call-ip6tables = 0
@@ -100,7 +94,7 @@ net.bridge.bridge-nf-call-iptables = 0
 net.bridge.bridge-nf-call-arptables = 0
 ```
 
-Instruct you cluster agents where to found your fresh collector and replication-manager modules
+Instruct your cluster agents where to find your fresh collector and replication-manager modules:
 
 ```
 nodemgr set --param node.dbopensvc --value https://collector-host
@@ -109,18 +103,18 @@ nodemgr set --param node.repocomp --value http://replication-manager:10001/repoc
 nodemgr updatecomp
 ```
 
-You can verify that the agent is discovered by going the web interface of replicaton-manager and check the agents tab.
+You can verify that the agent is discovered by going to the web interface of replication-manager and check the agents tab.
 
 ### Last step
 
-Depends on the agent version and the type of security you would like to implement for provisioning.
+Depending on the agent version and the type of security you would like to implement for provisioning.
 
-You should login to your collector and instruct the type of required deployment pull or push for each agent, prior to 1.8 and also tell the ip of the agent for the collector to send information to agent.
+You should login to your collector and instruct the type of required deployment pull or push for each agent, prior to 1.8 and also tell the IP address of the agent for the collector to send information to agent.
 
 
-The pull mode need some extra setting on the agent node explain here:
+The pull mode needs some extra settings on the agent node explained here:
 https://docs.opensvc.com/agent.architecture.html#the-inetd-entry-point
 
-The push mode need some extra ssh setting on the agent node  
+The push mode needs some extra ssh settings on the agent node:
 
-On Unix systems, if the root account has no rsa key, a 2048 bits rsa key is generated by the package post-install. A production node key must be trusted on all nodes of its cluster (PRD and DRP), whereas the keys of disaster recovery servers must not be trusted by any production nodes. This setup is used for rsync file transfers and remote command execution.
+On Unix systems, if the root account has no RSA key, a 2048 bits RSA key is generated by the package post-install. A production node key must be trusted on all nodes of its cluster (PRD and DRP), whereas the keys of disaster recovery servers must not be trusted by any production nodes. This setup is used for rsync file transfers and remote command execution.

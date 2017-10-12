@@ -4,7 +4,7 @@ title: Console Client Usage
 
 ## Console Client Usage
 
-**replication-manager** provide an interactive console client to interact with your clusters
+**replication-manager** provides an interactive console client to interact with your clusters.
 
 Start the interactive console via:
 

@@ -8,36 +8,35 @@ taxonomy:
 
 Packages installation will deploy a set of directories and files
 
-  - [x] /etc/replication-manager/
+  * `/etc/replication-manager/`
     Default and example conf file
 
-  - [x] /usr/share/replication-manager
+  * `/usr/share/replication-manager`
     Static files, templates haproxy and graphite services
 
-    The root of http server
-    /usr/share/replication-manager/dashboard
-    The files used for non regression testing, example mysql conf files
-    /usr/share/replication-manager/tests
+    The http server root directory:
+    `/usr/share/replication-manager/dashboard`
+    The files used for non-regression testing, and example mysql configuration files:
+    `/usr/share/replication-manager/tests`
 
-  - [x] /var/lib/replication-manager
-    A data directory used to bootstrap proxies and MariaDB local instances for reg tests, to backup binary logs, to store metrics
+  * `/var/lib/replication-manager`
+    A data directory used to bootstrap proxies and MariaDB local instances for regression tests, to backup binary logs, to store metrics
 
-Log can be found in /var/log/replication-manager.log
-
-
-####  Archive hierarchy
+Logs can be found in `/var/log/replication-manager.log`.
 
 
-- [x] /usr/local/replication-manager/ect
+####  Archive (tar.gz) hierarchy
+
+* `/usr/local/replication-manager/etc`
   Default and example conf file
 
-- [x] /usr/local/replication-manager/share
+* `/usr/local/replication-manager/share`
   Static files, templates haproxy and graphite services
 
-  The root of http server
-  /usr/local/replication-manager/share/dashboard
-  The files used for non regression testing, example mysql conf files
-  /usr/share/replication-manager/tests
+  The http server root directory:
+  `/usr/local/replication-manager/share/dashboard`
+  The files used for non-regression testing, and example mysql configuration files:
+  `/usr/share/replication-manager/tests`
 
-- [x] /usr/local/replication-manager/data
-  A data directory used to bootstrap proxies and MariaDB local instances for reg tests, to backup binary logs, to store metrics
+* `/usr/local/replication-manager/data`
+  A data directory used to bootstrap proxies and MariaDB local instances for regression tests, to backup binary logs, to store metrics.

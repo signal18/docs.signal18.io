@@ -38,17 +38,13 @@ You can install a specific version if it's present in the repo, e.g.
 
 #### Debian/Ubuntu
 
-Create the apt source file as such:
+Create the repo file and install the binaries as such:
 
-`echo "deb [arch=amd64] http://repo.signal18.io/deb $(lsb_release -sc) main" > /etc/apt/sources.list.d/signal18.list`
-
-Update the sources:
-
-`apt-get update`
-
-You can now install the package:
-
-`apt-get install replication-manager`
+```
+echo "deb [arch=amd64] http://repo.signal18.io/deb $(lsb_release -sc) main" > /etc/apt/sources.list.d/signal18.list`
+apt-get update
+apt-get install replication-manager
+```
 
 ### Installation from tarball
 
