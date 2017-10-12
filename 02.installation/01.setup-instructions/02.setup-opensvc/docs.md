@@ -4,7 +4,7 @@ taxonomy:
     category: docs
 ---
 
-## Setup OpenSVC
+## Setup OpenSVC 
 
 **replication-manager-pro** stands for provisioning and work in conjunction with OpenSVC.
 
