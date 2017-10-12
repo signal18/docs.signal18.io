@@ -1,11 +1,11 @@
 ---
-title: Multi-Tier-Slaves
+title: Multi Tier Slaves
 ---
 | Support Status  | Test Case |  
 | ----------------|-----------|
 | Experimental    | 0 |       
 
-**replication-manager**  supports replication tree or relay slaves architecture, in case of master death one of the slaves under the relay is promoted as a master.
+**replication-manager** supports replication tree or relay slaves architecture, in case of master death one of the slaves under the relay is promoted as a master.
 
 **replication-manager** does not manage yet the relay server crash to replace it with a slave.
 

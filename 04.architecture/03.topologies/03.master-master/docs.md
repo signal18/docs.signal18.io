@@ -1,5 +1,5 @@
 ---
-title: Master-Master
+title: Master Master
 ---
 | Support Status  | Test Case |  
 | ----------------|-----------|

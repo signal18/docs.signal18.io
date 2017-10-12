@@ -1,5 +1,5 @@
 ---
-title: Master-Slave
+title: Master Slave
 ---
 | Support Status  | Test Case |  
 | ----------------|-----------|
