@@ -1,5 +1,5 @@
 ---
-title: Setup OpenSVC
+title: Setup Provisioning
 taxonomy:
     category: docs
 ---
