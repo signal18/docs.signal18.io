@@ -36,8 +36,8 @@ Instruct your cluster agents where to find the collector and replication-manager
 
 |SAS Collector | om-promise Collector |
 | ------------ | --------------- |
-| ```nodemgr set --param node.dbopensvc --value https://ci.signal18.io:9443``` | ```nodemgr set --param node.dbopensvc --value https://collector-host:443``` |
-| ** ```nodemgr register --user=email --password=hashed_password``` | ```nodemgr register --user=replication-manager@localhost.localdomain --password=mariadb``` |
+| nodemgr set --param node.dbopensvc --value https://ci.signal18.io:9443 | nodemgr set --param node.dbopensvc --value https://collector-host:443 |
+| ** nodemgr register --user=email --password=hashed_password | nodemgr register --user=replication-manager@localhost.localdomain --password=mariadb |
 
 >** Are the user and hash_password found in the account.yaml file send by signal18.io  
 
