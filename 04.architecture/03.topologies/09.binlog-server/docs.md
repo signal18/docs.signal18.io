@@ -11,4 +11,4 @@ title: Binlog Server
 **replication-manager** does not manage yet the binlog server crash to replace it with an other one.
 
 
-TODO
+[See Maxscale](/configuration/routing-traffic/maxscale)
