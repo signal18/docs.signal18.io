@@ -85,6 +85,13 @@ Disk in g for micro service VM (default "20g")
 prov-db-disk-size = "20g"                       
 ```
 Disk in g for micro service VM (default "20g")
+
+```
+prov-db-cpu-cores = "1"                       
+```
+Number of cores for micro service VM  (default "1")
+
+
 ```
  prov-proxy-disk-size                    
 

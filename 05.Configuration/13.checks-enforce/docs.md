@@ -2,7 +2,36 @@
 title: Checks & Enforce
 ---
 
-**replication-manager** enforce best replication and database configuration practice using the following parameters.
+**replication-manager** enforce best replication and database configuration practice using the following parameters. Every possible enforcement is producing warnings to let you know about what can be improved in your database setup.  
+
+## Checks
+
+##### `check-binlog-filters` (1.1)
+
+| Item          | Value |
+| ----          | ----- |
+| Description   | Check that all possible master have equal binlog filters. |
+| Type          | Boolean |
+| Default Value | true |
+
+##### `check-replication-filters` (1.1)
+
+| Item          | Value |
+| ----          | ----- |
+| Description   | Check that all possible slaves have equal replication filters. |
+| Type          | Boolean |
+| Default Value | true |
+
+
+##### `check-replication-state` (1.1)
+
+| Item          | Value |
+| ----          | ----- |
+| Description   | Check that all replications are running fine. |
+| Type          | Boolean |
+| Default Value | true |
+
+## Enforce
 
 ##### `force-slave-readonly` (1.1)
 
