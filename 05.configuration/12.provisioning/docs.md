@@ -27,7 +27,7 @@ The following software services can be provisioned:
 
 **replication-manager** is using a secure client API to an OpenSVC collector and use this collector for posting actions to a cluster of agents, fetch cluster nodes informations and uploading his own set of playbook for provisioning.
 
- Signal18.io SAS collector can be used for faster testing or not to have to maintain an extra peae of infrastructure, if not possible one need installing an evaluation version of the collector o It can be install colocated to **replication-manager** or install on a separate hardware
+ Signal18.io SAS collector can be used for faster testing or not to have to maintain an extra peace of infrastructure, if not possible one need installing an evaluation version of the collector o It can be install colocated to **replication-manager** or install on a separate hardware
 
  **replication-manager** talk to the default SAS collector or can be setup to talk to on promise collector via following parameters:
 
@@ -56,7 +56,7 @@ For on promise collector it is needed to make a first register on the collector 
 replication-manager-pro monitor --opensvc-register
 ```
 
-For using the SAS monitor you need to login to signal18.io and request for your evaluation or licence account.yalm file. Copy it into the share/opensvc directory of the **replication-manager-pro**
+For using the SAS monitor you need to login to signal18.io and request for your evaluation or licence account.yalm file. Copy it into the share/opensvc directory of  **replication-manager-pro**
 
 ## Services Options
 
@@ -238,7 +238,7 @@ compress, noquerycache,  threadpool
 ```
 Replication:
 ```
-multidomains, nologslaveupdates, mysqlgtid, smallredolog, wsrep,semisync
+multidomains, nologslaveupdates, mysqlgtid, smallredolog, wsrep, semisync
 ```
 
 ## Provisioning
