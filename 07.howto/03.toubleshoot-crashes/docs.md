@@ -2,6 +2,12 @@
 title: Troubleshoot Crashes
 ---
 
+### Troubleshooting failover switchover
+
+The log verbosity can be increase to get monitoring to better understand the route cause of the issue
+
+
+
 ### Troubleshoot Crashes
 
 **replication-manager** (1.1) Save some binlog informations on crash when old master restart.

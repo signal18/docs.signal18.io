@@ -7,7 +7,7 @@ taxonomy:
 
 Install the agents on the nodes of your provisioning cluster.
 
-A minimum set of packages are advice for file system support, virtualization of micro services and network debugging purpose.
+A minimal set of tools are advices for better file system support, virtualization of micro services and network debugging purpose.
 
 [Download](https://repo.opensvc.com/)
 
@@ -28,18 +28,24 @@ echo "PATH=\$PATH:/usr/libexec/docker" >>/etc/sysconfig/opensvc
 sed -i -e "s/: false/: true/" /etc/oci-register-machine.conf
 ```
 
-Installing ZFS
-http://lampros.chaidas.com/index.php?controller=post&action=view&id_post=101
+[Installing ZFS](http://lampros.chaidas.com/index.php?controller=post&action=view&id_post=101)
 
+Agent may require to communicate via root together setup a no password ssh access  
+```
+sudo sed -i -e "s/^PasswordAuthentication no/PasswordAuthentication yes/" /etc/ssh/sshd_config                    
+sudo systemctl restart sshd
+```
 
-Instruct your cluster agents where to find the collector and replication-manager modules:
+#### Instruct cluster agents where to find the collector  
 
-|SAS Collector | om-promise Collector |
+|SAS Collector | ON-Site Collector |
 | ------------ | --------------- |
 | nodemgr set --param node.dbopensvc --value https://ci.signal18.io:9443 | nodemgr set --param node.dbopensvc --value https://collector-host:443 |
 | ** nodemgr register --user=email --password=hashed_password | nodemgr register --user=replication-manager@localhost.localdomain --password=mariadb |
 
->** Are the user and hash_password found in the account.yaml file send by signal18.io  
+>** Field user and hash_password found in the account.yaml file send by signal18.io  
+
+#### Instruct cluster agents where to find replication-manager
 
 On the **replication-manager** node start the server with http.  
 ```
@@ -56,19 +62,13 @@ nodemgr updatecomp
 You can verify that the agent is discovered by going to the web interface of replication-manager and check the agents tab.
 
 
-Agent may require to communicate via root together setup a no password ssh access  
-```
-sudo sed -i -e "s/^PasswordAuthentication no/PasswordAuthentication yes/" /etc/ssh/sshd_config                    
-sudo systemctl restart sshd
-```
-
 ### Additional Setup for SAS Collector
 
 ```
 sudo nodemgr set --param dequeue_actions.schedule --value @1
 ```
 
-### Additional Setup for On-promise Collector
+### Additional Setup for ON-Site Collector
 
 Depending on the agent version and the type of security you would like to implement for provisioning.
 
