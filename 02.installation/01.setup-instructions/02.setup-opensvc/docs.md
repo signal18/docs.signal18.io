@@ -12,4 +12,6 @@ taxonomy:
 
 **replication-manager-pro** use the collector to collect node configuration, as a message queue to trigger bootstrapping microservices configuration. The OpenSVC cluster agent receive a micro-service configuration, he is in charge of managing the resources requested with his own drivers.
 
-**replication-manager-pro** can benefit from many drivers for virtualization, HA replication , or storage  management. A complete list of possible drivers can be found [here](https://docs.opensvc.com/latest/agent.feature.matrix.html) as docker already have most small images we put our effort to support it. We already deployed some specific services for Google Cloud but we did not yet serve them today. 
+**replication-manager-pro** can benefit from many drivers for virtualization, HA replication , or storage  management. A complete list of possible drivers can be found [here](https://docs.opensvc.com/latest/agent.feature.matrix.html) as docker already have most small images we put our effort to support it. We already deployed some specific services for Google Cloud but we did not yet serve them today.
+
+Once done with the settings learn how to configure and use it [here](/configuration/provisioning).
