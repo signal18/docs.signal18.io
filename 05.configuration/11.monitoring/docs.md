@@ -2,7 +2,7 @@
 title: Monitoring Configuration
 ---
 
-**replication-manager** embed a graphite database to store metrics about databases and proxies status.
+**replication-manager** embeds a graphite database to store metrics about databases and proxies status.
 
 ##### `graphite-embedded` (1.1)
 

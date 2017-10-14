@@ -4,17 +4,17 @@ title: Testing
 
 ### Non-regression tests
 
-**replication-manager** can play some predefined scenario in a non regression testing framework
-The tests can be call via the command line client.
+**replication-manager** can play some predefined scenarios in a non-regression testing framework
+The tests can be called via the command line client.
 
-**replication-manager** is allow to play test only when setting the `test` variable rather in the a predefined testing cluster in config file or via using *replication-manager-tst** monitor binaries.
-where this flag is alway on.
+**replication-manager** is allowed to play tests only when setting the `test` variable in the predefined testing cluster in the configuration file or via using *replication-manager-tst** monitor binaries.
+where this flag is always on.
 
-You probably don't wan't to play tests on an existing cluster instead  **replication-manager-tst** or **replication-manager-pro**  do provision a testing cluster when the test is starting and un-provision it when the test finish. Some client parameters can disable the auto provisioning.
-If you wan't to get access to the running servers like examine the databases logs and more.
+You probably don't want to play tests on an existing cluster, so instead of that **replication-manager-tst** or **replication-manager-pro** can provision a testing cluster when the test is starting and unprovision it when the test finishes. Some client parameters can disable the auto provisioning.
+If you want to get access to the running servers such as examine the database logs and more.
 
-**replication-manager-tst** provision localhost setup using different port.
-Because haproxy is supported on multiple OS it's the preferred way to perform local testing    
+**replication-manager-tst** provisions a local host setup using different ports.
+Because haproxy is supported on multiple OSes, it's the preferred way to perform local testing.   
 
 ```  
 [Cluster_Test_2_Nodes]
@@ -35,14 +35,14 @@ sysbench-threads = 4
 sysbench-time = 60
 ```  
 
-Run the TST release with extra parameters not define in configuration files as on OSX
+Run the TST release with extra parameters not defined in configuration files as on OSX:
 
 ```
 replication-manager-tst --config=etc/config.toml.sample.tst.masterslave-haproxy  monitor   --haproxy-binary-path=/usr/local/bin/haproxy --sysbench-binary-path=/usr/local/bin/sysbench --mariadb-binary-path = "/usr/local/mysql/bin"
 ```  
 
 
-Some tests are requiring sysbench and haproxy refere to section Configuration Dependencies to proceed     
+Some tests are requiring sysbench and haproxy, please refer to the Configuration Dependencies section to proceed further.
 
 #### Command line print all tests
 
@@ -57,7 +57,7 @@ ALL is a special test to run all available tests.
 
 ```
 
-Test return some JSON structure that get useful informations for debugging
+Test returns some JSON structure that get useful informations for debugging
 
 PASS
 FAIL

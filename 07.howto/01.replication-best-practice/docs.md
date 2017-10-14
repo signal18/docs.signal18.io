@@ -1,5 +1,5 @@
 ---
-title: Replication Best Practice
+title: Replication Best Practices
 ---
 
 ## Replication best practices

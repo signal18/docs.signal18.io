@@ -2,7 +2,7 @@
 title: Checks & Enforce
 ---
 
-**replication-manager** enforce best replication and database configuration practice using the following parameters. Every possible enforcement is producing warnings to let you know about what can be improved in your database setup.  
+**replication-manager** enforces best replication and database configuration practice using the following parameters. Every possible enforcement is producing warnings to let you know about what can be improved in your database setup.  
 
 ## Checks
 
@@ -10,7 +10,7 @@ title: Checks & Enforce
 
 | Item          | Value |
 | ----          | ----- |
-| Description   | Check that all possible master have equal binlog filters. |
+| Description   | Check that all possible masters have equal binlog filters. |
 | Type          | Boolean |
 | Default Value | true |
 

@@ -1,37 +1,37 @@
 ---
-title: Enforce Best Practice
+title: Enforce Best Practices
 ---
 
-### Forcing best practices
+### Enforcing best practices
 
 **replication-manager** (1.1) can dynamically enforce best database practices around the replication usage.
 
-It can dynamically configure the MariaDB it monitor via SET GLOBAL VARIABLES when it is possibel to do so without database restart.
+It can dynamically configure the server it monitors via SET GLOBAL VARIABLES when it is possible to do so without database restart.
 
->Enforcement can be lost if replication manager monitoring is shutdown and the database is restarted.
+> Enforcement can be lost if replication-manager monitoring is shutdown and the database is restarted.
 
-**replication-manager** (2.0) produce warnings if one of the possible enforcement is not found in the database nodes and not dynamically enforced. Some non tunable warnings are produced for  
+**replication-manager** (2.0) produces warnings if one of the possible practices is not found in the database nodes and not dynamically enforced. Some non-tunable warnings are produced for:
 
-- [x] missing log-slave-updates  
-- [x] non GTID strict mode  
+* missing log-slave-update directive
+* non-strict GTID mode  
 
-**replication-manager** ignore enforcement and warnings on the nodes excluded from election with using the ignore list.   
-
-
-- [x] force-slave-heartbeat
-- [x] force-slave-gtid-mode
-- [x] force-slave-semisync
-- [x] force-slave-readonly
-- [x] force-binlog-row
-- [x] force-binlog-annotate
-- [x] force-binlog-slowqueries
-- [x] force-inmemory-binlog-cache-size
-- [x] force-disk-relaylog-size-limit
-- [x] force-sync-binlog
-- [x] force-sync-innodb
-- [x] force-binlog-checksum
+**replication-manager** ignores enforcement and warnings on the nodes excluded from election using the ignore list.   
 
 
-**replication-manager** default enforcement are `force-slave-readonly` and  `force-slave-heartbeat`
+* force-slave-heartbeat
+* force-slave-gtid-mode
+* force-slave-semisync
+* force-slave-readonly
+* force-binlog-row
+* force-binlog-annotate
+* force-binlog-slowqueries
+* force-inmemory-binlog-cache-size
+* force-disk-relaylog-size-limit
+* force-sync-binlog
+* force-sync-innodb
+* force-binlog-checksum
 
-We advice to permanently set the variables inside your database node configuration, to disable most dynamic enforcement on the long run.
+
+**replication-manager** default enforcements are `force-slave-readonly` and `force-slave-heartbeat`
+
+We advise to permanently set the variables inside your database node configuration, to disable most dynamic enforcements on the long run.

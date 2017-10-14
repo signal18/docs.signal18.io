@@ -4,11 +4,11 @@ title: Alerting Configuration
 
 ## Alert Configuration
 
-**replication-manager** offer multiple way of alerting on cluster node status change
+**replication-manager** offers multiple way of alerting on cluster node status change.
 
 ### External Script Configuration
 
-An alert script can be trigger when enable via this config file parameter:
+An alert script can be triggered when enabled via this config file parameter:
 
 
 ##### `alert-script` (2.0)

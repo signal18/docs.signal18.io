@@ -4,12 +4,12 @@ title: Monitoring Configuration
 
 ### Active standby with external arbitrator
 
-When inside a single DC we can use a single replication-manager that failover using keepalived, corosync, openha or etcd but if you run on 2 DC it is advise to run two replication-manager in the same infrastructure. Both replication-manager will start heartbeat via the http protocol.
+When inside a single DC, we can use a single replication-manager that performs failover using keepalived, corosync, openha or etcd, but if you run on 2 DC it is advised to run two replication-manager instances in the same infrastructure. Both instances will use a heartbeat mechanism via the http protocol.
 
 Make sure you activate the web server of **replication-manager**.
 
 
-To configure active standby and arbitration the following setting on each **replication-manager**.
+To configure active standby and arbitration, use the following settings on each **replication-manager**:
 
 ##### `arbitration-external` (1.0)
 
