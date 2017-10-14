@@ -4,9 +4,9 @@ title: Provisioning Configuration
 
 ## Provisioning Settings
 
-Since version 1.1 **replication-manager** can use an agent base cluster provisioning with the OpenSVC provisioning framework.
+Since version 1.1 **replication-manager** can use an agent-based cluster provisioning with the OpenSVC provisioning framework.
 
-Starting with version 2.0 provisioning is package in separate binary call **replication-manager-pro**
+Starting with version 2.0 provisioning is packaged in a separate binary called **replication-manager-pro**
 
 ```
 ./replication-manager-pro monitor
@@ -25,11 +25,11 @@ The following software services can be provisioned:
 | Consul | N  | N  |
 
 
-**replication-manager** is using a secure client API to an OpenSVC collector and use this collector for posting actions to a cluster of agents, fetch cluster nodes informations and uploading his own set of playbook for provisioning.
+**replication-manager** is using a secure client API to the OpenSVC collector. This collector is used for posting actions to a cluster of agents, fetch cluster nodes information and uploading his own set of playbooks for provisioning.
 
- Signal18.io SAS collector can be used for faster testing or not to have to maintain an extra peace of infrastructure, if not possible one need installing an evaluation version of the collector o It can be install colocated to **replication-manager** or install on a separate hardware
+ The Signal18.io SAS collector can be used for faster testing or not to have to maintain an extra piece of infrastructure, if not possible, an evaluation version of the collector needs to be installed, or it can be installed co-located to **replication-manager** or on a separate machine.
 
- **replication-manager** talk to the default SAS collector or can be setup to talk to on promise collector via following parameters:
+ **replication-manager** talks to the default SAS collector or it can be setup to talk to on premise collector via the following parameters:
 
 
  ##### `opensvc-host` (1.1)
@@ -50,23 +50,23 @@ The following software services can be provisioned:
  | Default | "root@localhost.localdomain:opensvc" |
  | Example | "root@signa18.io:secret" |
 
-For on promise collector it is needed to make a first register on the collector to create regular  user, group, roles and compliances.
+For on premise collector it is needed to make a first registration on the collector to create a regular user, group, roles and compliances.
 
 ```
 replication-manager-pro monitor --opensvc-register
 ```
 
-For using the SAS monitor you need to login to signal18.io and request for your evaluation or licence account.yalm file. Copy it into the share/opensvc directory of  **replication-manager-pro**
+To use the SAS monitor you need to login to signal18.io and request for your evaluation or licence account.yaml file. Copy it into the share/opensvc directory of  **replication-manager-pro**
 
 ## Services Options
 
-*micro-service* are isolating a collection of resources, each service can than be used for easy management, HA policy like DR plan in agent 1.8 and placement over a cluster on agent version 1.9
+**micro-services** are isolating a collection of resources, each service can than be used for easy management, HA policy like DR plan in agent 1.8 and placement over a cluster on agent version 1.9
 
-  - [x] An existing disk device if none a loopback device to store service data
-  - [x] An existing disk device if none a loopback device to store the docker data
-  - [x] A file system type zfs|ext4|xfs|hfs|aufs
-  - [x] A file system pool type lvm|zpool|none
-  - [x] An IP address that need to be unused in the network
+  * An existing disk device, if none a loopback device to store service data
+  * An existing disk device, if none a loopback device to store the docker data
+  * A file system type zfs|ext4|xfs|hfs|aufs
+  * A file system pool type lvm|zpool|none
+  * An IP address that needs to be unused in the network
 
 Resources choice is uniform over a full cluster.
 
@@ -243,11 +243,11 @@ multidomains, nologslaveupdates, mysqlgtid, smallredolog, wsrep, semisync
 
 ## Provisioning
 
-Micro services placement will follow a round robin mode against the agents listed for a service.  
+Micro-services placement will follow a round robin mode against the agents listed for a service.  
 
-bootstap, and unprovision command can be found in the web interface
+bootstrap and unprovision commands can be found in the web interface.
 
-The client can also be used to provision fully a cluster defined in the configuration.
+The client can also be used to fully provision a cluster defined in the configuration.
 ```
 replication-manager-cli bootstrap  --cluster=cluster_haproxy_masterslave --with-provisioning
 Provisioning done
