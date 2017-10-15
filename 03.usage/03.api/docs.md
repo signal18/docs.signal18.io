@@ -68,6 +68,12 @@ OUPUT:
 
 /api/clusters/{clusterName}/status
 
+/api/clusters/{clusterName}/servers/{serverName}/master-status
+Return Code 200 if server id is a master
+
+/api/clusters/{clusterName}/servers/{serverName}/slave-status
+Return Code 200 if server id is a slave   
+
 ### API Protected Endpoints
 
 /api/clusters/{clusterName}/actions/switchover
