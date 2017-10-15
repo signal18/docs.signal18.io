@@ -1,5 +1,5 @@
 ---
-title: Monitoring Configuration
+title: Clustering Configuration
 ---
 
 ### Active standby with external arbitrator
