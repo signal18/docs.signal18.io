@@ -55,3 +55,6 @@ On MariaDB 10.0 and later, positional replication will be lost after first switc
 For other non-GTID databases extra slaves are staying under the old master. They are later moved on elected master by fixing invalid relay architectures. That means that the old master needs to rejoin the cluster first and we can't give insurance that this will succeed, if does not, you may have to reseed all slaves.
 
 One can be inventive like having tree topology with slaves not monitored by the same **replication-manager** cluster so that the new elected master already gets available extra slaves.
+
+
+[plugin:youtube](https://www.youtube.com/watch?v=ha3L9aWky2Q)

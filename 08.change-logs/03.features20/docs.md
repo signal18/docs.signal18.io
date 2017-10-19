@@ -9,15 +9,18 @@ taxonomy:
 * CORE: Client/Server architecture with JWT API
 * CORE: Docker provision via OpenSVC  
 * CORE: Support database secure TLS connection
-* CORE: Support Multi GTID Domain failover
-* CORE: Support Client cluster and server status
-* CORE: Callable external alert scripts
+* CORE: Support Multi domain GTID
+* CORE: Support Positional Replication
+* CORE: Support Positional Replication via PseudoGTID
+* CORE: Support Callable external alert scripts
 * CORE: Support save and reload SLA
 * CORE: Support adding node to monitor
 * CORE: Support basedir installation
-* CORE: Support old style switchover/failover of extra slaves via relay catch
+* CORE: Support Galera Replication  
+* CORE: Support Ring Replication  
 * PROXY: Support ProxySQL
 * PROXY: Support Database Maintenance
-* PROXY: Support Consul
+* PROXY: Support Consul DNS
 * CLIENT: Support cluster status
-* CLIENT: Support monitoring status
+* CLIENT: Support monitor status
+* CLIENT: Support show objects  
