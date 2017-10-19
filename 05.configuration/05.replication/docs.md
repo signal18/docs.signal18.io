@@ -112,3 +112,27 @@ detect_stale_master=true
 | Description | Replication channel name to use for multisource |
 | Type | string |
 | Default Value | "" |  
+
+## Multi Master Ring Configuration
+
+##### `replication-multi-master-ring (2.0)`
+
+| Item | Value |
+| ---- | ----- |
+| Description | Enable Multi Master Ring topology |
+| Type | boolean |
+| Default Value | false |  
+
+[Read more](/architecture/topologies/multi-master-ring)
+
+## Multi Master Galera Configuration
+
+##### `replication-multi-master-wsrep (2.0)`
+
+| Item | Value |
+| ---- | ----- |
+| Description | Enable Multi Master Galera  |
+| Type | boolean |
+| Default Value | false |  
+
+[Read more](/architecture/topologies/multi-master-wsrep)
