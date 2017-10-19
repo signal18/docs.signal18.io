@@ -84,6 +84,14 @@ Script is passing the server to rejoin as first argument and the new master in c
 
 In some cascading failure scenarios **replication-manager** have not way to found replication position of an election, this will happen every time no slaves is available when the last master crashed. We advise 3 node cluster to limit painful reseeding of big databases.
 
+##### `autorejoin-slave-positional-hearbeat` (2.0)
+
+| Item          | Value |
+| ----          | ----- |
+| Description   | Inject PseudoGTID and use them to rejoin extra slaves for positional replication. |
+| Type          | Boolean |
+| Default Value | false |
+
 ## All cluster down
 
 The default rejoining method is to not promote a slave as a master when the no crash information state can be found and to wait for the old master to recover.
