@@ -21,7 +21,7 @@ The following software services can be provisioned:
 | Percona | Y   | Y |
 | MaxScale | Y   | Y |
 | ProxySQL | Y   | N  |
-| HaProxy | N   | N  |
+| HaProxy | Y   | N  |
 | Consul | N  | N  |
 
 

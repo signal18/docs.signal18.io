@@ -4,11 +4,13 @@ title: Haproxy Configuration
 
 ### HaProxy Configuration
 
-**replication-manager** require HaProxy to be install and on the same server it will than start one HaProxy Daemon per Cluster configured for using it.
+**replication-manager**, need HaProxy to be install and on the same server **replication-manager** will than start one HaProxy Daemon per Cluster configured and maintain the configuration to route traffic to the topology.
 
-**replication-manager** generate the HaProxy configuration file. A template is located in the share directory used by replication-manager. For safety HaProxy is not stopped when replication-manager is stopped
+**replication-manager** generate some HaProxy configuration file. A template is located in the share directory used by replication-manager. For safety HaProxy is not stopped when replication-manager is stopped
 
 **replication-manager** re-generate the HaProxy configuration file when the topology change and instruct HaProxy to reload this configuration during failover and switchover.
+
+**replication-manager-pro (2.0)** can deploy HaProxy micro service, HaProxy config  need the http-bind-address to be joinable from the proxy and the **replication-manager** http server to be enable as it query **replication-manager** for node health check.   
 
 
 ##### `haproxy` (0.7)

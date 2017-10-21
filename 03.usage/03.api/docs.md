@@ -74,6 +74,12 @@ Return Code 200 if server id is a master
 /api/clusters/{clusterName}/servers/{serverName}/slave-status
 Return Code 200 if server id is a slave   
 
+/api/clusters/{clusterName}/servers/{serverHost}/{serverPort}/master-status
+Return Code 200 if server id is a master
+
+/api/clusters/{clusterName}/servers/{serverHost}/{serverPort}/slave-status
+Return Code 200 if server id is a slave   
+
 ### API Protected Endpoints
 
 /api/clusters/{clusterName}/actions/switchover
