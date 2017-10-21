@@ -26,7 +26,7 @@ Return Code 200 if server id is a slave
 
 > **{serverName}** can be found via the client command **topology**
 
-  - [x] cluster in passive state return error code.  
+  - [x] Clusters in passive state return error code.  
   - [x] Servers in maintenance, failed or suspect will return error code.  
   - [x] Slaves with replication lags still return valid code
   - [x] Slaves with replication stopped return error code
