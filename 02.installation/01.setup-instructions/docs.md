@@ -38,10 +38,11 @@ You can install a specific version if it's present in the repo, e.g.
 
 #### Debian/Ubuntu
 
-Create the repo file and install the binaries as such:
+Create the repo file, install the key and install the binaries as such:
 
 ```
 echo "deb [arch=amd64] http://repo.signal18.io/deb $(lsb_release -sc) main" > /etc/apt/sources.list.d/signal18.list`
+apt-key adv --recv-keys --keyserver keyserver.ubuntu.com FAE20E50
 apt-get update
 apt-get install replication-manager
 ```
