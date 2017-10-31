@@ -15,7 +15,7 @@ This is done using Spider storage engine
 For every cluster definition you wan't to proxy add extra MariaDBShardProxy configuration:
 
 
-##### `mdbshardproxy` (1.0)
+##### `shardproxy` (2.0)
 
 | Item | Value |
 | ---- | ----- |
@@ -23,15 +23,15 @@ For every cluster definition you wan't to proxy add extra MariaDBShardProxy conf
 | Type | boolean |
 | Default Value | false |  
 
-##### `mdbshardproxy-servers` (1.0)
+##### `shardproxy-servers` (2.0)
 
 | Item | Value |
 | ---- | ----- |
 | Description | Comma separated list of the mdbshardproxy hosts. |
 | Type | String |
-| Default Value | "127.0.0.1" |  
+| Default Value | "127.0.0.1:3306" |  
 
-##### `mdbshardproxy-user` (1.0)
+##### `shardproxy-credential` (1.0)
 
 | Item | Value |
 | ---- | ----- |
@@ -39,13 +39,7 @@ For every cluster definition you wan't to proxy add extra MariaDBShardProxy conf
 | Type | String |
 | Default Value | "root:mariadb" |  
 
-##### `mdbshardproxy-port` (Roadmap)
 
-| Item | Value |
-| ---- | ----- |
-| Description | mdbshardproxy port to get database connection. |
-| Type | Integer |
-| Default Value | 3306 |  
 
 ## Testing Configuration
 
