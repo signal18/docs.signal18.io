@@ -94,7 +94,7 @@ title: Server Monitor Configuration
 | Type          | integer |
 | Default Value | 2 |
 
-##### `monitoring-write-hearbeat` (2.0)
+##### `monitoring-write-heartbeat` (2.0)
 
 | Item          | Value |
 | ----          | ----- |
@@ -102,7 +102,13 @@ title: Server Monitor Configuration
 | Type          | bool |
 | Default Value | 2 |
 
-##### `monitoring-write-hearbeat-credential` (2.0)
+##### `monitoring-write-heartbeat-credential` (2.0)
+
+| Item          | Value |
+| ----          | ----- |
+| Description   | Credential DB user to inject heartbeat into proxy or via external VIP.  |
+| Type          | bool |
+| Default Value | 2 |
 
 ##### `title`
 

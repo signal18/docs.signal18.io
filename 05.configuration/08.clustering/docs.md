@@ -103,8 +103,8 @@ When you start the peer replication-manager server, the split brain is resolve a
 | ---- | ----- |
 | Description | Arbitrator backend storage type|
 | Type | Enum |
-| List Values | sqllite,mysql |
-| Default Value | "sqllite" |  
+| List Values | sqlite,mysql |
+| Default Value | "sqlite" |  
 
 
 
