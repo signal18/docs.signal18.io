@@ -89,7 +89,27 @@ When you start the peer replication-manager server, the split brain is resolve a
 
 ### Run a private arbitrator
 
-Configuration should be enable via this configuration.
+##### `arbitrator-bind-address` (2.0 arb)
+
+| Item | Value |
+| ---- | ----- |
+| Description | Arbitrator bind address  |
+| Type | String |
+| Default Value | "0.0.0.0:10001" |  
+
+##### `arbitrator-driver` (2.0 arb)
+
+| Item | Value |
+| ---- | ----- |
+| Description | Arbitrator backend storage type|
+| Type | Enum |
+| List Values | sqllite,mysql |
+| Default Value | "sqllite" |  
+
+
+
+
+Configuration for MySQL backend should be enable via this configuration.
 
 ```
 [arbitrator]
