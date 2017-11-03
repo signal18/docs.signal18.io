@@ -89,7 +89,7 @@ HaProxy can call replication **replication-manage(2.0)** [http handlers](/config
 **replication-manager-pro (2.0)** can auto deploy HaProxy micro service, HaProxy config need the http-bind-address to be joinable from the proxy.
 
 
-The haproxy conf that is deployed via mico service looks like this:
+The haproxy conf that is deployed via micro services looks like this:
 
 ```
 global
