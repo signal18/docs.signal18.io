@@ -6,7 +6,7 @@ title: MaxScale Configuration
 
 **replication-manager** can operate with MaxScale with different modes.  
 
-Read the following sections to route dataabse traffic using Maxscale.
+Read the following sections to route database traffic using Maxscale.
 
 Using **replication-manager** we can speed up the failover process of Maxscale, **replication-manager** will instruct MaxScale about the new master so that the Maxscale monitor delay is shortcut. This bring less risk against MaxScale sending traffic to the old master during the monitoring delay, **replication-manager** put extra barriers against writes during failover and switchover on the database level but not forever.     
 

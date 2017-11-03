@@ -17,6 +17,7 @@ taxonomy:
 * CORE: Support adding node to monitor
 * CORE: Support basedir installation
 * CORE: Support Galera Replication  
+* CORE: Support MySQL7 super read only mode   
 * CORE: Support Ring Replication  
 * PROXY: Support ProxySQL
 * PROXY: Support Database Maintenance
