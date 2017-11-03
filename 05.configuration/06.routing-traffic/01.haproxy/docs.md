@@ -5,7 +5,7 @@ title: Haproxy Configuration
 ### HaProxy Configuration
 
 
-**replication-manager** can operate with HaProxy with different modes: localhost and remote since **version 2.0**.
+**replication-manager** can operate with HaProxy with different modes: localhost and remote since **replication-manager (2.0)**.
 
 ##### `haproxy` (0.7)
 
