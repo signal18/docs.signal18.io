@@ -77,9 +77,9 @@ title: Monitoring Configuration
 | Default Value | 10003 |   
 
 
-HTTP Graph are display via the giraffe JS library. One can create custom dashboard via Grafana.
-Customizing the trends can be done modifying. The port to use as direct data source in grafan is drive by `graphite-carbon-api-port` default 10002.
+HTTP Graph are display via the giraffe JS library.
 
+Customizing the trends can be done modifying.
 ```
 /usr/share/replication-manager/dashboard/static/graph.js
 ```
@@ -92,3 +92,17 @@ Replication and some databases status metrics are pushed inside carbon, the metr
 ![graphs](/images/graphs.png)
 
 We can advise usage of Statd and Collectd on each database node to add extra system metrics to the cluster.
+
+
+One can create custom dashboard via Grafana.
+The port to use as direct data source in grafana is drive by `graphite-carbon-api-port` default 10002.
+
+```
+http://127.0.0.1:10002/render
+```
+![source](/images/grafanasource.png)
+
+Each database global status is pushed to graphite using prefix mysql_global_status_(metric) to close compatibility with the grafana excellent percona monitoring template.
+[Percona dashboards](https://github.com/percona/grafana-dashboards)
+
+![source](/images/grafanametrics.png)  
