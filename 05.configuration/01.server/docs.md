@@ -1,5 +1,5 @@
 ---
-title: Server Configuration
+title: Server Monitor Configuration
 ---
 
 ## Server daemon configuration (`monitoring`,`log`)
@@ -94,6 +94,21 @@ title: Server Configuration
 | Type          | integer |
 | Default Value | 2 |
 
+##### `monitoring-write-heartbeat` (2.0)
+
+| Item          | Value |
+| ----          | ----- |
+| Description   | Inject heartbeat into proxy or via external VIP. Without this option long inactive write period and database expire log days can make switchover to failed without founding last binlog position |
+| Type          | bool |
+| Default Value | 2 |
+
+##### `monitoring-write-heartbeat-credential` (2.0)
+
+| Item          | Value |
+| ----          | ----- |
+| Description   | Credential DB user to inject heartbeat into proxy or via external VIP.  |
+| Type          | bool |
+| Default Value | 2 |
 
 ##### `title`
 
