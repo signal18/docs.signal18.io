@@ -164,19 +164,32 @@ The checkmaster script deployed looks like that: where http://192.168.100.20:100
 ```
 /usr/bin/checkmaster
 
-cat checkmaster
-#!/bin/sh
 
-if [[ $(wget -O - http://192.168.100.20:10001/clusters/ux_dck_zpool_loop/servers/$3/$4/master-status | grep -vc "200 -") > 0 ]] ; then exit 0; else exit 1 ; fi
+#!/bin/sh
+echo $3 $4
+ret=`wget -O - -q http://192.168.100.20:10001/clusters/ux_dck_zpool_loop/servers/$3/$4/master-status`
+n=`echo "$ret" | grep -c "200"`
+if [ $n -eq 1 ]
+then
+ exit 0
+fi
+exit 1
 ```
 
 
 cat /usr/bin/checkslave
 
 ```
-#!/bin/sh
 
-if [[ $(wget -O - http://192.168.100.20:10001/clusters/ux_dck_zpool_loop/servers/$3/$4/slave-status | grep -vc "200 -") > 0 ]] ; then exit 0; else exit 1 ; fi
+#!/bin/sh
+echo $3 $4
+ret=`wget -O - -q http://192.168.100.20:10001/clusters/ux_dck_zpool_loop/servers/$3/$4/slave-status`
+n=`echo "$ret" | grep -c "200"`
+if [ $n -eq 1 ]
+then
+ exit 0
+fi
+exit 1
 ```
 
 > using **replication-manager** active/standby & arbitrator make sure each script point to it's local replication-manager. The all side loosing arbitration will repoert backend down.    
