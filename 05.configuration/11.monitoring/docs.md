@@ -103,11 +103,13 @@ http://127.0.0.1:10002/
 
 In **replication-manager 2.0** more metrics are pushed to graphite using prefix
 
- -[X] Each database global status host.mysql_global_status_(metric)
- -[X] Each database global variables host.mysql_global_variables_(metric)
- -[X] Each database show engine InnoDB host.engine_innodb_(metric)
- -[X] Top 20 database performance schema host.pfs.digest_(metric)
+- [x] Each database global status host.mysql_global_status_(metric)
+- [x] Each database global variables host.mysql_global_variables_(metric)
+- [x] Each database show engine InnoDB host.engine_innodb_(metric)
+- [x] Top 20 database performance schema host.pfs.digest_(metric)
 
-Some Grafana dashboard using those metrics names can be found in the share directory of **replication-manager**.
+Some Grafana dashboard using such metric names can be found in the share directory of **replication-manager**.
 
 ![source](/images/grafanametrics.png)  
+
+![source](/images/grafanametricsinnodb.png)  
