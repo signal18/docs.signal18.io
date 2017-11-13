@@ -230,7 +230,7 @@ innodb, myrocks, tokudb, spider
 ```
 Logs:
 ```
-logaudit, logslow, logsqlerrors, loggeneral,
+logaudit, logslow, logsqlerrors, loggeneral, pfs
 ```
 Features:
 ```

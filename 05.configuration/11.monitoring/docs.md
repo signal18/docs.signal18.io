@@ -91,18 +91,23 @@ Replication and some databases status metrics are pushed inside carbon, the metr
 
 ![graphs](/images/graphs.png)
 
-We can advise usage of Statd and Collectd on each database node to add extra system metrics to the cluster.
-
+We can advise usage of Statd and Collectd on each database node and send metrics to replication-manager whisper port to add extra system metrics to the cluster.
 
 One can create custom dashboard via Grafana.
 The port to use as direct data source in grafana is drive by `graphite-carbon-api-port` default 10002.
 
 ```
-http://127.0.0.1:10002/render
+http://127.0.0.1:10002/
 ```
 ![source](/images/grafanasource.png)
 
-Each database global status is pushed to graphite using prefix mysql_global_status_(metric) to close compatibility with the grafana excellent percona monitoring template.
-[Percona dashboards](https://github.com/percona/grafana-dashboards)
+In **replication-manager 2.0** more metrics are pushed to graphite using prefix
+
+ -[X] Each database global status host.mysql_global_status_(metric)
+ -[X] Each database global variables host.mysql_global_variables_(metric)
+ -[X] Each database show engine InnoDB host.engine_innodb_(metric)
+ -[X] Top 20 database performance schema host.pfs.digest_(metric)
+
+Some Grafana dashboard using those metrics names can be found in the share directory of **replication-manager**.
 
 ![source](/images/grafanametrics.png)  
