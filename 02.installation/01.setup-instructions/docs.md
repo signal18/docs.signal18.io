@@ -14,6 +14,24 @@ Check out [GitHub Releases](https://github.com/signal18/replication-manager/rele
 
 Development builds are also available on our [Continuous Integration Server](http://ci.signal18.io/mrm/builds/)
 
+Prior to  **replication-manager (>2.0)** a single binary **replication-manager** provides monitoring and command line actions.  
+
+Since 2.0 the architecture has been split in a client server architecture with multiple binaries:
+
+A server monitoring daemon that comes with different flavors based on features : min, osc, tst, pro, arb.
+
+And a command line client binary **replication-manager-cli (>2.0)** that push actions to the monitoring daemon via a secured protocol.    
+
+The  **replication-manager-cli** client is bundle with the server packages but can as well be installed on it's own for convenience.   
+
+| Item | Flavor       | Description |
+| ---- | ------       | ----------- |
+| MIN  | Minimal     | Offer essential features for the most basic usage. |
+| OSC  | Open Source  | Offer all features excepting provisioning. |
+| TST  | Test         | Offer OSC features and extra features for testing like local service bootstrap, benchmarking... |
+| PRO  | Provisioning | Offer commercial ready to go cluster provisioning solution. |   
+| ARB  | Aarbitrator  | Offer arbitration for replication-manager clustering. |
+
 ### Installation from our repository
 
 #### CentOS/RHEL
@@ -80,3 +98,5 @@ If you want to build the packages, use the following make recipe:
 ```
 make package
 ```
+
+[For a basic usage you can proceed with the configuration step](/installation/configuration)

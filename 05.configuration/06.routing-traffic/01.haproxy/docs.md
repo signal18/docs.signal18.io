@@ -121,6 +121,7 @@ listen stats
    stats uri /
    stats refresh 2s
    stats realm Haproxy\ Stats
+   stats show-legends
 
 frontend my_write_frontend
     bind 0.0.0.0:3303
