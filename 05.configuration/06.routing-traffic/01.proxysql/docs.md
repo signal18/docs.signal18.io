@@ -8,62 +8,62 @@ title: ProxySQL Configuration
 
 | Item | Value |
 | ---- | ----- |
-| Description | Enable Driving ProxySQL. |
+| Description | Enable ProxySQL driver |
 | Type | boolean |
 | Default Value | false |  
-
-##### `proxysql-binary-path` (2.0)
-
-| Item | Value |
-| ---- | ----- |
-| Description | Full path to ProxySQL binary. |
-| Type | String |
-| Default Value | "/usr/sbin/proxysql" |  
 
 ##### `proxysql-servers` (2.0)
 
 | Item | Value |
 | ---- | ----- |
-| Description | Comma separated list of the ProxySQL hosts. |
+| Description | Comma separated list of ProxySQL hosts |
 | Type | String |
 | Default Value | "127.0.0.1" |  
 
-##### `proxysql-write-port` (2.0)
+##### `proxysql-port` (2.0)
 
 | Item | Value |
 | ---- | ----- |
-| Description | ProxySQL port to get database connection in WRITE. |
-| Type | Integer |
-| Default Value | 3306 |  
-
-##### `proxysql-ip-write-bind` (2.0)
-
-| Item | Value |
-| ---- | ----- |
-| Description | If WRITE traffic bing to specific IP. |
+| Description | ProxySQL port to get database connection  |
 | Type | String |
-| Default Value | "0.0.0.0" |  
+| Default Value | "6033" |  
 
-##### `proxysql-read-port` (2.0)
-
-| Item | Value |
-| ---- | ----- |
-| Description | ProxySQL port to load balance read connection to all databases. |
-| Type | Integer |
-| Default Value | 3306 |  
-
-##### `proxysql-ip-read-bind` (2.0)
+##### `proxysql-admin-port` (2.0)
 
 | Item | Value |
 | ---- | ----- |
-| Description |  If READ traffic bing to specific ProxySQL IP. |
+| Description | ProxySQL port to get admin connection |
 | Type | String |
-| Default Value | "0.0.0.0" |  
+| Default Value | "6032" |  
 
-##### `proxysql-stat-port` (2.0)
+##### `proxysql-writer-hostgroup` (2.0)
 
 | Item | Value |
 | ---- | ----- |
-| Description | ProxySQL port to collect statistics.  |
-| Type | Integer |
-| Default Value | 1988 |  
+| Description | ProxySQL writer hostgroup ID |
+| Type | String |
+| Default Value | "0" |  
+
+##### `proxysql-reader-hostgroup` (2.0)
+
+| Item | Value |
+| ---- | ----- |
+| Description | ProxySQL reader hostgroup ID |
+| Type | String |
+| Default Value | "1" |  
+
+##### `proxysql-user` (2.0)
+
+| Item | Value |
+| ---- | ----- |
+| Description | ProxySQL admin user name |
+| Type | String |
+| Default Value | "admin" |
+
+##### `proxysql-password` (2.0)
+
+| Item | Value |
+| ---- | ----- |
+| Description | ProxySQL admin password |
+| Type | String |
+| Default Value | "admin" |
