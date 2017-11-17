@@ -8,7 +8,7 @@ Once **replication-manager** is started in monitor mode, it provides an internal
 
 Access it via pointing a web browser to  http://localhost:10001.
 
-By default it is bound to `localhost`. This may need to be changed to get remote access on the network.
+By default it is bound to `localhost`. This can be changed via **http-bind-address** variable or command line flag to get remote access on the network.
 
 It looks like this:
 
