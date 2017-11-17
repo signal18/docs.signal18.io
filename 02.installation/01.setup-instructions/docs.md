@@ -14,17 +14,19 @@ Check out [GitHub Releases](https://github.com/signal18/replication-manager/rele
 
 Development builds are also available on our [Continuous Integration Server](http://ci.signal18.io/mrm/builds/)
 
-Prior to  **replication-manager (>2.0)** a single binary **replication-manager** provides monitoring and command line actions.  
+### Packages, binary naming convention
 
-Since 2.0 the architecture has been split in a client server architecture with multiple binaries:
+Prior to  **replication-manager (2.0)**, unique binary **replication-manager** was used for monitoring and command line actions. As the result of this design monitoring or command line failover could not be used concurrently.   
 
-A server monitoring daemon that comes with different flavors based on features : min, osc, tst, pro, arb.
+Since 2.0 the architecture was split in a more traditional client-server providing multiple binaries:
 
-And a command line client binary **replication-manager-cli (>2.0)** that push actions to the monitoring daemon via a secured protocol.    
+A server monitoring daemon that comes with different flavors based on included features : **replication-manager-(min, osc, tst, pro, arb)**.
 
-The  **replication-manager-cli** client is bundle with the server packages but can as well be installed on it's own for convenience.   
+And a command line client binary **replication-manager-cli** that is requesting actions to the monitoring daemon via some secured protocol.    
 
-| Item | Flavor       | Description |
+**replication-manager-cli** is bundle within the server packages but can, as well be installed on it's own for convenience.   
+
+| Package | Flavor       | Description |
 | ---- | ------       | ----------- |
 | MIN  | Minimal     | Offer essential features for the most basic usage. |
 | OSC  | Open Source  | Offer all features excepting provisioning. |
