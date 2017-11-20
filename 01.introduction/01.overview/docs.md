@@ -32,6 +32,7 @@ To perform switchover, preserving data consistency, replication-manager uses an 
 
 __replication-manager__ is commonly used as an arbitrator with a layer that routes the database traffic to the leader database node (aka the MASTER):
 
-  - [x] Layer 7 proxy as MariaDB MaxScale that can transparently follow a newly elected topology
-  - [x]  With monitor-less proxies, __replication-manager__ can call scripts that set and reload the new configuration of the leader route. A common scenario is an VRRP Active Passive HAProxy sharing configuration via a network disk with the __replication-manager__ scripts           
-  - [x]  Using __replication-manager__ as an API component of a group communication cluster. MRM can be called as a Pacemaker resource that moves alongside a VIP, the monitoring of the cluster is in this case already in charge of the GCC.
+  - [x] Layer 7 proxy as ProxySQL OR MariaDB MaxScale that can transparently follow a newly elected topology
+  - [x] Layer 4 proxy, __replication-manager__ can reload a new configuration with the new route. A common scenario is a VRRP Active Passive HAProxy sharing his configuration via a network disk or collocation of the proxy with replication-manager. Some other architecture components can be already in charge of the GCC.             
+  - [x] Layer 4 proxy using __replication-manager__ as an API. __replication-manager__ can be called as a resource instructing the routing service on the states of the nodes, this is the case for haproxy external checks.
+  - [x] DNS routing, __replication-manager__  will update some discovering service like consul or DNS to enable direct routing without proxying.

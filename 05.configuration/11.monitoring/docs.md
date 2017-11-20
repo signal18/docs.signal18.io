@@ -105,6 +105,7 @@ In **replication-manager 2.0** more metrics are pushed to graphite using prefix
 
 - [x] Each database global status mysql.host.mysql_global_status_(metric)
 - [x] Each database global variables mysql.host.mysql_global_variables_(metric)
+- [x] Each database show slave status mysql.host.mysql_slave_status_(metric)
 - [x] Each database show engine InnoDB mysql.host.engine_innodb_(metric)
 - [x] Top 20 database performance schema mysql.host.pfs.digest_(metric)
 
