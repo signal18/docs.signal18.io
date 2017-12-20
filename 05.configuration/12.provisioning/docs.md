@@ -22,6 +22,7 @@ The following software services can be provisioned:
 | MaxScale | Y   | Y |
 | ProxySQL | Y   | N  |
 | HaProxy | Y   | N  |
+| Sphinx | Y   | N  |
 | Consul | N  | N  |
 
 
@@ -251,11 +252,11 @@ logaudit, logslow, logsqlerrors, loggeneral, pfs
 ```
 Features:
 ```
-compress, noquerycache,  threadpool, ssl
+compress, noquerycache, threadpool, ssl, nodurable, lowercasetable, smallredolog
 ```
 Replication:
 ```
-multidomains, nologslaveupdates, mysqlgtid, smallredolog, wsrep, semisync
+multidomains, nologslaveupdates, mysqlgtid, wsrep, semisync
 ```
 
 ## Provisioning
