@@ -4,7 +4,7 @@ taxonomy:
     category: docs
 ---
 
-**replication-manager** bundles some example configuration files located in in different places based on the previously selected installation process.  
+**replication-manager** bundles some example configuration files located in in different places based on the previously selected package installation.  
 
 Use or create a `config.toml` file in the location explained in following section.
 
@@ -32,3 +32,5 @@ Copy a sample configuration file to config.toml auto loaded configuration:
 ## Sample configuration for archive  
 
 `sudo cp /usr/local/replication-manager/etc/config.toml.sample.masterslave-haproxy  /usr/local/replication-manager/etc/config.toml`
+
+It is possible to define multiple clusters via adding sections in the  config.toml. A cluster section can also be defined in a seperate file and loaded via the include directive pointing to an extra directory from the main config file.   
