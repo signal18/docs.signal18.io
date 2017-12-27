@@ -252,7 +252,7 @@ logaudit, logslow, logsqlerrors, loggeneral, pfs
 ```
 Features:
 ```
-compress, noquerycache, threadpool, ssl, nodurable, lowercasetable, smallredolog, nodoublewrite
+compress, noquerycache, threadpool, ssl, nodurable, lowercasetable, smallredolog, nodoublewrite, sqlmodeunstrict, sqlmodeoracle
 ```
 Replication:
 ```
