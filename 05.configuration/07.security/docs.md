@@ -84,3 +84,17 @@ At startup replication-manager monitor will generate in memory extra self signed
 | Description | Replication is created using SSL encryption to replicate from master. |
 | Type | boolean |
 | Default Value | false |   
+
+Replication-Manager does not set MASTER_SSL_CA , MASTER_SSL_CERT , MASTER_SSL_KEY in CHANGE MASTER command, instead it relies on MySQL MariaDB to get setup for the replication to be using SSL. with this flag replication just add MASTER_SSL=1 to the replication command.   
+
+```
+[client]
+ssl-ca=cacert.pem
+ssl-cert=client-cert.pem
+ssl-key=client-key.pem
+
+[mysqld]
+ssl-ca=cacert.pem
+ssl-cert=server-cert.pem
+ssl-key=server-key.pem
+```
