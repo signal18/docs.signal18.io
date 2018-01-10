@@ -8,7 +8,7 @@ taxonomy:
 
 Request your account or eval license file to sigal18.io team after having register to (https://signal18.io)
 
-Once receive copy this file in the share/opensvc directory of replication-manager, you should be good to go to setup your cluster agents  
+Once receive copy the provided file in the share/opensvc or /etc/replication-manager directory of replication-manager, you should be good to go to setup your cluster agents  
 
 ## Setup On-promise Collector
 
