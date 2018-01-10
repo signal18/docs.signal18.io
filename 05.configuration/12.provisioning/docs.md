@@ -22,6 +22,7 @@ The following software services can be provisioned:
 | MaxScale | Y   | Y |
 | ProxySQL | Y   | N  |
 | HaProxy | Y   | N  |
+| Sphinx | Y   | N  |
 | Consul | N  | N  |
 
 
@@ -154,6 +155,23 @@ When loopback instead of a real device the FS path is needed instead of device p
 | Default | "20g" |
 | Example | "20g"  |
 
+##### `prov-db-disk-snapshot` (2.0)
+
+| Item | Value |
+| ---- | ----- |
+| Description | Take daily snapshot. |
+| Type | boolean |
+| Default | false |
+
+
+##### `prov-db-disk-snapshot-keep` (2.0)
+
+| Item | Value |
+| ---- | ----- |
+| Description | Keep this number of snapshot. |
+| Type | int |
+| Default | 7 |
+
 ## network
 
 Network please check availability of the ip before using them , also some opensvc deployemetn can manage range of dhcp ip and DNS entries   
@@ -226,7 +244,7 @@ Database bootstrap is deploying some database configurations files that are auto
 
 Storage:
 ```
-innodb, myrocks, tokudb, spider
+innodb, myrocks, tokudb, spider, sphinx
 ```
 Logs:
 ```
@@ -234,11 +252,11 @@ logaudit, logslow, logsqlerrors, loggeneral, pfs
 ```
 Features:
 ```
-compress, noquerycache,  threadpool
+compress, noquerycache, threadpool, ssl, nodurable, lowercasetable, smallredolog, nodoublewrite
 ```
 Replication:
 ```
-multidomains, nologslaveupdates, mysqlgtid, smallredolog, wsrep, semisync
+multidomains, nologslaveupdates, mysqlgtid, wsrep, semisync
 ```
 
 ## Provisioning
