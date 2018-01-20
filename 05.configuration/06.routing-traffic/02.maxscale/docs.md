@@ -85,7 +85,7 @@ With **replication-manager** one can get Maxscale Servers State in the HTTP serv
 | Type | String |
 | Default Value | "admin" |
 
-##### `maxscale-password` (0.7)
+##### `maxscale-password` (2.0) `maxscale-pass` (0.7)
 
 | Item | Value |
 | ---- | ----- |
