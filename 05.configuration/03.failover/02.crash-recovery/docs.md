@@ -1,5 +1,5 @@
 ---
-title: Crash Recovery Configuration
+title: Rejoining & Crash Recovery Configuration
 ---
 
 ## Crash recovery
@@ -33,9 +33,13 @@ they are saved into the monitoring working directory in a crash sub directory fo
 
 **replication-manager** track different crash state for rejoin:
 
-GTID of the new leader at time of election is equal to GTID of the joiner, we proceed with rejoin.
+GTID of the new leader at time of election is equal to GTID or lower of the joiner, we proceed with rejoin.
 
-GTID is behing on joiner, we backup extra events, if semisync replication was in sync status, we can do flashback to come back to a physical state that client connections have never seen.  
+Joiner GTID is ahead of position saved of the last election.
+
+We first backup extra events in **replication-manager** data directory.  
+
+If semisync replication was in sync status, **replication-manager** can do binary log flashback to come back to a physical state clients connections have never seen.  
 
 ##### `autorejoin-flashback` (1.1)
 | Item          | Value |
@@ -70,6 +74,14 @@ GTID is ahead but semi-sync replication si not used, status at election is unkno
 | Type          | boolean |
 | Default Value | false |
 
+##### `autorejoin-zfs-flashback` (2.1)
+| Item          | Value |
+| ----          | ----- |
+| Description   | Automatically rejoin a failed server via last ZFS snapshot |
+| Type          | boolean |
+| Default Value | false |
+
+The way this is done is via creating on the joiner a database table replication_manager_schema.snapback
 
 If none of above method is enable **replication-manager** will call external scripts
 

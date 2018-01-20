@@ -24,7 +24,7 @@ With **replication-manager** one can get Maxscale Servers State in the HTTP serv
 | Type | boolean |
 | Default Value | false |  
 
-##### `maxscale-servers` (0.7)
+##### `maxscale-servers` (2.0), `maxscale-host` (1.0)
 
 | Item | Value |
 | ---- | ----- |
