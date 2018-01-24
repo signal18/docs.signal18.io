@@ -5,7 +5,7 @@ title: Haproxy Configuration
 ### HaProxy Configuration
 
 
-**replication-manager** can operate with HaProxy with different modes: localhost and remote since **replication-manager (2.0)**.
+**replication-manager** can operate with HaProxy in 2 different modes: local and remote since **replication-manager (2.0)**.
 
 ##### `haproxy` (0.7)
 
@@ -68,13 +68,14 @@ title: Haproxy Configuration
 
 ##### `haproxy-binary-path` (0.7)
 
+In local mode **replication-manager**, need HaProxy to be install and on the same server **replication-manager** will than start one HaProxy Daemon per Cluster configured and maintain the configuration to route traffic to the topology.
+
 | Item | Value |
 | ---- | ----- |
 | Description | Full path to HaProxy binary. |
 | Type | String |
 | Default Value | "/usr/sbin/haproxy" |  
 
-**replication-manager**, need HaProxy to be install and on the same server **replication-manager** will than start one HaProxy Daemon per Cluster configured and maintain the configuration to route traffic to the topology.
 
 **replication-manager** generate some HaProxy configuration file. A template is located in the share directory used by replication-manager. For safety HaProxy is not stopped when replication-manager is stopped
 
@@ -152,7 +153,7 @@ backend service_read
     balance leastconn
     option external-check
     external-check path "/usr/bin:/bin"
-    external-check command /usr/bin/checkmaster
+    external-check command /usr/bin/checkslave
 
 
 server server1 192.168.100.70:3306  weight 100 maxconn 2000 check inter 1000
