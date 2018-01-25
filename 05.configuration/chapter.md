@@ -1,5 +1,5 @@
 ---
-title: Configuration Variables
+title: Configuration Guide
 ---
 ### Chapter 5
 
