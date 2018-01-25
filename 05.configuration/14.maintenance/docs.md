@@ -16,7 +16,7 @@ A donor scripts should dequeue the task and send the requested stream via socat 
 ## Jobs table description
 
 | Field  | Type          | Null | Key | Default | Extra          |
-|--------|---------------|------|-----|---------|----------------+
+|--------|---------------|------|-----|---------|----------------|
 | id     | int(11)       | NO   | PRI | NULL    | auto_increment |
 | task   | varchar(20)   | YES  | MUL | NULL    |                |
 | port   | int(11)       | YES  |     | NULL    |                |
