@@ -28,11 +28,11 @@ And a command line client binary **replication-manager-cli** that is requesting 
 
 | Package | Flavor       | Description |
 | ---- | ------       | ----------- |
-| MIN  | Minimal     | Offer essential features for the most basic usage. |
-| OSC  | Open Source  | Offer all features excepting provisioning (recommended version). |
-| TST  | Test         | Offer OSC features and extra features for testing like local service bootstrap, benchmarking... |
-| PRO  | Provisioning | Offer commercial ready to go cluster provisioning solution. |   
-| ARB  | Arbitrator  | Offer arbitration for replication-manager clustering. |
+| replication-manager-min | Minimal     | Offers essential features for the most basic usage. |
+| replication-manager-osc | Open Source  | Offers all features excepting provisioning (recommended version). |
+| replication-manager-tst | Test         | Offers OSC features and extra features for testing like local service bootstrap, benchmarking... |
+| replication-manager-pro | Provisioning | Offers commercial, ready to go cluster provisioning solution. |   
+| replication-manager-arb | Arbitrator  | Offers arbitration for replication-manager clustering. |
 
 ### Installation from our repository
 
