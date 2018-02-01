@@ -4,12 +4,12 @@ title: API Client Usage
 
 ## API Client Usage
 
-The rest API is using JWT TLS and is served by default on port 3000 by the replication-manager monitor/
+The rest API is using JWT TLS and is served by default on port 10005 by the replication-manager monitor/
 
 Credentials can be customized by setting your own user and password in configuration file.  
 
 ```
-api-port ="3000"
+api-port ="10005"
 api-credential = "admin:repman"
 ```
 
@@ -34,7 +34,7 @@ At startup **replication-manager** monitor will generate in memory extra self-si
 API can be called via command line client to simplify curl syntax with JWT token.
 
 ```
-./replication-manager-cli api  --url="https://127.0.0.1:3000/api/clusters/ux_dck_zpool_loop/servers/actions/add/192.168.1.73/3306"   --cluster="ux_dck_zpool_loop"
+./replication-manager-cli api  --url="https://127.0.0.1:10005/api/clusters/ux_dck_zpool_loop/servers/actions/add/192.168.1.73/3306"   --cluster="ux_dck_zpool_loop"
 ```
 
 ### API Unprotected Endpoints
@@ -63,7 +63,7 @@ OUPUT:
 OUPUT:
 ```
 {"alive": true}      
-./replication-manager api  --url="https://127.0.0.1:3000/api/status"  
+./replication-manager api  --url="https://127.0.0.1:10005/api/status"  
 ```
 
 /api/clusters/{clusterName}/status

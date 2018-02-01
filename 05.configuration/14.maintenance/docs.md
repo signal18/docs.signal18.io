@@ -162,7 +162,7 @@ Item | Value |
 | ---- | ----- |
 | Description |  Logical backup cron expression represents a set of times, using 6 space-separated fields or expression.|
 | Type | string |
-| Default Value | "0 0 3 * 5" Every month the first a 3AM on Saturday |
+| Default Value | ""0 0 3 1 * 5"" Every month the first at 3AM on Saturday |
 scheduler-db-servers-optimize-cron",
 
 
@@ -219,7 +219,7 @@ do
     ;;
 
     optimize)
-     /usr/bin/mysqloptimize -u$USER -p$PASSWORD --all-databases
+     /usr/bin/mysqloptimize -u$USER -p$PASSWORD --all-databases &>/tmp/dbjob.out
     ;;
 
   esac
@@ -229,6 +229,6 @@ fi
 done
 ```
 
-## Logical Backup
+##  Backup streaming for archive
 
 --backup                                             Turn on Backup
