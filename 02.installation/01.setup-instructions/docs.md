@@ -16,23 +16,23 @@ Development builds are also available on our [Continuous Integration Server](htt
 
 ### Packages, binary naming convention
 
-Prior to  **replication-manager (2.0)**, unique binary **replication-manager** was used for monitoring and command line actions. As the result of this design monitoring or command line failover could not be used concurrently.   
+Prior to  **replication-manager (2.0)**, a unique binary **replication-manager** was used for monitoring and command line actions. As the result of this design monitoring or command line failover could not be used concurrently.   
 
 Since 2.0 the architecture was split in a more traditional client-server providing multiple binaries:
 
 A server monitoring daemon that comes with different flavors based on included features : **replication-manager-(min, osc, tst, pro, arb)**.
 
-And a command line client binary **replication-manager-cli** that is requesting actions to the monitoring daemon via some secured protocol.    
+And a command line client binary **replication-manager-cli** that is requesting actions to the monitoring daemon via a secured protocol.    
 
-**replication-manager-cli** is bundle within the server packages but can, as well be installed on it's own for convenience.   
+**replication-manager-cli** is bundled within the server packages but can as well be installed on it's own for convenience.   
 
 | Package | Flavor       | Description |
 | ---- | ------       | ----------- |
-| MIN  | Minimal     | Offer essential features for the most basic usage. |
-| OSC  | Open Source  | Offer all features excepting provisioning. |
-| TST  | Test         | Offer OSC features and extra features for testing like local service bootstrap, benchmarking... |
-| PRO  | Provisioning | Offer commercial ready to go cluster provisioning solution. |   
-| ARB  | Aarbitrator  | Offer arbitration for replication-manager clustering. |
+| replication-manager-min | Minimal     | Offers essential features for the most basic usage. |
+| replication-manager-osc | Open Source  | Offers all features excepting provisioning (recommended version). |
+| replication-manager-tst | Test         | Offers OSC features and extra features for testing like local service bootstrap, benchmarking... |
+| replication-manager-pro | Provisioning | Offers commercial, ready to go cluster provisioning solution. |   
+| replication-manager-arb | Arbitrator  | Offers arbitration for replication-manager clustering. |
 
 ### Installation from our repository
 
@@ -50,11 +50,7 @@ enabled=1
 ```
 then
 
-`yum install replication-manager`
-
-You can install a specific version if it's present in the repo, e.g.
-
-`yum install replication-manager-2.0.0-dev`
+`yum install replication-manager-osc`
 
 #### Debian/Ubuntu
 
@@ -66,7 +62,7 @@ version="2.0"
 echo "deb [arch=amd64] http://repo.signal18.io/deb $(lsb_release -sc) $version" > /etc/apt/sources.list.d/signal18.list`
 apt-key adv --recv-keys --keyserver keyserver.ubuntu.com FAE20E50
 apt-get update
-apt-get install replication-manager
+apt-get install replication-manager-osc
 ```
 
 ### Installation from tarball
