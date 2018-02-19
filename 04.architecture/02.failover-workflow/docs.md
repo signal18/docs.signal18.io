@@ -8,12 +8,15 @@ title: Failover WorkFlow
 
 This default is know as the On-call mode and configured `failover-mode = "manual"`
 
-Failover can be resumed via the console, the web server on default URL http://replication-manager-host:10001/, the API or the command line client.
+Failover can be continue via user interaction with the console, the web server on default URL http://replication-manager-host:10001/, the API or the command line client.
 
 Conditions for a possible failover are constantly monitored.
 
-* A slave need to be available and up and running.
+* A valid slave need to be available and up and running.
 * The cluster configuration needs to be valid.
+
+! Note: the definition of a valid slave is influenced by the prefered or ignored servers but since replication-manager 2.0 we first look at the most up to date position in all slaves. After founding this it can eventually say that failover is impossible because none of the slaves with highest position match the constraints ,  if multiple slaves have that same highest position, than the prefered master can be considered as a valid candidate.
+
 
 Some users define failover replication constraints that can be added in the configuration file.
 
