@@ -59,7 +59,7 @@ Create the repo file, install the key and install the binaries as such:
 ```
 # change next line with desired version number
 version="2.0"
-echo "deb [arch=amd64] http://repo.signal18.io/deb $(lsb_release -sc) $version" > /etc/apt/sources.list.d/signal18.list`
+echo "deb [arch=amd64] http://repo.signal18.io/deb $(lsb_release -sc) $version" > /etc/apt/sources.list.d/signal18.list
 apt-key adv --recv-keys --keyserver keyserver.ubuntu.com FAE20E50
 apt-get update
 apt-get install replication-manager-osc
