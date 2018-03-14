@@ -10,6 +10,9 @@ Access it via pointing a web browser to  http://localhost:10001.
 
 By default it is bound to `localhost`. This can be changed via **http-bind-address** variable or command line flag to get remote access on the network.
 
+Using **replication-manager 2.1**,  secured connection is open via pointing a web browser to  https://replication-manager-host:10005/.
+
+
 It looks like this:
 
 ![mrmdash](/images/http.png)
@@ -19,7 +22,7 @@ It looks like this:
 
 
 
-> Previously to  **replication-manager 2.1** The http dashboard is has no protected access, use creativity to restrict access to it.
+> Previously to  **replication-manager 2.1** The http dashboard  has no protected access, use creativity to restrict access to it.
 Some login protection using http-auth = true is deprecate. We advice not to used it but to protect via a web proxying authentication instead.   
 
 

@@ -37,7 +37,7 @@ API can be called via command line client to simplify curl syntax with JWT token
 ./replication-manager-cli api  --url="https://127.0.0.1:10005/api/clusters/ux_dck_zpool_loop/servers/actions/add/192.168.1.73/3306"   --cluster="ux_dck_zpool_loop"
 ```
 
-### API Unprotected Endpoints
+### Monitor Unprotected Endpoints
 
 /api/login
 
@@ -60,17 +60,32 @@ OUPUT:
 
 /api/clusters/{clusterName}/status
 
-/api/clusters/{clusterName}/servers/{serverName}/master-status
+# Version 2.0 & 2.1
+
+/clusters/{clusterName}/servers/{serverName}/master-status
 Return Code 200 if server id is a master
 
-/api/clusters/{clusterName}/servers/{serverName}/slave-status
+/clusters/{clusterName}/servers/{serverName}/slave-status
 Return Code 200 if server id is a slave   
 
-/api/clusters/{clusterName}/servers/{serverHost}/{serverPort}/master-status
+/clusters/{clusterName}/servers/{serverHost}/{serverPort}/master-status
 Return Code 200 if server id is a master
 
-/api/clusters/{clusterName}/servers/{serverHost}/{serverPort}/slave-status
+/clusters/{clusterName}/servers/{serverHost}/{serverPort}/slave-status
 Return Code 200 if server id is a slave   
+# Version  2.1
+
+/clusters/{clusterName}/servers/{serverName}/is-master
+Return Code 200 if server id is a master
+
+/clusters/{clusterName}/servers/{serverName}/is-slave
+Return Code 200 if server id is a slave   
+
+/clusters/{clusterName}/servers/{serverHost}/{serverPort}/is-master
+Return Code 200 if server id is a master
+
+/clusters/{clusterName}/servers/{serverHost}/{serverPort}/is-slave
+Return Code 200 if server id is a slave    
 
 ### API Protected Endpoints
 
@@ -398,6 +413,10 @@ OUPUT:
 
 ```
 
+## Cluster Protected Endpoint
+
+### 2.0
+
 /api/clusters/{clusterName}
 
 ```
@@ -449,34 +468,18 @@ OUPUT:
 /api/clusters/{clusterName}/actions/replication/cleanup
 
 /api/clusters/{clusterName}/actions/services todo
+List agents services resources
 
 /api/clusters/{clusterName}/actions/services/provision
+
+/api/clusters/{clusterName}/actions/services/bootstrap
 
 /api/clusters/{clusterName}/actions/start-traffic
 
 /api/clusters/{clusterName}/actions/stop-traffic
 
-List agents services resources
 
-/api/clusters/{clusterName}/actions/services/bootstrap
-
-/api/clusters/{clusterName}/servers/actions/add/{host}/{port}
-
-/api/clusters/{clusterName}/servers/{serverName}/actions/start
-
-/api/clusters/{clusterName}/servers/{serverName}/actions/stop
-
-/api/clusters/{clusterName}/servers/{serverName}/actions/backup todo
-
-/api/clusters/{clusterName}/servers/{serverName}/actions/maintenance todo
-
-/api/clusters/{clusterName}/servers/{serverName}/actions/unprovision
-
-/api/clusters/{clusterName}/servers/{serverName}/actions/provision
-
-/api/clusters/{clusterName}/proxies/{proxyName}/actions/unprovision
-
-/api/clusters/{clusterName}/proxies/{proxyName}/actions/provision
+/api/clusters/{clusterName}/actions/addserver/{host}/{port}
 
 /api/clusters/{clusterName}/topology/servers
 
@@ -501,3 +504,57 @@ List agents services resources
 /api/clusters/{clusterName}/settings/reload
 
 /api/clusters/{clusterName}/settings/switch/{parmaterName}
+
+## Database Server Protected Endpoint
+
+### 2.0
+
+/api/clusters/{clusterName}/servers/{serverName}/actions/start
+
+/api/clusters/{clusterName}/servers/{serverName}/actions/stop
+
+/api/clusters/{clusterName}/servers/{serverName}/actions/backup
+
+/api/clusters/{clusterName}/servers/{serverName}/actions/maintenance
+
+/api/clusters/{clusterName}/servers/{serverName}/actions/unprovision
+
+/api/clusters/{clusterName}/servers/{serverName}/actions/provision
+
+### 2.1
+
+/api/clusters/{clusterName}/actions/master-physical-backup
+
+/api/clusters/{clusterName}/servers/{serverName}/processlist
+
+/api/clusters/{clusterName}/servers/{serverName}/variables
+
+/api/clusters/{clusterName}/servers/{serverName}/status
+
+/api/clusters/{clusterName}/servers/{serverName}/errorlog
+
+/api/clusters/{clusterName}/servers/{serverName}/slowlog
+
+/api/clusters/{clusterName}/servers/{serverName}/tables
+
+/api/clusters/{clusterName}/servers/{serverName}/schemas
+
+/api/clusters/{clusterName}/servers/{serverName}/innodb-status
+
+/api/clusters/{clusterName}/servers/{serverName}/all-slaves-status
+
+/api/clusters/{clusterName}/servers/{serverName}/master-status
+
+/api/clusters/{clusterName}/servers/{serverName}/is-master
+
+/api/clusters/{clusterName}/servers/{serverName}/is-slave
+
+/api/clusters/{clusterName}/servers/{serverName}/{serverPort}/is-master
+
+/api/clusters/{clusterName}/servers/{serverName}/{serverPort}/is-slave
+
+## Proxy Protected Endpoint
+
+/api/clusters/{clusterName}/proxies/{proxyName}/actions/unprovision
+
+/api/clusters/{clusterName}/proxies/{proxyName}/actions/provision
