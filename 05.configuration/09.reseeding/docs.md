@@ -4,14 +4,14 @@ title: Reseeding Configuration
 
 **replication-manager (2.1)** can stream backups out and in to a new or de-sync database node.
 
-Streaming is organized around a jobs queue table on each database node that is dequeue with a cron script that follow.
-**replication-manager** will auto create this table on cluster nodes.
+Streaming is organized around a jobs queue table on each database node that is dequeue with a cron script.
+**replication-manager** is auto creating this job table on cluster nodes.
 
-For Donor to trigger such remote actions **replication-manager (2.1)** open a TCP connection with a timeout of 120s and create or populate a database table acting as a message queue named replication_manager_scehma.jobs.
+For donor node to stream  jobs **replication-manager (2.1)** open a TCP connection with a timeout of 120s and  populate the jobs (replication_manager_scehma.jobs) table with the action and the receiver port.
 
 For Joiner replication manager use port 4444.
 
-To organize streaming this you need to implement backup policy via replication-manager scheduler or do an on demand backup via the GUI or API.
+To organize streaming  you need to implement backup policy via replication-manager scheduler or do an on demand backup via the GUI or API.
 
 Scheduler default collect daily physical backup. Extra package xtrabackup or mariadbbackup need to be install on the remote host.
 
