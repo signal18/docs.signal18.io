@@ -15,6 +15,14 @@ To organize streaming  you need to implement backup policy via replication-manag
 
 Scheduler default collect daily physical backup. Extra package xtrabackup or mariadbbackup need to be install on the remote host.
 
+Reseeding endpoint API get 3 methods:
+
+| Method | Descrition |
+| ---- | ------- |
+| logicalmaster | Direct mysqldump of master via replication-manager piping host |
+| logicalbackup | Last mysqldump backup |
+| physicalbackup | Last xtrabackup or mariadb-backup backup |
+
 
 ## Donor and joiner cron script
 
