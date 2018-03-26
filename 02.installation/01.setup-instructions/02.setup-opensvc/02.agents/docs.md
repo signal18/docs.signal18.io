@@ -62,6 +62,56 @@ nodemgr updatecomp
 You can verify that the agent is discovered by going to the web interface of replication-manager and check the agents tab.
 
 
+### Using Overlay Networking
+
+Centos & Rehdat requires EPEL
+
+```
+yum install epel-release
+yum install containernetworking-cni
+```
+
+```
+cd /tmp
+wget https://github.com/containernetworking/cni/releases/download/v0.6.0/cni-amd64-v0.6.0.tgz
+wget https://github.com/containernetworking/plugins/releases/download/v0.6.0/cni-plugins-amd64-v0.6.0.tgz
+sudo mkdir -p /opt/cni/bin
+cd  /opt/cni/bin
+tar xvf /tmp/cni-amd64-v0.6.0.tgz
+tar xvf /tmp/cni-plugins-amd64-v0.6.0.tgz
+
+mkdir -p /opt/cni/net.d
+```
+
+Instruct the opensvc agent about cni path:
+
+```
+nodemgr set --kw=cni.plugins=/usr/libexec/cni  
+nodemgr set --kw cni.config=/var/lib/opensvc/cni/net.d/
+```
+
+Install one overlay CNI plugin like weave network
+
+```
+sudo curl -L git.io/weave -o /usr/local/bin/weave
+sudo chmod a+x /usr/local/bin/weave
+```
+Make sure Docker daemon is started at boot and disable MountFlags:
+```
+sed -i s/^MountFlags=slave/#MountFlags=slave/ /lib/systemd/system/docker.service
+systemctl enable docker
+systemctl start docker
+```
+
+Make sure the OpenSVC Cluster is defined and joined besfore the next step 
+
+
+```
+weave setup
+weave launch $(nodemgr get --kw cluster.nodes)
+```
+
+
 ### Additional Setup for SAS Collector
 
 ```
