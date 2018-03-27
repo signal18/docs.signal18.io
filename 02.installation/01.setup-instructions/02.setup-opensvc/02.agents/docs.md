@@ -11,6 +11,21 @@ A minimal set of tools are advices for better file system support, virtualizatio
 
 [Download](https://repo.opensvc.com/)
 
+Supposing the package is installed :
+
+Since Agent version 1.9 the cluster need to be joined
+
+Setup Heartbeat on the donor:
+Instruct the donor ab
+```
+nodemgr set --param hb#1.type --value unicast
+nodemgr get --kw cluster.secret
+3665ab8630e011e8ab20525400e412aa
+```
+
+On the joiner:
+
+
 ###Debian, Ubuntu:
 ```  
 apt-get install -y python net-tools docker-io psmisc zfsutils-linux system-config-lvm xfsprogs wget
@@ -35,6 +50,7 @@ Agent may require to communicate via root together setup a no password ssh acces
 sudo sed -i -e "s/^PasswordAuthentication no/PasswordAuthentication yes/" /etc/ssh/sshd_config                    
 sudo systemctl restart sshd
 ```
+
 
 #### Instruct cluster agents where to find the collector  
 
@@ -71,6 +87,7 @@ yum install epel-release
 yum install containernetworking-cni
 ```
 
+Binary Install
 ```
 cd /tmp
 wget https://github.com/containernetworking/cni/releases/download/v0.6.0/cni-amd64-v0.6.0.tgz
@@ -83,19 +100,13 @@ tar xvf /tmp/cni-plugins-amd64-v0.6.0.tgz
 mkdir -p /opt/cni/net.d
 ```
 
-Instruct the opensvc agent about cni path:
-
-```
-nodemgr set --kw=cni.plugins=/usr/libexec/cni  
-nodemgr set --kw cni.config=/var/lib/opensvc/cni/net.d/
-```
-
 Install one overlay CNI plugin like weave network
 
 ```
-sudo curl -L git.io/weave -o /usr/local/bin/weave
-sudo chmod a+x /usr/local/bin/weave
+curl -L git.io/weave -o /usr/local/bin/weave
+chmod a+x /usr/local/bin/weave
 ```
+
 Make sure Docker daemon is started at boot and disable MountFlags:
 ```
 sed -i s/^MountFlags=slave/#MountFlags=slave/ /lib/systemd/system/docker.service
@@ -103,14 +114,52 @@ systemctl enable docker
 systemctl start docker
 ```
 
-Make sure the OpenSVC Cluster is defined and joined besfore the next step 
-
+For each node
 
 ```
 weave setup
 weave launch $(nodemgr get --kw cluster.nodes)
+
+mkdir -p /var/lib/opensvc/cni/net.d/
+cat > /var/lib/opensvc/cni/net.d/repman.conf <<EOF
+{
+    "cniVersion": "0.2.0",
+    "name": "repman",
+    "type": "weavenet"
+}
+EOF
+```
+Make sure the OpenSVC Cluster is defined and joined before the next step
+Instruct the OpenSVC agent about cni path:
+
+```
+nodemgr set --kw=cni.plugins=/usr/libexec/cni  
+nodemgr set --kw cni.config=/var/lib/opensvc/cni/net.d
 ```
 
+Check cni from agent
+```
+$ nodemgr network ls
+repman
+$ nodemgr network show --id  repman
+node-1-2.vdc.opensvc.com        
+`- repman                       
+   |- cniVersion                0.2.0     
+   |- type                      weavenet  
+   `- name                      repman    
+```
+
+Check from weave
+```
+$ weave report
+```
+
+### Upgrade agent version
+
+```
+nodemgr set --kw node.repopkg=https://repo.opensvc.com
+nodemgr updatepkg
+```
 
 ### Additional Setup for SAS Collector
 
