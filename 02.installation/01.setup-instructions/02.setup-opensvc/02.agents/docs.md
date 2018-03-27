@@ -16,15 +16,18 @@ Supposing the package is installed :
 Since Agent version 1.9 the cluster need to be joined
 
 Setup Heartbeat on the donor:
-Instruct the donor ab
+
 ```
-nodemgr set --param hb#1.type --value unicast
-nodemgr get --kw cluster.secret
+# nodemgr set --param hb#1.type --value unicast
+# nodemgr get --kw cluster.secret
 3665ab8630e011e8ab20525400e412aa
 ```
 
 On the joiner:
 
+```
+# nodemgr daemon join --node=node-1-1.vdc.opensvc.com --secret 3665ab8630e011e8ab20525400e412aa
+```
 
 ###Debian, Ubuntu:
 ```  
