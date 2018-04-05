@@ -67,3 +67,36 @@ title: ProxySQL Configuration
 | Description | ProxySQL admin password |
 | Type | String |
 | Default Value | "admin" |
+
+##### `proxysql-bootstrap` (2.0)
+
+| Item | Value |
+| ---- | ----- |
+| Description | Auto create servers when start |
+| Type | String |
+| Default Value | true|
+
+
+##### `proxysql-copy-grants` (2.0)
+
+| Item | Value |
+| ---- | ----- |
+| Description | Auto push users when they are discovered |
+| Type | String |
+| Default Value |true |
+
+##### `proxysql-reader-hostgroup` (2.0)
+
+| Item | Value |
+| ---- | ----- |
+| Description | Define reader hostgroup |
+| Type | Integer |
+| Default Value | 1 |
+
+##### `proxysql-writer-hostgroup` (2.0)
+
+| Item | Value |
+| ---- | ----- |
+| Description | Define writer hostgroup |
+| Type | Integer |
+| Default Value | 0 |
