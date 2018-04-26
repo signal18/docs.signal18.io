@@ -4,6 +4,7 @@ title: Haproxy Configuration
 
 ### HaProxy Configuration
 
+We advice usage of haproxy >=1.7 previously replication-manager can not get correc statistics 
 
 **replication-manager** can operate with HaProxy in 2 different modes: local and remote since **replication-manager (2.0)**.
 
