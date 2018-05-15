@@ -75,13 +75,28 @@ title: Failover Configuration
 | Type          | string |
 | Default Value | "" |
 
+Used to re-enable traffic but before replication-manager take care of repointing other slaves.
+
+Parameters passed to script :
+
+oldMaster.Host, electedMaster.Host, oldMaster.Port, cluster.master.Port
+bash shell example : $1,$2,$3,$4
+
 ##### `failover-pre-scripts` (2.0),  `pre-failover-scripts` (0.7)
 
 | Item          | Value |
 | ----          | ----- |
-| Description   | Full path of a pre failover script. This is call after the new leader has been setup. |
+| Description   | Full path of a pre failover script. This is call before the new leader has been setup. |
 | Type          | string |
 | Default Value | "" |
+
+Used to disable traffic on old master before replication-manager continue with failover or switchover. At this  point a flush table with read lock is already issue on the old master.  
+
+Parameters passed to script :
+
+oldMaster.Host, electedMaster.Host, oldMaster.Port, cluster.master.Port
+bash shell example : $1,$2,$3,$4
+
 
 ##### `failover-restart-unsafe` (1.1)
 
