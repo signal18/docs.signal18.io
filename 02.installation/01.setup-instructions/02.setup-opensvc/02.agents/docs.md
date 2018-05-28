@@ -128,7 +128,7 @@ cat > /var/lib/opensvc/cni/net.d/repman.conf <<EOF
 {
     "cniVersion": "0.2.0",
     "name": "repman",
-    "type": "weavenet"
+    "type": "weave-net"
 }
 EOF
 ```
@@ -136,7 +136,7 @@ Make sure the OpenSVC Cluster is defined and joined before the next step
 Instruct the OpenSVC agent about cni path:
 
 ```
-nodemgr set --kw=cni.plugins=/usr/libexec/cni  
+nodemgr set --kw cni.plugins=/usr/libexec/cni  
 nodemgr set --kw cni.config=/var/lib/opensvc/cni/net.d
 ```
 
@@ -155,6 +155,11 @@ node-1-2.vdc.opensvc.com
 Check from weave
 ```
 $ weave report
+```
+
+Setup the DNS as a docker service on each agent
+```
+svcmgr create -s odns  --config http://www.opensvc.com/init/static/templates/odns.conf --provision
 ```
 
 ### Upgrade agent version
