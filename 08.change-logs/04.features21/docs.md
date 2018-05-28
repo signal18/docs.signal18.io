@@ -20,4 +20,4 @@ taxonomy:
 * CORE: Failover Switchover state trace (in progress)
 * CORE: Multi source aggregation slaves (in progress)
 * PRO: Rejoin via ZFS snapback to last snapshot for prefered master when binlog ahead   (done)
-* PRO: OpenSCV agent 1.9 using overlay network  
+* PRO: OpenSVC agent 1.9 using overlay network (done)
