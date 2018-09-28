@@ -56,6 +56,36 @@ An email can be send via postfix using the following parameters:
 
 >__Important Note__ No secure mail server is supported .
 
+### Alerting from slack
+
+>__ Slack reporting is common to all clusters
+
+##### `alert-slack-url` (2.1)
+
+| Item | Value |
+| ---- | ----- |
+| Description | Slack webhook URL to alert. |
+| Type | String |
+| Default Value | "" |  
+
+##### `alert-slack-channel` (2.1)
+
+| Item | Value |
+| ---- | ----- |
+| Description |Slack channel to alert. |
+| Type | String |
+| Default Value | "#support" |  
+
+
+##### `alert-slack-user` (2.1)
+
+| Item | Value |
+| ---- | ----- |
+| Description |Slack user for alert. |
+| Type | String |
+| Default Value | "" |  
+
+
 ### Alerting from logs
 
 The logs can be send to syslog services via

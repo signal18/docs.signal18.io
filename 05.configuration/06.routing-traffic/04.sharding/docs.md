@@ -59,3 +59,5 @@ This instance will use a default configuration file in
 ```  
 
 In local wrapper mode replication-manager never stop proxies to avoid disturbing the workload:)
+
+[plugin:youtube](https://www.youtube.com/watch?v=Gtb1oi_7Lq4)

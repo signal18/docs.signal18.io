@@ -458,6 +458,9 @@ OUPUT:
 }
 ```
 
+/api/clusters/{clusterName}/settings
+
+Return cluster configuration file
 
 /api/clusters/{clusterName}/actions/switchover
 

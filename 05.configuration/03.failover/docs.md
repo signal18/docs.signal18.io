@@ -67,7 +67,7 @@ title: Failover Configuration
 | Type          | boolean |
 | Default Value | false |
 
-##### `failover-post-scripts` (2.0),  `post-failover-scripts` (0.7)
+##### `failover-post-script` (2.0),  `post-failover-scripts` (0.7)
 
 | Item          | Value |
 | ----          | ----- |
@@ -82,7 +82,7 @@ Parameters passed to script :
 oldMaster.Host, electedMaster.Host, oldMaster.Port, cluster.master.Port
 bash shell example : $1,$2,$3,$4
 
-##### `failover-pre-scripts` (2.0),  `pre-failover-scripts` (0.7)
+##### `failover-pre-script` (2.0),  `pre-failover-scripts` (0.7)
 
 | Item          | Value |
 | ----          | ----- |

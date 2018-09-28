@@ -57,7 +57,15 @@ Give each **replication-manager** server a  different value for arbitration-exte
 | Type | String |
 | Default Value | "replication-manager01:10002" |  
 
+##### `arbitration-failed-master-script` (2.1)
 
+Item | Value |
+| ---- | ----- |
+| Description | External script when a master lost arbitration during split brain |
+| Type | String |
+| Default Value | "" |  
+
+### Internals
 
 On each instance instruct it's peer replication-manager node
 

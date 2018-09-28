@@ -17,3 +17,6 @@ If you are familiar with other service orchestration tools like Veritas Cluster 
 **replication-manager-pro** can benefit from many drivers for virtualization, disk replication , or storage management. A complete list of possible drivers can be found [here](https://docs.opensvc.com/latest/agent.features.html) as docker already have most images, we focus our efforts to provide docker deployments. Our team deployed some specific services for Google Cloud but we are not exposing them today.
 
 Once done with the settings learn how to configure and use it [here](/configuration/provisioning).
+
+
+[plugin:youtube](https://www.youtube.com/watch?v=3eYlxZo8rRc)

@@ -86,6 +86,16 @@ title: Server Monitor Configuration
 | Type          | string |
 | Default Value | `/usr/local/replication-manger` |
 
+##### `monitoring-config-rewrite` (2.1)
+
+| Item          | Value |
+| ----          | ----- |
+| Description   | Save configuration changes to <monitoring-datadir>/clusterd |
+| Type          | bool |
+| Default Value | false | 
+
+
+
 ##### `monitoring-ticker` (2.0), `read-timeout` (1.1)
 
 | Item          | Value |

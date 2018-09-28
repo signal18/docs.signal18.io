@@ -13,4 +13,6 @@ title: Sharding Cluster
 
 **replication-manager** constantly rediscover tables and schemas on each master shard group to maintain table definitions.
 
-**replication-manager**  the advantage is that such topology maintain ACID capabilities beetwen tables on different servers and can enable very efficient cross shard joins. 
+**replication-manager**  the advantage is that such topology maintain ACID capabilities between tables on different servers and can enable very efficient cross shard joins.
+
+[plugin:youtube](https://www.youtube.com/watch?v=Gtb1oi_7Lq4)

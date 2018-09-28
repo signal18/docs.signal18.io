@@ -133,7 +133,7 @@ OpenSVC Agent drivers can provision disk resources on many SAN arrays and Cloud 
 | ---- | ----- |
 | Description | Database disk pool type for Micro Services deployment|
 | Type | Enum |
-| Values | loopback,physical|
+| Values | loopback,physical,pool,directory|
 | Example | "loopback" |
 
 When loopback instead of a real device the FS path is needed instead of device path
@@ -145,6 +145,13 @@ When loopback instead of a real device the FS path is needed instead of device p
 | Description | Database disk device path for Micro Services deployment|
 | Type | String |
 | Example | "/srv" |
+
+Depends on  `prov-db-disk-type`
+
+physical: define the device /dev/XXXXXXXX
+pool: define the pool name
+loopback: define  the path to create the loopback file
+directory: define the path to create the service_name directory
 
 ##### `prov-db-disk-size` (1.1)
 
@@ -248,11 +255,12 @@ innodb, myrocks, tokudb, spider, sphinx
 ```
 Logs:
 ```
-logaudit, logslow, logsqlerrors, loggeneral, pfs
+logaudit, logslow, logsqlerrors, loggeneral, logpfs, loguserstats
 ```
 Features:
 ```
-compress, noquerycache, threadpool, ssl, nodurable, lowercasetable, smallredolog, nodoublewrite, sqlmodeunstrict, sqlmodeoracle
+compress, threadpool, ssl, lowercasetable, smallredolog,sqlmodeunstrict, sqlmodeoracle
+ noquerycache,  nodurable, nodoublewrite,  noautocommit, noodirect
 ```
 Replication:
 ```
