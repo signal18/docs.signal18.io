@@ -6,7 +6,7 @@ title: External Scripts
 
 **replication-manager** can automate route changes with popular proxies. however in some edge cases e.g. pacemaker or keepalived, logic like vip or hardware load balancer api calls can be managed through the external scripts option.
 
-##### `failover-post-scripts` (2.0),  `post-failover-script` (0.7)
+##### `failover-post-script` (2.0),  `post-failover-script` (0.7)
 
 | Item          | Value |
 | ----          | ----- |
@@ -15,7 +15,7 @@ title: External Scripts
 | Default Value | "" |
 | Example | "/usr/local/bin/vip-up.sh" |
 
-##### `failover-pre-scripts` (2.0),  `pre-failover-script` (0.7)
+##### `failover-pre-script` (2.0),  `pre-failover-script` (0.7)
 
 | Item          | Value |
 | ----          | ----- |
