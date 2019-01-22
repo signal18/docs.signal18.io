@@ -528,6 +528,32 @@ List agents services resources
 
 /api/clusters/{clusterName}/actions/master-physical-backup
 
+/api/clusters/{clusterName}/servers/{serverName}/actions/backup-physical
+
+/api/clusters/{clusterName}/servers/{serverName}/actions/backup-logical
+
+/api/clusters/{clusterName}/servers/{serverName}/actions/backup-error-log
+
+/api/clusters/{clusterName}/servers/{serverName}/actions/backup-error-log
+
+/api/clusters/{clusterName}/servers/{serverName}/actions/backup-slowquery-log
+
+/api/clusters/{clusterName}/servers/{serverName}/actions/optimize
+
+/api/clusters/{clusterName}/servers/{serverName}/actions/reseed/{backupMethod}
+
+/api/clusters/{clusterName}/servers/{serverName}/actions/toogle-innodb-monitor
+
+/api/clusters/{clusterName}/servers/{serverName}/actions/toogle-slow-query-capture
+
+/api/clusters/{clusterName}/servers/{serverName}/actions/toogle-read-only
+
+/api/clusters/{clusterName}/servers/{serverName}/actions/reset-master
+
+/api/clusters/{clusterName}/servers/{serverName}/actions/start-slave
+
+/api/clusters/{clusterName}/servers/{serverName}/actionsskip-replication-event
+
 /api/clusters/{clusterName}/servers/{serverName}/processlist
 
 /api/clusters/{clusterName}/servers/{serverName}/variables
@@ -555,6 +581,9 @@ List agents services resources
 /api/clusters/{clusterName}/servers/{serverName}/{serverPort}/is-master
 
 /api/clusters/{clusterName}/servers/{serverName}/{serverPort}/is-slave
+
+/api/clusters/{clusterName}/servers/{serverName}/service
+
 
 ## Proxy Protected Endpoint
 
