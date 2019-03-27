@@ -45,6 +45,22 @@ An email can be send via postfix using the following parameters:
 | Type | String |
 | Example | "localhost:25" |  
 
+##### `mail-smtp-user` (2.1)
+
+| Item | Value |
+| ---- | ----- |
+| Description | Auth SMTP User |
+| Type | String |
+| Default | "" |  
+
+##### `mail-smtp-password` (2.1)
+
+| Item | Value |
+| ---- | ----- |
+| Description | Auth SMTP password |
+| Type | String |
+| Default | "" |  
+
 ##### `mail-to` (0.7)
 
 | Item | Value |
