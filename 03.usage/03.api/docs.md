@@ -508,6 +508,10 @@ List agents services resources
 
 /api/clusters/{clusterName}/settings/switch/{parmaterName}
 
+## 2.1
+
+/api/clusters/{clusterName}/actions/master-physical-backup
+
 ## Database Server Protected Endpoint
 
 ### 2.0
@@ -526,25 +530,29 @@ List agents services resources
 
 ### 2.1
 
-/api/clusters/{clusterName}/actions/master-physical-backup
+/api/clusters/{clusterName}/servers/{serverName}/actions/optimize
 
 /api/clusters/{clusterName}/servers/{serverName}/actions/backup-physical
+Post an event into replication_manager_schema.jobs for cron processing
 
 /api/clusters/{clusterName}/servers/{serverName}/actions/backup-logical
+Post an event into replication_manager_schema.jobs for cron processing
 
 /api/clusters/{clusterName}/servers/{serverName}/actions/backup-error-log
+Post an event into replication_manager_schema.jobs for cron processing
 
-/api/clusters/{clusterName}/servers/{serverName}/actions/backup-error-log
-
-/api/clusters/{clusterName}/servers/{serverName}/actions/backup-slowquery-log
-
-/api/clusters/{clusterName}/servers/{serverName}/actions/optimize
+/api/clusters/{clusterName}/servers/{serverName}/actions/backup-slow-query-log
+Post an event into replication_manager_schema.jobs for cron processing
 
 /api/clusters/{clusterName}/servers/{serverName}/actions/reseed/{backupMethod}
 
 /api/clusters/{clusterName}/servers/{serverName}/actions/toogle-innodb-monitor
 
+/api/clusters/{clusterName}/servers/{serverName}/actions/toogle-slow-query
+
 /api/clusters/{clusterName}/servers/{serverName}/actions/toogle-slow-query-capture
+
+/api/clusters/{clusterName}/servers/{serverName}/actions/toogle-slow-query
 
 /api/clusters/{clusterName}/servers/{serverName}/actions/toogle-read-only
 
@@ -560,15 +568,19 @@ List agents services resources
 
 /api/clusters/{clusterName}/servers/{serverName}/status
 
+/api/clusters/{clusterName}/servers/{serverName}/status-delta
+
+/api/clusters/{clusterName}/servers/{serverName}/status-innodb
+
 /api/clusters/{clusterName}/servers/{serverName}/errorlog
 
 /api/clusters/{clusterName}/servers/{serverName}/slowlog
 
 /api/clusters/{clusterName}/servers/{serverName}/tables
 
-/api/clusters/{clusterName}/servers/{serverName}/schemas
+/api/clusters/{clusterName}/servers/{serverName}/vtables
 
-/api/clusters/{clusterName}/servers/{serverName}/innodb-status
+/api/clusters/{clusterName}/servers/{serverName}/schemas
 
 /api/clusters/{clusterName}/servers/{serverName}/all-slaves-status
 
@@ -582,7 +594,7 @@ List agents services resources
 
 /api/clusters/{clusterName}/servers/{serverName}/{serverPort}/is-slave
 
-/api/clusters/{clusterName}/servers/{serverName}/service
+/api/clusters/{clusterName}/servers/{serverName}/service-opensvc
 
 
 ## Proxy Protected Endpoint

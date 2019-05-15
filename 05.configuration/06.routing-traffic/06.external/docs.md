@@ -13,7 +13,10 @@ title: External Scripts
 | Description   | Full path of a post-failover script. This is called after the new leader has been setup. The previous master host and the newly elected master host are passed as sequential arguments. |
 | Type          | string |
 | Default Value | "" |
-| Example | "/usr/local/bin/vip-up.sh" |
+| Example | "/usr/local/bin/vip-up.sh" |`
+
+Arguments passed to the script:
+cluster.oldMaster.Host cluster.master.Host cluster.oldMaster.Port cluster.master.Port
 
 ##### `failover-pre-script` (2.0),  `pre-failover-script` (0.7)
 
@@ -23,6 +26,9 @@ title: External Scripts
 | Type          | string |
 | Default Value | "" |
 | Example | "/usr/local/bin/vip-down.sh" |
+
+Arguments passed to the script:
+cluster.oldMaster.Host cluster.master.Host cluster.oldMaster.Port cluster.master.Port
 
 ### External Proxy & Route
 

@@ -43,7 +43,7 @@ For every cluster definition you wan't to proxy add extra MariaDBShardProxy conf
 
 ## Testing Configuration
 
-Give a path to MariaDB 10.2  or Spiral Spider if you would like *replication-manager-tst* to bootstrap a local MariaDBShardProxy.   
+Give a path to MariaDB 10.3  or Spiral Spider if you would like *replication-manager-tst* to bootstrap a local MariaDBShardProxy.   
 
 ##### `mariadb-binary-path` (0.7)
 
