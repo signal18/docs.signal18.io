@@ -30,6 +30,7 @@ taxonomy:
 * HTTP/API: Variables (done)
 * HTTP/API: Status Delta (done)
 * HTTP/API: Queries Response Time (done)
+* HTTP/API: Prometheus URI
 * CORE: Multi Tenant Cluster (done)
 * CORE: Slack alerting (done)
 * CORE: Failover Switchover SQL Logs

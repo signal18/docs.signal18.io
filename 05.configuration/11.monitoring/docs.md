@@ -4,6 +4,8 @@ title: Monitoring Configuration
 
 **replication-manager** embeds a graphite database to store metrics about databases and proxies status.
 
+**replication-manager 2.1** expose Prometheus metrics for all servers under clusters
+
 ##### `graphite-embedded` (1.1)
 
 | Item          | Value |
@@ -114,3 +116,7 @@ Some Grafana dashboard using such metric names can be found in the share directo
 ![source](/images/grafanametrics.png)  
 
 ![source](/images/grafanametricsinnodb.png)  
+
+
+#####  Prometheus URI available 2.1
+http://demo.signal18.io/api/prometheus
