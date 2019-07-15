@@ -10,6 +10,14 @@ title: Alerting Configuration
 
 An alert script can be triggered when enabled via this config file parameter:
 
+##### `monitoring-ignore-errors` (2.1)
+
+| Item | Value |
+| ---- | ----- |
+| Description | List errors or warnings to be ignored. |
+| Type | String |
+| Default Value | "WARN0067,WARN0066" |  
+
 
 ##### `alert-script` (2.0)
 
