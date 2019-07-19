@@ -114,6 +114,16 @@ title: Checks & Enforce
 | Type          | Boolean |
 | Default Value | false |
 
+##### `force-slave-gtid-mode-strict` (2.1)
+
+| Item          | Value |
+| ----          | ----- |
+| Description   | Enforce activate gtid strict mode on slave. |
+| Type          | Boolean |
+| Default Value | false |
+
+It was found that it can be used  keeping default non strict mode when slave restart, when using Memory table on slave it would break strict mode replication such parameter enable replication manager to set back strict mode after the restart 
+
 ##### `force-slave-no-gtid-mode` (1.1)
 
 | Item          | Value |
