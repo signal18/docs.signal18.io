@@ -37,13 +37,30 @@ title: Server Monitor Configuration
 | Type          | boolean |
 | Example       | true |
 
-##### `log-rotate` (2.1)
+##### `log-rotate-max-age` (2.1)
 
 | Item          | Value |
 | ----          | ----- |
-| Description   | Rotate log file  |
-| Type          | boolean |
-| Example       | true |
+| Description   | Rotate after this number of days    |
+| Type          | integer |
+| Default       | 7 |
+
+##### `log-rotate-max-backup` (2.1)
+
+| Item          | Value |
+| ----          | ----- |
+| Description   | Keep this number of log files   |
+| Type          | integer |
+| Default       | 7 |
+
+##### `log-rotate-max-size` (2.1)
+
+| Item          | Value |
+| ----          | ----- |
+| Description   | Rotate after this size in Mb  |
+| Type          | integer |
+| Default       | 5 |
+
 
 ##### `verbose` (2.1)
 
@@ -92,7 +109,7 @@ title: Server Monitor Configuration
 | ----          | ----- |
 | Description   | Save configuration changes to <monitoring-datadir>/clusterd |
 | Type          | bool |
-| Default Value | false | 
+| Default Value | false |
 
 
 
