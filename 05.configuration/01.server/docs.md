@@ -61,6 +61,15 @@ title: Server Monitor Configuration
 | Type          | integer |
 | Default       | 5 |
 
+##### `log-sql-in-monitoring` (2.1)
+
+| Item          | Value |
+| ----          | ----- |
+| Description   | Log all SQL queries send to backend for monitoring servers |
+| Type          | boolean |
+| Default       | false |
+
+The sql_general.log can be found under each cluster directory and can be use to track what was trigger to backend during failover, rejoin step
 
 ##### `verbose` (2.1)
 
