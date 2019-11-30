@@ -3,11 +3,11 @@ title: Overview
 ---
 ## Goals
 
-**replication-manager** have to be the best open source **database cluster orchestator**. Embed the best practices from configurations, deployments, HA operations, maintenance tasks, monitoring, troubleshooting as a toolkit for the best open source solutions. We design features to hide database clustering complexity keeping Amazon RDS simplicity in mind.     
+**replication-manager** have to be the best open source **database cluster orchestator**. Embed the best practices from configurations, deployments, HA operations, maintenance tasks, monitoring, troubleshooting. A toolkit for the best open source solutions. We design features to hide database clustering complexity, keeping Amazon RDS simplicity in mind.     
 
-**replication-manager** also aims to be configurable with nix style, multi tenant,secured via encryption and ACL and user-friendly by offering API, cmd line and HTML interfaces to interaction with familiar database and proxying software.
+**replication-manager** also aims to be configurable with nix style, multi tenant, secured via encryption and ACL and user-friendly by offering API, cmd line and HTML interfaces around familiar database and proxying software.
 
-**replication-manager** should bring multi cluster sharding and routing solutions to fixe the most requested issues around databases: **SCALABILITY**.
+**replication-manager** should bring multi cluster sharding and routing solutions to fixe the most requested issue around databases: **SCALABILITY**.
 
 ## History
 
@@ -15,7 +15,7 @@ title: Overview
 While Galera Cluster is a really good product, it has some shortcomings such as performance and cluster-wide locking.
 **replication-manager** was first a tailored solution on top of new features in MySQL and MariaDB such as Global Transaction ID, Semi-Sync Replication, Binary log Flashback, that aims to provide High Availability and Node Switchover without compromising the performance by a too large factor.
 
-**replication-manager** was since day one adapt to manage deployment to manage his own testing requirement, a full stack cluster have to be provisioned, receive some tests to play and unprovisioned to move on other topology or version testing. We evolve the product from  local deployment, to full service managed by external orchestrator. Oldest integration is **OpenSVC** , with 2 modes one with the collector API and more recently with direct cluster node VIP API. With the popularity of **Kubenrnetes** we also port our work to it. An other integration is currently being workout on **SlapOS** an open source hyperconverged and Edge computing infrastructure.      
+**replication-manager** was since day one adapted to manage deployments for his own testing requirements, a full stack cluster have to be provisioned, get tested and unprovisioned and move on other topologies or versions. We push the product from a local deployment, to  services managed by external orchestrator. The oldest integration is **OpenSVC** , with 2 modes:  with the collector API and more recently with direct cluster node VIP API. With the popularity of **Kubenrnetes** we also port our work to takeover. An other integration is currently being workout on **SlapOS** an open source hyperconverged and Edge computing infrastructure.      
 
 
 ## HA Workflow
