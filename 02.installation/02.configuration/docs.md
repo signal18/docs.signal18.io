@@ -22,7 +22,7 @@ From **replication-manager 2.1 ** User may wan't to change settings via API or G
 
 monitoring-save-config=true
 
-Once enabled, setting changes will be persisted in the replication-manager working directory /var/lib/replication-manager/<cluster_name>/config.toml
+Once enabled, setting changes will be persisted in the replication-manager working directory /var/lib/replication-manager/cluster_name/config.toml
 
 ## Minimal configuration
 

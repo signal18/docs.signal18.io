@@ -52,6 +52,17 @@ then
 
 `yum install replication-manager-osc`
 
+For last release candidate
+
+```
+# /etc/yum.repos.d/signal18.repo
+[signal18]
+name=Signal18 repositories
+baseurl=http://repo.signal18.io/centos/2.1/$releasever/$basearch/
+gpgcheck=0
+enabled=1
+```
+
 #### Debian/Ubuntu
 
 Create the repo file, install the key and install the binaries as such:
