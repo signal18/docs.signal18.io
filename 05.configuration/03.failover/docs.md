@@ -43,7 +43,7 @@ title: Failover Configuration
 | Type          | integer |
 | Default Value | 5 |
 
-##### `failover-readonly` (2.0), `readonly` (0.7)
+##### `failover-readonly-state` (2.0), `readonly` (0.7)
 
 | Item          | Value |
 | ----          | ----- |

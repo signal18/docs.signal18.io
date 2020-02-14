@@ -48,7 +48,7 @@ title: False Positive Configuration
 
 | Item          | Value |
 | ----          | ----- |
-| Description   | Failover checks that maxscale monitor detect failed master. See the maxscale configuration section for more details  |
+| Description   | Cancel failover when maxscale monitor detect alive master. See the maxscale configuration section for more details  |
 | Type          | boolean |
 | Default Value | "false"|
 

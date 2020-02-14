@@ -4,7 +4,7 @@ title: Clustering Configuration
 
 ### Active standby with external arbitrator
 
-When inside a single DC, we can use a single replication-manager that performs failover using keepalived, corosync, openha or etcd, but if you run on 2 DC it is advised to run two replication-manager instances in the same infrastructure. Both instances will use a heartbeat mechanism via the http protocol.
+When inside a single DC, we can use a single replication-manager that performs failover using keepalived, corosync, openha or etcd, but if you run on 2 DC it is possible to run two replication-manager instances in the same infrastructure. Both instances will use a heartbeat mechanism via the http protocol.
 
 Make sure you activate the web server of **replication-manager**.
 
