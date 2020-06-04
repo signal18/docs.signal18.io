@@ -6,41 +6,63 @@ taxonomy:
 
 ### 2.1 Features
 
-* CORE: Dynamic config cluster store default config in $datadir/cluster.d (done)
-* CORE: MyProxy internal proxying in go based on the Vitess parser and Siddon proxy (done)
-* CORE: Job scheduler (done)
-* CORE: Streaming xtrabackup mariabackup xbstream to replication-manager (done)
-* CORE: Streaming db error log on schedule SST external script (done)
-* CORE: Streaming db slow query on schedule SST external script  (done)
-* CORE: Streaming backups for reseeding new node on schedule SST external script (done)
-* CORE: Capture slow queries via db table, output in local log
-* CORE: maintain slow queries digest buffer (done)
-* CORE: Schema Monitoring (done)
-* CORE: Sharding Schema Monitoring based on same table name, assuming hash of PK (done)
-* CORE: Sharding backend schema discover and auto pushdown to spider proxy (done)
-* CORE: Sharding Resharding table via API Call (done)
-* CORE: Sharding Table move cluster via API Call (done)
-* CORE: Full Server state preserved on unstable network, reduce alert false positive (done)
-* CORE: SMTP Auth (done)
-* CORE: Multi Tenant Cluster Auth (done)
-* CORE: Slack alerting (done)
-* CORE: MYSQL GTID Errant transactions detection on  non ignored slave (done)
-* CORE: Trigger capture database infos on alert  (done)
-* HTTP/API: Database Process (done)
-* HTTP/API: Database slow Queries (done)
-* HTTP/API: Database Query Digest PFS/SLOW (done)
-* HTTP/API: Database Query Explain (done)
-* HTTP/API: Database Metadata Locks (done)
-* HTTP/API: Database Variables (done)
-* HTTP/API: Database Status Delta (done)
-* HTTP/API: Database Queries Response Time (done)
+* CORE: Dynamic config cluster store default config in $datadir/cluster.d
+* CORE: IPV6 support [IPV6host]:port
+* CORE: Schema change monitoring
+
+* CORE MONITORING: Multi Tenant Cluster Auth
+* CORE MONITORING: SMTP can use Auth credentials
+* CORE MONITORING: Slack alerting (done)
+* CORE MONITORING: Alerts preserved when flapping connections state on unstable network, reducing false positive alert
+
+* CORE MAINTENANCE: Job scheduler rolling restart,
+* CORE MAINTENANCE: Job scheduler rolling reprovision
+* CORE MAINTENANCE: Job scheduler rolling optimize
+* CORE MAINTENANCE: Job scheduler logical backup
+* CORE MAINTENANCE: Job scheduler physical backup
+* CORE MAINTENANCE: Job scheduler remote ssh job execution
+* CORE MAINTENANCE: Tracking config change for rolling restart and rolling upgrade
+* CORE MAINTENANCE: Streaming db error log on schedule SST external script
+* CORE MAINTENANCE: Capture slow queries via db table, output in local log, log rotation
+* CORE MAINTENANCE: slow queries digest  
+* CORE MAINTENANCE: Capture loop for database infos to log (processlist,slave status, status, innodb status) trigger by alert
+* CORE MAINTENANCE: Failover Switchover store state
+* CORE MAINTENANCE: Failover Switchover capture SQL Logs produce by replication-manager
+* CORE MAINTENANCE: Cluster configurator generation of tar.gz
+
+* CORE BACKUP: Streaming xtrabackup mariabackup xbstream to replication-manager
+* CORE BACKUP: Streaming db slow query on schedule SST external script  
+* CORE BACKUP: Streaming backups for reseeding new node on schedule SST external script
+* CORE BACKUP: Streaming backups to restic for achiving
+* CORE BACKUP: Capture master binary logs and archive
+* CORE BACKUP: mydumper integration
+
+* CORE SHARDING: Backend schema discover, pushdown spider table to proxy assuming universal table for duplicate names
+* CORE SHARDING: Backend schema discover, pushdown spider table to proxy assuming hash of PK
+* CORE SHARDING: Resharding table via API call
+* CORE SHARDING: Table move cluster via API call
+
+* CORE REPLICATION: Delayed replication
+* CORE REPLICATION: MYSQL GTID errant transactions detection on  non ignored slave
+* CORE REPLICATION: Checksum tables
+* CORE REPLICATION: Multi source aggregation slaves
+
+* CORE ROUTING: MyProxy internal proxying in go based on the Vitess parser and Siddon proxy
+
+
+* HTTP/API: Database Process
+* HTTP/API: Database slow Queries
+* HTTP/API: Database Query Digest PFS/SLOW
+* HTTP/API: Database Query Explain
+* HTTP/API: Database Metadata Locks
+* HTTP/API: Database Variables
+* HTTP/API: Database Status Delta
+* HTTP/API: Database Queries Response Time
 * HTTP/API: Prometheus URI (done)
-* PRO: Rejoin via ZFS snapback to last snapshot for prefered master when binlog ahead (done)
-* PRO: OpenSVC agent 1.9 using overlay network (Weave, ipip tunneling ) (done)
-* PRO: Kubernetes (In progress)
-* CORE: Archive backups based on restic, stored via local directory or Amazon first (done)
-* CORE: Failover Switchover state trace (done)
-* CORE: Multi source aggregation slaves (in progress)
-* CORE: Schema Checksum (done)
-* CORE: Failover Switchover SQL Logs (done)
-* CONFIG: Generation (done)
+* HTTP/API: Cancel Rolling Restart
+* HTTP/API: Need rolling restart or reprov on config change
+
+* PRO CORE REPLICATION: Rejoin via ZFS snapback to last snapshot for prefered master when binlog ahead (done)
+* PRO CORE: OpenSVC agent 1.9 using overlay network (Weave, ipip tunneling)
+* PRO CORE: OpenSVC agent 1.9 direct cluster API
+* PRO CORE: Kubernetes (In progress)

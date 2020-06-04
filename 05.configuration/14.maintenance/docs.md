@@ -4,13 +4,22 @@ title: Maintenance Configuration
 
 **Replication-manager (2.1)**  embedded an internal cluster scheduler.
 
-The [Robfig](https://godoc.org/github.com/robfig/cron) scheduler is used to plan database maintenance operations like backups and log files fetching.
+The [Robfig](https://godoc.org/github.com/robfig/cron) scheduler is used to plan database maintenance operations like backups, optimize, and log files fetching.
 
 For some operations it's required that some TCP communication takes place from the monitored database to the replication-manager.
 
-To trigger such remote actions **replication-manager** open a TCP connection with a timeout of 120s and create or populate a database table acting as a message queue named replication_manager_scehma.jobs.
+To trigger such remote actions **replication-manager** open an available TCP connection with a timeout of 120s and create or populate a database table acting as a message queue named replication_manager_scehma.jobs.
 
-A donor scripts should dequeue the task and send the requested stream via socat to the temporary replication-manager TCP port, for those familiar with Galera Cluster it works in a similar way to SST but can be done concurrently.          
+A donor scripts should dequeue the task and send the requested stream via socat to the temporary replication-manager TCP port, for those familiar with Galera Cluster it works in a similar way to SST but can be done concurrently and without stoping the receiver.
+
+Supported backups methods are mysqldump, mydumper, xtrabackup, mariabackup
+
+A physical and a logical backup can be schedule via configuration variables.
+
+**replication-manager** store a single backup into the data directory of replication-manager under: <datadir>/<cluster>/<host_port>/bck
+From **replication-manager 2.1** it is possible to store backups using s3 protocol and backups are available via fuse mounting directory <datadir>/s3/<cluster>/<host_port>/
+
+In **replication-manager 2.1 **>, backups can be archive and purge via interaction with the Restic binaries (need pre install) that interconnect to an s3 protocol bucket, Restic enable block level encryption & deduplication and will store the entire backup directory for mixing multiple files backups like mydumper.        
 
 ##### `monitoring-scheduler` (2.1)
 
