@@ -4,9 +4,10 @@ title: Haproxy Configuration
 
 ### HaProxy Configuration
 
-We advice usage of haproxy >=1.7 previously replication-manager can not get correc statistics 
+We advice usage of HAProxy >=1.7 previously replication-manager can not get correct statistics
 
-**replication-manager** can operate with HaProxy in 2 different modes: local and remote since **replication-manager (2.0)**.
+**replication-manager** can operate with HaProxy in different modes: local standby and remote via external check to replication-manger API since **replication-manager (2.0)**. Last mode is API based since **replication-manager (2.1)**.
+
 
 ##### `haproxy` (0.7)
 
@@ -24,6 +25,22 @@ We advice usage of haproxy >=1.7 previously replication-manager can not get corr
 | Type | String |
 | Default Value | "127.0.0.1" |  
 
+
+##### `haproxy-mode` (0.7)
+
+| Item | Value |
+| ---- | ----- |
+| Description | Mode of driving haproxy standby will operate a local haproxy intsance and drive config+ |
+| Type | String |
+| Default Value | runtimeapi |  
+
+standby:  Operate a local HAProxy instance via config generation and triggering start stop reload via socket
+
+runtimeapi:  use the tcp runtime api of HAProxy to modify some route to master and backend state according to replication status
+
+externalcheck: do nothing but when provisioning, set external check script to replication-manager and HAProxy config file using external checks
+
+dataplanapi: TODO: a sidecar process that runs next to HAProxy and provides API endpoints for managing HAProxy. It requires HAProxy version 1.9.0 or higher.
 
 ##### `haproxy-write-port` (0.7)
 
@@ -82,7 +99,7 @@ In local mode **replication-manager**, need HaProxy to be install and on the sam
 
 **replication-manager** re-generate the HaProxy configuration file when the topology change and instruct HaProxy to reload this configuration during failover and switchover.
 
-#### Remote mode
+#### Remote mode using external checks
 
 HaProxy can call replication **replication-manage(2.0)** [http handlers](/configuration/routing-traffic/check-http-handler) via the check-external feature to check that a backend is a valid Master or valid Slave  
 
@@ -195,4 +212,23 @@ fi
 exit 1
 ```
 
-> using **replication-manager** active/standby & arbitrator make sure each script point to it's local replication-manager. The all side loosing arbitration will repoert backend down.    
+> using **replication-manager** active/standby & arbitrator make sure each script point to it's local replication-manager. The all side loosing arbitration will report backend down.    
+
+
+
+#### Runtime API
+
+HAProxy Runtime API  provides very powerful dynamic configuration capabilities with no service reloads or restarts https://www.haproxy.com/fr/blog/dynamic-configuration-haproxy-runtime-api/
+
+**replication-manager (2.1)** is waiting for some specific naming convention for backend pool and server names in the proxy config
+
+backend service_write
+
+In this backend one need to define a single master node a named it leader
+
+backend service_read
+
+In this backend one need to define a all replica nodes and named them with the Id of replication manager aka db<hash(host:port)>
+One can get those ID via API (http interface / cluster menu / debug / servers )  
+
+The replication-manager will auto DRAIN the backend route if the replication is broken or is late or the server is in ignored list
