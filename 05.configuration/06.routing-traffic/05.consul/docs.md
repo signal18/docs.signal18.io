@@ -1,5 +1,7 @@
 ---
 title: Registries Configuration
+taxonomy:
+    category: docs
 ---
 The first supported micro service registry is Consul from *HashiCorp*, we are planning to add others like mdns, etcd, kubernetes, zookeeper.
 

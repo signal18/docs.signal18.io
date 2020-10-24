@@ -1,5 +1,7 @@
 ---
 title: Alerting Configuration
+taxonomy:
+    category: docs
 ---
 
 ## Alert Configuration

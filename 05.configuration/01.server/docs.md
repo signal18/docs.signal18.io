@@ -1,5 +1,7 @@
 ---
 title: Server Monitor Configuration
+taxonomy:
+    category: docs
 ---
 
 ## Server daemon configuration (`monitoring`,`log`)

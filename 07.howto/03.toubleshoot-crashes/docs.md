@@ -1,5 +1,7 @@
 ---
 title: Troubleshoot Crashes
+taxonomy:
+    category: docs
 ---
 
 ### Troubleshooting failover switchover

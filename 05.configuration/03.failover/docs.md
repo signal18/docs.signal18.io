@@ -1,5 +1,7 @@
 ---
 title: Failover Configuration
+taxonomy:
+    category: docs
 ---
 
 ##### `failover-mode` (2.0), `interactive` (0.6)

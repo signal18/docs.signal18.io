@@ -1,5 +1,7 @@
 ---
 title: Change Logs
+taxonomy:
+    category: docs
 ---
 ### Chapter 8
 

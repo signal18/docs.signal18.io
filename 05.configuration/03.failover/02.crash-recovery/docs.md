@@ -1,5 +1,7 @@
 ---
 title: Rejoining & Crash Recovery Configuration
+taxonomy:
+    category: docs
 ---
 
 ## Crash recovery

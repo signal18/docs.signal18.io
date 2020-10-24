@@ -1,5 +1,7 @@
 ---
 title: Console Client Usage
+taxonomy:
+    category: docs
 ---
 
 ## Console Client Usage

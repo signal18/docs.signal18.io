@@ -1,5 +1,7 @@
 ---
 title: Contribute
+taxonomy:
+    category: docs
 ---
 ### Chapter 6
 

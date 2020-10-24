@@ -1,5 +1,7 @@
 ---
 title: HTTP Client Usage
+taxonomy:
+    category: docs
 ---
 
 ## HTTP Client Usage

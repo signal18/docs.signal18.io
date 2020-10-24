@@ -1,5 +1,7 @@
 ---
 title: Switchover Workflow
+taxonomy:
+    category: docs
 ---
 ### Switchover Workflow
 

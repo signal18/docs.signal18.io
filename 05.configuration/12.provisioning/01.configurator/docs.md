@@ -1,5 +1,7 @@
 ---
 title: Provisioning Configurator
+taxonomy:
+    category: docs
 ---
 
 ## Configurator

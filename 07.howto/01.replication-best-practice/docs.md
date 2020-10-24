@@ -1,5 +1,7 @@
 ---
 title: Replication Best Practices
+taxonomy:
+    category: docs
 ---
 
 ## Replication best practices

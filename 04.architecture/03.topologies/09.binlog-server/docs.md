@@ -1,5 +1,7 @@
 ---
 title: Binlog Server
+taxonomy:
+    category: docs
 ---
 | Support Status  | Test Case |  
 | ----------------|-----------|

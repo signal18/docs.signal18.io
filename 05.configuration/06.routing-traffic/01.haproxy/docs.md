@@ -1,5 +1,7 @@
 ---
 title: Haproxy Configuration
+taxonomy:
+    category: docs
 ---
 
 ### HaProxy Configuration

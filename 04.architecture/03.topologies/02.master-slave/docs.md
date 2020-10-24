@@ -1,5 +1,7 @@
 ---
 title: Master Slave
+taxonomy:
+    category: docs
 ---
 | Support Status  | Test Case |  
 | ----------------|-----------|

@@ -1,5 +1,7 @@
 ---
 title: Multi Source
+taxonomy:
+    category: docs
 ---
 | Support Status  | Test Case |  
 | ----------------|-----------|

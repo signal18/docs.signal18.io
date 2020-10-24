@@ -1,5 +1,7 @@
 ---
 title: ProxySQL Configuration
+taxonomy:
+    category: docs
 ---
 
 ### ProxySQL Configuration

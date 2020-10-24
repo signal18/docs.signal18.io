@@ -1,5 +1,7 @@
 ---
 title: Security Configuration
+taxonomy:
+    category: docs
 ---
 ## Configuration File Security
 

@@ -1,5 +1,7 @@
 ---
 title: Database Configuration
+taxonomy:
+    category: docs
 ---
 
 ## Database servers configuration (`db-servers`)

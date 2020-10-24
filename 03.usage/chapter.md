@@ -1,5 +1,7 @@
 ---
 title: Usage
+taxonomy:
+    category: docs
 ---
 ### Chapter 3
 

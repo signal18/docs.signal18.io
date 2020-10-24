@@ -1,5 +1,7 @@
 ---
 title: Routing Configuration
+taxonomy:
+    category: docs
 ---
 ### Chapter 2.2.6
 

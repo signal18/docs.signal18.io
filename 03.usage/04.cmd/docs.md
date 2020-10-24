@@ -1,5 +1,7 @@
 ---
 title: CMD Client Usage
+taxonomy:
+    category: docs
 ---
 
 ## CMD Client Usage
