@@ -1,5 +1,7 @@
 ---
 title: Sharding Cluster
+taxonomy:
+    category: docs
 ---
 | Support Status  | Test Case |  
 | ----------------|-----------|

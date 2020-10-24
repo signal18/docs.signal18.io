@@ -1,5 +1,7 @@
 ---
 title: About Leader Election
+taxonomy:
+    category: docs
 ---
 Leader election cluster is best advise in such cases:
 

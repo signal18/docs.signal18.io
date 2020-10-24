@@ -1,5 +1,7 @@
 ---
 title: Failover WorkFlow
+taxonomy:
+    category: docs
 ---
 
 ### Failover

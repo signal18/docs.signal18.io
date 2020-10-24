@@ -1,5 +1,7 @@
 ---
 title: Sharding Configuration
+taxonomy:
+    category: docs
 ---
 
 #### MariaDBShardProxy

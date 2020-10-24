@@ -1,5 +1,7 @@
 ---
 title: Check HTTP Handlers
+taxonomy:
+    category: docs
 ---
 
 **replication-manage 2.0** can be used from proxies like HaProxy to check the status of the monitored servers.

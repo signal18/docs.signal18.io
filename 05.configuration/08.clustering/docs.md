@@ -1,5 +1,7 @@
 ---
 title: Clustering Configuration
+taxonomy:
+    category: docs
 ---
 
 ### Active standby with external arbitrator

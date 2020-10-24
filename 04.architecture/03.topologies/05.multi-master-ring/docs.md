@@ -1,5 +1,7 @@
 ---
 title: Multi Master Ring
+taxonomy:
+    category: docs
 ---
 | Support Status  | Test Case |  
 | ----------------|-----------|

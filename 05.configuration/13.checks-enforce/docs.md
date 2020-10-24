@@ -1,5 +1,7 @@
 ---
 title: Checks & Enforce
+taxonomy:
+    category: docs
 ---
 
 **replication-manager** enforces best replication and database configuration practice using the following parameters. Every possible enforcement is producing warnings to let you know about what can be improved in your database setup.  

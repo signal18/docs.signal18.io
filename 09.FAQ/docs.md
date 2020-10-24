@@ -1,3 +1,8 @@
+---
+title: FAQ
+taxonomy:
+    category: docs
+---
 
 ### Expire_log_days
 

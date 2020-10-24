@@ -1,5 +1,7 @@
 ---
 title: Reseeding Configuration
+taxonomy:
+    category: docs
 ---
 
 **replication-manager (2.1)** can stream backups out and in to a new or de-sync database node.

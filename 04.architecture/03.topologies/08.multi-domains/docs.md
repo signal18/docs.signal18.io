@@ -1,5 +1,7 @@
 ---
 title: Multi Domains
+taxonomy:
+    category: docs
 ---
 | Support Status  | Test Case |  
 | ----------------|-----------|

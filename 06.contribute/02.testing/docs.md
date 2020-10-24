@@ -1,5 +1,7 @@
 ---
 title: Testing
+taxonomy:
+    category: docs
 ---
 
 ### Non-regression tests

@@ -1,5 +1,7 @@
 ---
 title: Enforce Best Practices
+taxonomy:
+    category: docs
 ---
 
 ### Enforcing best practices

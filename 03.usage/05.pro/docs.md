@@ -1,5 +1,7 @@
 ---
 title: Agent Usage
+taxonomy:
+    category: docs
 ---
 ## Provisioning Agent Usage
 

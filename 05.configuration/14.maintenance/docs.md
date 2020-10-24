@@ -1,5 +1,7 @@
 ---
 title: Maintenance Configuration
+taxonomy:
+    category: docs
 ---
 
 **Replication-manager (2.1)**  embedded an internal cluster scheduler.

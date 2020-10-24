@@ -1,5 +1,7 @@
 ---
 title: Provisioning Configuration
+taxonomy:
+    category: docs
 ---
 
 ## Provisioning Settings

@@ -1,6 +1,8 @@
 
 ---
 title: Profiling
+taxonomy:
+    category: docs
 ---
 ### Profiling CPU usage
 

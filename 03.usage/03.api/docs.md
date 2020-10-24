@@ -1,5 +1,7 @@
 ---
 title: API Client Usage
+taxonomy:
+    category: docs
 ---
 
 ## API Client Usage

@@ -1,5 +1,7 @@
 ---
 title: Report Bugs
+taxonomy:
+    category: docs
 ---
 ### Report Bugs
 

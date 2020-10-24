@@ -1,5 +1,7 @@
 ---
 title: License
+taxonomy:
+    category: docs
 ---
 
 **replication-manager** is licensed under the **GNU Public License version 3**.

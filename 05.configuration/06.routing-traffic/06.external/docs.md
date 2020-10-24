@@ -1,5 +1,7 @@
 ---
 title: External Scripts
+taxonomy:
+    category: docs
 ---
 
 ### External Scripts

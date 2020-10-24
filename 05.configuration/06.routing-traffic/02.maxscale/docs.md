@@ -1,5 +1,7 @@
 ---
 title: MaxScale Configuration
+taxonomy:
+    category: docs
 ---
 
 #### Maxscale Configuration

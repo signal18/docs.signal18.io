@@ -1,5 +1,7 @@
 ---
 title: Replication Configuration
+taxonomy:
+    category: docs
 ---
 ## Replication Configuration
 

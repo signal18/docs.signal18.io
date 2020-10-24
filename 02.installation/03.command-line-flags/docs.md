@@ -1,5 +1,7 @@
 ---
 title: Command Line Flags
+taxonomy:
+    category: docs
 ---
 
 By default **replication-manager** read a the config file  /etc/replication-manager/config.toml  

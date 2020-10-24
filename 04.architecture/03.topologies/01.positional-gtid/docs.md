@@ -1,5 +1,7 @@
 ---
 title: Positional vs GTID
+taxonomy:
+    category: docs
 ---
 
 Positional is the old style of tracking replication positions. It is deprecated in all our supported databases major releases.

@@ -1,5 +1,7 @@
 ---
 title: False Positive Configuration
+taxonomy:
+    category: docs
 ---
 
 ##### `failover-falsepositive-ping-counter` (2.0)  `failcount` (0.7)

@@ -1,5 +1,7 @@
 ---
 title: Build
+taxonomy:
+    category: docs
 ---
 
 ## Building from source

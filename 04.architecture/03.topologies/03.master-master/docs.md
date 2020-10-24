@@ -1,5 +1,7 @@
 ---
 title: Master Master
+taxonomy:
+    category: docs
 ---
 | Support Status  | Test Case |  
 | ----------------|-----------|

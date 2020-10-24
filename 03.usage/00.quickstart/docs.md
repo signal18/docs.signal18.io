@@ -1,5 +1,7 @@
 ---
 title: Quick Start
+taxonomy:
+    category: docs
 ---
 
 

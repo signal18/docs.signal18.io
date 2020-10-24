@@ -1,5 +1,7 @@
 ---
 title: Multi Master Galera
+taxonomy:
+    category: docs
 ---
 | Support Status  | Test Case |  
 | ----------------|-----------|
