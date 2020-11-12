@@ -34,7 +34,7 @@ The REST API is secured using encrypted token that is used to validate user:pass
 | ---- | ----- |
 | Description | Rest API credential in [user]:[password] format |
 | Type | string |
-| DEfault Value | "root:admin:repman" |
+| DEfault Value | "admin:repman" |
 
 
 At startup of the monitor some x509 certificates are loaded from the *replication-manager* share directory to ensure TLS https secure communication.

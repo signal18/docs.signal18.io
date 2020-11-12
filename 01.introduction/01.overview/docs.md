@@ -17,7 +17,7 @@ taxonomy:
 While Galera Cluster is a really good product, it has some shortcomings such as performance and cluster-wide locking.
 **replication-manager** was first a tailored solution on top of new features in MySQL and MariaDB such as Global Transaction ID, Semi-Sync Replication, Binary log Flashback, that aims to provide High Availability and Node Switchover without compromising the performance by a too large factor.
 
-**replication-manager** was since day one adapted to manage deployments for his own testing requirements, a full stack cluster have to be provisioned, get tested and unprovisioned and move on other topologies or versions. We push the product from a local deployment, to  services managed by external orchestrator. The oldest integration is **OpenSVC** , with 2 modes:  with the collector API and more recently with direct cluster node VIP API. With the popularity of **Kubenrnetes** we also port our work to takeover. An other integration is currently being workout on **SlapOS** an open source hyperconverged and Edge computing infrastructure.      
+**replication-manager** was since day one adapted to manage deployments for his own testing requirements, a full stack cluster have to be provisioned, get tested and unprovisioned and move on other topologies or versions. We push the product from a existing deployments, to  services managed by external orchestrator. The oldest integration is **OpenSVC** , with 2 modes:  with the collector API and more recently with direct cluster node VIP API. With the popularity of **Kubenrnetes** we also port our work to takeover. An other integration is currently being workout on **SlapOS** an open source hyperconverged and Edge computing infrastructure.      
 
 
 ## HA Workflow

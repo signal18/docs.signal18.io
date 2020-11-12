@@ -20,7 +20,7 @@ taxonomy:
 | ---- | ----- |
 | Description | Database login with root privileges, specified in the [user]:[password] format |
 | Type | string |
-| Example | "root:adminpassword" |
+| Example | "root:password" |
 
 ##### `db-servers-prefered-master` (2.0), `prefmaster` (1.1)
 

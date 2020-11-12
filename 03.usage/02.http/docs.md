@@ -20,7 +20,7 @@ It looks like this:
 ![mrmdash](/images/http.png)
 
 
-> Starting with **replication-manager 2.1** the http client can be secured via navigation to the https api port, this offer encryption on the wire and JWT tokens for identity tracking. The default credential is the apiUser credential so admin:repman but can be change per cluster.    
+> Starting with **replication-manager 2.1** the http client can be secured via navigation to the https api port https://localhost:10005., this offer encryption on the wire and JWT tokens for identity tracking. The default credential is the apiUser credential so admin:repman but can be change per cluster.    
 
 
 

@@ -39,6 +39,12 @@ API can be called via command line client to simplify curl syntax with JWT token
 ./replication-manager-cli api  --url="https://127.0.0.1:10005/api/clusters/ux_dck_zpool_loop/servers/actions/add/192.168.1.73/3306"   --cluster="ux_dck_zpool_loop"
 ```
 
+# Calling API via curl
+
+TOKEN=$(curl -s -X POST -H 'Accept: application/json' -H 'Content-Type: application/json' --data '{"username":"admin","password":"repman"}' https://demo.signal18.io/api/login | jq  -r '.token')
+
+curl -H 'Accept: application/json' -H "Authorization: Bearer ${TOKEN}" https://demo.signal18.io/api/clusters
+
 ### Monitor Unprotected Endpoints
 
 /api/login
