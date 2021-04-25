@@ -9,11 +9,14 @@ taxonomy:
 * CORE: Dynamic config cluster store default config in $datadir/cluster.d
 * CORE: IPV6 support [IPV6host]:port
 * CORE: Schema change monitoring
+* CORE: Use of MariaDB SHUTDOWN [WAIT FOR ALL SLAVES]
+* CORE: Use of MariaDB mysqldump system=ALL
 
 * CORE MONITORING: Multi Tenant Cluster Auth
 * CORE MONITORING: SMTP can use Auth credentials
-* CORE MONITORING: Slack alerting (done)
+* CORE MONITORING: Slack alerting
 * CORE MONITORING: Alerts preserved when flapping connections state on unstable network, reducing false positive alert
+* CORE MONITORING: Support for MySQL 8.0 and MariaDB 10.5  
 
 * CORE MAINTENANCE: Job scheduler rolling restart,
 * CORE MAINTENANCE: Job scheduler rolling reprovision
@@ -36,6 +39,7 @@ taxonomy:
 * CORE BACKUP: Streaming backups to restic for achiving
 * CORE BACKUP: Capture master binary logs and archive
 * CORE BACKUP: mydumper integration
+* CORE BACKUP: expose mysqldump parameter in configuration
 
 * CORE SHARDING: Backend schema discover, pushdown spider table to proxy assuming universal table for duplicate names
 * CORE SHARDING: Backend schema discover, pushdown spider table to proxy assuming hash of PK
@@ -48,7 +52,7 @@ taxonomy:
 * CORE REPLICATION: Multi source aggregation slaves
 
 * CORE ROUTING: MyProxy internal proxying in go based on the Vitess parser and Siddon proxy
-
+* CORE ROUTING: HaProxy Runtime API  
 
 * HTTP/API: Database Process
 * HTTP/API: Database slow Queries
@@ -61,8 +65,12 @@ taxonomy:
 * HTTP/API: Prometheus URI (done)
 * HTTP/API: Cancel Rolling Restart
 * HTTP/API: Need rolling restart or reprov on config change
+* HTTP/API: Download Configurations
 
 * PRO CORE REPLICATION: Rejoin via ZFS snapback to last snapshot for prefered master when binlog ahead (done)
 * PRO CORE: OpenSVC agent 1.9 using overlay network (Weave, ipip tunneling)
 * PRO CORE: OpenSVC agent 1.9 direct cluster API
 * PRO CORE: Kubernetes (In progress)
+* PRO CORE: Orchestrator onpremise  start server via ssh systemctl start
+* PRO CORE: Orchestrator onpremise  provision server via ssh bootstrap configuration  
+* PRO CORE: Track cluster state for reprovisioning, start, stop  based on configuration change and rolling actions
