@@ -34,12 +34,31 @@ The REST API is secured using encrypted token that is used to validate user:pass
 | ---- | ----- |
 | Description | Rest API credential in [user]:[password] format |
 | Type | string |
-| DEfault Value | "admin:repman" |
+| Default Value | "admin:repman" |
 
 
 At startup of the monitor some x509 certificates are loaded from the *replication-manager* share directory to ensure TLS https secure communication.
 
 Replace the files with your own certificate to make sure your deployment is truly secured.
+
+
+##### `monitoring-ssl-cert  (2.1)   
+
+| Item | Value |
+| ---- | ----- |
+| Description | HTTPS & API TLS certificate |
+| Type | string |
+| Default Value | "" |
+
+##### `monitoring-ssl-key (2.1)   
+
+
+| Item | Value |
+| ---- | ----- |
+| Description |   HTTPS & API TLS key |
+| Type | string |
+| Default Value | "" |
+
 
 ```
 # Key considerations for algorithm "RSA" ≥ 2048-bit
@@ -51,7 +70,7 @@ openssl ecparam -genkey -name secp384r1 -out server.key
 openssl req -new -x509 -sha256 -key server.key -out server.crt -days 3650
 ```
 
-At startup replication-manager monitor will generate in memory extra self signed RSA certificate to ensure token encryption exchange for JWT   
+In addition at startup replication-manager monitor will generate in memory extra self signed RSA certificate to ensure token encryption exchange for JWT   
 
 ## Database Security Configuration
 
