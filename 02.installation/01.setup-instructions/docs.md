@@ -20,7 +20,7 @@ Prior to  **replication-manager (2.0)**, a unique binary **replication-manager**
 
 Since 2.0 the architecture was split in a more traditional client-server providing multiple binaries:
 
-A server monitoring daemon that comes with different flavors based on included features : **replication-manager-(min, osc, tst, pro, arb)**.
+A server monitoring daemon that comes with different flavors based on included features : **replication-manager-( osc, tst, pro,arm, arb)**.
 
 And a command line client binary **replication-manager-cli** that is requesting actions to the monitoring daemon via a secured protocol.    
 
@@ -28,10 +28,10 @@ And a command line client binary **replication-manager-cli** that is requesting 
 
 | Package | Flavor       | Description |
 | ---- | ------       | ----------- |
-| replication-manager-min | Minimal     | Offers essential features for the most basic usage. |
 | replication-manager-osc | Open Source  | Offers all features excepting provisioning (recommended version). |
 | replication-manager-tst | Test         | Offers OSC features and extra features for testing like local service bootstrap, benchmarking... |
 | replication-manager-pro | Provisioning | Offers commercial, ready to go cluster provisioning solution. |   
+| replication-manager-arm | Provisioning | Offers pro features for on ARM V8  |
 | replication-manager-arb | Arbitrator  | Offers arbitration for replication-manager clustering. |
 
 ### Installation from our repository

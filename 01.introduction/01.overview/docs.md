@@ -7,17 +7,17 @@ taxonomy:
 
 **replication-manager** have to be the best open source **database cluster orchestator**. Embed the best practices from configurations, deployments, HA operations, maintenance tasks, monitoring, troubleshooting. A toolkit for the best open source solutions. We design features to hide database clustering complexity, keeping Amazon RDS simplicity in mind.     
 
-**replication-manager** also aims to be configurable with nix style, multi tenant, secured via encryption and ACL and user-friendly by offering API, cmd line and HTML interfaces around familiar database and proxying software.
+**replication-manager** also aims to be configurable with nix style, multi tenant, secured via encryption and ACL and user-friendly by offering API, command line and HTML interfaces around familiar databases and proxying softwares.
 
-**replication-manager** should bring multi cluster sharding and routing solutions to fixe the most requested issue around databases: **SCALABILITY**.
+**replication-manager** should bring multi cluster sharding and routing solutions to fixe the most difficult issue around databases: **SCALABILITY**.
 
 ## History
 
 **replication-manager** was initially written with the goal of closing the gap between Galera Cluster and MySQL Master HA.
 While Galera Cluster is a really good product, it has some shortcomings such as performance and cluster-wide locking.
-**replication-manager** was first a tailored solution on top of new features in MySQL and MariaDB such as Global Transaction ID, Semi-Sync Replication, Binary log Flashback, that aims to provide High Availability and Node Switchover without compromising the performance by a too large factor.
+**replication-manager** was first a tailored solution on top of new features in MySQL and MariaDB such as Global Transaction ID, Semi-Synchronous replication, binary log flashback, that aims to provide High Availability and node switchover without compromising  performance by a too large factor.
 
-**replication-manager** was since day one adapted to manage deployments for his own testing requirements, a full stack cluster have to be provisioned, get tested and unprovisioned and move on other topologies or versions. We push the product from a existing deployments, to  services managed by external orchestrator. The oldest integration is **OpenSVC** , with 2 modes:  with the collector API and more recently with direct cluster node VIP API. With the popularity of **Kubenrnetes** we also port our work to takeover. An other integration is currently being workout on **SlapOS** an open source hyperconverged and Edge computing infrastructure.      
+**replication-manager** was since day one adapted to manage deployments for his own testing requirements, a full stack cluster have to be provisioned, get tested and unprovisioned and move on other topologies or releases. We extend  from a existing deployments, to  services managed by external orchestrator. The oldest integration is **OpenSVC** , with 2 modes:  with the collector API and more recently with direct cluster node VIP API. With the popularity of **Kubenrnetes** we also port our work to takeover. An other integration is currently being workout on **SlapOS** an open source hyperconverged and Edge computing infrastructure.      
 
 
 ## HA Workflow
@@ -43,9 +43,14 @@ To perform switchover, preserving data consistency, replication-manager uses an 
 
 ## Traffic routing
 
-__replication-manager__ is commonly used as an arbitrator with a layer that routes the database traffic to the leader database node (aka the MASTER):
+__replication-manager__ is commonly used as an arbitrator with a layer that routes write database traffic to a single leader database node.
 
-  - [x] Layer 7 proxy as ProxySQL OR MariaDB MaxScale that can transparently follow a newly elected topology
-  - [x] Layer 4 proxy, __replication-manager__ can produce new configuration with the new route or call external script. A common scenario is a VRRP Active Passive HAProxy sharing his configuration via a network disk or collocation of the proxy with replication-manager. Some other architecture components can be already in charge of the GCC.             
-  - [x] Layer 4 proxy using __replication-manager__ as an API. __replication-manager__ can be called as a resource instructing the routing service on the states of the nodes, this is the case for haproxy external checks.
-  - [x] DNS routing, __replication-manager__  will update some discovering service like consul or DNS to enable direct routing without proxying.
+ - [x] Layer 3: DNS routing, __replication-manager__  will update discovering service like consul or other API based DNS to enable direct routing without proxying.
+ - [x] Layer 4: HaProxy __replication-manager__ can produce new configurations or be reconfigured via API calls
+ - [x] Layer 4: HaProxy can use external checks via calling __replication-manager__ API. as a resource manager instructing on the states of each cluster node,
+ - [x] Layer 4:  __replication-manager can use external scripts to reused existing process like VIP failover or Puppet and Ansible scenarios   
+ - [x] Layer 7: ProxySQL OR MariaDB MaxScale can follow newly elected topology but get instant notifications of topology changes
+ - [x] Layer 7: MariaDB Spider layer can be instructed to divide database traffic to different database clusters
+
+
+Based on each case one to many strategy can be used depending on feature maturity, security or performance requirements

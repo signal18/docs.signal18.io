@@ -15,9 +15,9 @@ api-port ="10005"
 api-credential = "admin:repman"
 ```
 
-At startup of the monitor, X509 certificates are loaded from the replication-manager share directory to ensure TLS https secure communication.
+At startup of the monitor, X509 certificates are loaded from the replication-manager share directory or from keys defined from config files to ensure TLS https secure communication.
 
-Replace those files with your own certificate to make sure your deployment is secured.
+Replace those files with your own certificate signed or self signed to make sure your deployment is secured.
 
 ```
 # Key considerations for algorithm "RSA" ≥ 2048-bit
@@ -29,7 +29,7 @@ openssl ecparam -genkey -name secp384r1 -out server.key
 openssl req -new -x509 -sha256 -key server.key -out server.crt -days 3650
 ```
 
-At startup **replication-manager** monitor will generate in memory extra self-signed RSA certificate to ensure token encryption exchange for JWT.
+At startup **replication-manager** monitor will generate in memory extra self-signed RSA certificate to ensure later token encryption exchange for JWT.
 
 # Calling API via the client
 
@@ -39,11 +39,24 @@ API can be called via command line client to simplify curl syntax with JWT token
 ./replication-manager-cli api  --url="https://127.0.0.1:10005/api/clusters/ux_dck_zpool_loop/servers/actions/add/192.168.1.73/3306"   --cluster="ux_dck_zpool_loop"
 ```
 
-# Calling API via curl
+# Calling API via curl or wget
 
-TOKEN=$(curl -s -X POST -H 'Accept: application/json' -H 'Content-Type: application/json' --data '{"username":"admin","password":"repman"}' https://demo.signal18.io/api/login | jq  -r '.token')
+TOKEN=$(curl -s -k -X POST -H 'Accept: application/json' -H 'Content-Type: application/json' --data '{"username":"admin","password":"repman"}' https://demo.signal18.io/api/login | jq  -r '.token')
 
-curl -H 'Accept: application/json' -H "Authorization: Bearer ${TOKEN}" https://demo.signal18.io/api/clusters
+or without json response  
+
+TOKEN=$(curl -s -k -X POST -H 'Accept: text/html' -H 'Content-Type: application/json' --data '{"username":"admin","password":"repman"}' https://127.0.0.1:10005/api/login)
+
+
+follow by your request:
+
+curl -k -H 'Accept: application/json' -H "Authorization: Bearer ${TOKEN}" https://demo.signal18.io/api/clusters
+
+Or via wget
+
+TOKEN=$(wget  -qO- --no-check-certificate --post-data '{"username":"admin","password":"repman"}' --header 'Accept: text/html' --header 'Content-Type: application/json'  https://127.0.0.1:10005/api/login)
+
+wget -qO- --no-check-certificate --header 'Accept: application/json' --header "Authorization: Bearer ${TOKEN}"  https://127.0.0.1:10005/api/clusters
 
 ### Monitor Unprotected Endpoints
 
