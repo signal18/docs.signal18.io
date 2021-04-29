@@ -53,8 +53,10 @@ The following software services can be provisioned:
  | Example | "cluster1" |
 
 FQDNS off one service will be
-
+```
 <service_name>.<namespace_name>.svc.<cluster_name>
+```
+
 
 **replication-manager** affect service_name to host name defined in db-servers-hosts or proxy-servers-hosts, namespace_name to the cluster section and cluster_name to prov-orchestrator-cluster
 
