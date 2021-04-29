@@ -1,5 +1,5 @@
 ---
-title: Provisioning Configuration
+title: Provisioning Orchestration
 taxonomy:
     category: docs
 ---
@@ -30,13 +30,6 @@ The following software services can be provisioned:
 | SpiderProxy | Y   | N  |
 | Sphinx | Y   | N  |
 | Consul | N  | N  |
-
-
-**replication-manager** is using a secure client API to the OpenSVC collector. This collector is used for posting actions to a cluster of agents, fetch cluster nodes information and uploading his own set of playbooks for provisioning.
-
- The Signal18.io SAS collector can be used for faster testing or not to have to maintain an extra piece of infrastructure, if not possible, an evaluation version of the collector needs to be installed, or it can be installed co-located to **replication-manager** or on a separate machine.
-
- **replication-manager** talks to the default SAS collector or it can be setup to talk to on premise collector via the following parameters:
 
 
  ##### `prov-orchestrator` (2.1)

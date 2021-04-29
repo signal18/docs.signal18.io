@@ -1,4 +1,8 @@
-
+---
+title: OpenSVC Advanced Configuration
+taxonomy:
+    category:
+---
 
 
 ## Disks

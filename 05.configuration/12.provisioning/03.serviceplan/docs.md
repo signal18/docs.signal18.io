@@ -1,3 +1,10 @@
+---
+title: Service Plan
+taxonomy:
+    category: Provisioning
+---
+
+
 From **replication-manager 2.1** a service plan can be used to enable pre cap cluster resource deployment.
 In this scenario external API can be used to select a plan and a placement to external available orchestrator clusters   
 
