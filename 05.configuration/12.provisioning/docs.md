@@ -133,7 +133,7 @@ name          type           network       size   used  free   pct
 |- backend    undef          undef         1      0     1      0.00%  
 |- backendv6  routed_bridge  fdfe::/112    65536  4     65532  0.01%  
 |- default    bridge         10.22.0.0/16  65536  0     65536  0.00%  
- - lo         loopback       127.0.0.1/32  1      0     1      0.00%  
+|- lo         loopback       127.0.0.1/32  1      0     1      0.00%  
 ```
 
 ##### `prov-net-cni` (2.0)
