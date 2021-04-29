@@ -10,6 +10,9 @@ Since version 1.1 **replication-manager** can use an agent-based cluster provisi
 
 Starting with version 2.0 provisioning is packaged in a separate binary called **replication-manager-pro**
 
+In **replication-manager 2.1** one can specify an orchestrator for provisioning the default orchestrator is onpremise, that call external scripts for provisioning  
+
+
 ```
 ./replication-manager-pro monitor
 ```
@@ -24,9 +27,9 @@ The following software services can be provisioned:
 | MaxScale | Y   | Y |
 | ProxySQL | Y   | N  |
 | HaProxy | Y   | N  |
+| SpiderProxy | Y   | N  |
 | Sphinx | Y   | N  |
 | Consul | N  | N  |
-
 
 
 **replication-manager** is using a secure client API to the OpenSVC collector. This collector is used for posting actions to a cluster of agents, fetch cluster nodes information and uploading his own set of playbooks for provisioning.
@@ -42,35 +45,27 @@ The following software services can be provisioned:
  | ---- | ----- |
  | Description | Orchestration type |
  | Type | String |
- | Values | onpremise|opensvc|kube|slapos|local |
- | Default | onpremise|opensvc|kube|slapos|local for pro release or onpremise|local for osc release  |
+ | Values | onpremise opensvc kube slapos local |
+ | Default | onpremise |all for pro release and onpremise local for osc release  |
  | Example | "opensvc" |
 
- ##### `opensvc-host` (1.1)
+ ##### `prov-orchestrator-cluster` (2.1)
+
 
  | Item | Value |
  | ---- | ----- |
- | Description | Address of the OpenSVC collector |
+ | Description | The orchestrated cluster used in FQDNS  |
  | Type | String |
- | Default | "ci.signal18.io:9443" |
- | Example | "127.0.0.1:443" |
+ | Default |local |
+ | Example | "cluster1" |
 
- ##### `opensvc-admin-user` (1.1)
+FQDNS off one service will be
 
- | Item | Value |
- | ---- | ----- |
- | Description | Admin credential of the OpenSVC collector |
- | Type | String |
- | Default | "root@localhost.localdomain:opensvc" |
- | Example | "root@signa18.io:secret" |
+<service_name>.<namespace_name>.svc.<cluster_name>
 
-For on premise collector it is needed to make a first registration on the collector to create a regular user, group, roles and compliances.
+**replication-manager** affect service_name to host name defined in db-servers-hosts or proxy-servers-hosts, namespace_name to the cluster section and cluster_name to prov-orchestrator-cluster
 
-```
-replication-manager-pro monitor --opensvc-register
-```
-
-To use the SAS monitor you need to login to signal18.io and request for your evaluation or licence account.yaml file. Copy it into the share/opensvc directory of  **replication-manager-pro**
+AKA: db1.bench.svc.cluster1, db2.bench.svc.cluster1
 
 ## Services Options
 
@@ -91,10 +86,25 @@ Resources choice is uniform over a full cluster.
 | ---- | ----- |
 | Description | Database type of Micro-Services deployment|
 | Type | Enum |
-| Values | Docker,Package |
+| Values | docker,package,oci,podman |
 | Example | "Docker" |
 
 Type of Micro-Services can be docker or package not that if package it need the package install on the agent as **replication-manager** will only call the binary for bootstrapping and expect it to be present on the agent.    
+
+OCI special meaning for OpenSVC podman or docker
+
+
+## Placement
+
+Micro-services placement will follow a round robin mode against the agents listed for a service.  
+
+bootstrap and unprovision commands can be found in the web interface.
+
+The client can also be used to fully provision a cluster defined in the configuration.
+```
+replication-manager-cli bootstrap  --cluster=cluster_haproxy_masterslave --with-provisioning
+Provisioning done
+
 
 ##### `prov-db-agents` (1.1)
 
@@ -107,7 +117,48 @@ Type of Micro-Services can be docker or package not that if package it need the 
 
 The agent names can be found in the web interface under the agents tab.
 
+## Network
+
+We advice usage of Orchestrator CNI virtual network, predefined network made available from the orchestrator administrators
+Volume is the only way to go inside K8S while you can refer to advanced options for OpenSVC where some internal network config can be refine  
+
+##### `prov-net-cni-cluster` (2.0)
+
+
+| Item | Value |
+| ---- | ----- |
+| Description | Name of orchestrator virtual network tu use |
+| Type | Sting |
+| Default | default |
+| Example | backend1 |
+
+```
+om net status
+name          type           network       size   used  free   pct    
+|- backend    undef          undef         1      0     1      0.00%  
+|- backendv6  routed_bridge  fdfe::/112    65536  4     65532  0.01%  
+|- default    bridge         10.22.0.0/16  65536  0     65536  0.00%  
+`- lo         loopback       127.0.0.1/32  1      0     1      0.00%  
+```
+
+##### `prov-net-cni` (2.0)
+| Item | Value |
+| ---- | ----- |
+| Description | Does orchetrator use CNI |
+| Type | Boolean |
+| Default | true |
+
+
 ## Disk
+
+We advice usage of Orchestrator volumes, predefined storage ressources made available from the orchestrator administrators
+Volume is the only way to go inside K8S while you can refer to advanced options for OpenSVC where each FS can be refine  
+
+prov-db-disk-type = "volume"
+prov-db-volume-data = "db-nvme"
+prov-proxy-disk-type = "volume"
+prov-proxy-volume-data = "proxy-sas"
+
 
 ##### `prov-db-docker-img` (1.1)
 
@@ -117,54 +168,6 @@ The agent names can be found in the web interface under the agents tab.
 | Type | String |
 | Example | "mariadb:latest" |
 
-
-##### `prov-db-disk-fs` (1.1)
-
-| Item | Value |
-| ---- | ----- |
-| Description | Database type of FS deployment|
-| Type | Enum |
-| Values | xfs,ext4,zfs,ufs |
-| Example | "zfs" |
-
-File system many drivers are available we do test xfs ext4 zfs . Many other drivers like ceph or drbd would need additional testing to be used as extra options may need to be added.
-
-OpenSVC Agent drivers can provision disk resources on many SAN arrays and Cloud API, contact support if you need custom type of disk provisioning for your architecture.
-
-##### `prov-db-disk-pool` (1.1)
-
-| Item | Value |
-| ---- | ----- |
-| Description | Database disk pool type for Micro Services deployment|
-| Type | Enum |
-| Values | none,zpool,lvm |
-| Example | "zpool" |
-
-##### `prov-db-disk-type` (1.1)
-
-| Item | Value |
-| ---- | ----- |
-| Description | Database disk pool type for Micro Services deployment|
-| Type | Enum |
-| Values | loopback,physical,pool,directory|
-| Example | "loopback" |
-
-When loopback instead of a real device the FS path is needed instead of device path
-
-##### `prov-db-disk-device` (1.1)
-
-| Item | Value |
-| ---- | ----- |
-| Description | Database disk device path for Micro Services deployment|
-| Type | String |
-| Example | "/srv" |
-
-Depends on  `prov-db-disk-type`
-
-physical: define the device /dev/XXXXXXXX
-pool: define the pool name
-loopback: define  the path to create the loopback file
-directory: define the path to create the service_name directory
 
 ##### `prov-db-disk-size` (1.1)
 
@@ -191,103 +194,3 @@ directory: define the path to create the service_name directory
 | Description | Keep this number of snapshot. |
 | Type | int |
 | Default | 7 |
-
-## network
-
-Network please check availability of the ip before using them , also some opensvc deployemetn can manage range of dhcp ip and DNS entries   
-
-##### `prov-db-net-iface` (1.1)
-
-| Item | Value |
-| ---- | ----- |
-| Description | Database ethernet device. |
-| Type | String |
-| Example | "br0" |
-
-##### `prov0-db-net-gateway` (1.1)
-
-| Item | Value |
-| ---- | ----- |
-| Description | Database network gateway. |
-| Type | String |
-| Example | "192.168.1.254" |
-
-##### `prov-db-net-mask` (1.1)
-
-| Item | Value |
-| ---- | ----- |
-| Description | Database eth device |
-| Type | String |
-| Example | "255.255.255.0" |
-
-## Resource Usage
-
-Database bootstrap is deploying some database configurations files that are auto adapted to following cluster parameters and to tags:
-
-##### `prov-db-memory` (1.1)
-
-| Item | Value |
-| ---- | ----- |
-| Description | Database memory in M for micro service. |
-| Type | String |
-| Example | "256" |
-
-##### `prov-db-disk-iops` (1.1)
-
-| Item | Value |
-| ---- | ----- |
-| Description | Database Rnd IO/s in for micro service. |
-| Type | String |
-| Default | "300" |
-| Example | "300" |
-
-
-##### `prov-db-cpu-cores` (2.0)
-
-| Item | Value |
-| ---- | ----- |
-| Description | Database number of cores for micro service. |
-| Type | String |
-| Default | "1" |
-| Example | "4" |
-
-
-### Database tags:
-
-##### `prov-db-tags (1.1)`
-
-| Item | Value |
-| ---- | ----- |
-| Description | Database tags for compliance configuration. |
-| Type | String |
-|| Example | "innodb,noquerycache,threadpool,logslow" |
-
-Storage:
-```
-innodb, myrocks, tokudb, spider, sphinx
-```
-Logs:
-```
-logaudit, logslow, logsqlerrors, loggeneral, logpfs, loguserstats
-```
-Features:
-```
-compress, threadpool, ssl, lowercasetable, smallredolog,sqlmodeunstrict, sqlmodeoracle
- noquerycache,  nodurable, nodoublewrite,  noautocommit, noodirect
-```
-Replication:
-```
-multidomains, nologslaveupdates, mysqlgtid, wsrep, semisync
-```
-
-## Provisioning
-
-Micro-services placement will follow a round robin mode against the agents listed for a service.  
-
-bootstrap and unprovision commands can be found in the web interface.
-
-The client can also be used to fully provision a cluster defined in the configuration.
-```
-replication-manager-cli bootstrap  --cluster=cluster_haproxy_masterslave --with-provisioning
-Provisioning done
-```

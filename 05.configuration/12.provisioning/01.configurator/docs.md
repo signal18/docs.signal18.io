@@ -1,60 +1,56 @@
 ---
-title: Provisioning Configurator
+title: Provisioning Service Software Configurator
 taxonomy:
     category: docs
 ---
 
 ## Configurator
 
-Since version 2.1 **replication-manager** can generate database and proxy configurations based on cluster tagging and resources definition.
+Since version 2.1 **replication-manager** can generate database and proxy configurations based on cluster tagging and hardware resources description.
 
-Resources and tagging choices are uniform over a full cluster.
+Resources and tagging choices are uniform over a cluster.
 
-The client API provide an archive tar.gz embedding all configurations files of a monitored service.
+The client API enable to download an archive tar.gz embedding all configurations files and directories structure to bootstrap a service.
 
+And easy and insecure way requesting no login information is available by default
 ```
 wget http://replication-manager:10001/api/clusters/cluster-mdbshardproxy-shard1/servers/db1/3331/config
 ```
-On replication-manager data directory one can found such disk organization per cluster and per server
+
+This open default can be disable for security reasons and not exposing the databases passwords that could be found in various configuration files
+
+##### `api-credentials-secure-config` (2.1)
+| Description | Need JWT token to download config tar.gz. |
+| Type | Boolean |
+| Default | false |
+| Example | true |
+
+
+A secure way of initial setup is via downloading a bootstrap code that uses ENV variables to provide the replication-manager credentials  
 
 ```
-./mixr-dev
-./mixr-dev/db-fr-1.mixr-dev.svc.cloud18_3306
-./mixr-dev/db-fr-1.mixr-dev.svc.cloud18_3306/log
-./mixr-dev/db-fr-1.mixr-dev.svc.cloud18_3306/var
-./mixr-dev/db-fr-1.mixr-dev.svc.cloud18_3306/init
-./mixr-dev/db-fr-1.mixr-dev.svc.cloud18_3306/init/etc
-./mixr-dev/db-fr-1.mixr-dev.svc.cloud18_3306/init/etc/mysql
-./mixr-dev/db-fr-1.mixr-dev.svc.cloud18_3306/init/etc/mysql/custom
-./mixr-dev/db-fr-1.mixr-dev.svc.cloud18_3306/init/etc/mysql/rc.d
-./mixr-dev/db-fr-1.mixr-dev.svc.cloud18_3306/init/etc/mysql/ssl
-./mixr-dev/db-fr-1.mixr-dev.svc.cloud18_3306/init/init
-./mixr-dev/db-fr-1.mixr-dev.svc.cloud18_3306/init/data
-./mixr-dev/db-fr-1.mixr-dev.svc.cloud18_3306/init/data/.system
-./mixr-dev/db-fr-1.mixr-dev.svc.cloud18_3306/init/data/.system/tokudb
-./mixr-dev/db-fr-1.mixr-dev.svc.cloud18_3306/init/data/.system/tmp
-./mixr-dev/db-fr-1.mixr-dev.svc.cloud18_3306/init/data/.system/repl
-./mixr-dev/db-fr-1.mixr-dev.svc.cloud18_3306/init/data/.system/logs
-./mixr-dev/db-fr-1.mixr-dev.svc.cloud18_3306/init/data/.system/innodb
-./mixr-dev/db-fr-1.mixr-dev.svc.cloud18_3306/init/data/.system/innodb/undo
-./mixr-dev/db-fr-1.mixr-dev.svc.cloud18_3306/init/data/.system/innodb/redo
-./mixr-dev/db-fr-1.mixr-dev.svc.cloud18_3306/init/data/.system/aria
-./mixr-dev/db-fr-1.mixr-dev.svc.cloud18_3306/bck
+wget -q -O- http://repman.s18.svc.rs1:10001/static/configurator/opensvc/bootstrap
+
 ```
+This script get a session TOKEN via pushing JSON credentials:
 
-The cluster/server/init subdirectories contains the files hierarchy to mount containers volumes   
-data -> /var/lib/mysql
-etc/mysql -> /etc/mysql
+ENV variable: REPLICATION_MANAGER_USER=admin
+ENV variable: REPLICATION_MANAGER_PASSWORD=repman
 
-The cluster level contains a config.tar.gz of the init sub-directories used in API
+It call the secure HTTPS API define in:
 
-etc/mysql/rc.d contain symlinks to config files in etc/mysql
-etc/mysql/custom read last to enable mounting custom user config on top of tagging
+ENV variable: REPLICATION_MANAGER_URL=https://repman.s18.svc.rs1:10005
 
-Orchestrators can use init containers to provision a new service with the selected replication-manager practices. Some meta data tags like ZFS will setup multiple symlink to configuration files including MySQL or MariaDB features needed to best run on ZFS (noodirect noaio nodoublewrite)
+Then use other ENV variables to built the URL and calling the API to download the config
+
+ENV variable: REPLICATION_MANAGER_CLUSTER_NAME=bench
+ENV variable: REPLICATION_MANAGER_HOST_NAME=db1.bench.svc.rs1
+ENV variable: REPLICATION_MANAGER_HOST_PORT=3306
+
+When Orchestrator is OpenSVC we push those informations into per service secret map  when they are sensible and to a config map for less sensible, we then build our service config by exposing them to the init container of the service.
 
 
-### Kubernetes
+### Init container sample in Kubernetes
 
 ```
 apiVersion: v1
@@ -97,7 +93,7 @@ spec:
 
 
 ```
-### OpenSVC
+###  Init container sample on OpenSVC
 
 ```
 [container#0002]
@@ -111,16 +107,117 @@ command = sh -c 'wget -qO- http://{env.mrm_api_addr}/api/clusters/{env.mrm_clust
 ```
 
 
-The following databases software services are managed
+## Database Config content
 
-| Item | Docker |
-| ---- | ------ |
-| MariaDB | Y   |
-| MySQL | Y   |
-| Percona | Y   |
+Inside replication-manager data directory one can found similar disk organization per cluster and per server
 
 
-##  Configuring resourcess
+```
+./mixr-dev
+./mixr-dev/db-fr-1.mixr-dev.svc.cloud18_3306
+./mixr-dev/db-fr-1.mixr-dev.svc.cloud18_3306/log
+./mixr-dev/db-fr-1.mixr-dev.svc.cloud18_3306/var
+./mixr-dev/db-fr-1.mixr-dev.svc.cloud18_3306/init
+./mixr-dev/db-fr-1.mixr-dev.svc.cloud18_3306/init/etc
+./mixr-dev/db-fr-1.mixr-dev.svc.cloud18_3306/init/etc/mysql
+./mixr-dev/db-fr-1.mixr-dev.svc.cloud18_3306/init/etc/mysql/custom
+./mixr-dev/db-fr-1.mixr-dev.svc.cloud18_3306/init/etc/mysql/rc.d
+./mixr-dev/db-fr-1.mixr-dev.svc.cloud18_3306/init/etc/mysql/ssl
+./mixr-dev/db-fr-1.mixr-dev.svc.cloud18_3306/init/init
+./mixr-dev/db-fr-1.mixr-dev.svc.cloud18_3306/init/data
+./mixr-dev/db-fr-1.mixr-dev.svc.cloud18_3306/init/data/.system
+./mixr-dev/db-fr-1.mixr-dev.svc.cloud18_3306/init/data/.system/tokudb
+./mixr-dev/db-fr-1.mixr-dev.svc.cloud18_3306/init/data/.system/tmp
+./mixr-dev/db-fr-1.mixr-dev.svc.cloud18_3306/init/data/.system/repl
+./mixr-dev/db-fr-1.mixr-dev.svc.cloud18_3306/init/data/.system/logs
+./mixr-dev/db-fr-1.mixr-dev.svc.cloud18_3306/init/data/.system/innodb
+./mixr-dev/db-fr-1.mixr-dev.svc.cloud18_3306/init/data/.system/innodb/undo
+./mixr-dev/db-fr-1.mixr-dev.svc.cloud18_3306/init/data/.system/innodb/redo
+./mixr-dev/db-fr-1.mixr-dev.svc.cloud18_3306/init/data/.system/aria
+./mixr-dev/db-fr-1.mixr-dev.svc.cloud18_3306/bck
+```
+
+The cluster/server/init subdirectories contains the files hierarchy to mount containers volumes   
+data -> /var/lib/mysql
+etc/mysql -> /etc/mysql
+
+
+etc/mysql/rc.d contain symlinks to config files in etc/mysql
+etc/mysql/custom read last to enable mounting custom user config on top of tagging
+
+
+
+##  Configuring database resources
+
+
+## Configure Resource Usage
+
+Database bootstrap is deploying some database configurations files that are auto adapted to following cluster parameters :
+
+#### Disk
+
+##### `prov-db-disk-size` (1.1)
+
+| Item | Value |
+| ---- | ----- |
+| Description | Database disk size in g for micro service VM . |
+| Type | String |
+| Default | "20" |
+| Example | "20  |
+
+##### `prov-db-disk-iops` (1.1)
+
+| Item | Value |
+| ---- | ----- |
+| Description | Database Rnd IO/s in for micro service. |
+| Type | String |
+| Default | "300" |
+| Example | "300" |
+
+
+### Memory
+
+##### `prov-db-memory` (1.1)
+
+| Item | Value |
+| ---- | ----- |
+| Description | Database memory in M for micro service. |
+| Type | String |
+| Example | "256" |
+
+##### `prov-db-memory-shared-pct`(2.1)
+
+| Item | Value |
+| ---- | ----- |
+| Description | split prov-db-memory shared per global buffer |
+| Type | String |
+| default | "threads:16,innodb:60,myisam:10,aria:10,rocksdb:1,tokudb:1,s3:1,archive:1,querycache:0" |
+
+##### `prov-db-memory-threaded-pct`(2.1)                  
+
+
+| Item | Value |
+| ---- | ----- |
+| Description | split prov-db-memory-shared-pct threads part per thread buffer |
+| Type | String |
+| default | "tmp:70,join:20,sort:10"|
+
+
+### CPU
+
+##### `prov-db-cpu-cores` (2.0)
+
+| Item | Value |
+| ---- | ----- |
+| Description | Database number of cores for micro service. |
+| Type | String |
+| Default | "1" |
+| Example | "4" |
+
+### Features
+
+### Database tags:
+
 
 ##### `prov-db-tags (1.1)`
 
@@ -128,7 +225,7 @@ The following databases software services are managed
 | ---- | ----- |
 | Description | Database tags for compliance configuration. |
 | Type | String |
-|| Example | "innodb,noquerycache,threadpool,logslow" |
+| Example | "innodb,noquerycache,threadpool,logslow" |
 
 Engines:
 ```
@@ -165,58 +262,3 @@ Replication:
 ```
 multidomains, nologslaveupdates, mysqlgtid, wsrep, semisync
 ```
-
-##### `prov-db-service-type` (1.1)
-
-| Item | Value |
-| ---- | ----- |
-| Description | Database type of Micro-Services deployment|
-| Type | Enum |
-| Values | Docker,Package |
-| Example | "Docker" |
-
-Type of Micro-Services can be docker or package not that if package it need the package install on the agent as **replication-manager** will only call the binary for bootstrapping and expect it to be present on the agent.    
-
-## Configure Resource Usage
-
-Database bootstrap is deploying some database configurations files that are auto adapted to following cluster parameters :
-
-##### `prov-db-disk-size` (1.1)
-
-| Item | Value |
-| ---- | ----- |
-| Description | Databse disk size in g for micro service VM . |
-| Type | String |
-| Default | "20" |
-| Example | "20  |
-
-
-##### `prov-db-memory` (1.1)
-
-| Item | Value |
-| ---- | ----- |
-| Description | Database memory in M for micro service. |
-| Type | String |
-| Example | "256" |
-
-##### `prov-db-disk-iops` (1.1)
-
-| Item | Value |
-| ---- | ----- |
-| Description | Database Rnd IO/s in for micro service. |
-| Type | String |
-| Default | "300" |
-| Example | "300" |
-
-
-##### `prov-db-cpu-cores` (2.0)
-
-| Item | Value |
-| ---- | ----- |
-| Description | Database number of cores for micro service. |
-| Type | String |
-| Default | "1" |
-| Example | "4" |
-
-
-### Database tags:
