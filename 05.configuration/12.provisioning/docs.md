@@ -96,10 +96,11 @@ Micro-services placement will follow a round robin mode against the agents liste
 bootstrap and unprovision commands can be found in the web interface.
 
 The client can also be used to fully provision a cluster defined in the configuration.
+
 ```
 replication-manager-cli bootstrap  --cluster=cluster_haproxy_masterslave --with-provisioning
 Provisioning done
-
+```
 
 ##### `prov-db-agents` (1.1)
 
