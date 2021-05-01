@@ -1,5 +1,5 @@
 ---
-title: Switchover Configuration
+title: Switchover
 taxonomy:
     category: docs
 ---

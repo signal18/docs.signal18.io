@@ -1,5 +1,5 @@
 ---
-title: Security Configuration
+title: Security
 taxonomy:
     category: docs
 ---

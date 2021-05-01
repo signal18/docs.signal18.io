@@ -1,5 +1,5 @@
 ---
-title: Monitoring Configuration
+title: Metrics Monitoring
 taxonomy:
     category: docs
 ---

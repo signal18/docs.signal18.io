@@ -1,5 +1,5 @@
 ---
-title: Sharding Configuration
+title: Sharding
 taxonomy:
     category: docs
 ---

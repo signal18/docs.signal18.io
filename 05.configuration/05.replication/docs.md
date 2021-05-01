@@ -1,5 +1,5 @@
 ---
-title: Replication Configuration
+title: Replication
 taxonomy:
     category: docs
 ---

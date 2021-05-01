@@ -1,5 +1,5 @@
 ---
-title: ProxySQL Configuration
+title: ProxySQL
 taxonomy:
     category: docs
 ---

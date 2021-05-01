@@ -1,5 +1,5 @@
 ---
-title: Failover Configuration
+title: Failover
 taxonomy:
     category: docs
 ---

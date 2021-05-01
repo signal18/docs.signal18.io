@@ -1,5 +1,5 @@
 ---
-title: Database Configuration
+title: Databases
 taxonomy:
     category: docs
 ---

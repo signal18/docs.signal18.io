@@ -1,5 +1,5 @@
 ---
-title: Server Monitor Configuration
+title: Daemon Monitoring
 taxonomy:
     category: docs
 ---

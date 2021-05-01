@@ -1,5 +1,5 @@
 ---
-title: Haproxy Configuration
+title: Haproxy
 taxonomy:
     category: docs
 ---

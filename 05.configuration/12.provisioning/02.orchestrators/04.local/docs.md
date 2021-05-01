@@ -1,6 +1,6 @@
 ---
-title: Orchestration Local
-taxonomy: Orchestrator
+title: Local
+taxonomy:
     category: Orchestrator
 ---
 

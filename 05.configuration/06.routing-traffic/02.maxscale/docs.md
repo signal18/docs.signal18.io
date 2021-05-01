@@ -1,5 +1,5 @@
 ---
-title: MaxScale Configuration
+title: MaxScale
 taxonomy:
     category: docs
 ---

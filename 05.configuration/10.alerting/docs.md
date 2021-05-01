@@ -1,5 +1,5 @@
 ---
-title: Alerting Configuration
+title: Alerting
 taxonomy:
     category: docs
 ---

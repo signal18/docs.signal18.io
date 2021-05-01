@@ -1,5 +1,5 @@
 ---
-title: Registries Configuration
+title: Registries
 taxonomy:
     category: docs
 ---

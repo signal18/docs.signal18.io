@@ -1,5 +1,5 @@
 ---
-title: Clustering Configuration
+title: Multi node monitoring
 taxonomy:
     category: docs
 ---

@@ -1,6 +1,6 @@
 ---
-title: Orchestration Kubernetes
-taxonomy: Orchestrator
+title: Kubernetes
+taxonomy:
     category: Orchestrator
 ---
 

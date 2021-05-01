@@ -1,5 +1,5 @@
 ---
-title: Reseeding Configuration
+title: Reseeding
 taxonomy:
     category: docs
 ---

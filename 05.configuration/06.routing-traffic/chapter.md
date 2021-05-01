@@ -1,5 +1,5 @@
 ---
-title: Routing Configuration
+title: Routing
 taxonomy:
     category: docs
 ---

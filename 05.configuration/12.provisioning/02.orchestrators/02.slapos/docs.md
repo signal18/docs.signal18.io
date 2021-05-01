@@ -1,6 +1,6 @@
 ---
-title: Orchestration SlapOS
-taxonomy: Orchestrator
+title: SlapOS
+taxonomy:
     category: Orchestrator
 ---
 
