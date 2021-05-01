@@ -1,5 +1,5 @@
 ---
-title: False Positive Configuration
+title: False Positive
 taxonomy:
     category: docs
 ---
