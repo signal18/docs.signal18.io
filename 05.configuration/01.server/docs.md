@@ -114,7 +114,7 @@ The sql_general.log can be found under each cluster directory and can be use to 
 | Type          | string |
 | Default Value | `/usr/local/replication-manger` |
 
-##### `monitoring-config-rewrite` (2.1)
+##### `monitoring-save-config` (2.1)
 
 | Item          | Value |
 | ----          | ----- |
@@ -155,6 +155,95 @@ The sql_general.log can be found under each cluster directory and can be use to 
 | Description   | An explicit description of the managed cluster  |
 | Type          | string |
 | Default Value | `CRM production MariaDB cluster` |
+
+##### `monitoring-schema-change` (2.0)
+
+| Item          | Value |
+| ----          | ----- |
+| Description   | Monitor schema change |
+| Type          | bool |
+| Default Value | true |
+
+This parameter is needed for alerting on schema change and for sharding proxy to push DDL change
+
+##### `monitoring-schema-change-script` (2.1)
+
+| Item          | Value |
+| ----          | ----- |
+| Description   | Monitor schema change external script |
+| Type          | string |
+| Default Value | ""|
+
+
+##### `monitoring-performance-schema` (2.1)
+
+| Item          | Value |
+| ----          | ----- |
+| Description   | Monitor performance schema |
+| Type          | bool |
+| Default Value | true |
+
+This enable to get slow queries templating from performance schema
+
+##### `monitoring-processlist` (2.1)
+
+| Item          | Value |
+| ----          | ----- |
+| Description   | Enable capture 50 longest process via processlist |
+| Type          | bool |
+| Default Value | true |
+
+##### `monitoring-queries` (2.1)
+
+| Item          | Value |
+| ----          | ----- |
+| Description   |  Monitor long queries |
+| Type          | bool |
+| Default Value | true |
+
+Currently unused
+
+##### `monitoring-query-rules` (2.1)
+
+| Item          | Value |
+| ----          | ----- |
+| Description   |   Monitor query routing from proxies |
+| Type          | bool |
+| Default Value | true |
+
+Enable to build a consolidated view of multiple cluster proxies query rules
+
+
+##### `monitoring-capture` (2.1)
+
+| Item          | Value |
+| ----          | ----- |
+| Description   |   Enable capture on internal error for 5 monitor loops |
+| Type          | bool |
+| Default Value | true |
+
+
+The capture files are found in the cluster datadir
+
+Capture are show slave status, show processlist, show global status, show innodb status
+
+##### `monitoring-capture-trigger` (2.1)
+
+| Item          | Value |
+| ----          | ----- |
+| Description   |   Enable capture on internal error for 5 monitor loops |
+| Type          | string  |
+| Default Value | "ERR00076,ERR00041" |
+
+Trigger to capture on max connections threshold and slave delay
+
+##### `monitoring-capture-file-keep` (2.1)
+| Item          | Value |
+| ----          | ----- |
+| Description   |  Purge capture file keep that number of them |
+| Type          | integer  |
+| Default Value |5 |
+
 
 ### Deprecated
 
