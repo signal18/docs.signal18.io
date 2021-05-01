@@ -1,5 +1,5 @@
 ---
-title: API Check HTTP Handlers
+title: External Checks
 taxonomy:
     category: docs
 ---
