@@ -1,5 +1,5 @@
 ---
-title: 2.1 Features
+title: 2.2 Features
 taxonomy:
     category: docs
 ---
@@ -12,4 +12,5 @@ taxonomy:
 * CORE: CDC to ColumnStore
 * CORE: GRPC API to save restore configs in store plugin
 * CORE: GRPC API to save restore  plugin sqllite
- 
+* CORE: Scripting for provisioning
+* CORE: MariaDB backup stage support
