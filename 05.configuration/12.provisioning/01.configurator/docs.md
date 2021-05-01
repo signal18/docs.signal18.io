@@ -1,5 +1,5 @@
 ---
-title: Provisioning Software Config
+title:  Software Configurator
 taxonomy:
     category: docs
 ---
