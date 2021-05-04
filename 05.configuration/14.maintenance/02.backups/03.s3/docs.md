@@ -1,7 +1,7 @@
 ---
 title: S3
 taxonomy:
-    category: Maintenance
+    category: docs
 ---
 ### Streaming Backups
 

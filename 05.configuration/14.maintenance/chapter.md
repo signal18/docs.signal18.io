@@ -1,7 +1,7 @@
 ---
 title: Maintenance
 taxonomy:
-    category: Maintenance
+    category: docs
 ---
 
 # Maintenance

@@ -1,7 +1,7 @@
 ---
 title: Scheduler
 taxonomy:
-    category: Maintenance
+    category: docs
 ---
 ## Scheduler
 

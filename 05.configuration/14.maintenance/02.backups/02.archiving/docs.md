@@ -1,7 +1,7 @@
 ---
 title: Archiving
 taxonomy:
-    category: Maintenance
+    category: docs
 ---
 ### Archiving Backups
 

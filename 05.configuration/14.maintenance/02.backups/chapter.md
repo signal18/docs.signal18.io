@@ -1,7 +1,7 @@
 ---
 title: Backups
 taxonomy:
-    category: Maintenance
+    category: docs
 ---
 ## Backups
 
