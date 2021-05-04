@@ -4,6 +4,8 @@ taxonomy:
     category: Maintenance
 ---
 
+# Maintenance
+
 **Replication-manager (2.1)**  embedded an internal cluster scheduler.
 
 The [Robfig](https://godoc.org/github.com/robfig/cron) scheduler is used to plan database maintenance operations like backups, optimize, and error log files fetching or rotation.

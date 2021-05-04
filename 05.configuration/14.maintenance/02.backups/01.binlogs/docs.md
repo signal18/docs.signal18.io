@@ -3,7 +3,7 @@ title: Binlogs
 taxonomy:
     category: Maintenance
 ---
-
+### Binlogs Backups
 **replication-manager (2.1)** can backup binlogs it is monitoring binlogs and on rotation will copy the previous binlog   
 
 ##### `backup-binlogs` (2.1)  
