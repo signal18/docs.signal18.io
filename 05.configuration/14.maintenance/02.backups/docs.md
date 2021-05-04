@@ -26,7 +26,7 @@ When backup are executed they are sore compressed under the replication-manager 
 
 | Item | Value |
 | ---- | ----- |
-| Description | river|mysqldump|mydumper  |
+| Description | river,mysqldump,mydumper  |
 | Type | string |
 | Default Value | "mysqldump" |
 
@@ -36,7 +36,7 @@ mysqldump only so far
 
 | Item | Value |
 | ---- | ----- |
-| Description |  xtrabackup|mariabackup   |
+| Description |  xtrabackup,mariabackup   |
 | Type | string |
 | Default Value | "xtrabackup" |
 
