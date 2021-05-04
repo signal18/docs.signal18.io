@@ -15,10 +15,16 @@ From **replication-manager 2.1** it is possible to store backups using s3 protoc
 In **replication-manager 2.1 **>, backups can be archive and purge via interaction with the Restic binaries (need pre install) that interconnect to an s3 protocol bucket, Restic enable block level encryption & deduplication and will store the entire backup directory for mixing multiple files backups like mydumper.        
 
 
+When backup are executed they are stored compressed under the replication-manager datadir
 
-##  Backup streaming for archive
+```
+<data_directory>/backups/<cluster_name>/<server_name>_<server_port>.
+```
 
-When backup are executed they are sore compressed under the replication-manager <data_directory>/<cluster_name>/<server_name>_<server_port>/bck. The can be used to provision new nodes or restore broken slaves, but long archiving may be required. A full restic integration is used for this.   
+The can be used to provision new nodes or restore broken slaves,
+
+
+But long archiving may be required. A full restic integration is used for this.   
 
 
 
