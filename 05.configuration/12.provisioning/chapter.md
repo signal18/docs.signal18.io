@@ -1,9 +1,8 @@
 ---
-title: Provisioning 
+title: Provisioning
 taxonomy:
     category: docs
 ---
-
 ## Provisioning Settings
 
 Since version 1.1 **replication-manager** can use an agent-based cluster provisioning with the OpenSVC provisioning framework.

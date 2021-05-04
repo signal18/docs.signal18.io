@@ -1,7 +1,7 @@
 ---
 title: Kubernetes
 taxonomy:
-    category: Orchestrator
+    category: docs
 ---
 
 

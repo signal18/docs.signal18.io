@@ -1,7 +1,7 @@
 ---
 title: Scripts
 taxonomy:
-    category: Orchestrator
+    category: docs
 ---
 
 

@@ -1,7 +1,7 @@
 ---
 title: OpenSVC Advanced Configuration
 taxonomy:
-    category:
+    category: docs
 ---
 
 

@@ -1,7 +1,7 @@
 ---
 title: Local
 taxonomy:
-    category: Orchestrator
+    category: docs
 ---
 
 

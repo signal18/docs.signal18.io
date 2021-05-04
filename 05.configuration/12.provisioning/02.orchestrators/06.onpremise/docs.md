@@ -1,7 +1,7 @@
 ---
 title: OnPremise
 taxonomy:
-    category: Orchestrator
+    category: docs
 ---
 
 **replication-manager (2.2)** can connect via SSH using it's own user SSH private key and connect to the db or proxy host on a given sudoer root user to bootstrap the configuration files and start stop each service

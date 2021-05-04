@@ -1,7 +1,7 @@
 ---
 title: SlapOS
 taxonomy:
-    category: Orchestrator
+    category: docs
 ---
 
 SlapOS use replication API call to request actions to be performed and can bootstrap software configuration via giving the following parameters

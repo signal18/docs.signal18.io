@@ -3,7 +3,7 @@ title: Orchestrators
 taxonomy:
     category: docs
 ---
-# Configuration Provisioning
+## Configuration
 
 ##### `prov-orchestrator` (2.1)
 
