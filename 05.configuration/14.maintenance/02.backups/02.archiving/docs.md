@@ -1,7 +1,7 @@
 ---
 title: Archiving
 taxonomy:
-    category: maintenance
+    category: Maintenance
 ---
 
 ##### `backup-restic` (2.1)                                            

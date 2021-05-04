@@ -1,7 +1,7 @@
 ---
 title: S3
 taxonomy:
-    category: maintenance
+    category: Maintenance
 ---
 
 replication-manager can fuse mount the entire backup directory to an S3 bucket  
