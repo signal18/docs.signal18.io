@@ -3,7 +3,6 @@ title: Routing
 taxonomy:
     category: docs
 ---
-### Chapter 2.2.6
 
 # Configuration Routing Traffic
 
