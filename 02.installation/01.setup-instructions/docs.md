@@ -82,11 +82,11 @@ Download the archive from [GitHub Releases](https://github.com/signal18/replicat
 
 You can now unpack the tarball in your local directory:
 
-`sudo tar zxvf replication-manager-1.1.2.tar gz -C /usr/local/`
+`sudo tar zxvf replication-manager-{YOUR_VERSION}.tar.gz -C /usr/local/`
 
 Create a symlink
 
-`sudo ln -s /usr/local/replication-manager-1.1.2 /usr/local/replication-manager`
+`sudo ln -s /usr/local/replication-manager-{YOUR_VERSION} /usr/local/replication-manager`
 
 Copy the systemd or init files in your system:
 
