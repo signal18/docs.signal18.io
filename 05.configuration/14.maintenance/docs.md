@@ -19,9 +19,9 @@ For some maintenance operations it's required that some communication takes plac
 2. To trigger such remote actions **replication-manager** open an available TCP connection with a timeout of 120s and create or populate a database table acting as a message queue named replication_manager_scehma.jobs on each database server. Those request does not produce binlogs. The port can be choosen by consuming a pool of ports defined with the variable `scheduler-db-servers-sender-ports` if no more ports are available than it start picking some server available port. 
 If you are using multiple Clusters monitored in a replication-manager.
 
-##### `scheduler-db-servers-sender-ports` (2.3.5)
+ ##### `scheduler-db-servers-sender-ports` (2.3.5)
 
-| Item          | Value |
+ | Item          | Value |
 | ----          | ----- |
 | Description   | Comma separated list of port |
 | Type          | string |
@@ -30,9 +30,9 @@ If you are using multiple Clusters monitored in a replication-manager.
 3. **Replication-manager** prepare an envelop for the tracking the task by inserting a row inside the destination database job table, replcation_manager_schema.jobs. It will discover that the job is finish when the done field will be set to 1 and that the job is running if result is set to processing. 
 
 
-## Jobs table description
+ #### Jobs table description
 
-| Field  | Type          | Null | Key | Default | Extra          |
+ | Field  | Type          | Null | Key | Default | Extra          |
 |--------|---------------|------|-----|---------|----------------|
 | id     | int(11)       | NO   | PRI | NULL    | auto_increment |
 | task   | varchar(20)   | YES  | MUL | NULL    |                |
@@ -54,9 +54,9 @@ If you are using multiple Clusters monitored in a replication-manager.
 
 8. From the task execute, it will stream the result via socat to the **replication-manager** address and port find in the task. The address is define by `monitoring-address` tag.
 
-##### `monitoring-address` (2.3.5)
+ ##### `monitoring-address` (2.3.5)
 
-| Item          | Value |
+ | Item          | Value |
 | ----          | ----- |
 | Description   | TCP address of replication manager reachable by DB and proxies nodes |
 | Type          | string |
