@@ -10,8 +10,8 @@ taxonomy:
 
 For some maintenance operations it's required that some communication takes place from the monitored database to the replication-manager.
 
-![mrmconsole](/images/DbJob Schema.png)
-/*:
+![mrmconsole](/images/dbjobnodetorepman.png)
+
 1. The [Robfig](https://godoc.org/github.com/robfig/cron) scheduler is used to plan database maintenance operations like backups, optimize, and error log files fetching or rotation. **Replication-manager** initialize the DbJob scheduler and defines the interval at which the tasks are performed. Every task can be enable or disable, please refer to [scheduler](https://docs.signal18.io/configuration/maintenance/scheduler) section to configure it. By default, the scheduler is not enable. 
 
 
@@ -29,7 +29,7 @@ If you are using multiple Clusters monitored in a replication-manager.
 
 3. **Replication-manager** prepare an envelop for the tracking the task by inserting a row inside the destination database job table, replcation_manager_schema.jobs. It will discover that the job is finish when the done field will be set to 1 and that the job is running if result is set to processing. 
 
-*/
+
 ## Jobs table description
 
 | Field  | Type          | Null | Key | Default | Extra          |
@@ -43,7 +43,7 @@ If you are using multiple Clusters monitored in a replication-manager.
 | start  | datetime      | YES  |     | NULL    |                |
 | end    | datetime      | YES  |     | NULL    |                |
 
-/*:
+
 4. One specific task is for OnPremise orchestration to execute the script via SSH that trigger the task. For other orchestration, **replication-manager** just wait that the task is execute or via a job container that share the same namespace with the databases to execute the task and populate the job table. 
 
 5. In the case of SSH execution the script is unpack in the data directory under the database directory /init/init/dbjobs_XXX. In other orchestration mode, it is deliver via the config tag.gz file that can be download by so call "init container".
@@ -67,7 +67,6 @@ If you are using multiple Clusters monitored in a replication-manager.
 
 10. Error and slow query logs will be stream in files located inside the [data_directory]/[cluster_name]/[database_host_name]. For backups, **replication-manager** will store the file inside the [data_directory]/Backups/[cluster_name]/[database_host_name]. In the last step, the backups optionnaly stream inside restic for archiving, refer to the [backups](https://docs.signal18.io/configuration/maintenance/backups) section for more information.
  
-*/
 
 ## Cron Jobs donor task
 
@@ -212,7 +211,7 @@ do
       ;;
 
       [...]
-      
+
   esac
   doneJob
   fi
