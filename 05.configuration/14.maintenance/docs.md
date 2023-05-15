@@ -5,14 +5,31 @@ taxonomy:
 ---
 ## Maintenance
 
-**Replication-manager (2.1)**  embedded an internal cluster scheduler.
+**Replication-manager (2.1)**  embedded an internal cluster scheduler to help automate database maintenance.
 
-The [Robfig](https://godoc.org/github.com/robfig/cron) scheduler is used to plan database maintenance operations like backups, optimize, and error log files fetching or rotation.
 
 For some maintenance operations it's required that some communication takes place from the monitored database to the replication-manager.
 
-To trigger such remote actions **replication-manager** open an available TCP connection with a timeout of 120s and create or populate a database table acting as a message queue named replication_manager_scehma.jobs on each database server. Those request does not produce binlogs  
+![mrmconsole](/images/DbJob Schema.png)
+/*:
+1. The [Robfig](https://godoc.org/github.com/robfig/cron) scheduler is used to plan database maintenance operations like backups, optimize, and error log files fetching or rotation. **Replication-manager** initialize the DbJob scheduler and defines the interval at which the tasks are performed. Every task can be enable or disable, please refer to [scheduler](https://docs.signal18.io/configuration/maintenance/scheduler) section to configure it. By default, the scheduler is not enable. 
 
+
+
+2. To trigger such remote actions **replication-manager** open an available TCP connection with a timeout of 120s and create or populate a database table acting as a message queue named replication_manager_scehma.jobs on each database server. Those request does not produce binlogs. The port can be choosen by consuming a pool of ports defined with the variable `scheduler-db-servers-sender-ports` if no more ports are available than it start picking some server available port. 
+If you are using multiple Clusters monitored in a replication-manager.
+
+##### `scheduler-db-servers-sender-ports` (2.3.5)
+
+| Item          | Value |
+| ----          | ----- |
+| Description   | Comma separated list of port |
+| Type          | string |
+| Default Value | "" |
+
+3. **Replication-manager** prepare an envelop for the tracking the task by inserting a row inside the destination database job table, replcation_manager_schema.jobs. It will discover that the job is finish when the done field will be set to 1 and that the job is running if result is set to processing. 
+
+*/
 ## Jobs table description
 
 | Field  | Type          | Null | Key | Default | Extra          |
@@ -25,6 +42,32 @@ To trigger such remote actions **replication-manager** open an available TCP con
 | result | varchar(1000) | YES  |     | NULL    |                |
 | start  | datetime      | YES  |     | NULL    |                |
 | end    | datetime      | YES  |     | NULL    |                |
+
+/*:
+4. One specific task is for OnPremise orchestration to execute the script via SSH that trigger the task. For other orchestration, **replication-manager** just wait that the task is execute or via a job container that share the same namespace with the databases to execute the task and populate the job table. 
+
+5. In the case of SSH execution the script is unpack in the data directory under the database directory /init/init/dbjobs_XXX. In other orchestration mode, it is deliver via the config tag.gz file that can be download by so call "init container".
+
+6. The DbJob script is running on the database node and loop over all task by reading the job table.
+
+7. It will select the last inserted task undone and unprocessed. If found, it will first set the result field to processing
+
+8. From the task execute, it will stream the result via socat to the **replication-manager** address and port find in the task. The address is define by `monitoring-address` tag.
+
+##### `monitoring-address` (2.3.5)
+
+| Item          | Value |
+| ----          | ----- |
+| Description   | TCP address of replication manager reachable by DB and proxies nodes |
+| Type          | string |
+| Default Value | "localhost" |
+
+
+9. When finished will report STDOUT into the result field and mark the task as done. 
+
+10. Error and slow query logs will be stream in files located inside the [data_directory]/[cluster_name]/[database_host_name]. For backups, **replication-manager** will store the file inside the [data_directory]/Backups/[cluster_name]/[database_host_name]. In the last step, the backups optionnaly stream inside restic for archiving, refer to the [backups](https://docs.signal18.io/configuration/maintenance/backups) section for more information.
+ 
+*/
 
 ## Cron Jobs donor task
 
@@ -40,93 +83,95 @@ To trigger such remote actions **replication-manager** open an available TCP con
 
 A donor scripts should dequeue the task and send the requested stream via socat to the temporary replication-manager TCP port, for those familiar with Galera Cluster it works in a similar way to SST but can be done concurrently and without stoping the receiver.
 
+
+
 ## Donor script sample
 
 In **replication-manager-pro** we push the donor script in a Job container if you are using   **replication-manager-osc** you can customize similar script in crontab schedule every minutes.
 
 ```
 #!/bin/bash
+set -x
 USER=root
-PASSWORD=%%ENV:SVC_CONF_ENV_MYSQL_ROOT_PASSWORD%%
-ERROLOG=/var/lib/mysql/.system/logs/errors.log
-SLOWLOG=/var/lib/mysql/.system/logs/sql-slow
-BACKUPDIR=/var/lib/mysql/.system/backup
-DATADIR=/var/lib/mysql/
-JOBS=( "xtrabackup" "error" "slowquery" "zfssnapback" "optimize" "reseedxtrabackup" "reseedmysqldump" "flashbackxtrabackup" "flashbackmysqldump" )
+PASSWORD=$MYSQL_ROOT_PASSWORD
+MYSQL_PORT=3314
+MYSQL_SERVER=127.0.0.1
+CLUSTER_NAME=emma
+REPLICATION_MANAGER_ADDR=127.0.0.1:10001
+MYSQL_CONF=/home/emma/repdata/emma/127.0.0.1_3314/init/etc/mysql
+DATADIR=/home/emma/repdata/emma/127.0.0.1_3314/var
+MYSQL_CLIENT_PARAMETERS="-u$USER -h$MYSQL_SERVER -p$PASSWORD -P$MYSQL_PORT" 
+MYSQL_CLIENT="/usr/bin/mysql $MYSQL_CLIENT_PARAMETERS"
+MYSQL_CHECK=/usr/bin/mysqlcheck
+MYSQL_DUMP=/usr/bin/mysqldump
+SST_RECEIVER_PORT=4444
+SOCAT_BIND=0.0.0.0
+MARIADB_BACKUP=/usr/bin/mariabackup
+XTRABACKUP=/usr/bin/xtrabackup
+INNODBACKUPEX=/usr/bin/innobackupex
+
+ERROLOG=$DATADIR/.system/logs/error.log
+SLOWLOG=$DATADIR/.system/logs/slow-query.log
+BACKUPDIR=$DATADIR/.system/backup
+
+JOBS=( "xtrabackup" "mariabackup" "error" "slowquery" "zfssnapback" "optimize" "reseedxtrabackup" "reseedmariabackup" "reseedmysqldump" "flashbackxtrabackup" "flashbackmariadbackup" "flashbackmysqldump" "stop" "restart" "start")
+
+# OSX need socat extra path
+export PATH=$PATH:/usr/local/bin
+ 
+socatCleaner()
+{
+ lsof -t -i:$SST_RECEIVER_PORT -sTCP:LISTEN | kill -9
+}
 
 doneJob()
 {
- /usr/bin/mysql -u$USER -p$PASSWORD -e "set sql_log_bin=0;UPDATE replication_manager_schema.jobs set end=NOW(), result=LOAD_FILE('/tmp/dbjob.out') WHERE id='$ID';" &
+ $MYSQL_CLIENT -e "set sql_log_bin=0;UPDATE replication_manager_schema.jobs set end=NOW(), result=LOAD_FILE('/tmp/dbjob.out'), done=1  WHERE id='$ID';" &
 }
 
 pauseJob()
 {
- /usr/bin/mysql -u$USER -p$PASSWORD -e "select sleep(6);set sql_log_bin=0;UPDATE replication_manager_schema.jobs set result=LOAD_FILE('/tmp/dbjob.out') WHERE id='$ID';" &
+ $MYSQL_CLIENT  -e "select sleep(20);set sql_log_bin=0;UPDATE replication_manager_schema.jobs set set done=1,result=LOAD_FILE('/tmp/dbjob.out') WHERE id='$ID';" &
 }
 
-partialRestore()
-{
- /usr/bin/mysql -p$PASSWORD -u$USER -e "install plugin BLACKHOLE soname 'ha_blackhole.so'"
- for dir in $(ls -d $BACKUPDIR/*/ | xargs -n 1 basename | grep -vE 'mysql|performance_schema') ; do
- /usr/bin/mysql -p$PASSWORD -u$USER -e "drop database IF EXISTS $dir; CREATE DATABASE $dir;"
- chown -R mysql:mysql $BACKUPDIR
-
-  for file in $(find $BACKUPDIR/$dir/ -name "*.exp" | xargs -n 1 basename | cut -d'.' --complement -f2-) ; do
-   cat $BACKUPDIR/$dir/$file.frm | sed -e 's/\x06\x00\x49\x6E\x6E\x6F\x44\x42\x00\x00\x00/\x09\x00\x42\x4C\x41\x43\x4B\x48\x4F\x4C\x45/g' > $DATADIR/$dir/mrm_pivo.frm
-   /usr/bin/mysql -p$PASSWORD -u$USER -e "ALTER TABLE $dir.mrm_pivo  engine=innodb;RENAME TABLE $dir.mrm_pivo TO $dir.$file; ALTER TABLE $dir.$file DISCARD TABLESPACE;"
-   mv $BACKUPDIR/$dir/$file.ibd $DATADIR/$dir/$file.ibd
-   mv $BACKUPDIR/$dir/$file.exp $DATADIR/$dir/$file.exp
-   mv $BACKUPDIR/$dir/$file.cfg $DATADIR/$dir/$file.cfg
-   mv $BACKUPDIR/$dir/$file.TRG $DATADIR/$dir/$file.TRG
-   /usr/bin/mysql -p$PASSWORD -u$USER -e "ALTER TABLE $dir.$file IMPORT TABLESPACE"
-  done
-  for file in $(find $BACKUPDIR/$dir/ -name "*.MYD" | xargs -n 1 basename | cut -d'.' --complement -f2-) ; do
-   mv $BACKUPDIR/$dir/$file.* $DATADIR/$dir/
-  done
-  for file in $(find $BACKUPDIR/$dir/ -name "*.CSV" | xargs -n 1 basename | cut -d'.' --complement -f2-) ; do
-   mv $BACKUPDIR/$dir/$file.* $DATADIR/$dir/
-  done
- done
- for file in $(find $BACKUPDIR/mysql/ -name "*.MYD" | xargs -n 1 basename | cut -d'.' --complement -f2-) ; do
-  mv $BACKUPDIR/mysql/$file.* $DATADIR/mysql/
- done
- cat $BACKUPDIR/xtrabackup_info | grep binlog_pos | awk  -F, '{ print $3 }' | sed -e 's/GTID of the last change/set global gtid_slave_pos=/g' | /usr/bin/mysql -p$PASSWORD -u$USER
- /usr/bin/mysql -p$PASSWORD -u$USER  -e"start slave;"
-}
+[...]
 
 for job in "${JOBS[@]}"
 do
 
- TASK=($(echo "select concat(id,'@',server,':',port) from replication_manager_schema.jobs WHERE task='$job' and done=0 order by task desc limit 1" | /usr/bin/mysql -p$PASSWORD -u$USER -N))
+ TASK=($(echo "SELECT concat(id,'@',server,':',port) FROM replication_manager_schema.jobs WHERE task='$job' and done=0   AND (result is NULL OR result<>'processing') order by id desc limit 1" | $MYSQL_CLIENT -N))
 
  ADDRESS=($(echo $TASK | awk -F@ '{ print $2 }'))
  ID=($(echo $TASK | awk -F@ '{ print $1 }'))
- /usr/bin/mysql -uroot -p$PASSWORD -e "set sql_log_bin=0;UPDATE replication_manager_schema.jobs set done=1 WHERE task='$job';"
-
+ 
   if [ "$ADDRESS" == "" ]; then
     echo "No $job needed"
+    case "$job" in 
+    start)
+       if [ "curl -so /dev/null -w '%{response_code}'   http://$REPLICATION_MANAGER_ADDR/api/clusters/$CLUSTER_NAME/servers/$MYSQL_SERVER/$MYSQL_PORT/need-start" == "200" ]; then
+          curl http://$REPLICATION_MANAGER_ADDR/api/clusters/$CLUSTER_NAME/servers/$MYSQL_SERVER/$MYSQL_PORT/config|tar xzvf etc/* - -C $CONFDIR/../..
+    systemctl start mysql 
+       fi
+    ;;
+   esac
   else
     echo "Processing $job"
+    #purge de past
+    $MYSQL_CLIENT -e "set sql_log_bin=0;UPDATE replication_manager_schema.jobs set done=1 WHERE done=0 AND task='$job' AND ID<>$ID;"
+    $MYSQL_CLIENT -e "set sql_log_bin=0;UPDATE replication_manager_schema.jobs set result='processing' WHERE task='$job' AND ID=$ID;"
     case "$job" in
-      reseedmysqldump)
-       echo "Waiting backup." >  /tmp/dbjob.out
-       pauseJob
-       socat -u TCP-LISTEN:4444,reuseaddr STDOUT | gunzip | /usr/bin/mysql -p$PASSWORD -u$USER > /tmp/dbjob.out 2>&1
-        /usr/bin/mysql -p$PASSWORD -u$USER -e 'start slave;'
-      ;;
-      flashbackmysqldump)
-       echo "Waiting backup." >  /tmp/dbjob.out
-       pauseJob
-       socat -u TCP-LISTEN:4444,reuseaddr STDOUT | gunzip | /usr/bin/mysql -p$PASSWORD -u$USER > /tmp/dbjob.out 2>&1
-        /usr/bin/mysql -p$PASSWORD -u$USER -e 'start slave;'
-      ;;
-      reseedxtrabackup)
+      
+      [...]
+
+      reseedmariabackup)
        rm -rf $BACKUPDIR
        mkdir $BACKUPDIR
        echo "Waiting backup." >  /tmp/dbjob.out
        pauseJob
-       socat -u TCP-LISTEN:4444,reuseaddr STDOUT | xbstream -x -C $BACKUPDIR
-       xtrabackup --prepare --export --target-dir=$BACKUPDIR
+       socatCleaner
+       socat -u TCP-LISTEN:$SST_RECEIVER_PORT,reuseaddr,bind=$SOCAT_BIND STDOUT | mbstream -x -C $BACKUPDIR
+       # mbstream -p, --parallel
+       $MARIADB_BACKUP --prepare --export --target-dir=$BACKUPDIR
        partialRestore
       ;;
       flashbackxtrabackup)
@@ -134,13 +179,28 @@ do
        mkdir $BACKUPDIR
        echo "Waiting backup." >  /tmp/dbjob.out
        pauseJob
-       socat -u TCP-LISTEN:4444,reuseaddr STDOUT | xbstream -x -C $BACKUPDIR
-       xtrabackup --prepare --export --target-dir=$BACKUPDIR
+       socatCleaner 
+       socat -u TCP-LISTEN:$SST_RECEIVER_PORT,reuseaddr,bind=$SOCAT_BIND STDOUT | xbstream -x -C $BACKUPDIR
+       $XTRABACKUP --prepare --export --target-dir=$BACKUPDIR
+       partialRestore
+      ;;
+      flashbackmariadbackup)
+       rm -rf $BACKUPDIR
+       mkdir $BACKUPDIR
+       echo "Waiting backup." >  /tmp/dbjob.out
+       pauseJob
+       socatCleaner
+       socat -u TCP-LISTEN:$SST_RECEIVER_PORT,reuseaddr,bind=$SOCAT_BIND STDOUT | xbstream -x -C $BACKUPDIR
+       $MARIADB_BACKUP --prepare --export --target-dir=$BACKUPDIR
        partialRestore
       ;;
       xtrabackup)
        cd /docker-entrypoint-initdb.d
-       /usr/bin/innobackupex  --defaults-file=/etc/mysql/my.cnf --socket='/var/run/mysqld/mysqld.sock' --slave-info --no-version-check  --user=$USER --password=$PASSWORD --stream=xbstream /tmp/ | socat -u stdio TCP:$ADDRESS &>/tmp/dbjob.out
+       $XTRABACKUP  --defaults-file=$MYSQL_CONF/my.cnf --backup -u$USER -H$MYSQL_SERVER -p$PASSWORD -P$MYSQL_PORT --stream=xbstream --target-dir=/tmp/ | socat -u stdio TCP:$ADDRESS &>/tmp/dbjob.out
+      ;;
+      mariabackup)
+       cd /docker-entrypoint-initdb.d
+       $MARIADB_BACKUP --innobackupex --defaults-file=$MYSQL_CONF/my.cnf --protocol=TCP  $MYSQL_CLIENT_PARAMETERS --stream=xbstream  | socat -u stdio TCP:$ADDRESS &>/tmp/dbjob.out
       ;;
       error)
        cat $ERROLOG| socat -u stdio TCP:$ADDRESS &>/tmp/dbjob.out
@@ -150,15 +210,9 @@ do
        cat $SLOWLOG| socat -u stdio TCP:$ADDRESS &>/tmp/dbjob.out
        > $SLOWLOG
       ;;
-      zfssnapback)
-       LASTSNAP=`zfs list -r -t all |grep zp%%ENV:SERVICES_SVCNAME%%_pod01 | grep daily | sort -r | head -n 1  | cut -d" " -f1`
-       %%ENV:SERVICES_SVCNAME%% stop
-       zfs rollback $LASTSNAP
-       %%ENV:SERVICES_SVCNAME%% start
-      ;;
-      optimize)
-       /usr/bin/mysqloptimize -u$USER -p$PASSWORD --all-databases &>/tmp/dbjob.out
-      ;;
+
+      [...]
+      
   esac
   doneJob
   fi
