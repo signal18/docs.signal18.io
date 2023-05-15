@@ -17,7 +17,7 @@ For some maintenance operations it's required that some communication takes plac
 
 
 2. To trigger such remote actions **replication-manager** open an available TCP connection with a timeout of 120s and create or populate a database table acting as a message queue named replication_manager_scehma.jobs on each database server. Those request does not produce binlogs. The port can be choosen by consuming a pool of ports defined with the variable `scheduler-db-servers-sender-ports` if no more ports are available than it start picking some server available port. 
-If you are using multiple Clusters monitored in a replication-manager.
+If you are using multiple clusters monitored in a replication-manager, make sure the port list does't overlap between two clusters.
 
  ##### `scheduler-db-servers-sender-ports` (2.3.5)
 
@@ -27,7 +27,7 @@ If you are using multiple Clusters monitored in a replication-manager.
 | Type          | string |
 | Default Value | "" |
 
-3. **Replication-manager** prepare an envelop for the tracking the task by inserting a row inside the destination database job table, replcation_manager_schema.jobs. It will discover that the job is finish when the done field will be set to 1 and that the job is running if result is set to processing. 
+3. **Replication-manager** prepare an envelop for the tracking the task by inserting a row inside the destination database job table, replcation_manager_schema.jobs. It will discover that the job is finish when the done field will be set to 1 and that the job is running if result is set to processing. **Replication-manager** make sure that no binlogs are created when updating the job table.
 
 
  #### Jobs table description
@@ -50,7 +50,7 @@ If you are using multiple Clusters monitored in a replication-manager.
 
 6. The DbJob script is running on the database node and loop over all task by reading the job table.
 
-7. It will select the last inserted task undone and unprocessed. If found, it will first set the result field to processing
+7. It will select the last inserted task undone and unprocessed. If found, it will first set the result field to processing.
 
 8. From the task execute, it will stream the result via socat to the **replication-manager** address and port find in the task. The address is define by `monitoring-address` tag.
 
