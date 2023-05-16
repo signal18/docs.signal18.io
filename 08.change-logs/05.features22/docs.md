@@ -12,5 +12,7 @@ taxonomy:
 * CORE: CDC to ColumnStore
 * CORE: GRPC API to save restore configs in store plugin
 * CORE: GRPC API to save restore  plugin sqllite
-* CORE: Scripting for provisioning
+* CORE: Scripting for on demand provisioning
 * CORE: MariaDB backup stage support
+* CORE: MySQL GTID multi source channel full support
+* CORE MONITORING: Alerting via pushover cloud
