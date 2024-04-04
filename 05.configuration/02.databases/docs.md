@@ -21,6 +21,7 @@ taxonomy:
 | Description | Database login with root privileges, specified in the [user]:[password] format |
 | Type | string |
 | Example | "root:password" |
+Database login credentials will use IP. If you are using local configuration, please set up credentials for `127.0.0.1` instead of `localhost`
 
 ##### `db-servers-prefered-master` (2.0), `prefmaster` (1.1)
 
