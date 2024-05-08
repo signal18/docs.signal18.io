@@ -12,7 +12,7 @@ Credentials can be customized by setting your own user and password in configura
 
 ```
 api-port ="10005"
-api-credential = "admin:repman"
+api-credentials = "admin:repman"
 ```
 
 At startup of the monitor, X509 certificates are loaded from the replication-manager share directory or from keys defined from config files to ensure TLS https secure communication.
