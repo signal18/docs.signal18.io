@@ -22,13 +22,26 @@ taxonomy:
 | Type | string |
 | Example | "root:password" |
 
+Database login credentials will use IP (not socket). If you are using local configuration with MySQL or MariaDB, please set up credentials and privileges for `127.0.0.1` instead of `localhost`.
+
+```
+If the host is not specified or is localhost, a connection to the local host occurs:
+
+On Windows, the client connects using shared memory, if the server was started with the [shared_memory](https://dev.mysql.com/doc/refman/8.0/en/server-system-variables.html#sysvar_shared_memory) system variable enabled to support shared-memory connections.
+
+On Unix, MySQL programs treat the host name localhost specially, in a way that is likely different from what you expect compared to other network-based programs: the client connects using a Unix socket file. The [--socket](https://dev.mysql.com/doc/refman/8.0/en/connection-options.html#option_general_socket) option or the MYSQL_UNIX_PORT environment variable may be used to specify the socket name.
+```
+
 ##### `db-servers-prefered-master` (2.0), `prefmaster` (1.1)
 
 | Item          | Value |
 | ----          | ----- |
-| Description   | Database preferred candidate for master election, in host:[port] format |
-| Type          | string |
-| Example       | "127.0.0.1:5055" |
+| Description   | Database preferred candidates for master election, in host:[port] format |
+| Type          | list |
+| Example       | "127.0.0.1:5055,127.0.0.1:5056" |
+
+If `db-servers-prefered-master` specified, it will failover to candidates mentioned list first. `db-servers-prefered-master` does not prevent candidates outside the list to be master. If no suitable candidates found within the list, then it will try to failover outside the list. 
+If you want to exclude the database, you need to put the host address within `db-servers-ignored-hosts`.
 
 ##### `db-servers-ignored-hosts` (2.0), `ignore-servers` (1.1)
 
