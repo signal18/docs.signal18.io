@@ -22,6 +22,10 @@ Packages installation will deploy a set of directories and files
   * `/var/lib/replication-manager`
     A data directory used to bootstrap proxies and MariaDB local instances for regression tests, to backup binary logs, to store metrics
 
+  * `$HOMEDIR/.config/replication-manager`
+    From Version 3 an extra directory to backup dynamic configs files store in the DATADIR and the config for embedded release
+
+
 Logs can be found in `/var/log/replication-manager.log`.
 
 
