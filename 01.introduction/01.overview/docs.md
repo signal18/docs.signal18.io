@@ -5,7 +5,7 @@ taxonomy:
 ---
 ## Goals
 
-**replication-manager** have to be the best open source **database cluster orchestator**. Embed the best practices from configurations, deployments, HA operations, maintenance tasks, monitoring, troubleshooting in the MySQL, MariaDB, Percona and the tools around them. A toolkit for the best open source solutions. We design features to hide database clustering complexity, keeping Amazon RDS simplicity in mind.     
+**replication-manager** have to be the best open source **database cluster orchestrator**. Embed the best practices from configurations, deployments, HA operations, maintenance tasks, monitoring, troubleshooting in the MySQL, MariaDB, Percona and the tools around them. A toolkit for the best open source solutions. We design features to hide database clustering complexity, keeping Amazon RDS simplicity in mind.     
 
 **replication-manager** also aims to be configurable with nix style, multi tenant, secured via encryption and ACL and user-friendly by offering API, command line and HTML interfaces around familiar databases and proxying softwares.
 
