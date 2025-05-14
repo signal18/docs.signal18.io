@@ -177,3 +177,49 @@ Standard MySQL Monitor (StdMyMon) rev. 1.2.0723 -- MySQL_Monitor.cpp -- Sat Oct 
 ### Entering a docker image
 
 **om arceau/svc/db3 docker exec -ti {db} /bin/sh**
+
+### Secret and config services  
+
+**om arceau/*/env mon**
+```
+arceau/cfg/e...                   s18-fr-4 s18-fr-5 s18-fr-6
+arceau/cfg/env n/a             | /        /        /       
+arceau/sec/env n/a             | /        /        /       
+```
+
+**om arceau/*/env keys**
+```
+REPLICATION_MANAGER_CLUSTER_NAME
+REPLICATION_MANAGER_URL
+REPLICATION_MANAGER_USER
+MYSQL_ROOT_PASSWORD
+REPLICATION_MANAGER_PASSWORD
+SHARDPROXY_ROOT_PASSWORD
+```
+
+Decode key value
+**om arceau/cfg/env decode --key REPLICATION_MANAGER_URL**
+
+
+List private network
+
+**om net ls**
+```
+default
+backendipv6
+lo
+s18
+```
+
+List disk pool
+
+**om pool ls**
+```
+dbssd
+default
+drbd
+drbd4k
+drbdbigd
+shm
+tank
+```
