@@ -152,11 +152,11 @@ Examine the **service** log you should found some error
 19:28:23,035 ip#01          ERROR   192.168.100.50 is already up on another host**
 ```
 
-Working with services 
-**om arceau/svc/db3 provision**
-**om arceau/svc/db3 stop**
-**om arceau/svc/db3 unprovision**
-**om arceau/svc/db3 start**
+Working with services
+- **om arceau/svc/db3 provision**
+- **om arceau/svc/db3 stop**
+- **om arceau/svc/db3 unprovision**
+- **om arceau/svc/db3 start**
 
 
 ### Get logs of a docker image
