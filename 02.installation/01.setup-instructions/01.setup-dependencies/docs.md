@@ -27,7 +27,8 @@ If you plan to use **prov-orchestrator = "local" or prov-orchestrator = "onpremi
 * MariaDB or MySQL server packages
 * Restic for archiving backups  
 
-A deployment can be customized with changing configuration options to match binaries path:
+A deployment can be customized with changing configuration options to match binaries path
+Please use replication-manager monitor --help to check all available options:
 
 ```
 mariadb-binary-path = "/usr/sbin"

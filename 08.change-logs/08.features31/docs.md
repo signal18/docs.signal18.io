@@ -14,3 +14,6 @@ taxonomy:
 * CORE: Restore backup between clusters union database USERS
 * PEERING: Application deployments   
 * MAINTENANCE: Backup to use maria-backup maria-import
+* CORE: Moving to new OpenSVC go agent
+* CORE: OpenSVC agent service log  
+* CORE: OpenSVC agent failover and split brain monitor  
