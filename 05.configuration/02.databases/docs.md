@@ -36,9 +36,12 @@ On Unix, MySQL programs treat the host name localhost specially, in a way that i
 
 | Item          | Value |
 | ----          | ----- |
-| Description   | Database preferred candidate for master election, in host:[port] format |
-| Type          | string |
-| Example       | "127.0.0.1:5055" |
+| Description   | Database preferred candidates for master election, in host:[port] format |
+| Type          | list |
+| Example       | "127.0.0.1:5055,127.0.0.1:5056" |
+
+If `db-servers-prefered-master` specified, it will failover to candidates mentioned list first. `db-servers-prefered-master` does not prevent candidates outside the list to be master. If no suitable candidates found within the list, then it will try to failover outside the list. 
+If you want to exclude the database, you need to put the host address within `db-servers-ignored-hosts`.
 
 ##### `db-servers-ignored-hosts` (2.0), `ignore-servers` (1.1)
 
