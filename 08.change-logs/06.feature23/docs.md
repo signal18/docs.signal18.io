@@ -1,3 +1,9 @@
+---
+title: 2.3 Features
+taxonomy:
+    category: docs
+---
+
 ### 2.3 Features
 
 * CORE: MySQL Group Replication

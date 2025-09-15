@@ -62,7 +62,7 @@ If you are using multiple clusters monitored in a replication-manager, make sure
 | Type          | String |
 | Default Value | root: |
 
- ##### `--onpremise-ssh-private-key` (2.2)
+ ##### `onpremise-ssh-private-key` (2.2)
 
  | Item          | Value |
 | ----          | ----- |

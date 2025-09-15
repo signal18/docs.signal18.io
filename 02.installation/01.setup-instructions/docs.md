@@ -1,7 +1,8 @@
 ---
-title: Setup Instructions
+title: 'Setup Instructions'
 taxonomy:
-    category: docs
+    category:
+        - docs
 ---
 
 **replication-manager** is a self-contained binary without dependencies that should work on most platforms. We only test builds for Linux, FreeBSD and Mac OS X at this time.
@@ -69,10 +70,16 @@ Create the repo file, install the key and install the binaries as such:
 
 ```
 # change next line with desired version number
+<<<<<<< HEAD
+version="2.1"
+echo "deb [arch=amd64] http://repo.signal18.io/deb $(lsb_release -sc) $version" > /etc/apt/sources.list.d/signal18.list
+apt-key adv --recv-keys --keyserver keyserver.ubuntu.com FAE20E50
+=======
 version="2.3"
 gpg --recv-keys --keyserver keyserver.ubuntu.com FAE20E50
 gpg --export FAE20E50 > /etc/apt/trusted.gpg.d/signal18.gpg
 echo "deb [signed-by=/etc/apt/trusted.gpg.d/signal18.gpg] http://repo.signal18.io/deb $(lsb_release -sc) $version" > /etc/apt/sources.list.d/signal18.list
+>>>>>>> f8f2f9f82d7e71cfe36cb19701a3eb0152770277
 apt-get update
 apt-get install replication-manager-osc
 ```
