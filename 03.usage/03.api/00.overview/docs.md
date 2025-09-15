@@ -12,7 +12,7 @@ Credentials can be customized by setting your own user and password in configura
 
 ```
 api-port ="10005"
-api-credential = "admin:repman"
+api-credentials = "admin:repman"
 ```
 
 At startup of the monitor, X509 certificates are loaded from the replication-manager share directory or from keys defined from config files to ensure TLS https secure communication.
@@ -57,29 +57,6 @@ Or via wget
 TOKEN=$(wget  -qO- --no-check-certificate --post-data '{"username":"admin","password":"repman"}' --header 'Accept: text/html' --header 'Content-Type: application/json'  https://127.0.0.1:10005/api/login)
 
 wget -qO- --no-check-certificate --header 'Accept: application/json' --header "Authorization: Bearer ${TOKEN}"  https://127.0.0.1:10005/api/clusters
-
-### Monitor Unprotected Endpoints
-
-/api/login
-
-INPUT: POST
-```
-{"username":"admin", "password":"mariadb"}
-```
-OUTPUT:
-```
-{"token":"hash"}
-```
-
-/api/status
-
-OUPUT:
-```
-{"alive": true}      
-./replication-manager api  --url="https://127.0.0.1:10005/api/status"  
-```
-
-/api/clusters/{clusterName}/status
 
 ## API documentation
 [Can be browsed online] https://dbaas-fr-2.signal18.io/api-docs/index.html)
