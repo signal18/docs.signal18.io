@@ -57,3 +57,7 @@ Or via wget
 TOKEN=$(wget  -qO- --no-check-certificate --post-data '{"username":"admin","password":"repman"}' --header 'Accept: text/html' --header 'Content-Type: application/json'  https://127.0.0.1:10005/api/login)
 
 wget -qO- --no-check-certificate --header 'Accept: application/json' --header "Authorization: Bearer ${TOKEN}"  https://127.0.0.1:10005/api/clusters
+
+## API documentation
+[Can be browsed online] https://dbaas-fr-2.signal18.io/api-docs/index.html)
+Or by installing the product and point to http://127.0.0.1:10001/api-docs
