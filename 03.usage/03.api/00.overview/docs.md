@@ -41,23 +41,29 @@ API can be called via command line client to simplify curl syntax with JWT token
 
 # Calling API via curl or wget
 
+```
 TOKEN=$(curl -s -k -X POST -H 'Accept: application/json' -H 'Content-Type: application/json' --data '{"username":"admin","password":"repman"}' https://demo.signal18.io/api/login | jq  -r '.token')
+```
 
 or without json response  
 
+```
 TOKEN=$(curl -s -k -X POST -H 'Accept: text/html' -H 'Content-Type: application/json' --data '{"username":"admin","password":"repman"}' https://127.0.0.1:10005/api/login)
-
+```
 
 follow by your request:
 
+```
 curl -k -H 'Accept: application/json' -H "Authorization: Bearer ${TOKEN}" https://demo.signal18.io/api/clusters
+```
 
 Or via wget
-
+```
 TOKEN=$(wget  -qO- --no-check-certificate --post-data '{"username":"admin","password":"repman"}' --header 'Accept: text/html' --header 'Content-Type: application/json'  https://127.0.0.1:10005/api/login)
 
 wget -qO- --no-check-certificate --header 'Accept: application/json' --header "Authorization: Bearer ${TOKEN}"  https://127.0.0.1:10005/api/clusters
+```
 
 ## API documentation
-[Can be browsed online] https://dbaas-fr-2.signal18.io/api-docs/index.html)
+[Can be browsed online](https://dbaas-fr-2.signal18.io/api-docs/index.html)
 Or by installing the product and point to http://127.0.0.1:10001/api-docs
