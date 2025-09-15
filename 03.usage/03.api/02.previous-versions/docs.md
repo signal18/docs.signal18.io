@@ -27,9 +27,6 @@ OUPUT:
 
 /api/clusters/{clusterName}/status
 
-## API documentation
-[Can be browsed online] https://dbaas-fr-2.signal18.io/api-docs/index.html)
-Or by installing the product and point to http://127.0.0.1:10001/api-docs
 # Version 2.0 & 2.1
 
 /clusters/{clusterName}/servers/{serverName}/master-status
