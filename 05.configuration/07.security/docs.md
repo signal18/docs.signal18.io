@@ -26,9 +26,9 @@ When an encryption key is detected at `replication-manager monitor` start, the e
 
 **replications-manager-cli** clients and API use JWT TLS protocol over https.
 
-The REST API is secured using encrypted token that is used to validate user:password credential of the API, the client will use same default password and so enter the API without asking a password but if the configuration `api-credential` is changed, all client will prompt for the password unless given the correct parameter `user` and `password` flags.
+The REST API is secured using encrypted token that is used to validate user:password credential of the API, the client will use same default password and so enter the API without asking a password but if the configuration `api-credentials` is changed, all client will prompt for the password unless given the correct parameter `user` and `password` flags.
 
-##### `api-credential` (2.0), `user` (1.1)
+##### `api-credentials` (2.0), `user` (1.1)
 
 | Item | Value |
 | ---- | ----- |

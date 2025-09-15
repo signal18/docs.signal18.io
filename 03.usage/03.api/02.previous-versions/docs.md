@@ -337,7 +337,7 @@ OUPUT:
 		"prov-tls-server-ca": "",
 		"prov-tls-server-cert": "",
 		"prov-tls-server-key": "",
-		"api-credential": "admin:repman",
+		"api-credentials": "admin:repman",
 		"api-port": "10005",
 		"api-bind": "0.0.0.0",
 		"alert-script": "",
