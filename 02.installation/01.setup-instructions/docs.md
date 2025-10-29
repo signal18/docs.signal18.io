@@ -56,7 +56,7 @@ If you are upgrading from our old version and encountering version stuck or this
 ```
 file /usr/bin/replication-manager-cli from install of replication-manager-client-3.1.xx-1.x86_64 conflicts with file from package replication-manager-pro-1730721861:2.3.53-1.x86_64
 ```
-It's likely due to our adoption of nfpm which ease our burden for package release, since epoch was not supported.
+It's likely due to our removal of epoch from our newest packages.
 As you can see in the error message replication-manager-client-3.1 does not contains any epoch, while replication-manager-pro 2.3 contains epoch 1730721861
 
 You can solve it by doing these steps:
