@@ -78,8 +78,16 @@ taxonomy:
 | Type | String |
 | Default Value | true|
 
+##### <span id="proxysql-bootstrap-users"></span> `proxysql-bootstrap-users` (2.3)
 
-##### `proxysql-copy-grants` (2.0)
+| Item | Value |
+| ---- | ----- |
+| Description | Auto push users when they are discovered |
+| Type | String |
+| Default Value |true |
+
+
+##### `proxysql-copy-grants` (2.0) `obsolete` use [`proxysql-bootstrap-users`](#proxysql-bootstrap-users)
 
 | Item | Value |
 | ---- | ----- |

@@ -9,11 +9,9 @@ taxonomy:
 
 For convenience, we provide packages for Debian/Ubuntu and Centos/RHEL and derivatives.
 
-As of today we build portable binary tarballs, Debian Jessie, Ubuntu, CentOS 6 & 7 packages.
-
 Check out [GitHub Releases](https://github.com/signal18/replication-manager/releases) for official releases.
 
-Development builds are also available on our [Continuous Integration Server](http://ci.signal18.io/mrm/builds/)
+Development builds are also available on our [Continuous Integration Server](http://ci.signal18.io/mrm/builds/tags/)
 
 ### Packages, binary naming convention
 
@@ -42,27 +40,34 @@ And a command line client binary **replication-manager-cli** that is requesting 
 Configure the repository as such:
 
 ```
-# /etc/yum.repos.d/signal18.repo
+cat>/etc/yum.repos.d/signal18.repo <<'EOL'
 [signal18]
 name=Signal18 repositories
-baseurl=http://repo.signal18.io/centos/$releasever/$basearch/
+baseurl=http://repo.signal18.io/centos/${releasever}/${basearch}/3.1/
 gpgcheck=0
 enabled=1
+EOL
 ```
 then
 
 `yum install replication-manager-osc`
 
-For last release candidate
+If you are upgrading from our old version and encountering version stuck or this error :
+```
+file /usr/bin/replication-manager-cli from install of replication-manager-client-3.1.xx-1.x86_64 conflicts with file from package replication-manager-pro-1730721861:2.3.53-1.x86_64
+```
+It's likely due to our removal of epoch from our newest packages.
+As you can see in the error message replication-manager-client-3.1 does not contains any epoch, while replication-manager-pro 2.3 contains epoch 1730721861
 
-```
-# /etc/yum.repos.d/signal18.repo
-[signal18]
-name=Signal18 repositories
-baseurl=http://repo.signal18.io/centos/2.1/$releasever/$basearch/
-gpgcheck=0
-enabled=1
-```
+You can solve it by doing these steps:
+1. Stop your replication-manager service
+2. Backup your config files which stored in /var/lib/replication-manager/ and /etc/replication-manager to safe place 
+3. Uninstall all of the replication-manager previous installation (pro, osc, and client)
+4. Clean cached metadata for replication-manager repo
+`sudo dnf clean metadata --disablerepo="*" --enablerepo=signal18`
+5. Update the repository to the latest configuration (branch 3.1 is recommended since it's contains the latest update)
+6. Install the new version you want to install
+7. After the upgrade, review your configuration files to ensure they weren’t replaced. Restore previous settings if any changes occurred unintentionally 
 
 #### Debian/Ubuntu
 
@@ -70,16 +75,10 @@ Create the repo file, install the key and install the binaries as such:
 
 ```
 # change next line with desired version number
-<<<<<<< HEAD
-version="2.1"
-echo "deb [arch=amd64] http://repo.signal18.io/deb $(lsb_release -sc) $version" > /etc/apt/sources.list.d/signal18.list
-apt-key adv --recv-keys --keyserver keyserver.ubuntu.com FAE20E50
-=======
-version="2.3"
+version="3.1"
 gpg --recv-keys --keyserver keyserver.ubuntu.com FAE20E50
 gpg --export FAE20E50 > /etc/apt/trusted.gpg.d/signal18.gpg
 echo "deb [signed-by=/etc/apt/trusted.gpg.d/signal18.gpg] http://repo.signal18.io/deb $(lsb_release -sc) $version" > /etc/apt/sources.list.d/signal18.list
->>>>>>> f8f2f9f82d7e71cfe36cb19701a3eb0152770277
 apt-get update
 apt-get install replication-manager-osc
 ```
