@@ -67,6 +67,7 @@ You can solve it by doing these steps:
 `sudo dnf clean metadata --disablerepo="*" --enablerepo=signal18`
 5. Update the repository to the latest configuration (branch 3.1 is recommended since it's contains the latest update)
 6. Install the new version you want to install
+7. After the upgrade, review your configuration files to ensure they weren’t replaced. Restore previous settings if any changes occurred unintentionally 
 
 #### Debian/Ubuntu
 
