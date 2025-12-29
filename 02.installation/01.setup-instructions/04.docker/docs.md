@@ -15,7 +15,7 @@ Docker images can be tagged per feature and architecture
     Build with all tools to build replication-manager. It does not have an entry point
 
     ```
-    docker run --user=124:132  -eHOME=/go/src/github.com/signal18/replication-manager --detach --name=dev --interactive --tty  --volume=/home/dev/replication-manager:/go/src/github.com/signal18/replication-manager:rw --volume=/home/dev/etc/replication-manager:/etc/replication-manager:rw --volume=/home/dev/data:/var/lib/replication-manager:rw signal18/replication-manager:2.3-dev /bin/bash
+    docker run --user=124:132  -eHOME=/go/src/github.com/signal18/replication-manager --detach --name=dev --interactive --tty  --volume=/home/dev/replication-manager:/go/src/github.com/signal18/replication-manager:rw --volume=/home/dev/etc/replication-manager:/etc/replication-manager:rw --volume=/home/dev/data:/var/lib/replication-manager:rw signal18/replication-manager:3.1-dev /bin/bash
     ```
 
   * `nightly`
@@ -29,7 +29,7 @@ Logs can be found in `/var/log/replication-manager.log`.
 
 ####  About this Image
 
-![replication-manager](https://github.com/signal18/replication-manager/raw/2.0/dashboard/static/img/logo.png)
+![replication-manager](https://github.com/signal18/replication-manager/raw/3.1/dashboard/static/img/logo.png)
 
 Official Signal18 container images for _replication-manager__
 
@@ -100,7 +100,7 @@ Rename your fist cluster config
 Start the docker image that map to your config and with an empty datadir directory
 
 ```
-docker run  -v/home/repman/etc/replication-manager:/etc/replication-manager:rw -v/home/repman/data:/var/lib/replication-manager:rw -p443:10005 -p80:10001 signal18/replication-manager:3.0.1-rc   
+docker run  -v/home/repman/etc/replication-manager:/etc/replication-manager:rw -v/home/repman/data:/var/lib/replication-manager:rw -p443:10005 -p80:10001 signal18/replication-manager:3.1
 ```
 
 Extra ports from 10002 to 10004 exposing graphite & pickle api
