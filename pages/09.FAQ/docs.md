@@ -122,7 +122,33 @@ docker run -v /home/repman/etc:/etc/replication-manager:rw \
 
 ### What's the minimum configuration needed to start monitoring?
 
-**Minimal configuration** to run **replication-manager**:
+**Version 3.x** uses a two-part structure: `[Default]` section for global settings and separate cluster sections.
+
+**Minimal configuration for single cluster:**
+
+```
+[Default]
+monitoring-save-config = true
+include = "/etc/replication-manager/cluster.d"
+
+[cluster1]
+title = "cluster1"
+prov-orchestrator = "onpremise"
+db-servers-hosts = "127.0.0.1:3306,127.0.0.1:3307"
+db-servers-prefered-master = "127.0.0.1:3306"
+db-servers-credential = "root:password"
+replication-credential = "repl_user:repl_password"
+```
+
+**Required cluster parameters:**
+- `title`: Cluster name
+- `prov-orchestrator`: Provisioning orchestrator (typically "onpremise")
+- `db-servers-hosts`: Comma-separated database server list
+- `db-servers-prefered-master`: Preferred master for elections
+- `db-servers-credential`: Database admin credentials (user:password)
+- `replication-credential`: Replication user credentials (user:password)
+
+**Alternative (legacy style)**: For simple deployments, cluster parameters can be in `[Default]` section:
 
 ```
 [Default]
@@ -133,12 +159,7 @@ replication-credential = "repl_user:repl_password"
 failover-mode = "manual"
 ```
 
-This configuration:
-- Monitors two database servers
-- Uses manual failover mode (no automatic failover)
-- Requires replication user with appropriate privileges
-
-**Reference**: `/pages/02.installation/02.configuration/docs.md:28`
+**Reference**: `/pages/02.installation/02.configuration/docs.md:27`
 
 ---
 
