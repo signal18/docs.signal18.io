@@ -5,11 +5,11 @@ taxonomy:
         - docs
 ---
 
-**replication-manager** is a self-contained binary without dependencies that works on most platforms. Builds are tested for Linux, FreeBSD, and macOS.
+**replication-manager** is a self-contained binary without dependencies that works on most platforms. Builds are tested for Linux, FreeBSD, and macOS. Binaries are provided for multiple architectures (x86_64, ARM64).
 
 Packages are provided for Debian/Ubuntu and CentOS/RHEL and derivatives.
 
-The current stable version is **3.1** (latest: 3.1.16). Check [GitHub Releases](https://github.com/signal18/replication-manager/releases) for official releases.
+The current stable version is **3.1**. Check [GitHub Releases](https://github.com/signal18/replication-manager/releases) for the latest release or review the [changelog](/change-logs/features31) for version history.
 
 Development builds are available on the [Continuous Integration Server](http://ci.signal18.io/mrm/builds/tags/)
 
@@ -17,19 +17,19 @@ Development builds are available on the [Continuous Integration Server](http://c
 
 **replication-manager** uses a client-server architecture with multiple binary flavors based on included features.
 
-The server monitoring daemon is available in different flavors: **replication-manager-osc**, **replication-manager-tst**, **replication-manager-pro**, **replication-manager-arm**, and **replication-manager-arb**.
+The server monitoring daemon is available in different flavors: **replication-manager-osc**, **replication-manager-tst**, **replication-manager-pro**, **replication-manager-arb**, and **replication-manager** (embedded).
 
 The command-line client binary **replication-manager-cli** sends requests to the monitoring daemon via a secured protocol.
 
-**replication-manager-cli** is bundled with server packages but can be installed independently.   
+**replication-manager-cli** is bundled with server packages but can be installed independently.
 
 | Package | Flavor | Description |
 | ---- | ------ | ----------- |
 | replication-manager-osc | Open Source | All features except provisioning (recommended) |
 | replication-manager-tst | Test | OSC features plus testing tools (local bootstrap, benchmarking) |
 | replication-manager-pro | Provisioning | Commercial cluster provisioning solution |
-| replication-manager-arm | ARM Provisioning | Pro features for ARM V8 architecture |
 | replication-manager-arb | Arbitrator | Arbitration for replication-manager clustering |
+| replication-manager | Embedded | Standalone binary with embedded web dashboard and all assets |
 
 ### Binary Distribution Types
 
@@ -46,10 +46,10 @@ The command-line client binary **replication-manager-cli** sends requests to the
 - Suffix: `-basedir` (e.g., `replication-manager-osc-basedir`)
 - Used for tarball installations at `/usr/local/replication-manager/`
 
-**Embedded Binary** (`replication-manager`):
-- Full standalone binary with all assets embedded
-- Includes dashboard, configuration templates, scripts
-- Suitable for portable deployments
+**Embedded Binary** (`replication-manager` without suffix):
+- Full standalone binary with embedded web dashboard
+- Includes all assets: dashboard, configuration templates, scripts
+- Self-contained for portable deployments
 - Available on GitHub Releases
 
 ### Downloading from GitHub Releases
@@ -60,14 +60,15 @@ Available artifacts:
 - `replication-manager-{flavor}-{version}.tar.gz` - Tarball distributions (basedir variants)
 - `replication-manager-{flavor}-{version}.{arch}.rpm` - RPM packages
 - `replication-manager-{flavor}_{version}_{arch}.deb` - Debian packages
+- `replication-manager-{version}.{arch}` - Embedded binary with dashboard
 - `replication-manager-cli-{version}` - Standalone CLI binary
 - `sbom-{version}.json` - Software Bill of Materials (CycloneDX format)
 
-Replace `{flavor}` with: `osc`, `tst`, `pro`, `arm`, or `arb`
+Replace `{flavor}` with: `osc`, `tst`, `pro`, or `arb`
 
-Replace `{version}` with the desired version (e.g., `3.1.16`)
+Replace `{version}` with the release version
 
-Replace `{arch}` with your architecture (e.g., `x86_64`, `amd64`)
+Replace `{arch}` with your architecture (e.g., `x86_64`, `amd64`, `arm64`)
 
 ### Installation from our repository
 
@@ -118,7 +119,7 @@ This occurs due to epoch removal in 3.x packages. Resolve by:
 Configure the repository, install the GPG key, and install the package:
 
 ```bash
-# Set version (3.1 is current stable, latest: 3.1.16)
+# Set version (3.1 is current stable)
 version="3.1"
 
 # Import GPG key
@@ -140,13 +141,13 @@ Tarball distributions use basedir variants with embedded static assets. Download
 Unpack the tarball:
 
 ```bash
-sudo tar zxvf replication-manager-osc-3.1.16.tar.gz -C /usr/local/
+sudo tar zxvf replication-manager-osc-{version}.tar.gz -C /usr/local/
 ```
 
 Create a symlink:
 
 ```bash
-sudo ln -s /usr/local/replication-manager-osc-3.1.16 /usr/local/replication-manager
+sudo ln -s /usr/local/replication-manager-osc-{version} /usr/local/replication-manager
 ```
 
 Copy the systemd or init files:
