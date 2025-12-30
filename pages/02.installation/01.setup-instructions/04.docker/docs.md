@@ -6,10 +6,6 @@ taxonomy:
 
 ## About this Image
 
-![replication-manager](https://github.com/signal18/replication-manager/raw/3.1/dashboard/static/img/logo.png)
-
-**replication-manager** is a high availability solution for managing MariaDB 10.x+, MySQL 5.7+, and Percona Server 5.7+ GTID replication topologies.
-
 Official Signal18 container images provide a complete deployment of **replication-manager** with all dependencies included.
 
 ### Key Features
