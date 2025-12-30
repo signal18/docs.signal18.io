@@ -13,6 +13,61 @@ The current stable version is **3.1**. Check [GitHub Releases](https://github.co
 
 Development builds are available on the [Continuous Integration Server](http://ci.signal18.io/mrm/builds/tags/)
 
+### Quick Installation
+
+Install the embedded binary with a single command:
+
+```bash
+curl -fsSL https://signal18.io/get-repman | bash
+```
+
+**Features:**
+- [x] Auto-detect operating system and architecture
+- [x] Download latest release from GitHub
+- [x] Auto-fallback to user directory if sudo not available
+- [x] Optional CLI client installation
+- [x] Post-installation verification
+- [x] Comprehensive error handling
+
+**Supported Platforms:**
+- Linux: amd64, arm64
+- macOS (Darwin): amd64 (Intel), arm64 (Apple Silicon)
+
+**Environment Variables:**
+
+| Variable | Description | Default |
+| ---- | ----- | ------- |
+| `REPMAN_VERSION` | Specific version to install | latest |
+| `REPMAN_INSTALL_DIR` | Custom installation directory | `/usr/local/bin` or `~/.local/bin` |
+| `REPMAN_INSTALL_CLI` | Install CLI client alongside server | `false` |
+| `REPMAN_SKIP_VERIFY` | Skip post-installation verification | `false` |
+
+**Examples:**
+
+Install with sudo (system-wide installation):
+
+```bash
+curl -fsSL https://signal18.io/get-repman | sudo bash
+```
+
+Install specific version:
+
+```bash
+curl -fsSL https://signal18.io/get-repman | REPMAN_VERSION=v3.1.16 bash
+```
+
+Install server + CLI client:
+
+```bash
+curl -fsSL https://signal18.io/get-repman | REPMAN_INSTALL_CLI=true bash
+```
+
+Custom installation directory:
+
+```bash
+curl -fsSL https://signal18.io/get-repman | REPMAN_INSTALL_DIR=/opt/repman bash
+```
+
 ### Package Naming Convention
 
 **replication-manager** uses a client-server architecture with multiple binary flavors based on included features.
