@@ -5,41 +5,79 @@ taxonomy:
         - docs
 ---
 
-**replication-manager** is a self-contained binary without dependencies that should work on most platforms. We only test builds for Linux, FreeBSD and Mac OS X at this time.
+**replication-manager** is a self-contained binary without dependencies that works on most platforms. Builds are tested for Linux, FreeBSD, and macOS.
 
-For convenience, we provide packages for Debian/Ubuntu and Centos/RHEL and derivatives.
+Packages are provided for Debian/Ubuntu and CentOS/RHEL and derivatives.
 
-Check out [GitHub Releases](https://github.com/signal18/replication-manager/releases) for official releases.
+The current stable version is **3.1** (latest: 3.1.16). Check [GitHub Releases](https://github.com/signal18/replication-manager/releases) for official releases.
 
-Development builds are also available on our [Continuous Integration Server](http://ci.signal18.io/mrm/builds/tags/)
+Development builds are available on the [Continuous Integration Server](http://ci.signal18.io/mrm/builds/tags/)
 
-### Packages, binary naming convention
+### Package Naming Convention
 
-Prior to  **replication-manager (2.0)**, a unique binary **replication-manager** was used for monitoring and command line actions. As the result of this design monitoring or command line failover could not be used concurrently.   
+**replication-manager** uses a client-server architecture with multiple binary flavors based on included features.
 
-Since 2.0 the architecture was split in a more traditional client-server providing multiple binaries:
+The server monitoring daemon is available in different flavors: **replication-manager-osc**, **replication-manager-tst**, **replication-manager-pro**, **replication-manager-arm**, and **replication-manager-arb**.
 
-A server monitoring daemon that comes with different flavors based on included features : **replication-manager-( osc, tst, pro,arm, arb)**.
+The command-line client binary **replication-manager-cli** sends requests to the monitoring daemon via a secured protocol.
 
-And a command line client binary **replication-manager-cli** that is requesting actions to the monitoring daemon via a secured protocol.    
+**replication-manager-cli** is bundled with server packages but can be installed independently.   
 
-**replication-manager-cli** is bundled within the server packages but can as well be installed on it's own for convenience.   
+| Package | Flavor | Description |
+| ---- | ------ | ----------- |
+| replication-manager-osc | Open Source | All features except provisioning (recommended) |
+| replication-manager-tst | Test | OSC features plus testing tools (local bootstrap, benchmarking) |
+| replication-manager-pro | Provisioning | Commercial cluster provisioning solution |
+| replication-manager-arm | ARM Provisioning | Pro features for ARM V8 architecture |
+| replication-manager-arb | Arbitrator | Arbitration for replication-manager clustering |
 
-| Package | Flavor       | Description |
-| ---- | ------       | ----------- |
-| replication-manager-osc | Open Source  | Offers all features excepting provisioning (recommended version). |
-| replication-manager-tst | Test         | Offers OSC features and extra features for testing like local service bootstrap, benchmarking... |
-| replication-manager-pro | Provisioning | Offers commercial, ready to go cluster provisioning solution. |   
-| replication-manager-arm | Provisioning | Offers pro features for on ARM V8  |
-| replication-manager-arb | Arbitrator  | Offers arbitration for replication-manager clustering. |
+### Binary Distribution Types
+
+**replication-manager** provides three binary distribution types:
+
+**Regular Binaries** (package installations):
+- Designed for RPM/DEB package installations
+- Uses system directories (`/etc/`, `/usr/share/`, `/var/lib/`)
+- Requires separate installation of shared assets
+
+**Basedir Variants** (tarball distributions):
+- Built with embedded static assets
+- Self-contained directory structure
+- Suffix: `-basedir` (e.g., `replication-manager-osc-basedir`)
+- Used for tarball installations at `/usr/local/replication-manager/`
+
+**Embedded Binary** (`replication-manager`):
+- Full standalone binary with all assets embedded
+- Includes dashboard, configuration templates, scripts
+- Suitable for portable deployments
+- Available on GitHub Releases
+
+### Downloading from GitHub Releases
+
+All binary variants are available on the [GitHub Releases](https://github.com/signal18/replication-manager/releases) page.
+
+Available artifacts:
+- `replication-manager-{flavor}-{version}.tar.gz` - Tarball distributions (basedir variants)
+- `replication-manager-{flavor}-{version}.{arch}.rpm` - RPM packages
+- `replication-manager-{flavor}_{version}_{arch}.deb` - Debian packages
+- `replication-manager-cli-{version}` - Standalone CLI binary
+- `sbom-{version}.json` - Software Bill of Materials (CycloneDX format)
+
+Replace `{flavor}` with: `osc`, `tst`, `pro`, `arm`, or `arb`
+
+Replace `{version}` with the desired version (e.g., `3.1.16`)
+
+Replace `{arch}` with your architecture (e.g., `x86_64`, `amd64`)
 
 ### Installation from our repository
 
+>__Upgrading from 2.x?__: Version 3.x introduced configuration file location changes and parameter renames. See the [Migration Guide](/installation/migration) for deprecated parameters and upgrade procedures.
+
 #### CentOS/RHEL
 
-Configure the repository as such:
+Configure the repository:
 
-```
+```bash
 cat>/etc/yum.repos.d/signal18.repo <<'EOL'
 [signal18]
 name=Signal18 repositories
@@ -48,76 +86,106 @@ gpgcheck=0
 enabled=1
 EOL
 ```
-then
 
-`yum install replication-manager-osc`
+Install the package:
 
-If you are upgrading from our old version and encountering version stuck or this error :
+```bash
+yum install replication-manager-osc
+```
+
+**Upgrading from 2.x with epoch conflict:**
+
+If upgrading from 2.x and encountering this error:
 ```
 file /usr/bin/replication-manager-cli from install of replication-manager-client-3.1.xx-1.x86_64 conflicts with file from package replication-manager-pro-1730721861:2.3.53-1.x86_64
 ```
-It's likely due to our removal of epoch from our newest packages.
-As you can see in the error message replication-manager-client-3.1 does not contains any epoch, while replication-manager-pro 2.3 contains epoch 1730721861
 
-You can solve it by doing these steps:
-1. Stop your replication-manager service
-2. Backup your config files which stored in /var/lib/replication-manager/ and /etc/replication-manager to safe place 
-3. Uninstall all of the replication-manager previous installation (pro, osc, and client)
-4. Clean cached metadata for replication-manager repo
-`sudo dnf clean metadata --disablerepo="*" --enablerepo=signal18`
-5. Update the repository to the latest configuration (branch 3.1 is recommended since it's contains the latest update)
-6. Install the new version you want to install
-7. After the upgrade, review your configuration files to ensure they weren’t replaced. Restore previous settings if any changes occurred unintentionally 
+This occurs due to epoch removal in 3.x packages. Resolve by:
+
+1. Stop the replication-manager service
+2. Backup configuration files from `/var/lib/replication-manager/` and `/etc/replication-manager/`
+3. Uninstall all previous replication-manager packages (pro, osc, client)
+4. Clean cached metadata:
+   ```bash
+   sudo dnf clean metadata --disablerepo="*" --enablerepo=signal18
+   ```
+5. Update repository configuration to 3.1 (recommended)
+6. Install the new version
+7. Review configuration files and restore previous settings if replaced 
 
 #### Debian/Ubuntu
 
-Create the repo file, install the key and install the binaries as such:
+Configure the repository, install the GPG key, and install the package:
 
-```
-# change next line with desired version number
+```bash
+# Set version (3.1 is current stable, latest: 3.1.16)
 version="3.1"
+
+# Import GPG key
 gpg --recv-keys --keyserver keyserver.ubuntu.com FAE20E50
 gpg --export FAE20E50 > /etc/apt/trusted.gpg.d/signal18.gpg
+
+# Add repository
 echo "deb [signed-by=/etc/apt/trusted.gpg.d/signal18.gpg] http://repo.signal18.io/deb $(lsb_release -sc) $version" > /etc/apt/sources.list.d/signal18.list
+
+# Install package
 apt-get update
 apt-get install replication-manager-osc
 ```
 
 ### Installation from tarball
 
-Download the archive from [GitHub Releases](https://github.com/signal18/replication-manager/releases).
+Tarball distributions use basedir variants with embedded static assets. Download the archive from [GitHub Releases](https://github.com/signal18/replication-manager/releases).
 
-You can now unpack the tarball in your local directory:
+Unpack the tarball:
 
-`sudo tar zxvf replication-manager-{YOUR_VERSION}.tar.gz -C /usr/local/`
+```bash
+sudo tar zxvf replication-manager-osc-3.1.16.tar.gz -C /usr/local/
+```
 
-Create a symlink
+Create a symlink:
 
-`sudo ln -s /usr/local/replication-manager-{YOUR_VERSION} /usr/local/replication-manager`
+```bash
+sudo ln -s /usr/local/replication-manager-osc-3.1.16 /usr/local/replication-manager
+```
 
-Copy the systemd or init files in your system:
+Copy the systemd or init files:
 
-`sudo cp /usr/local/replication-manager/share/replication-manager.init /etc/init.d/replication-manager`
+```bash
+sudo cp /usr/local/replication-manager/share/replication-manager.init /etc/init.d/replication-manager
+```
 
 ### Building from source
 
-To build from source, you need to install first the [Go 1.8 binary release](https://golang.org/dl/).
+Building from source requires [Go 1.24.6 or later](https://golang.org/dl/).
 
-Clone the source on [GitHub](https://github.com/signal18/replication-manager) and follow the steps:
-```
-git clone https://github.com/signal18/replication-manager.git ~/go/src/github.com/replication-manager
-cd ~/go/src/github.com/replication-manager
+Clone the repository and build:
+
+```bash
+git clone https://github.com/signal18/replication-manager.git ~/go/src/github.com/signal18/replication-manager
+cd ~/go/src/github.com/signal18/replication-manager
 make bin
 ```
 
-This will build all the binary releases.
+This builds all binary variants.
 
-If you want to build the packages, use the following make recipe:
+Build specific flavors:
+
+```bash
+make osc        # Open source core
+make pro        # Production version
+make tst        # Test version
+make arb        # Arbitrator
+make cli        # CLI client only
 ```
+
+Build packages:
+
+```bash
 make package
 ```
 
-[For a basic usage you can proceed with the configuration step](/installation/configuration)
+[Proceed with the configuration step](/installation/configuration)
 
 
 ### Docker Images
