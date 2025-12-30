@@ -26,15 +26,69 @@ Once enabled, setting changes will be persisted in the replication-manager worki
 
 ## Minimal configuration
 
-This is a minimal configuration sample required to run `replication-manager`:
+**Version 3.x** uses a two-part configuration structure with a `[Default]` section for global settings and separate cluster sections.
+
+### Minimal configuration for single cluster
+
+```
+[Default]
+monitoring-save-config = true
+include = "/etc/replication-manager/cluster.d"
+
+[cluster1]
+title = "cluster1"
+prov-orchestrator = "onpremise"
+db-servers-hosts = "127.0.0.1:3306,127.0.0.1:3307"
+db-servers-prefered-master = "127.0.0.1:3306"
+db-servers-credential = "root:password"
+replication-credential = "repl_user:repl_password"
+```
+
+### Alternative: Single cluster in Default section (legacy style)
+
+For simple single-cluster deployments, cluster parameters can be placed directly in `[Default]`:
 
 ```
 [Default]
 title = "ClusterTest"
-db-servers-hosts = "127.0.0.1:5055,127.0.0.1:5056"
-db-servers-credential = "skysql:skyvodka"
-replication-credential = "skysql:skyvodka"
+db-servers-hosts = "127.0.0.1:3306,127.0.0.1:3307"
+db-servers-credential = "root:password"
+replication-credential = "repl_user:repl_password"
 failover-mode = "manual"
+```
+
+### Multi-cluster configuration with includes
+
+For managing multiple clusters, use the include directory:
+
+**Main config: /etc/replication-manager/config.toml**
+```
+[Default]
+monitoring-save-config = true
+include = "/etc/replication-manager/cluster.d"
+http-server = true
+http-bind-address = "0.0.0.0"
+```
+
+**Cluster config: /etc/replication-manager/cluster.d/cluster1.toml**
+```
+[cluster1]
+title = "Production Cluster"
+prov-orchestrator = "onpremise"
+db-servers-hosts = "10.0.1.10:3306,10.0.1.11:3306,10.0.1.12:3306"
+db-servers-prefered-master = "10.0.1.10:3306"
+db-servers-credential = "root:password"
+replication-credential = "repl_user:repl_password"
+```
+
+**Cluster config: /etc/replication-manager/cluster.d/cluster2.toml**
+```
+[cluster2]
+title = "Development Cluster"
+prov-orchestrator = "onpremise"
+db-servers-hosts = "10.0.2.10:3306,10.0.2.11:3306"
+db-servers-credential = "root:password"
+replication-credential = "repl_user:repl_password"
 ```
 
 Copy a sample configuration file to config.toml auto loaded configuration:
