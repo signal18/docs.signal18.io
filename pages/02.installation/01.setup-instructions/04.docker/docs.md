@@ -4,60 +4,94 @@ taxonomy:
     category: docs
 ---
 
-### Featured Tags
-
-Docker images can be tagged per feature and architecture  
-  * `pro`
-    Build with all the extra dependencies needed for database maintenance and the last LTS MariaDB server.
-    Default prov-orchestrator="opensvc" but support all orchestrations solution "k8s", "slapos", "onpremise"  
-
-  * `dev`
-    Build with all tools to build replication-manager. It does not have an entry point
-
-    ```
-    docker run --user=124:132  -eHOME=/go/src/github.com/signal18/replication-manager --detach --name=dev --interactive --tty  --volume=/home/dev/replication-manager:/go/src/github.com/signal18/replication-manager:rw --volume=/home/dev/etc/replication-manager:/etc/replication-manager:rw --volume=/home/dev/data:/var/lib/replication-manager:rw signal18/replication-manager:3.1-dev /bin/bash
-    ```
-
-  * `nightly`
-    The pro release that reflect the last commit on our develop branch  
-
-  * `unfeatured`
-    The osc release that default to  prov-orchestrator="onpremise"
-
-Logs can be found in `/var/log/replication-manager.log`.
-
-
-####  About this Image
+## About this Image
 
 ![replication-manager](https://github.com/signal18/replication-manager/raw/3.1/dashboard/static/img/logo.png)
 
-Official Signal18 container images for _replication-manager__
+**replication-manager** is a high availability solution for managing MariaDB 10.x+, MySQL 5.7+, and Percona Server 5.7+ GTID replication topologies.
 
-__replication-manager__ is an high availability solution to manage MariaDB >= 10.x and MySQL & Percona Server 5.7 GTID replication topologies.  
+Official Signal18 container images provide a complete deployment of **replication-manager** with all dependencies included.
 
-Main features are:
- * Replication monitoring (gtid, multi source, delayed)
- * Topology detection (Leader for assync, semi-sync, multi-master, mesh, wsrep, group-repl, relay)  
- * Slave to master promotion (switchover)
- * Master election on failure detection (failover)
- * Replication best practice enforcement
- * Target up to zero loss in most failure scenarios
- * Multi clusters management
- * Proxy integration (ProxySQL, MaxScale, HAProxy, Spider)
- * Maintenance automation (Logical & physical Backups, Defrag, Backups Snapshot, Log Archiving)
- * Metrics history in carbon, graphite API
- * Alerting via EMail, Pushover Slack, Teams, Mattermost
- * Database Rejoining and Reseeding policy
- * Scriptable state and event
- * Remote scripting via SSH
- * Database, Proxy configurator
- * OpenSVC a K8S service deployment including init container
- * Encrypt config file secret, multi layer configs  
- * SSO
- * API with ACL
- * Capture log on high load
- * SLA tracking
- * Replication and monitoring user/password rotation or Vault usage
+### Key Features
+
+**Replication Management:**
+- Replication monitoring (GTID, multi-source, delayed replication)
+- Topology detection (async, semi-sync, multi-master, mesh, Galera, Group Replication, relay)
+- Switchover (slave to master promotion)
+- Failover (master election on failure detection)
+- Best practice enforcement
+- Target zero data loss in most failure scenarios
+
+**Operations:**
+- Multi-cluster management from single instance
+- Proxy integration (ProxySQL, MaxScale, HAProxy, Spider)
+- Maintenance automation (logical and physical backups, defragmentation, snapshot backups, log archiving)
+- Database rejoining and reseeding policies
+- Scriptable state changes and events
+- Remote scripting via SSH
+- Dynamic database and proxy configuration
+
+**Deployment & Orchestration:**
+- OpenSVC and Kubernetes service deployment with init containers
+- SlapOS integration
+- On-premise orchestration
+
+**Security & Configuration:**
+- Configuration file encryption
+- Multi-layer configuration hierarchy
+- Single sign-on (SSO)
+- API with access control lists (ACL)
+- Vault integration for credential rotation
+- Automated replication and monitoring user password rotation
+
+**Monitoring & Alerting:**
+- Metrics history in Graphite format
+- Graphite API integration
+- Alerting via email, Pushover, Slack, Teams, Mattermost
+- SLA tracking and reporting
+- Performance capture during high load events
+
+### Available Tags
+
+**`pro`** (recommended for production)
+- Includes all dependencies for database maintenance
+- Ships with latest LTS MariaDB server
+- Default orchestrator: `prov-orchestrator = "opensvc"`
+- Supports all orchestration modes: OpenSVC, Kubernetes, SlapOS, on-premise
+
+**`unfeatured`** (lightweight)
+- Minimal dependencies for on-premise deployments
+- Default orchestrator: `prov-orchestrator = "onpremise"`
+- Smaller image size
+
+**`nightly`**
+- Latest development build from `develop` branch
+- Includes all `pro` features
+- Use for testing new features before release
+
+**`dev`**
+- Development environment with build tools
+- No default entry point (manual container execution)
+- For contributors building **replication-manager** from source
+
+Example for development container:
+```bash
+docker run --user=124:132 \
+           -e HOME=/go/src/github.com/signal18/replication-manager \
+           --detach \
+           --name=dev \
+           --interactive \
+           --tty \
+           --volume=/home/dev/replication-manager:/go/src/github.com/signal18/replication-manager:rw \
+           --volume=/home/dev/etc/replication-manager:/etc/replication-manager:rw \
+           --volume=/home/dev/data:/var/lib/replication-manager:rw \
+           signal18/replication-manager:3.1-dev \
+           /bin/bash
+```
+
+### Logs
+
+Container logs are written to `/var/log/replication-manager.log` inside the container.
 
 
 #### How to use this Image
