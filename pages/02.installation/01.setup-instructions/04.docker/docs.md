@@ -53,13 +53,13 @@ Official Signal18 container images provide a complete deployment of **replicatio
 
 ### Available Tags
 
-**`pro`** (recommended for production)
+**`version-pro`** (recommended for production)
 - Includes all dependencies for database maintenance
 - Ships with latest LTS MariaDB server
 - Default orchestrator: `prov-orchestrator = "opensvc"`
 - Supports all orchestration modes: OpenSVC, Kubernetes, SlapOS, on-premise
 
-**`unfeatured`** (lightweight)
+**`version`** (lightweight)
 - Minimal dependencies for on-premise deployments
 - Default orchestrator: `prov-orchestrator = "onpremise"`
 - Smaller image size
@@ -85,7 +85,7 @@ docker run --user=124:132 \
            --volume=/home/dev/replication-manager:/go/src/github.com/signal18/replication-manager:rw \
            --volume=/home/dev/etc/replication-manager:/etc/replication-manager:rw \
            --volume=/home/dev/data:/var/lib/replication-manager:rw \
-           signal18/replication-manager:3.1-dev \
+           docker.io/signal18/replication-manager:dev \
            /bin/bash
 ```
 

@@ -192,3 +192,5 @@ make package
 ### Docker Images
 
 [Docker Hub](https://hub.docker.com/r/signal18/replication-manager/)
+
+[Docker Image documentation](/installation/setup-instructions/docker)
