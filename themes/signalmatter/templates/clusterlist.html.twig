@@ -1,0 +1,26 @@
+{% embed 'partials/base.html.twig' %}
+{% block content %} 
+{% set dbresults = db.mysql("dbaasconn").selectall("SELECT * FROM users") %}
+    {% if dbresults is iterable %}
+    <table>
+        <thead>
+            <tr>
+            {% for key in dbresults|first|keys %}
+                <th>{{ key }}</th>
+            {% endfor %}
+            <tr>
+        </thead>
+        <tbody>
+            {% for row in dbresults %}
+            <tr>
+                {% for col in row %}
+                    <td>{{ col }}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+{% endblock %}
+
+{% endembed %}
