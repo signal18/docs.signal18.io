@@ -1,32 +1,101 @@
 ---
-title: Quick Start
+title: Start & Stop Monitoring
 taxonomy:
     category: docs
 ---
 
+## Start & Stop Monitoring
 
 ![clientserver](/images/clientserver.png)
 
-Start the server via:
+replication-manager runs as a daemon that continuously monitors your clusters. It exposes a REST API, a web GUI, and accepts commands from the CLI client.
+
+---
+
+## Start
+
+**systemd (package install):**
+
+```bash
+systemctl start replication-manager
 ```
-systemctl start replication-manager   
+
+**Enable on boot:**
+
+```bash
+systemctl enable replication-manager
 ```
-or via init.d
-```
+
+**init.d (legacy):**
+
+```bash
 /etc/init.d/replication-manager start
 ```
 
-You can permanently start the monitor via
-```
-systemctl enable replication-manager   
+**Manual (tarball or embedded binary):**
+
+```bash
+replication-manager monitor --config /etc/replication-manager/config.toml --http-server
 ```
 
-**replication-manager-cli (2.0)** allows command line interaction with the monitor daemon.
+---
 
-Command line help can be displayed via
-```
-replication-manager-cli --help
-replication-manager-cli switchover --help
+## Stop
+
+```bash
+systemctl stop replication-manager
 ```
 
-In the next section we will explore how to quickly switchover using the interactive command-line console.
+---
+
+## Check Status
+
+**Service status:**
+
+```bash
+systemctl status replication-manager
+```
+
+**Cluster status via CLI:**
+
+```bash
+replication-manager-cli status
+```
+
+**All clusters:**
+
+```bash
+replication-manager-cli --cluster="mycluster" status
+```
+
+Sample output:
+
+```
+| Group: mycluster |  Mode: Automatic
+         Id            Host   Port    Status   Failures   Using GTID         Current GTID    Delay  RO
+5641630519400684578  10.0.1.10  3306    Master          0    Slave_Pos     0-3306-4210            0 OFF
+9624235790336213315  10.0.1.11  3306     Slave          0    Slave_Pos     0-3306-4210            0  ON
+3944708846436490796  10.0.1.12  3306     Slave          0    Slave_Pos     0-3306-4210            0  ON
+```
+
+**Cluster topology:**
+
+```bash
+replication-manager-cli topology
+```
+
+**Web GUI:**
+
+Open `https://<host>:10005` in a browser — the dashboard shows live cluster state, replication health, and server metrics.
+
+---
+
+## Logs
+
+```bash
+# Follow the main log
+tail -f /var/log/replication-manager.log
+
+# Or via journald
+journalctl -u replication-manager -f
+```

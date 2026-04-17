@@ -1,9 +1,9 @@
 ---
-title: Agent Usage
+title: Provisioning Agent
 taxonomy:
     category: docs
 ---
-## Provisioning Agent Usage
+## Provisioning Agent
 
 ### Get services manage by the agent
 

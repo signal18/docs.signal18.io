@@ -1,10 +1,10 @@
 ---
-title: HTTP Client Usage
+title: Web Interface
 taxonomy:
     category: docs
 ---
 
-## HTTP Client Usage
+## Web Interface
 
 Once **replication-manager** is started in monitor mode, it provides an internal HTTP server to oversee your clusters.
 

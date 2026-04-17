@@ -1,8 +1,8 @@
 ---
-title: Usage
+title: First Use
 taxonomy:
     category: docs
 ---
 ### Chapter 3
 
-# Usage
+# First Use

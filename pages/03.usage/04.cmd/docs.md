@@ -1,5 +1,6 @@
 ---
 title: CMD Client Usage
+published: false
 taxonomy:
     category: docs
 ---
