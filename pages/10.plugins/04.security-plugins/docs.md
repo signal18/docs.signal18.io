@@ -6,6 +6,8 @@ taxonomy:
 
 ## Security Plugins
 
+> **Tier:** Community — requires a free registered instance at gitlab.signal18.io
+
 Security plugins audit the database server's configuration, user accounts, and activity logs for security weaknesses. They emit findings with `SEC` error keys. When a finding is open (not resolved), the **remediation engine** proposes and, for supported codes, automatically applies a fix.
 
 Security findings are routed to `security.log`, separate from the main HA log.

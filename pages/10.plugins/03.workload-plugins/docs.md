@@ -6,6 +6,8 @@ taxonomy:
 
 ## Workload Plugins
 
+> **Tier:** Community — requires a free registered instance at gitlab.signal18.io
+
 Workload plugins detect **operational anomalies** — performance problems, resource saturation, and regressions — by analysing the real-time server state passed through the wire protocol. They emit findings with `WARN` error keys that are routed to the main HA log and can trigger alerts.
 
 All workload plugins are **external binaries** located in the cluster plugins directory.

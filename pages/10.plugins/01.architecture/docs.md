@@ -10,12 +10,17 @@ taxonomy:
 
 **replication-manager** extends its monitoring capabilities through a plugin system. On every monitoring tick each enabled plugin is invoked, receives a full snapshot of the monitored server state as JSON on its standard input, and writes findings and/or score checks as JSON on its standard output.
 
-There are two categories of plugins:
+Plugins are organised in three tiers:
 
-| Category | Implementation | Examples |
-|---|---|---|
-| **Built-in** | In-process Go functions, no subprocess | `errorlog`, `sqlerrorlog`, `slowlog`, `auditlog` |
-| **External** | Compiled binaries executed as child processes | All workload, security, and score plugins |
+| Tier | Implementation | Availability | Examples |
+|---|---|---|---|
+| **Static** | In-process Go functions, no subprocess | All instances, no registration required | `errorlog`, `sqlerrorlog`, `slowlog`, `auditlog` |
+| **Community** | External compiled binaries | Instances registered at gitlab.signal18.io (free) | All workload, security and score plugins |
+| **Enterprise** | External compiled binaries | Signal18 Support Contract customers | `plugin-critical-alerts` |
+
+**Community plugins** are the external plugin library shipped with replication-manager. Registering your instance at gitlab.signal18.io unlocks the full community plugin set. Registration is free — it allows Signal18 to understand how the product is used in production so the roadmap can be focused where it creates the most value.
+
+**Enterprise plugins** are developed from Signal18's field experience supporting production deployments and are available to customers with an active Support Contract.
 
 ---
 
