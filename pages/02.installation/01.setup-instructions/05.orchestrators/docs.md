@@ -1,5 +1,5 @@
 ---
-title: Orchestrators
+title: Install Orchestrators
 taxonomy:
     category: docs
 ---
