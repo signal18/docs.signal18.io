@@ -1,5 +1,5 @@
 ---
-title: 'Install'
+title: 'Installation'
 taxonomy:
     category:
         - docs
