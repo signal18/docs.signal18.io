@@ -94,17 +94,25 @@ Changes made through the GUI or API are persisted to the cluster TOML file (and 
 
 ### Direct Chat with Signal18 and Partners
 
-Once registered, a **Chat** panel appears in the replication-manager GUI sidebar. It connects directly to the Signal18 team and to other registered marketplace partners through the SSO identity.
+replication-manager integrates a **Chat** tab in the GUI that connects you to the Signal18 team and marketplace partners. The chat is powered by **Mattermost** and hosted at:
 
-The chat is available in three scopes:
+> [mmeet.signal18.io](https://mmeet.signal18.io)
 
-| Scope | Who you reach |
+You can connect in three ways — all using your gitlab.signal18.io SSO identity, no separate Mattermost account or password needed:
+
+- **replication-manager GUI** — the Chat tab embeds Mattermost directly. Clicking it authenticates you automatically via your active GitLab SSO session.
+- **Browser** — go to [mmeet.signal18.io](https://mmeet.signal18.io) and click **Sign in with GitLab**.
+- **Mattermost desktop or mobile client** — download the [Mattermost desktop app](https://mattermost.com/download/) (Windows, macOS, Linux) or mobile app (iOS, Android), add a new server pointing to `https://mmeet.signal18.io`, and sign in with GitLab OAuth.
+
+The chat provides three channels:
+
+| Channel | Who you reach |
 |---|---|
 | **Support** | Signal18 engineering and support team — ask questions, report issues, get configuration advice |
 | **Community** | Other registered replication-manager operators — share experience, compare configurations, collaborate on plugin development |
 | **Partners** | Marketplace partners you are connected to — coordinate cluster handoffs, negotiate SLAs, discuss shared infrastructure |
 
-The chat identity is your gitlab.signal18.io SSO username — no separate account or third-party service required. Conversation history is retained and accessible from any browser logged into the same SSO session.
+Conversation history is retained across sessions and accessible from all three connection methods.
 
 ---
 
