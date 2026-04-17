@@ -1,8 +1,8 @@
 ---
-title: Architecture
+title: High Availability
 taxonomy:
     category: docs
 ---
 ### Chapter 4
 
-# Architecture
+# High Availability
