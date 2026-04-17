@@ -92,10 +92,4 @@ Open `https://<host>:10005` in a browser — the dashboard shows live cluster st
 
 ## Logs
 
-```bash
-# Follow the main log
-tail -f /var/log/replication-manager.log
-
-# Or via journald
-journalctl -u replication-manager -f
-```
+See [Logs](../logs) for a full reference — log files written, per-module verbosity settings, rotation, and how to query logs via journalctl and the REST API.
