@@ -18,6 +18,4 @@ The current stable version is **3.1**. Check [GitHub Releases](https://github.co
 | [Source](setup-instructions/source) | Build from Go source for custom flavors |
 | [Orchestrators](setup-instructions/orchestrators) | Install OpenSVC, Kubernetes, and SlapOS for Pro provisioning |
 | [What Was Installed](setup-instructions/what-was-installed) | Files and directories created by each install method |
-| [First Config](setup-instructions/first-config) | Minimal TOML configuration to get started |
-| [Dependencies](setup-instructions/dependencies) | External tools — auto-detected, with optional path overrides |
-| [Migration from 2.x](setup-instructions/migration) | Upgrade path from replication-manager 2.x to 3.x |
+| [Install Dependencies](setup-instructions/dependencies) | External tools — auto-detected, with optional path overrides |

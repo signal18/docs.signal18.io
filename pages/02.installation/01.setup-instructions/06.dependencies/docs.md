@@ -1,10 +1,10 @@
 ---
-title: Dependencies
+title: Install Dependencies
 taxonomy:
     category: docs
 ---
 
-## Dependencies
+## Install Dependencies
 
 replication-manager is a self-contained binary — no system libraries are required at the OS level. However, several external tools are needed to enable specific features such as backup, proxy management, load testing, and terminal sessions.
 

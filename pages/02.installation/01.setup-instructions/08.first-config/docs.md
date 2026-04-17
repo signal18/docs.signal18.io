@@ -1,5 +1,6 @@
 ---
 title: First Config
+published: false
 taxonomy:
     category: docs
 ---
