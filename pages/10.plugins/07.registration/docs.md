@@ -28,11 +28,36 @@ Once registered, replication-manager downloads the community plugin manifest on 
 
 ### Configuration Backup and Restore
 
-Every cluster configuration managed by your replication-manager instance is versioned in a GitLab repository associated with your instance. This provides:
+Every cluster configuration managed by your replication-manager instance is continuously pushed to a GitLab repository in your SSO namespace. This provides:
 
-- **Full audit history** of every configuration change, with author, timestamp, and diff
-- **One-command restore** — deploy a fresh replication-manager instance, point it at your GitLab namespace, and all cluster definitions are pulled back automatically
+- **Full audit history** — every configuration change is a Git commit with author, timestamp, and diff
+- **Config restore** — on a fresh host, replication-manager clones the entire working directory from GitLab and reconstructs all cluster definitions automatically
 - **Disaster recovery** — if the replication-manager host is lost, the entire cluster topology, routing configuration, and provisioning settings can be recovered from GitLab without manual reconstruction
+
+#### Starting fresh from GitLab
+
+There is no separate restore command. To restore on a new host, start `replication-manager monitor` with `--monitoring-restore-config-on-start` alongside the `cloud18` flags that identify your registered namespace:
+
+```bash
+replication-manager monitor \
+  --cloud18 \
+  --monitoring-restore-config-on-start \
+  --cloud18-domain          <your-organisation> \
+  --cloud18-sub-domain      <your-instance-subdomain> \
+  --cloud18-sub-domain-zone <your-geo-zone> \
+  --cloud18-gitlab-user     <your-gitlab-user> \
+  --cloud18-gitlab-password <your-gitlab-password>
+```
+
+When `monitoring-restore-config-on-start` is set, replication-manager:
+
+1. Authenticates to gitlab.signal18.io and obtains a personal access token
+2. Clones the config repository `gitlab.signal18.io/<domain>/<subdomain>-<zone>.git` into the working directory — **replacing any existing local config**
+3. Clones the read-only pull mirror `<subdomain>-<zone>-pull.git` into `<working-dir>/.pull`
+4. Clears the flag so the wipe-and-restore does not repeat on the next restart
+5. Reads `cloud18.toml` and reconstructs all cluster definitions
+
+From that point on the instance polls GitLab at every `git-monitoring-ticker` interval, pulls changes, and reloads automatically.
 
 Configuration files stored in GitLab contain no plaintext secrets — all sensitive values (passwords, encryption keys) are stored in encrypted form. See *Secret Storage* below.
 
