@@ -40,16 +40,55 @@ Configuration files stored in GitLab contain no plaintext secrets — all sensit
 
 ### Cluster Role Sharing with External Users
 
-Registered instances can grant access to individual clusters to any other user registered on gitlab.signal18.io. Access is controlled through GitLab group membership and maps directly to replication-manager cluster grants:
+Registered instances can share cluster access with other registered SSO users — Signal18 partners, support engineers, or trusted operators. Access is managed entirely through the **replication-manager API and GUI**, not through GitLab group membership. The SSO identity from gitlab.signal18.io is used only for authentication; all role and grant decisions are made and stored by replication-manager itself.
 
-| GitLab role | replication-manager grant |
-|---|---|
-| Guest | Read-only — view cluster state and topology |
-| Reporter | Operator — trigger switchover, view logs, run checks |
-| Developer | Admin — full cluster management, failover, provisioning |
-| Maintainer | Owner — manage cluster settings, team, and registration |
+#### Roles
 
-This allows DBAs, support engineers, or partners to be given scoped access to specific clusters without sharing credentials or VPN access to the replication-manager host.
+replication-manager defines the following built-in roles. Each role carries a default set of fine-grained grants:
+
+| Role | Who it is for | Default grant scope |
+|---|---|---|
+| `sysops` | Local infrastructure operator (owner of the instance) | All grants — full access to cluster, DB, proxy, provisioning, global settings, and user management |
+| `dbops` | Local database operator | DB operations and show grants — no cluster provisioning, no global settings, no user management |
+| `extsysops` | External SysOps partner (Cloud18 marketplace) | Same as `sysops` minus sales, global settings, and `extrole` management |
+| `extdbops` | External DBOps partner (Cloud18 marketplace) | DB, show, proxy, and grant operations — no `extrole` management |
+| `sponsor` | Marketplace subscriber consuming the cluster | DB operations, show, proxy, grant, `extrole`, sales-unsubscribe, and app access |
+| `visitor` | Read-only observer | Show grants only |
+
+#### Grant categories
+
+Grants are grouped by resource type. Each role receives a subset:
+
+| Prefix | Examples | Description |
+|---|---|---|
+| `cluster-` | `cluster-failover`, `cluster-switchover`, `cluster-settings`, `cluster-rolling` | Cluster-level operations and configuration |
+| `db-` | `db-start`, `db-stop`, `db-backup`, `db-restore`, `db-logs`, `db-replication` | Per-database server operations |
+| `proxy-` | `proxy-start`, `proxy-stop`, `proxy-config-create` | Proxy management |
+| `global-` | `global-settings`, `global-grant` | Instance-wide settings |
+| `grant-` | `grant-show`, `grant-add`, `grant-drop`, `grant-modify` | User and ACL management |
+| `show` | `db-show-variables`, `db-show-status`, `db-show-schema` | Read-only visibility |
+
+#### External partner lifecycle
+
+External users (partners consuming or operating a cluster via the Cloud18 marketplace) go through a managed lifecycle controlled from the replication-manager GUI:
+
+```
+Register  →  pending  →  quote  →  active  →  unsubscribed
+              (waiting     (price     (full       (access
+               approval)   proposed)  access)     revoked)
+```
+
+The cluster owner approves or rejects each step. An external partner in `pending` state has no operational grants until explicitly accepted. Cancelling at any stage revokes the partner's grants immediately.
+
+#### ACL storage
+
+User roles and grants are stored in the cluster configuration under `api-credentials-acl-allow-external`. Each entry follows the format:
+
+```
+username:grant1 grant2 ...:cluster-name:role1 role2 ...
+```
+
+Changes made through the GUI or API are persisted to the cluster TOML file (and therefore versioned in GitLab) immediately.
 
 ---
 
