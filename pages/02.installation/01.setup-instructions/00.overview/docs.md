@@ -4,8 +4,6 @@ taxonomy:
     category: docs
 ---
 
-## Overview — Flavors and Binary Types
-
 replication-manager is built from a single codebase with compile-time feature flags that produce several distinct **flavors**. Choose the flavor that matches your deployment model.
 
 ---
@@ -74,29 +72,6 @@ Local testing, benchmarking, regression tests?
 Portable single-file deployment or Docker?
   └─ replication-manager  (embedded)
 ```
-
----
-
-## Filesystem Hierarchy
-
-### Package installations (RPM / DEB)
-
-| Path | Contents |
-|---|---|
-| `/etc/replication-manager/` | Configuration files (`config.toml`, `cluster.d/`) |
-| `/usr/share/replication-manager/` | Static assets, dashboard, templates |
-| `/usr/share/replication-manager/dashboard/` | HTTP server root |
-| `/var/lib/replication-manager/` | Runtime data, metrics, backups |
-| `$HOME/.config/replication-manager/` | Dynamic config changes (v3+) |
-| `/var/log/replication-manager.log` | Log file |
-
-### Tarball installations
-
-| Path | Contents |
-|---|---|
-| `/usr/local/replication-manager/etc/` | Configuration files |
-| `/usr/local/replication-manager/share/` | Static assets |
-| `/usr/local/replication-manager/data/` | Runtime data |
 
 ---
 

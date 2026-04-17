@@ -6,17 +6,7 @@ taxonomy:
 
 ## First Login
 
-After starting replication-manager for the first time, access the web GUI at:
-
-```
-https://<host>:10005
-```
-
-or on localhost during setup:
-
-```
-https://localhost:10005
-```
+After starting replication-manager for the first time, access the web GUI at `https://<host>:10005` (or `https://localhost:10005` during local setup).
 
 ---
 
@@ -70,7 +60,7 @@ The check is performed by `CheckDefaultUser()` on every monitoring tick — no r
 
 ## SSO Login via gitlab.signal18.io
 
-Once your instance is [registered](../../plugins/registration), users can log in using their **gitlab.signal18.io** identity instead of a local password. SSO login does not require a local `api-credentials` entry — authentication is handled by the Signal18 GitLab OAuth flow.
+Once your instance is [registered](../registration), users can log in using their **gitlab.signal18.io** identity instead of a local password. SSO login does not require a local `api-credentials` entry — authentication is handled by the Signal18 GitLab OAuth flow.
 
 To log in with SSO:
 
@@ -78,7 +68,7 @@ To log in with SSO:
 2. Authenticate at gitlab.signal18.io (your Signal18 SSO account)
 3. replication-manager validates your identity against the GitLab group membership for your registered instance namespace
 
-The role and grants assigned to an SSO user are managed entirely through the replication-manager GUI and API — not through GitLab group roles. See [Cluster Role Sharing](../../plugins/registration#cluster-role-sharing-with-external-users) for the full role and grant model.
+The role and grants assigned to an SSO user are managed entirely through the replication-manager GUI and API — not through GitLab group roles. See [Cluster Role Sharing](../registration#cluster-role-sharing-with-external-users) for the full role and grant model.
 
 ---
 

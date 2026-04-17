@@ -180,23 +180,20 @@ Key startup flags:
 
 ## Discovering All Available Flags
 
-The fastest way to explore all configuration options is:
+> **Tip:** `replication-manager monitor --help` is the authoritative reference — it prints all 400+ flags with defaults and descriptions for the exact version you have installed, including anything added after this documentation was written.
 
 ```bash
 replication-manager monitor --help
 ```
 
-This prints every available flag with its default value and description — over 400 options covering monitoring, failover, proxies, backups, alerting, provisioning, security, and more. Each flag name maps directly to a TOML key (strip the `--` prefix):
+Each flag name maps directly to a TOML key — strip the `--` prefix:
 
 ```bash
-# Flag:
---monitoring-ticker 2
-
-# Equivalent TOML key:
-monitoring-ticker = 2
+# Flag form:         --monitoring-ticker 2
+# TOML equivalent:  monitoring-ticker = 2
 ```
 
-Pipe through `grep` to find options for a specific feature area:
+Filter by feature area with `grep`:
 
 ```bash
 replication-manager monitor --help | grep backup
@@ -204,5 +201,3 @@ replication-manager monitor --help | grep proxy
 replication-manager monitor --help | grep failover
 replication-manager monitor --help | grep ssl
 ```
-
-The full flag list is the authoritative reference — it always reflects the exact version you have installed, including any flags added since this documentation was written.

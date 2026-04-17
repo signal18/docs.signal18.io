@@ -1,10 +1,10 @@
 ---
-title: Install Pro Orchestrators
+title: Orchestrators
 taxonomy:
     category: docs
 ---
 
-## Install Pro Version Orchestrators
+## Orchestrators (Pro)
 
 > **Requires:** `replication-manager-pro` flavor
 

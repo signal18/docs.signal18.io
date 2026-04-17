@@ -5,7 +5,7 @@ taxonomy:
         - docs
 ---
 
-**replication-manager** ships as a self-contained binary with no external library dependencies. Packages and images are provided for multiple distribution formats and architectures (x86_64, ARM64).
+**replication-manager** ships as a self-contained binary with no external library dependencies. Choose the method that fits your environment — all paths lead to the same monitoring daemon.
 
 The current stable version is **3.1**. Check [GitHub Releases](https://github.com/signal18/replication-manager/releases) for the latest release or review the [changelog](/change-logs/features31).
 
