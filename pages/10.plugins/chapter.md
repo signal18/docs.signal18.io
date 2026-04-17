@@ -19,6 +19,6 @@ replication-manager ships three tiers of plugins:
 
 **Community plugins** are the primary tier of external plugins. They are distributed to instances that have registered at gitlab.signal18.io and serve a dual purpose: they bring real monitoring value to users and they help signal18 understand how replication-manager is deployed in the field — workload patterns, security posture, topology shapes — so we can improve the product and focus roadmap investment where it matters most.
 
-Registering your instance is free and takes less than two minutes. See the [Instance Registration & SSO](../registration) section for the full list of benefits, GitLab object mapping, secret storage model, and team management.
+Registering your instance is free and takes less than two minutes. Benefits include community plugins, configuration backup and restore, cluster role sharing, direct chat with the Signal18 team and partners, and Cloud18 marketplace access. See the [Instance Registration & SSO](../registration) section for the full details, GitLab object mapping, secret storage model, and team management.
 
 **Enterprise plugins** are reserved for customers with an active Signal18 Support Contract. They provide advanced detection capabilities built from Signal18's field experience supporting production MariaDB and MySQL deployments.

@@ -8,7 +8,13 @@ taxonomy:
 
 Community and Enterprise plugins require your replication-manager instance to be **registered** with the Signal18 SSO at [gitlab.signal18.io](https://gitlab.signal18.io).
 
-Registration is free. It ties your running replication-manager instance to a GitLab identity, unlocks the community plugin library, and opens access to the broader Cloud18 ecosystem.
+Registration is free. It takes less than two minutes and unlocks:
+
+- **Community plugins** — the full library of workload, security, and score plugins, kept up to date automatically
+- **Config backup & restore** — all cluster configurations versioned in GitLab, recoverable on any new replication-manager instance in one command
+- **Cluster role sharing** — grant scoped access to any cluster to other registered SSO users without sharing credentials or VPN
+- **Direct chat** — a built-in chat panel in the replication-manager GUI for real-time conversation with the Signal18 team and marketplace partners
+- **Cloud18 marketplace** — consume clusters provided by other participants or publish your own; become an active Signal18 partner or customer
 
 ---
 
@@ -44,6 +50,22 @@ Registered instances can grant access to individual clusters to any other user r
 | Maintainer | Owner — manage cluster settings, team, and registration |
 
 This allows DBAs, support engineers, or partners to be given scoped access to specific clusters without sharing credentials or VPN access to the replication-manager host.
+
+---
+
+### Direct Chat with Signal18 and Partners
+
+Once registered, a **Chat** panel appears in the replication-manager GUI sidebar. It connects directly to the Signal18 team and to other registered marketplace partners through the SSO identity.
+
+The chat is available in three scopes:
+
+| Scope | Who you reach |
+|---|---|
+| **Support** | Signal18 engineering and support team — ask questions, report issues, get configuration advice |
+| **Community** | Other registered replication-manager operators — share experience, compare configurations, collaborate on plugin development |
+| **Partners** | Marketplace partners you are connected to — coordinate cluster handoffs, negotiate SLAs, discuss shared infrastructure |
+
+The chat identity is your gitlab.signal18.io SSO username — no separate account or third-party service required. Conversation history is retained and accessible from any browser logged into the same SSO session.
 
 ---
 
