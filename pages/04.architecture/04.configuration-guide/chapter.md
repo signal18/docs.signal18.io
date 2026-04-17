@@ -1,9 +1,6 @@
 ---
 title: Configuration Guide
-published: false
 taxonomy:
     category: docs
 ---
-### Chapter 5
-
-# Configuration Variables
+# Configuration Guide
