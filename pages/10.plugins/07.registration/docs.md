@@ -1,5 +1,6 @@
 ---
 title: Instance Registration & SSO
+published: false
 taxonomy:
     category: docs
 ---
