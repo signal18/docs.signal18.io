@@ -1,5 +1,6 @@
 ---
 title: Configuration
+published: false
 taxonomy:
     category: docs
 ---

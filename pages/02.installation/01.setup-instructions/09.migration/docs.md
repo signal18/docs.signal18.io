@@ -1,6 +1,5 @@
 ---
 title: "Migrating from 2.x to 3.x"
-published: false
 taxonomy:
     category: docs
 ---

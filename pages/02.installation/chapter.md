@@ -1,8 +1,8 @@
 ---
-title: Installation
+title: Getting Started
 taxonomy:
     category: docs
 ---
 ### Chapter 2
 
-# Installation
+# Getting Started

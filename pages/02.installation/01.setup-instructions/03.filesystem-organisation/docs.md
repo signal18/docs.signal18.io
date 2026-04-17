@@ -1,5 +1,6 @@
 ---
 title: Filesystem Hierarchy
+published: false
 taxonomy:
     category: docs
 ---

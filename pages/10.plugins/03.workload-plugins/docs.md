@@ -14,6 +14,18 @@ All workload plugins are **external binaries** located in the cluster plugins di
 
 ---
 
+## plugin-innodb-corruption
+
+**Binary:** `plugin-innodb-corruption`  
+**Finding:** `WARN0300`  
+**Source:** `cluster/logplugin/plugins/plugin-innodb-corruption/main.go`
+
+Scans the error log for InnoDB corruption indicators within the last 24 hours. Keywords include `corruption`, `corrupted`, `Database page corruption`, `InnoDB: Error: page`, `space id and page`, `is in the future`, and `checksum mismatch`.
+
+**Prerequisites:** none — the error log is always available.
+
+---
+
 ## plugin-connection-storm
 
 **Binary:** `plugin-connection-storm`  
@@ -26,6 +38,8 @@ Detects connection pool saturation through two complementary signals:
 2. **Lock waits** — when the number of threads stuck waiting on any lock (metadata lock, table lock, row lock) reaches `lock-wait-count`, a lock storm is indicated.
 
 Evaluation is skipped entirely when total connections are below `min-connections` to avoid false positives on idle servers.
+
+**Prerequisites:** none — uses `SHOW PROCESSLIST`, available on all servers.
 
 **Configuration:**
 
@@ -46,6 +60,8 @@ Evaluation is skipped entirely when total connections are below `min-connections
 Groups error log entries by a **template fingerprint** (numbers and quoted string literals are stripped so that variant messages with different values are counted together as one template) and fires when any template appears `storm-threshold` or more times within `storm-window-mins` minutes.
 
 Both the MariaDB/MySQL error log and the SQL error log are scanned.
+
+**Prerequisites:** none — the error log is always available.
 
 **Configuration:**
 
@@ -68,6 +84,13 @@ Reads `performance_schema.events_statements_summary_by_digest` and fires when **
 - `full_scan_executions ≥ min-full-scan-count`
 
 Digests with fewer than `min-exec-count` total executions are excluded to filter out one-off or infrequent queries. The finding reports the top three offending query digests.
+
+**Prerequisites:**
+
+| Variable | Required value | Notes |
+|---|---|---|
+| `performance_schema` | `ON` | Must be enabled at server startup |
+| `performance_schema_consumer_events_statements_summary_by_digest` | `ON` | Usually ON by default when performance_schema is enabled |
 
 **Configuration:**
 
@@ -92,14 +115,19 @@ Reads `information_schema.METADATA_LOCK_INFO` (requires the MariaDB `METADATA_LO
 
 Metadata lock waits occur when a DDL statement (`ALTER TABLE`, `DROP TABLE`) holds an exclusive metadata lock, blocking all concurrent DML on the affected table until the DDL completes.
 
+**Prerequisites:**
+
+| Requirement | How to enable |
+|---|---|
+| MariaDB only | Not available on MySQL (no `METADATA_LOCK_INFO` plugin) |
+| `metadata_lock_info` plugin | `INSTALL SONAME 'metadata_lock_info'` on each monitored server |
+
 **Configuration:**
 
 | Key | Default | Description |
 |---|---|---|
 | `lock-wait-ms-threshold` | `5000` | Single MDL wait duration in ms to trigger |
 | `lock-count-threshold` | `3` | Concurrent MDL waits count to trigger |
-
-**Prerequisite:** `INSTALL SONAME 'metadata_lock_info'` on each monitored MariaDB server.
 
 ---
 
@@ -114,6 +142,13 @@ Detects DML write bursts in the slow log *before* lag appears in `seconds_behind
 Fires when: `DML_count_in_window / window_mins ≥ write-rate-threshold queries/min`
 
 DML verbs counted: `INSERT`, `UPDATE`, `DELETE`, `REPLACE`, `LOAD DATA`.
+
+**Prerequisites:**
+
+| Variable | Required value | Notes |
+|---|---|---|
+| `slow_query_log` | `ON` | Enable the slow query log |
+| `long_query_time` | e.g. `0` or `1` | Set low enough to capture DML-heavy queries |
 
 **Configuration:**
 
@@ -135,6 +170,14 @@ Compares the current slow-log average latency against the PFS historical baselin
 `current_avg_ms / pfs_avg_ms ≥ regression-factor`
 
 The current window is the last `timeframe-hours` hours of slow log. Only digests with at least `min-executions` PFS executions are included to ensure a meaningful baseline. Up to five regressions are reported per tick.
+
+**Prerequisites:**
+
+| Variable | Required value | Notes |
+|---|---|---|
+| `slow_query_log` | `ON` | Current latency baseline source |
+| `long_query_time` | e.g. `0` or `1` | Set low enough to capture the queries you want to track |
+| `performance_schema` | `ON` | Historical baseline source (`events_statements_summary_by_digest`) |
 
 **Configuration:**
 
@@ -158,6 +201,12 @@ Reads PFS to detect queries creating on-disk temporary tables. Fires when **eith
 - `disk_tmp / (disk_tmp + mem_tmp) ≥ ratio-threshold`
 
 Only digests with at least `min-exec-count` executions are included. Common causes: missing indexes on `GROUP BY` / `ORDER BY` columns, or `tmp_table_size` / `max_heap_table_size` set too small.
+
+**Prerequisites:**
+
+| Variable | Required value | Notes |
+|---|---|---|
+| `performance_schema` | `ON` | Must be enabled at server startup |
 
 **Configuration:**
 
@@ -184,6 +233,14 @@ A finding is raised when all of the following hold:
 - Operation type is in `allowed-operations`
 - Event falls within the last `timeframe-hours`
 
+**Prerequisites:**
+
+| Requirement | How to enable |
+|---|---|
+| `server_audit` plugin | `INSTALL SONAME 'server_audit'` |
+| `server_audit_logging` | `SET GLOBAL server_audit_logging = ON` |
+| `server_audit_events` | Include `CONNECT`, `QUERY`, `QUERY_DML`, `QUERY_DDL` as needed |
+
 **Configuration:**
 
 | Key | Default | Description |
@@ -205,6 +262,14 @@ A finding is raised when all of the following hold:
 Watches the audit log for DDL statements that modify user privileges performed by any account not in `allowed-admin-users`.
 
 Watched operations: `GRANT`, `REVOKE`, `CREATE USER`, `ALTER USER`, `DROP USER`, `RENAME USER`, `SET PASSWORD`.
+
+**Prerequisites:**
+
+| Requirement | How to enable |
+|---|---|
+| `server_audit` plugin | `INSTALL SONAME 'server_audit'` |
+| `server_audit_logging` | `SET GLOBAL server_audit_logging = ON` |
+| `server_audit_events` | Must include `QUERY_DDL` |
 
 **Configuration:**
 
@@ -230,6 +295,13 @@ Scans binlog QUERY events for SQL statements that contain a cleartext password l
 
 Password values are partially redacted in findings (first and last character shown). Findings are capped at `max-findings` per tick to avoid log flooding.
 
+**Prerequisites:**
+
+| Requirement | How to enable |
+|---|---|
+| Binary logging | `log_bin` enabled (set in `my.cnf`, requires restart) |
+| `binlog_format` | `MIXED` or `ROW` — STATEMENT format is also captured via QUERY events |
+
 **Configuration:**
 
 | Key | Default | Description |
@@ -252,6 +324,12 @@ Scans binlog QUERY events for potential credit card Primary Account Numbers (PAN
 
 PANs are masked in findings (last four digits shown). Findings are capped at `max-findings` per tick.
 
+**Prerequisites:**
+
+| Requirement | How to enable |
+|---|---|
+| Binary logging | `log_bin` enabled (set in `my.cnf`, requires restart) |
+
 **Configuration:**
 
 | Key | Default | Description |
@@ -265,6 +343,7 @@ PANs are masked in findings (last four digits shown). Findings are capped at `ma
 
 | Code | Plugin | Condition | Notes |
 |---|---|---|---|
+| WARN0300 | plugin-innodb-corruption | InnoDB corruption keyword in error log | 24h window |
 | WARN0301 | plugin-slow-query-regression | Query latency regressed vs PFS baseline | Up to 5 per tick |
 | WARN0302 | plugin-error-storm | Error template count exceeded threshold | Fingerprint-based dedup |
 | WARN0303 | plugin-replication-lag-predictor | DML write rate exceeds threshold | Leading indicator for lag |
