@@ -1,5 +1,5 @@
 ---
-title: Alerting
+title: Configuration Guide
 taxonomy:
     category: docs
 ---
