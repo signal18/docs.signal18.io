@@ -6,6 +6,8 @@ taxonomy:
 
 ## Plugin Architecture
 
+> **Available since:** replication-manager **v3.1.24**
+
 **replication-manager** extends its monitoring capabilities through a plugin system. On every monitoring tick each enabled plugin is invoked, receives a full snapshot of the monitored server state as JSON on its standard input, and writes findings and/or score checks as JSON on its standard output.
 
 There are two categories of plugins:
