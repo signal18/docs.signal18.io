@@ -33,6 +33,26 @@ Only when all applicable checks agree that the primary is genuinely lost will re
 
 ---
 
+## Default Mode — Alert, Don't Act
+
+By default replication-manager operates in **manual mode**: when a failure is detected and all false-positive checks confirm the primary is genuinely lost, an alert is sent to all configured channels and the cluster is held in a degraded-but-safe state. **No automatic failover is triggered.** This gives the supervision team time to assess the situation, check for external causes (network partition, storage failure, planned maintenance), and decide whether to promote a replica or wait for the primary to recover.
+
+```toml
+failover-mode = "manual"   # default — alert and wait for operator action
+```
+
+To enable fully automated failover without operator intervention:
+
+```toml
+failover-mode = "automatic"   # promote the best replica automatically
+```
+
+In automatic mode replication-manager still applies all false-positive and topology checks before acting — the difference is that the promotion step executes without waiting for a human decision.
+
+> **Recommendation:** run `manual` mode in production until the team is confident in the false-positive tuning, replication health scores, and alerting pipeline. Switch to `automatic` once those are validated.
+
+---
+
 ## Switchover — Planned Handoff
 
 A **switchover** is a controlled primary promotion performed while the current primary is still reachable and healthy. It is the correct operation for planned maintenance, host migrations, software upgrades, and load rebalancing.
