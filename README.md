@@ -31,14 +31,20 @@ taxonomy:
 The documentation follows a sequential chapter-based organization:
 
 1. **01.introduction/** - Project overview and licensing
-2. **02.installation/** - Setup instructions and dependencies
-3. **03.usage/** - Quickstart, console, API, and CLI documentation
-4. **04.architecture/** - Switchover/failover workflows and topology patterns
-5. **05.configuration/** - Comprehensive configuration guide (routing, monitoring, provisioning, backups)
-6. **06.contribute/** - Build instructions and testing guidelines for the main project
-7. **07.howto/** - Best practices and troubleshooting
-8. **08.change-logs/** - Version history and roadmap
-9. **09.FAQ/** - Frequently asked questions
+2. **02.installation/** - Getting started, setup instructions and dependencies
+3. **03.usage/** - First use, console, API, and CLI documentation
+4. **04.architecture/** - High Availability: switchover/failover workflows and topology patterns
+5. **05.configuration/** - Configuration Guide: routing, backups, and general settings
+6. **05.monitoring/** - Monitoring configuration and daemon monitoring
+7. **06.maintenance/** - Maintenance jobs, scheduling, and operational tasks
+8. **07.security/** - Security configuration guide
+9. **08.alerting/** - Alerting configuration guide
+10. **09.provisioning/** - Provisioning backends (OpenSVC, Kubernetes, SlapOS)
+11. **10.plugins/** - Plugin system overview and registration
+12. **11.contribute/** - Build instructions and testing guidelines for the main project
+13. **12.howto/** - Best practices and troubleshooting
+14. **13.change-logs/** - Version history and roadmap
+15. **14.FAQ/** - Frequently asked questions
 
 ## Working with Documentation
 
