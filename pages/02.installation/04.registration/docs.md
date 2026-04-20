@@ -104,11 +104,11 @@ Register  →  pending  →  quote  →  active  →  unsubscribed
 
 ## Direct Chat with Signal18 and Partners
 
-replication-manager integrates a **Chat** tab in the GUI powered by **Mattermost** at [mmeet.signal18.io](https://mmeet.signal18.io). All three connection methods use your gitlab.signal18.io SSO identity — no separate Mattermost account needed:
+replication-manager integrates a **Chat** tab in the GUI powered by **Mattermost** at [meet.signal18.io](https://meet.signal18.io). All three connection methods use your gitlab.signal18.io SSO identity — no separate Mattermost account needed:
 
 - **replication-manager GUI** — the Chat tab authenticates automatically via your active GitLab SSO session
-- **Browser** — go to [mmeet.signal18.io](https://mmeet.signal18.io) and click **Sign in with GitLab**
-- **Desktop / mobile client** — add `https://mmeet.signal18.io` as a server in the [Mattermost app](https://mattermost.com/download/) and sign in with GitLab OAuth
+- **Browser** — go to [meet.signal18.io](https://meet.signal18.io) and click **Sign in with GitLab**
+- **Desktop / mobile client** — add `https://meet.signal18.io` as a server in the [Mattermost app](https://mattermost.com/download/) and sign in with GitLab OAuth
 
 | Channel | Who you reach |
 |---|---|

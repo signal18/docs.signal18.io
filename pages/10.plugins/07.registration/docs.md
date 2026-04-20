@@ -122,13 +122,13 @@ Changes made through the GUI or API are persisted to the cluster TOML file (and 
 
 replication-manager integrates a **Chat** tab in the GUI that connects you to the Signal18 team and marketplace partners. The chat is powered by **Mattermost** and hosted at:
 
-> [mmeet.signal18.io](https://mmeet.signal18.io)
+> [meet.signal18.io](https://meet.signal18.io)
 
 You can connect in three ways — all using your gitlab.signal18.io SSO identity, no separate Mattermost account or password needed:
 
 - **replication-manager GUI** — the Chat tab embeds Mattermost directly. Clicking it authenticates you automatically via your active GitLab SSO session.
-- **Browser** — go to [mmeet.signal18.io](https://mmeet.signal18.io) and click **Sign in with GitLab**.
-- **Mattermost desktop or mobile client** — download the [Mattermost desktop app](https://mattermost.com/download/) (Windows, macOS, Linux) or mobile app (iOS, Android), add a new server pointing to `https://mmeet.signal18.io`, and sign in with GitLab OAuth.
+- **Browser** — go to [meet.signal18.io](https://meet.signal18.io) and click **Sign in with GitLab**.
+- **Mattermost desktop or mobile client** — download the [Mattermost desktop app](https://mattermost.com/download/) (Windows, macOS, Linux) or mobile app (iOS, Android), add a new server pointing to `https://meet.signal18.io`, and sign in with GitLab OAuth.
 
 The chat provides three channels:
 
