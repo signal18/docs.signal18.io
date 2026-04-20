@@ -184,6 +184,18 @@ These settings describe the hardware allocated to each database service. The con
 
 ---
 
+## Start Behavior
+
+##### `prov-db-start-fetch-config`
+
+| | |
+|---|---|
+| Description | When `true`, replication-manager signals each server to re-fetch the config archive on the next start (the `start` script checks `/need-config-fetch` and downloads a fresh `config.tar.gz`). Set to `false` to suppress config fetching — the database starts with whatever config files are already on disk. |
+| Type | Boolean |
+| Default | `true` |
+
+---
+
 ## Bootstrap Scripts
 
 ##### `prov-db-bootstrap-script`
