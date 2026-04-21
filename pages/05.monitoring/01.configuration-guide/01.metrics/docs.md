@@ -8,7 +8,7 @@ taxonomy:
 
 **replication-manager 2.1** expose Prometheus metrics for all servers under clusters
 
-> **No extra ports required:** The embedded Graphite render API is proxied through the replication-manager HTTPS API. External tools and dashboards can query metrics directly over the existing HTTPS connection — there is no need to expose any of the Graphite carbon ports (`graphite-carbon-api-port`, `graphite-carbon-server-port`, etc.) to the network.
+> **No extra ports required (since v3.1.1):** The embedded Graphite render API is proxied through the replication-manager HTTPS API. External tools and dashboards can query metrics directly over the existing HTTPS connection — there is no need to expose any of the Graphite carbon ports (`graphite-carbon-api-port`, `graphite-carbon-server-port`, etc.) to the network.
 >
 > The render endpoint follows the standard Graphite render API:
 > ```
