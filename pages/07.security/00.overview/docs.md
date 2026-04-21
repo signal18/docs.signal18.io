@@ -49,6 +49,16 @@ TLS certificates for the provisioning orchestration layer (OpenSVC, Kubernetes) 
 
 ---
 
+## HTTPS Bastion — Browser Terminal Access
+
+replication-manager doubles as a **secure bastion host**: operators can open `bash`, `mysql`, and `mytop` terminals to any managed database node or proxy directly in the browser, with all traffic carried over the existing HTTPS/WebSocket connection. No SSH port needs to be exposed to the operator's workstation.
+
+Authentication uses the same RSA JWT as the REST API. Role-based credential selection ensures users connect to the database with the appropriate privilege level — the credential is injected server-side and never sent to the browser. Sessions can be made resumable via tmux or screen.
+
+See [HTTPS Bastion and Terminal](https-bastion) for configuration, role mapping, OpenSVC integration, and ACL grants.
+
+---
+
 ## Supply Chain and Regulatory Compliance
 
 A **CycloneDX SBOM** (Software Bill of Materials) is published with every release, listing all 279 Go module dependencies with versions, PURLs, and hashes. Operators can feed the SBOM into standard vulnerability scanners (Grype, Trivy, OSV-Scanner) or SCA platforms (Dependency-Track, Snyk).
