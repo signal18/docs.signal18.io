@@ -3,6 +3,94 @@ title: Configuration Guide
 taxonomy:
     category: docs
 ---
+
+## Process User and Privilege Drop
+
+### `--user`
+
+| | |
+|---|---|
+| Description | OS username to drop privileges to after the HTTPS and HTTP listeners are ready. Must be started as root (UID 0) for this option to take effect. If omitted and started as root, replication-manager continues running as root with a log warning. |
+| Type | String |
+| Default | `""` |
+| Example | `"repman"` |
+
+replication-manager supports a **privilege-drop model**: it starts as `root` to bind the HTTPS API port (which may be 443 or another low-numbered port), then immediately drops to a less-privileged OS user once the listeners are accepting connections.
+
+#### Drop sequence
+
+```
+1. Start as root
+2. Bind HTTPS API port and HTTP dashboard port
+3. Wait until both listeners are ready
+4. chown -R <user>:<group> {monitoring-datadir}     ← ownership hand-off
+5. syscall.Setgid(<gid>)                             ← drop group
+6. syscall.Setuid(<uid>)                             ← drop user (irreversible)
+7. Adjust any config dirs that are no longer writable under the new user
+8. Start cluster monitoring goroutines
+```
+
+Steps 5–6 use `syscall.Setuid` / `syscall.Setgid`, which are **irreversible** on Linux — the process cannot regain root privileges after this point.
+
+#### File ownership requirements
+
+Before starting, the target user must own (or have write access to) the key directories:
+
+```bash
+# Create a dedicated system user
+useradd -r -s /sbin/nologin repman
+
+# Give it ownership of config and data directories
+chown -R repman:repman /etc/replication-manager
+chown -R repman:repman /var/lib/replication-manager
+
+# The encryption key (generated as root) should remain root-readable only
+chmod 600 /etc/replication-manager/.replication-manager.key
+```
+
+replication-manager will automatically `chown` the working directory (`monitoring-datadir`) to the target user before dropping, so files written during the root phase (encryption keys, initial config) are accessible afterwards. If any writable config sub-directories are not accessible under the new user, they are transparently remapped to paths under the target user's home directory (`~/.config/replication-manager/`).
+
+#### systemd unit example
+
+```ini
+[Unit]
+Description=replication-manager
+After=network.target
+
+[Service]
+Type=simple
+# Start as root so the process can bind privileged ports, then drop to repman
+ExecStart=/usr/bin/replication-manager monitor --user repman --config /etc/replication-manager/config.toml
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+```
+
+If replication-manager does not need to bind a port below 1024, you can skip the privilege drop entirely and start directly as the target user:
+
+```ini
+[Service]
+User=repman
+Group=repman
+ExecStart=/usr/bin/replication-manager monitor --config /etc/replication-manager/config.toml
+```
+
+In this case the `--user` flag is ignored (only root can call `setuid`).
+
+#### Docker rootless alternative
+
+The official Docker images provide rootless variants that run as `repman` (UID/GID 10001) from the start, removing the need for any privilege drop:
+
+```bash
+docker run -u repman \
+  -v /etc/replication-manager:/etc/replication-manager \
+  -v /var/lib/replication-manager:/var/lib/replication-manager \
+  signal18/replication-manager:latest-rootless
+```
+
+---
+
 ## Configuration File Security
 
 **replication-manager** provides password obfuscating security by implementing AES encryption.

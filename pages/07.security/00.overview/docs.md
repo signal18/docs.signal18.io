@@ -12,6 +12,10 @@ replication-manager enforces security at every layer: the REST API is TLS-only, 
 
 ## Feature Summary
 
+### Process Privilege Drop (`--user`)
+
+replication-manager can start as `root` to bind a low-numbered HTTPS port and then immediately drop to a less-privileged OS user via `syscall.Setuid` / `syscall.Setgid` once the listeners are ready. The drop is irreversible — the process cannot regain root after this point. See [Configuration Guide](configuration-guide) for the full drop sequence, directory ownership requirements, and a systemd unit example.
+
 ### TLS — API and Web Interface
 
 The monitoring API and web GUI are served over HTTPS. Server certificate and key are configured per instance. Clients that cannot present a valid certificate can be denied.
