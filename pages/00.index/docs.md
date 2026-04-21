@@ -32,6 +32,7 @@ taxonomy:
    - 2.4. [Migrating from 2.x to 3.x](/installation/migration)
    - 2.5. [Registration & SSO](/installation/registration)
    - 2.6. [Network Ports](/installation/network-ports)
+   - 2.7. [Database Grants](/installation/database-grants)
 
 3. **First Use**
    - 3.1. [Start & Stop Monitoring](/usage/quickstart)
