@@ -4,7 +4,7 @@ taxonomy:
     category: docs
 ---
 
-# replication-manager Documentation
+# replication-manager
 
 **replication-manager** is an open-source, high-availability replication manager for MariaDB and MySQL. This documentation covers installation, configuration, monitoring, security, alerting, provisioning, and more.
 
@@ -32,13 +32,11 @@ taxonomy:
       - 2.1.12. [What Was Installed](/installation/setup-instructions/what-was-installed)
       - 2.1.13. [First Config](/installation/setup-instructions/first-config)
       - 2.1.14. [Migrating from 2.x to 3.x](/installation/setup-instructions/migration)
-   - 2.2. [Configuration](/installation/configuration)
-   - 2.3. [First Config](/installation/first-config)
-   - 2.4. [Command Line Flags](/installation/command-line-flags)
-   - 2.5. [First Login](/installation/first-login)
-   - 2.6. [Migrating from 2.x to 3.x](/installation/migration)
-   - 2.7. [Registration & SSO](/installation/registration)
-   - 2.8. [Migrating from 2.x to 3.x](/installation/migration)
+   - 2.2. [First Config](/installation/first-config)
+   - 2.3. [Command Line Flags](/installation/command-line-flags)
+   - 2.4. [First Login](/installation/first-login)
+   - 2.5. [Migrating from 2.x to 3.x](/installation/migration)
+   - 2.6. [Registration & SSO](/installation/registration)
 
 3. **First Use**
    - 3.1. [Start & Stop Monitoring](/usage/quickstart)
