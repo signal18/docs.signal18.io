@@ -111,6 +111,14 @@ jobs:
             -V urlcolor=blue \
             -o replication-manager-docs.pdf
 
+      - name: Commit updated PDF to repository
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add replication-manager-docs.pdf
+          git diff --cached --quiet || git commit -m "docs: update PDF [skip ci]"
+          git push
+
       - name: Upload PDF artifact
         uses: actions/upload-artifact@v4
         with:

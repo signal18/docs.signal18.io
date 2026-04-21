@@ -163,4 +163,4 @@ taxonomy:
 
 A PDF version of this documentation is generated automatically on each release.
 
-[Download latest PDF](https://github.com/signal18/replication-manager/releases/latest/download/replication-manager-docs.pdf)
+[Download latest PDF](https://github.com/signal18/docs.signal18.io/raw/master/replication-manager-docs.pdf)
