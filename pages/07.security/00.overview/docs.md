@@ -49,6 +49,14 @@ TLS certificates for the provisioning orchestration layer (OpenSVC, Kubernetes) 
 
 ---
 
+## Supply Chain and Regulatory Compliance
+
+A **CycloneDX SBOM** (Software Bill of Materials) is published with every release, listing all 279 Go module dependencies with versions, PURLs, and hashes. Operators can feed the SBOM into standard vulnerability scanners (Grype, Trivy, OSV-Scanner) or SCA platforms (Dependency-Track, Snyk).
+
+Signal18 publishes the SBOM and maintains a vulnerability disclosure process as part of compliance with the **EU Cyber Resilience Act (CRA)**. See [SBOM and CRA Compliance](sbom-cra) for the full details including where to download the SBOM, how to regenerate it, and how to report a vulnerability.
+
+---
+
 ## Configuration Guide
 
 See [Configuration Guide](configuration-guide) for all TLS, Vault, encryption, and ACL configuration keys.
