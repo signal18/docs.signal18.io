@@ -4,9 +4,9 @@ Replication Manager provides two complementary monitoring systems for database i
 
 ---
 
-## Schema Monitoring
+## 1. Schema Monitoring
 
-### How Collection Works
+### 1.1 How Collection Works
 
 Schema monitoring operates in two phases. First, Replication Manager builds a list of all `schema.table` pairs. Then, in a background thread, it collects full metadata for each table — column definitions, index structures, collations, and data types — computing a CRC64 fingerprint over the result.
 
@@ -16,7 +16,7 @@ Several mechanisms prevent concurrent collections from running and enforce a min
 |---|---|---|
 | `monitoring-schema-scan-timeout` | `30` | Maximum seconds for a single schema metadata scan |
 
-### Enabling the Scheduler
+### 1.2 Enabling the Scheduler
 
 All maintenance schedulers are **disabled by default** and must be opted in explicitly.
 
@@ -28,7 +28,7 @@ All maintenance schedulers are **disabled by default** and must be opted in expl
 
 The default cron runs once a day at 1 AM. This conservative default is intentional — clusters with large table dictionaries can have expensive metadata scans, and once-a-day collection is sufficient for most environments.
 
-### Collection Scope
+### 1.3 Collection Scope
 
 Fine-grained control over what gets collected:
 
@@ -39,7 +39,7 @@ Fine-grained control over what gets collected:
 | `monitoring-schema-on-replicas` | `true` | Mirror schema collection on all replicas |
 | `monitoring-schema-ignore-tables` | `""` | Comma-separated `schema.table` patterns to exclude |
 
-### Change Detection
+### 1.4 Change Detection
 
 Once metadata has been collected on the primary and all replicas, Replication Manager continuously compares CRC64 fingerprints across all cluster nodes to detect structural drift — schema divergence between replicas and their primary, missing or added tables, column type changes, collation changes.
 
@@ -48,11 +48,11 @@ Once metadata has been collected on the primary and all replicas, Replication Ma
 | `monitoring-schema-change` | `true` | Enable schema change detection and alerting |
 | `monitoring-schema-change-script` | `""` | Optional external script invoked on schema change event |
 
-### Special Case: Shard Proxy
+### 1.5 Special Case: Shard Proxy
 
 When a MariaDB Spider shard proxy is in use (`shardproxy = true`), schema changes must be detected and pushed to the Spider proxy node much faster than the default daily schedule allows. In this configuration, schema monitoring runs continuously in the main cluster loop, throttled only by `monitoring-schema-scan-timeout`. If you use sharding, verify this parameter is tuned appropriately for your table count.
 
-### Persisting the Table Dictionary
+### 1.6 Persisting the Table Dictionary
 
 To avoid expensive cold-start scans after a process restart, the full per-server table dictionary — including schema metadata and checksum state — is persisted to disk after every collection. It is automatically reloaded on startup before the first monitoring cycle runs.
 
@@ -69,11 +69,11 @@ For example:
 
 ---
 
-## Data Checksumming
+## 2. Data Checksumming
 
 Schema monitoring tells you *structure* is consistent. Data checksumming tells you *rows* are consistent.
 
-### Triggering a Checksum
+### 2.1 Triggering a Checksum
 
 A checksum run can be initiated in three ways:
 
@@ -86,7 +86,7 @@ A checksum run can be initiated in three ways:
 | `monitoring-checksum-scheduler` | `false` | Enable scheduled automatic checksumming |
 | `monitoring-checksum-scheduler-cron` | `0 0 2 * * 5` | Cron schedule — default is every Friday at 2 AM |
 
-### How Checksumming Works
+### 2.2 How Checksumming Works
 
 Tables are processed **serially**. For each table, the algorithm:
 
@@ -97,7 +97,7 @@ Tables are processed **serially**. For each table, the algorithm:
 
 Tables without a `PRIMARY KEY` or `UNIQUE KEY` cannot be chunked and are marked **N/A**.
 
-### Table Sync States
+### 2.3 Table Sync States
 
 Each table carries one of five sync states visible in the GUI:
 
@@ -110,7 +110,7 @@ Each table carries one of five sync states visible in the GUI:
 | `ER` | One or more chunks diverge on at least one replica |
 | `NA` | Cannot checksum — no primary/unique key, or a process error occurred |
 
-### Excluding Expected Divergence
+### 2.4 Excluding Expected Divergence
 
 Some tables diverge by design. Replication Manager uses the `replication_manager_schema.jobs` table to schedule maintenance tasks on individual nodes, intentionally writing those rows without binary logging so they stay node-local. The `replication_manager_schema.table_checksum` working table is also ephemeral. Both are excluded by default:
 
@@ -120,7 +120,7 @@ Some tables diverge by design. Replication Manager uses the `replication_manager
 
 Add any additional `schema.table` pairs to this comma-separated list to suppress known-good divergences.
 
-### Supported Primary Key Types
+### 2.5 Supported Primary Key Types
 
 The chunking engine supports the full range of primary key data types and compositions. The regression test suite at `share/sql/checksum-repair-test.sql` covers:
 
@@ -130,7 +130,7 @@ The chunking engine supports the full range of primary key data types and compos
 
 ---
 
-## Repairing Divergent Tables
+## 3. Repairing Divergent Tables
 
 When a table is in `ER` state, Replication Manager stores the exact range predicate for every divergent chunk on every affected replica. Repair can be triggered from the GUI or API at the table, schema, or cluster level.
 
@@ -151,7 +151,7 @@ After all chunks are repaired, the table is automatically re-checksummed to conf
 
 ---
 
-## GUI: Shards and Schema Graph
+## 4. GUI: Shards and Schema Graph
 
 The **Shards tab** provides a table-level view of the entire schema dictionary with:
 
@@ -172,9 +172,9 @@ Name-match edges are **off by default** as they can produce a large number of im
 
 ---
 
-## Failover Policy and Data Divergence
+## 5. Failover Policy and Data Divergence
 
-### How Divergence Affects Replica Election
+### 5.1 How Divergence Affects Replica Election
 
 When a checksum run completes, each replica that has one or more divergent chunks is marked with `isDataDiverge = true` in the cluster state. This flag is evaluated every time Replication Manager selects a candidate for failover or switchover.
 
@@ -194,7 +194,7 @@ ERR00032: No candidates found in slaves list
 
 This escalation from a per-server warning to a cluster-level error is intentional: a single divergent replica is a warning that should be investigated and repaired, but a fully divergent replica set is a signal that automatic promotion would risk serving stale or inconsistent data.
 
-### Controlling Failover Behaviour
+### 5.2 Controlling Failover Behaviour
 
 Replication Manager's core design principle is **availability first**. Blocking all failovers because of data divergence would be the wrong default for most production environments where a brief inconsistency is preferable to an extended outage.
 
@@ -206,7 +206,7 @@ With the default of `true`, divergent replicas participate in candidate election
 
 Setting this to `false` enforces a **strict consistency policy**: no replica with a known data divergence will ever be promoted. This is appropriate for environments where data correctness takes absolute precedence over availability, such as financial ledgers, compliance-critical datasets, or systems where serving stale data has regulatory consequences.
 
-### Recommended Workflow for Strict Mode
+### 5.3 Recommended Workflow for Strict Mode
 
 If you run with `failover-divergent-data = false`, make sure your operational process accounts for the fact that an unrepaired divergence will block all automated failover. The recommended cycle is:
 
@@ -216,6 +216,6 @@ If you run with `failover-divergent-data = false`, make sure your operational pr
 4. After repair the table is automatically re-checksummed; on success `isDataDiverge` is cleared
 5. The replica re-enters the candidate pool for the next failover or switchover
 
-### GUI Setting
+### 5.4 GUI Setting
 
 The `failover-divergent-data` toggle is available in **Settings → Replication → Failover** under the label *"Failover enable on divergent data"*, allowing it to be changed at runtime without a configuration file edit or restart.

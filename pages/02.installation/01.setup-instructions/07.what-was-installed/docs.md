@@ -4,13 +4,13 @@ taxonomy:
     category: docs
 ---
 
-## What Was Installed
+## 1. What Was Installed
 
 This page describes the files and directories created by each installation method.
 
 ---
 
-## Package Installation (RPM / DEB)
+## 2. Package Installation (RPM / DEB)
 
 Installing via the Signal18 repository creates the following layout:
 
@@ -31,7 +31,7 @@ The `/etc/replication-manager/` directory is the **template** source. On first s
 
 ---
 
-## Tarball Installation (basedir)
+## 3. Tarball Installation (basedir)
 
 Tarball releases extract to a self-contained directory tree:
 
@@ -52,7 +52,7 @@ ln -s /usr/local/replication-manager-osc-3.1.24 /usr/local/replication-manager
 
 ---
 
-## Embedded Binary
+## 4. Embedded Binary
 
 The embedded binary installs as a single file. All assets (dashboard, templates, scripts) are compiled into the binary itself — no `share/` directory is created. The working directories are created at first run:
 
@@ -71,7 +71,7 @@ monitoring-sharedir = "/usr/share/replication-manager"
 
 ---
 
-## Docker
+## 5. Docker
 
 Inside the container the layout matches the package installation:
 
@@ -90,7 +90,7 @@ All three directories should be mounted from the host so that data survives cont
 
 ---
 
-## Configuration File Search Order
+## 6. Configuration File Search Order
 
 At startup replication-manager searches for `config.toml` in this order:
 

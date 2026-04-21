@@ -4,7 +4,7 @@ taxonomy:
     category: docs
 ---
 
-#### Maxscale Configuration
+#### 0.0.1 Maxscale Configuration
 
 **replication-manager** can operate with MaxScale with different modes.  
 

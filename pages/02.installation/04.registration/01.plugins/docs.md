@@ -4,7 +4,7 @@ taxonomy:
     category: docs
 ---
 
-## Plugins Overview
+## 1. Plugins Overview
 
 > **Available since:** replication-manager **v3.1.24**
 
@@ -26,7 +26,7 @@ Plugins are organised in three tiers:
 
 ---
 
-## Enabling Plugins
+## 2. Enabling Plugins
 
 The plugin subsystem is controlled by two global settings:
 
@@ -46,9 +46,9 @@ sleep-ratio-threshold = 0.75
 
 ---
 
-## What Community Plugins Do
+## 3. What Community Plugins Do
 
-### Workload Plugins
+### 3.1 Workload Plugins
 
 Detect operational anomalies — performance problems, resource saturation, and regressions — by analysing the real-time server state. Findings carry `WARN` codes routed to the main HA log.
 
@@ -67,7 +67,7 @@ Detect operational anomalies — performance problems, resource saturation, and 
 | `plugin-binlog-cleartext-password` | Cleartext password in binlog (WARN0310) |
 | `plugin-binlog-creditcard-leak` | Credit card PAN detected in binlog (WARN0311) |
 
-### Security Plugins
+### 3.2 Security Plugins
 
 Audit database configuration, user accounts, and activity logs for security weaknesses. Findings carry `SEC` codes and feed the **remediation engine** — many can be auto-fixed.
 
@@ -78,7 +78,7 @@ Audit database configuration, user accounts, and activity logs for security weak
 | `plugin-security-local-infile` | `local_infile=ON` (SEC0102) |
 | `plugin-security-hardening` | CIS Benchmark controls SEC0103–SEC0118 |
 
-### Score Plugins
+### 3.3 Score Plugins
 
 Compute binary pass/fail checks that feed the **SecurityScore** gauge in the cluster dashboard.
 
@@ -95,6 +95,6 @@ Compute binary pass/fail checks that feed the **SecurityScore** gauge in the clu
 
 ---
 
-## Full Plugin Reference
+## 4. Full Plugin Reference
 
 For wire protocol, configuration, prerequisites, remediation engine, and developer guide see the **[Plugins chapter](../../../plugins)**.

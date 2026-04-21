@@ -4,13 +4,13 @@ taxonomy:
     category: docs
 ---
 
-## Command Line Client
+## 1. Command Line Client
 
 replication-manager ships with `replication-manager-cli`, a command line client that connects to the running daemon over the REST API. It can be used interactively via the terminal console or non-interactively for scripting and automation.
 
 ---
 
-## Interactive Console
+## 2. Interactive Console
 
 Start the interactive console:
 
@@ -26,7 +26,7 @@ replication-manager-cli console --cluster=mycluster
 
 ![mrmconsole](/images/console.png)
 
-### Keyboard Shortcuts
+### 2.1 Keyboard Shortcuts
 
 | Key | Action |
 |---|---|
@@ -41,9 +41,9 @@ replication-manager-cli console --cluster=mycluster
 
 ---
 
-## Non-Interactive Commands
+## 3. Non-Interactive Commands
 
-### Switchover
+### 3.1 Switchover
 
 Trigger a controlled primary handoff:
 
@@ -51,7 +51,7 @@ Trigger a controlled primary handoff:
 replication-manager-cli switchover --cluster=mycluster
 ```
 
-### Failover
+### 3.2 Failover
 
 Trigger a failover without waiting for the primary to recover:
 
@@ -59,7 +59,7 @@ Trigger a failover without waiting for the primary to recover:
 replication-manager-cli failover --cluster=mycluster
 ```
 
-### Bootstrap Replication
+### 3.3 Bootstrap Replication
 
 Initialize replication on existing database nodes that have no replication configured. Supported topologies:
 
@@ -73,7 +73,7 @@ Initialize replication on existing database nodes that have no replication confi
 replication-manager-cli --cluster=mycluster bootstrap --clean-all --topology=multi-tier-slave
 ```
 
-### Cluster Status
+### 3.4 Cluster Status
 
 ```bash
 replication-manager-cli --cluster=mycluster status
@@ -89,13 +89,13 @@ Sample output:
 3944708846436490796       127.0.0.1   3319           Slave          0    Slave_Pos          0-3317-3124          0-3317-3124        0  ON
 ```
 
-### Topology
+### 3.5 Topology
 
 ```bash
 replication-manager-cli topology
 ```
 
-### Server Maintenance
+### 3.6 Server Maintenance
 
 Place a specific server in maintenance mode using its numeric ID:
 

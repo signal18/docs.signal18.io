@@ -4,7 +4,7 @@ taxonomy:
     category: docs
 ---
 
-## Server daemon configuration (`monitoring`,`log`)
+## 1. Server daemon configuration (`monitoring`,`log`)
 
 
 ##### `log-file`
@@ -245,7 +245,7 @@ Trigger to capture on max connections threshold and slave delay
 | Default Value |5 |
 
 
-### Deprecated
+### 1.1 Deprecated
 
 ##### `daemon`  (2.0)
 

@@ -4,7 +4,7 @@ taxonomy:
     category: docs
 ---
 
-### Active standby with external arbitrator
+### 0.1 Active standby with external arbitrator
 
 When inside a single DC, we can use a single replication-manager that performs failover using keepalived, corosync, openha or etcd, but if you run on 2 DC it is possible to run two replication-manager instances in the same infrastructure. Both instances will use a heartbeat mechanism via the http protocol.
 
@@ -67,7 +67,7 @@ Item | Value |
 | Type | String |
 | Default Value | "" |  
 
-### Internals
+### 0.2 Internals
 
 On each instance instruct it's peer replication-manager node
 
@@ -97,7 +97,7 @@ When you start the peer replication-manager server, the split brain is resolve a
 
 >failover in a **replication-manager** cluster is requesting an arbitration. If arbitrator can't be contacted, you can come back to normal command line mode to failover but make sure you stopped all other running replication-manager.
 
-### Run a private arbitrator
+### 0.3 Run a private arbitrator
 
 ##### `arbitrator-bind-address` (2.0 arb)
 

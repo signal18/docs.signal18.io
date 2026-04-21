@@ -5,7 +5,7 @@ taxonomy:
 ---
 The first supported micro service registry is Consul from *HashiCorp*, we are planning to add others like mdns, etcd, kubernetes, zookeeper.
 
-#### Consul
+#### 0.0.1 Consul
 
 **replication-manager (2.0)** support consul registry, the registration service will be extended to other registries in future releases.
 

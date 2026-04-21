@@ -6,7 +6,7 @@ taxonomy:
 
 **replication-manager** can collect advanced metrics from MySQL/MariaDB Performance Schema, including mutex waits, latch (rwlock) waits, and memory usage. These metrics are collected during each monitoring loop and exported to Graphite for trending analysis.
 
-## Basic Performance Schema Monitoring
+## 1. Basic Performance Schema Monitoring
 
 ##### `monitoring-performance-schema` (2.0)
 
@@ -28,7 +28,7 @@ When enabled, **replication-manager** queries Performance Schema tables to colle
 
 Monitors the enabled/disabled state of Performance Schema instruments from `setup_instruments` table.
 
-## Mutex Wait Monitoring
+## 2. Mutex Wait Monitoring
 
 ##### `monitoring-performance-schema-mutex` (3.1)
 
@@ -56,7 +56,7 @@ When enabled, **replication-manager** collects mutex wait statistics from Perfor
 - Performance Schema must be enabled (`performance_schema = ON`)
 - Requires MariaDB 10.5+ or MySQL 5.7+
 
-## Latch (RWLock) Wait Monitoring
+## 3. Latch (RWLock) Wait Monitoring
 
 ##### `monitoring-performance-schema-latch` (3.1)
 
@@ -84,7 +84,7 @@ When enabled, **replication-manager** collects read-write lock (rwlock) wait sta
 - Performance Schema must be enabled (`performance_schema = ON`)
 - Requires MariaDB 10.5+ or MySQL 5.7+
 
-## Performance Schema Memory Monitoring
+## 4. Performance Schema Memory Monitoring
 
 ##### `monitoring-performance-schema-memory` (3.1)
 
@@ -112,7 +112,7 @@ When enabled, **replication-manager** collects memory usage statistics from Perf
 - Memory instrumentation must be enabled in Performance Schema consumers
 - Requires MariaDB 10.5+ or MySQL 5.7+
 
-## Configuration Example
+## 5. Configuration Example
 
 To enable all Performance Schema advanced monitoring features:
 
@@ -133,7 +133,7 @@ monitoring-performance-schema-latch = false
 monitoring-performance-schema-memory = true
 ```
 
-## Metrics Export
+## 6. Metrics Export
 
 When these features are enabled, **replication-manager** adds the collected metrics to the global status query result. Metrics are then:
 
@@ -147,7 +147,7 @@ When these features are enabled, **replication-manager** adds the collected metr
 - Latch waits: `mysql.{server_id}.mysql_global_status_wait_synch_rwlock_innodb_{event}`
 - Memory: `mysql.{server_id}.mysql_global_status_memory_{event}`
 
-## Performance Considerations
+## 7. Performance Considerations
 
 **Impact:**
 - Mutex/latch monitoring adds one UNION clause to the global status query per feature
@@ -160,7 +160,7 @@ When these features are enabled, **replication-manager** adds the collected metr
 - Disable specific features if monitoring overhead becomes a concern
 - Use Graphite/Grafana to visualize trends rather than real-time analysis
 
-## Database Configuration
+## 8. Database Configuration
 
 Ensure Performance Schema is properly configured in your database server:
 
@@ -180,7 +180,7 @@ performance-schema-consumer-events-waits-history = ON
 performance-schema-consumer-events-waits-history-long = ON
 ```
 
-## Troubleshooting
+## 9. Troubleshooting
 
 **Metrics not appearing:**
 - Verify Performance Schema is enabled: `SHOW VARIABLES LIKE 'performance_schema'`

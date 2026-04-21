@@ -4,7 +4,7 @@ taxonomy:
     category: docs
 ---
 
-## HTTPS Bastion and Terminal
+## 1. HTTPS Bastion and Terminal
 
 replication-manager provides browser-based terminal access to every database node and proxy it manages — without opening SSH ports to browser clients. All terminal traffic is carried over a **WebSocket connection tunnelled through the existing HTTPS API**, so the replication-manager TLS endpoint is the only port that needs to be reachable from the operator's browser.
 
@@ -12,7 +12,7 @@ This makes replication-manager act as a **secure HTTPS bastion**: it authenticat
 
 ---
 
-## Terminal Types
+## 2. Terminal Types
 
 Four command types are available for each database server and proxy:
 
@@ -25,7 +25,7 @@ Four command types are available for each database server and proxy:
 
 ---
 
-## WebSocket API Endpoints
+## 3. WebSocket API Endpoints
 
 All terminal connections use the WebSocket protocol (upgraded from HTTPS GET requests). The browser or API client connects over WSS and receives a prompt for a JWT token as the first message.
 
@@ -44,7 +44,7 @@ GET /api/terminal/connect/clusters/{clusterName}/proxies/{serverName}/{command}
 
 Where `{command}` is one of `bash`, `mysql`, or `mytop`. Omitting `{command}` defaults to `bash`.
 
-### OpenSVC container selector (bash only)
+### 3.1 OpenSVC container selector (bash only)
 
 For bash terminals on OpenSVC-provisioned clusters, the `rid` query parameter selects which container to open the shell into:
 
@@ -57,7 +57,7 @@ For bash terminals on OpenSVC-provisioned clusters, the `rid` query parameter se
 GET /api/terminal/connect/clusters/mycluster/servers/db1?rid=container#jobs
 ```
 
-### List active sessions
+### 3.2 List active sessions
 
 ```
 GET /api/terminals
@@ -68,7 +68,7 @@ Returns the list of terminal sessions currently open for the authenticated user.
 
 ---
 
-## Authentication Flow
+## 4. Authentication Flow
 
 1. Browser upgrades the HTTPS connection to a WebSocket
 2. replication-manager sends: `Connected. Waiting for token…`
@@ -81,7 +81,7 @@ Because the JWT is sent as the first WebSocket message (not as an HTTP header), 
 
 ---
 
-## Role-Based Database Credential Selection
+## 5. Role-Based Database Credential Selection
 
 For `mysql` and `mytop` terminals, replication-manager selects which database user to connect with based on the authenticated API user's role:
 
@@ -97,9 +97,9 @@ For `bash` terminals, the connection uses the on-premise SSH credential configur
 
 ---
 
-## Back-End Transport
+## 6. Back-End Transport
 
-### Non-OpenSVC clusters (on-premise / SSH)
+### 6.1 Non-OpenSVC clusters (on-premise / SSH)
 
 replication-manager opens a direct SSH connection from the replication-manager host to the database or proxy host. The operator's browser never talks to the SSH port — only replication-manager does.
 
@@ -116,7 +116,7 @@ onpremise-ssh-credential = "root:"          # user:password or user: (key auth)
 onpremise-ssh-private-key = "/etc/replication-manager/id_rsa"  # optional
 ```
 
-### OpenSVC clusters
+### 6.2 OpenSVC clusters
 
 For services provisioned by OpenSVC, replication-manager queries the OpenSVC API for the terminal URL served by the OpenSVC agent running alongside the database container.
 
@@ -140,7 +140,7 @@ tty-share-binary-path    = "/usr/local/bin/tty-share"
 
 ---
 
-## Session Resume
+## 7. Session Resume
 
 When `terminal-session-resume` is enabled, disconnecting from a terminal does not kill the shell process — it is kept alive in a `tmux` or `screen` session on the replication-manager host (for global terminals) or on the remote host. Reconnecting to the same endpoint re-attaches to the existing session.
 
@@ -153,9 +153,9 @@ Session state is persisted across replication-manager restarts in `{monitoring-d
 
 ---
 
-## Configuration Reference
+## 8. Configuration Reference
 
-### Enabling the feature
+### 8.1 Enabling the feature
 
 Terminal access is **disabled by default** and must be explicitly enabled. In non-OpenSVC environments it also requires setting the flag at the server (non-cluster) level:
 
@@ -165,7 +165,7 @@ terminal-session-enabled = true
 
 For OpenSVC environments the flag can be set per cluster. For other orchestrators it is forced to `false` unless set at the server level.
 
-### All terminal settings
+### 8.2 All terminal settings
 
 ##### `terminal-session-enabled`
 
@@ -241,7 +241,7 @@ For OpenSVC environments the flag can be set per cluster. For other orchestrator
 
 ---
 
-## ACL and Grants
+## 9. ACL and Grants
 
 Terminal grants can be added to any API user independently of their base role. Three granular grants are available:
 
@@ -261,7 +261,7 @@ The `terminal` keyword in the ACL grants all three terminal grants at once. Indi
 
 ---
 
-## Security Notes
+## 10. Security Notes
 
 - **No SSH port exposure** — the browser only connects to the HTTPS API port. The SSH connection is made server-side by replication-manager.
 - **JWT authentication on every connection** — the WebSocket channel is authenticated using the same RSA-signed JWT as the REST API; there is no separate credential.

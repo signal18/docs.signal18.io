@@ -4,7 +4,7 @@ taxonomy:
     category: docs
 ---
 
-## Building from source
+## 1. Building from source
 
 * Download a Go release (Go 1.8 minimum): https://golang.org/dl/ or use your system's release if >= 1.8
 * Create a build directory: `mkdir -p ~/go`
@@ -14,7 +14,7 @@ taxonomy:
 * Add the go binaries directory to your path: `export PATH=$PATH:~/go/bin`
 * Compile all binaries: `make bin`
 
-## Compilation flags
+## 2. Compilation flags
 
 It is possible to disable features via the following tags
 

@@ -6,7 +6,7 @@ taxonomy:
 
 **replication-manager** enforces best replication and database configuration practice using the following parameters. Every possible enforcement is producing warnings to let you know about what can be improved in your database setup.  
 
-## Checks
+## 1. Checks
 
 ##### `check-binlog-filters` (1.1)
 
@@ -33,7 +33,7 @@ taxonomy:
 | Type          | Boolean |
 | Default Value | true |
 
-## Enforce
+## 2. Enforce
 
 ##### `force-slave-readonly` (1.1)
 

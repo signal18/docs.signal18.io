@@ -4,7 +4,7 @@ taxonomy:
     category: docs
 ---
 
-## Software Configurator
+## 1. Software Configurator
 
 The **Database Configurator** generates `my.cnf` files, directory structures, and bootstrap scripts for every database and proxy service managed by replication-manager. It is driven by:
 
@@ -15,7 +15,7 @@ The complete configurator documentation — tag reference, config tracking, conf
 
 ---
 
-## Config Archive Delivery
+## 2. Config Archive Delivery
 
 The configurator packages everything into a `config.tar.gz` archive served at:
 
@@ -42,7 +42,7 @@ api-credentials-secure-config = true
 
 ---
 
-## Quick Config Reference
+## 3. Quick Config Reference
 
 The most commonly set provisioning parameters:
 

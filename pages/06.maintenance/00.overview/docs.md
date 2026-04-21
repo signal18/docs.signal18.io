@@ -4,13 +4,13 @@ taxonomy:
     category: docs
 ---
 
-## Maintenance
+## 1. Maintenance
 
 replication-manager embeds a cluster scheduler that automates database maintenance tasks: backups, log collection, table optimization, rolling restarts, and more. The scheduler is disabled by default — each task is individually enabled and given its own cron expression.
 
 ---
 
-## How the Job System Works
+## 2. How the Job System Works
 
 Maintenance tasks are coordinated through a message queue table that replication-manager creates and manages on every monitored database server. The flow is:
 
@@ -23,7 +23,7 @@ Maintenance tasks are coordinated through a message queue table that replication
 5. **Result is received** — replication-manager accepts the stream on the reserved TCP port and writes it to the appropriate destination (log file, backup directory, etc.)
 6. **Job is closed** — the script writes the result into the `result` field and sets `done=1`; replication-manager confirms completion on the next check
 
-### Jobs Table
+### 2.1 Jobs Table
 
 ```sql
 CREATE TABLE replication_manager_schema.jobs (
@@ -52,7 +52,7 @@ The `state` column tracks the task lifecycle:
 
 ---
 
-## Scheduled Tasks
+## 3. Scheduled Tasks
 
 | Task | Config key | Description |
 |---|---|---|
@@ -82,15 +82,15 @@ scheduler-db-servers-optimize-cron        = "0 0 3 * * 0"    # Sundays at 03:00
 
 ---
 
-## How the dbjobs Script Is Delivered
+## 4. How the dbjobs Script Is Delivered
 
 The script that runs on each database node is a bash script named `dbjobs_new`. How it gets there depends on the orchestration mode:
 
-### replication-manager-pro (container mode)
+### 4.1 replication-manager-pro (container mode)
 
 In pro mode with OpenSVC, Kubernetes, or local orchestration, the `dbjobs_new` script is packaged into a gzip'd config tarball. An **init container** that shares the same network namespace as the database container downloads this tarball from replication-manager at startup and unpacks it. The script runs inside the container on the same host as the database process, connecting to the database over `127.0.0.1`.
 
-### replication-manager-osc (SSH mode)
+### 4.2 replication-manager-osc (SSH mode)
 
 In osc mode, or when using the `onpremise` orchestrator in pro, replication-manager delivers and runs the script over SSH:
 
@@ -117,7 +117,7 @@ onpremise-ssh-db-job-script = "/opt/custom/dbjobs.sh"
 
 ---
 
-## Environment Variables Injected by replication-manager
+## 5. Environment Variables Injected by replication-manager
 
 When the script runs via SSH, replication-manager prepends a block of `export` statements before the script body. The script can use these variables without hardcoding any credentials or addresses:
 
@@ -139,7 +139,7 @@ These variables allow the script to call back into the replication-manager API, 
 
 ---
 
-## How Results Are Streamed Back
+## 6. How Results Are Streamed Back
 
 Tasks that produce output (backups, log fetches) stream their data back to replication-manager using `socat`. replication-manager opens a TCP listener on a port from `scheduler-db-servers-sender-ports` and records that address in the job row. The script reads the address from the row and pipes the output directly:
 

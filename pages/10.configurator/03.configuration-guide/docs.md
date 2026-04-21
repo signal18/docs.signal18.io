@@ -4,13 +4,13 @@ taxonomy:
     category: docs
 ---
 
-## Configuration Guide
+## 1. Configuration Guide
 
 All configurator settings are per-cluster (set under the `[cluster-name]` section or in `[DEFAULT]`).
 
 ---
 
-## Database Resource Settings
+## 2. Database Resource Settings
 
 These settings describe the hardware allocated to each database service. The configurator uses them to size buffer pools, log files, thread counts, and IOPS capacity automatically.
 
@@ -73,7 +73,7 @@ These settings describe the hardware allocated to each database service. The con
 
 ---
 
-## Tag Settings
+## 3. Tag Settings
 
 ##### `prov-db-tags`
 
@@ -94,7 +94,7 @@ These settings describe the hardware allocated to each database service. The con
 
 ---
 
-## Config Preservation
+## 4. Config Preservation
 
 ##### `prov-db-config-preserve`
 
@@ -115,7 +115,7 @@ These settings describe the hardware allocated to each database service. The con
 
 ---
 
-## Compliance Module Override
+## 5. Compliance Module Override
 
 ##### `prov-db-compliance`
 
@@ -136,7 +136,7 @@ These settings describe the hardware allocated to each database service. The con
 
 ---
 
-## Replication and Domain
+## 6. Replication and Domain
 
 ##### `prov-db-expire-log-days`
 
@@ -164,7 +164,7 @@ These settings describe the hardware allocated to each database service. The con
 
 ---
 
-## Binary Distribution
+## 7. Binary Distribution
 
 ##### `prov-db-binary-in-tarball`
 
@@ -184,7 +184,7 @@ These settings describe the hardware allocated to each database service. The con
 
 ---
 
-## Start Behavior
+## 8. Start Behavior
 
 ##### `prov-db-start-fetch-config`
 
@@ -196,7 +196,7 @@ These settings describe the hardware allocated to each database service. The con
 
 ---
 
-## Bootstrap Scripts
+## 9. Bootstrap Scripts
 
 ##### `prov-db-bootstrap-script`
 
@@ -216,7 +216,7 @@ These settings describe the hardware allocated to each database service. The con
 
 ---
 
-## Security
+## 10. Security
 
 ##### `api-credentials-secure-config`
 
@@ -228,7 +228,7 @@ These settings describe the hardware allocated to each database service. The con
 
 ---
 
-## Proxy Resources
+## 11. Proxy Resources
 
 ##### `prov-proxy-memory`
 

@@ -6,7 +6,7 @@ taxonomy:
 
 Positional is the old style of tracking replication positions. It is deprecated in all our supported databases major releases.
 
-### GTID
+### 0.1 GTID
 
 | Support Status  | Test Case |  
 | ----------------|-----------|
@@ -28,7 +28,7 @@ For MariaDB Server 10.0 and upper **replication-manager** always uses GTID posit
 | Type          | Boolean |
 | Default Value | false |
 
-### Positional Replication
+### 0.2 Positional Replication
 
 | Support Status  | Test Case |  
 | ----------------|-----------|

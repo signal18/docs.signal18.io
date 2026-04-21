@@ -8,7 +8,7 @@ replication-manager is built from a single codebase with compile-time feature fl
 
 ---
 
-## Binary Flavors
+## 1. Binary Flavors
 
 | Flavor | Binary name | Description |
 |---|---|---|
@@ -22,11 +22,11 @@ For most on-premise deployments start with **osc**. Use **pro** when you need re
 
 ---
 
-## Distribution Types
+## 2. Distribution Types
 
 Each flavor is available in three distribution forms:
 
-### Package (RPM / DEB)
+### 2.1 Package (RPM / DEB)
 
 Installed via the Signal18 repository. Uses system directories:
 
@@ -38,7 +38,7 @@ Installed via the Signal18 repository. Uses system directories:
 | `$HOME/.config/replication-manager/` | Dynamic config changes (v3+) |
 | `/var/log/replication-manager.log` | Log file |
 
-### Tarball (basedir)
+### 2.2 Tarball (basedir)
 
 Tarball releases use **basedir variants** (`-basedir` suffix) with static assets embedded in the archive. Self-contained under a single directory:
 
@@ -48,13 +48,13 @@ Tarball releases use **basedir variants** (`-basedir` suffix) with static assets
 | `/usr/local/replication-manager/share/` | Static assets |
 | `/usr/local/replication-manager/data/` | Runtime data |
 
-### Embedded Binary
+### 2.3 Embedded Binary
 
 The `replication-manager` binary (no suffix) bundles the dashboard, templates, and all assets directly inside the binary. Suitable for portable or container deployments — no separate asset directory required.
 
 ---
 
-## Choosing a Flavor
+## 3. Choosing a Flavor
 
 ```
 Need cluster provisioning (Docker/Podman via OpenSVC or Kubernetes)?
@@ -75,6 +75,6 @@ Portable single-file deployment or Docker?
 
 ---
 
-## CLI Client
+## 4. CLI Client
 
 **`replication-manager-cli`** is the command-line client. It communicates with the monitoring daemon over HTTPS using JWT authentication. It is bundled with all server packages but can be installed independently.

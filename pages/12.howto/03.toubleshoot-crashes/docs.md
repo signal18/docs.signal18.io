@@ -4,14 +4,14 @@ taxonomy:
     category: docs
 ---
 
-### Troubleshooting failover switchover
+### 0.1 Troubleshooting failover switchover
 
 The log verbosity can be increase to get better understanding for the route cause of some issue
 ```
 replication-manager-cli api  url=https://127.0.0.1:3000/api/clusters/cluster_name/settings/switch/verbosity
 ```
 
-### Troubleshooting internal status
+### 0.2 Troubleshooting internal status
 
 **replication-manager** track internal status inside following class settings, clusters, servers, master, slaves, crashes, alerts
 
@@ -23,7 +23,7 @@ replication-manager-cli show
 
 You can attach the command result with the log file, the increase verbosity log file  to a signal18.io support ticket.  
 
-### Troubleshoot Crashes
+### 0.3 Troubleshoot Crashes
 
 **replication-manager** (2.O) record a crash information in the replication-manager datadir for each failover or switchover. It helps the DBA to refer to it in case of later reporting. The binary log state of the elected master or his own replication state when he was still a master get lost when the traffic take over, such a backup is always good to have and save DBA time to create it manually.  
 

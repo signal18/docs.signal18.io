@@ -4,7 +4,7 @@ taxonomy:
     category: docs
 ---
 
-### Enforcing best practices
+### 0.1 Enforcing best practices
 
 **replication-manager** (1.1) can dynamically enforce best database practices around the replication usage.
 

@@ -4,9 +4,9 @@ taxonomy:
     category: docs
 ---
 
-## All endpoints
+## 1. All endpoints
 
-###  auth
+### 1.1  auth
 
 | Method  | URI     | Name   | Summary |
 |---------|---------|--------|---------|
@@ -14,7 +14,7 @@ taxonomy:
   
 
 
-###  cloud18
+### 1.2  cloud18
 
 | Method  | URI     | Name   | Summary |
 |---------|---------|--------|---------|
@@ -28,7 +28,7 @@ taxonomy:
   
 
 
-###  cluster
+### 1.3  cluster
 
 | Method  | URI     | Name   | Summary |
 |---------|---------|--------|---------|
@@ -46,7 +46,7 @@ taxonomy:
   
 
 
-###  cluster_actions
+### 1.4  cluster_actions
 
 | Method  | URI     | Name   | Summary |
 |---------|---------|--------|---------|
@@ -60,7 +60,7 @@ taxonomy:
   
 
 
-###  cluster_backup
+### 1.5  cluster_backup
 
 | Method  | URI     | Name   | Summary |
 |---------|---------|--------|---------|
@@ -68,7 +68,7 @@ taxonomy:
   
 
 
-###  cluster_backups
+### 1.6  cluster_backups
 
 | Method  | URI     | Name   | Summary |
 |---------|---------|--------|---------|
@@ -76,7 +76,7 @@ taxonomy:
   
 
 
-###  cluster_certificates
+### 1.7  cluster_certificates
 
 | Method  | URI     | Name   | Summary |
 |---------|---------|--------|---------|
@@ -85,7 +85,7 @@ taxonomy:
   
 
 
-###  cluster_graphite
+### 1.8  cluster_graphite
 
 | Method  | URI     | Name   | Summary |
 |---------|---------|--------|---------|
@@ -96,7 +96,7 @@ taxonomy:
   
 
 
-###  cluster_maintenance
+### 1.9  cluster_maintenance
 
 | Method  | URI     | Name   | Summary |
 |---------|---------|--------|---------|
@@ -105,7 +105,7 @@ taxonomy:
   
 
 
-###  cluster_monitor
+### 1.10  cluster_monitor
 
 | Method  | URI     | Name   | Summary |
 |---------|---------|--------|---------|
@@ -116,7 +116,7 @@ taxonomy:
   
 
 
-###  cluster_provision
+### 1.11  cluster_provision
 
 | Method  | URI     | Name   | Summary |
 |---------|---------|--------|---------|
@@ -126,7 +126,7 @@ taxonomy:
   
 
 
-###  cluster_replication
+### 1.12  cluster_replication
 
 | Method  | URI     | Name   | Summary |
 |---------|---------|--------|---------|
@@ -135,7 +135,7 @@ taxonomy:
   
 
 
-###  cluster_schema
+### 1.13  cluster_schema
 
 | Method  | URI     | Name   | Summary |
 |---------|---------|--------|---------|
@@ -149,7 +149,7 @@ taxonomy:
   
 
 
-###  cluster_settings
+### 1.14  cluster_settings
 
 | Method  | URI     | Name   | Summary |
 |---------|---------|--------|---------|
@@ -164,7 +164,7 @@ taxonomy:
   
 
 
-###  cluster_tags
+### 1.15  cluster_tags
 
 | Method  | URI     | Name   | Summary |
 |---------|---------|--------|---------|
@@ -177,7 +177,7 @@ taxonomy:
   
 
 
-###  cluster_test
+### 1.16  cluster_test
 
 | Method  | URI     | Name   | Summary |
 |---------|---------|--------|---------|
@@ -187,7 +187,7 @@ taxonomy:
   
 
 
-###  cluster_topology
+### 1.17  cluster_topology
 
 | Method  | URI     | Name   | Summary |
 |---------|---------|--------|---------|
@@ -202,7 +202,7 @@ taxonomy:
   
 
 
-###  cluster_traffics
+### 1.18  cluster_traffics
 
 | Method  | URI     | Name   | Summary |
 |---------|---------|--------|---------|
@@ -211,7 +211,7 @@ taxonomy:
   
 
 
-###  cluster_vault
+### 1.19  cluster_vault
 
 | Method  | URI     | Name   | Summary |
 |---------|---------|--------|---------|
@@ -219,7 +219,7 @@ taxonomy:
   
 
 
-###  database
+### 1.20  database
 
 | Method  | URI     | Name   | Summary |
 |---------|---------|--------|---------|
@@ -252,7 +252,7 @@ taxonomy:
   
 
 
-###  database_actions
+### 1.21  database_actions
 
 | Method  | URI     | Name   | Summary |
 |---------|---------|--------|---------|
@@ -266,7 +266,7 @@ taxonomy:
   
 
 
-###  database_backup
+### 1.22  database_backup
 
 | Method  | URI     | Name   | Summary |
 |---------|---------|--------|---------|
@@ -279,7 +279,7 @@ taxonomy:
   
 
 
-###  database_logs
+### 1.23  database_logs
 
 | Method  | URI     | Name   | Summary |
 |---------|---------|--------|---------|
@@ -291,7 +291,7 @@ taxonomy:
   
 
 
-###  database_maintenance
+### 1.24  database_maintenance
 
 | Method  | URI     | Name   | Summary |
 |---------|---------|--------|---------|
@@ -301,7 +301,7 @@ taxonomy:
   
 
 
-###  database_provision
+### 1.25  database_provision
 
 | Method  | URI     | Name   | Summary |
 |---------|---------|--------|---------|
@@ -310,7 +310,7 @@ taxonomy:
   
 
 
-###  database_queries
+### 1.26  database_queries
 
 | Method  | URI     | Name   | Summary |
 |---------|---------|--------|---------|
@@ -333,7 +333,7 @@ taxonomy:
   
 
 
-###  database_replication
+### 1.27  database_replication
 
 | Method  | URI     | Name   | Summary |
 |---------|---------|--------|---------|
@@ -345,7 +345,7 @@ taxonomy:
   
 
 
-###  database_schema
+### 1.28  database_schema
 
 | Method  | URI     | Name   | Summary |
 |---------|---------|--------|---------|
@@ -353,7 +353,7 @@ taxonomy:
   
 
 
-###  database_tasks
+### 1.29  database_tasks
 
 | Method  | URI     | Name   | Summary |
 |---------|---------|--------|---------|
@@ -363,7 +363,7 @@ taxonomy:
   
 
 
-###  database_topology
+### 1.30  database_topology
 
 | Method  | URI     | Name   | Summary |
 |---------|---------|--------|---------|
@@ -374,7 +374,7 @@ taxonomy:
   
 
 
-###  global_setting
+### 1.31  global_setting
 
 | Method  | URI     | Name   | Summary |
 |---------|---------|--------|---------|
@@ -382,7 +382,7 @@ taxonomy:
   
 
 
-###  proxies
+### 1.32  proxies
 
 | Method  | URI     | Name   | Summary |
 |---------|---------|--------|---------|
@@ -396,7 +396,7 @@ taxonomy:
   
 
 
-###  public
+### 1.33  public
 
 | Method  | URI     | Name   | Summary |
 |---------|---------|--------|---------|
@@ -410,7 +410,7 @@ taxonomy:
   
 
 
-###  user
+### 1.34  user
 
 | Method  | URI     | Name   | Summary |
 |---------|---------|--------|---------|
@@ -421,9 +421,9 @@ taxonomy:
   
 
 
-## Paths
+## 2. Paths
 
-### <span id="delete-api-clusters-actions-delete-cluster-name"></span> Delete a cluster (*DeleteAPIClustersActionsDeleteClusterName*)
+### 2.1 <span id="delete-api-clusters-actions-delete-cluster-name"></span> Delete a cluster (*DeleteAPIClustersActionsDeleteClusterName*)
 
 ```
 DELETE /api/clusters/actions/delete/{clusterName}
@@ -431,23 +431,23 @@ DELETE /api/clusters/actions/delete/{clusterName}
 
 Deletes a cluster identified by its name.
 
-#### Produces
+#### 2.1.1 Produces
   * application/json
 
-#### Parameters
+#### 2.1.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 
-#### All responses
+#### 2.1.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#delete-api-clusters-actions-delete-cluster-name-200) | OK | Cluster deleted successfully |  | [schema](#delete-api-clusters-actions-delete-cluster-name-200-schema) |
 | [400](#delete-api-clusters-actions-delete-cluster-name-400) | Bad Request | Invalid cluster name |  | [schema](#delete-api-clusters-actions-delete-cluster-name-400-schema) |
 | [500](#delete-api-clusters-actions-delete-cluster-name-500) | Internal Server Error | Internal server error |  | [schema](#delete-api-clusters-actions-delete-cluster-name-500-schema) |
 
-#### Responses
+#### 2.1.4 Responses
 
 
 ##### <span id="delete-api-clusters-actions-delete-cluster-name-200"></span> 200 - Cluster deleted successfully
@@ -477,7 +477,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters"></span> Fetch clusters (*GetAPIClusters*)
+### 2.2 <span id="get-api-clusters"></span> Fetch clusters (*GetAPIClusters*)
 
 ```
 GET /api/clusters
@@ -485,17 +485,17 @@ GET /api/clusters
 
 Fetches the list of clusters that the user has access to based on ACL.
 
-#### Produces
+#### 2.2.1 Produces
   * application/json
 
-#### All responses
+#### 2.2.2 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-200) | OK | List of clusters |  | [schema](#get-api-clusters-200-schema) |
 | [401](#get-api-clusters-401) | Unauthorized | Unauthenticated resource |  | [schema](#get-api-clusters-401-schema) |
 | [500](#get-api-clusters-500) | Internal Server Error | Internal server error |  | [schema](#get-api-clusters-500-schema) |
 
-#### Responses
+#### 2.2.3 Responses
 
 
 ##### <span id="get-api-clusters-200"></span> 200 - List of clusters
@@ -525,7 +525,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name"></span> Retrieve details of a cluster (*GetAPIClustersClusterName*)
+### 2.3 <span id="get-api-clusters-cluster-name"></span> Retrieve details of a cluster (*GetAPIClustersClusterName*)
 
 ```
 GET /api/clusters/{clusterName}
@@ -533,23 +533,23 @@ GET /api/clusters/{clusterName}
 
 This endpoint retrieves the details of a specified cluster and returns it in JSON format.
 
-#### Produces
+#### 2.3.1 Produces
   * application/json
 
-#### Parameters
+#### 2.3.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 
-#### All responses
+#### 2.3.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-200) | OK | Cluster details |  | [schema](#get-api-clusters-cluster-name-200-schema) |
 | [403](#get-api-clusters-cluster-name-403) | Forbidden | No valid ACL |  | [schema](#get-api-clusters-cluster-name-403-schema) |
 | [500](#get-api-clusters-cluster-name-500) | Internal Server Error | No cluster |  | [schema](#get-api-clusters-cluster-name-500-schema) |
 
-#### Responses
+#### 2.3.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-200"></span> 200 - Cluster details
@@ -579,7 +579,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-backups"></span> Retrieve backups for a specific cluster (*GetAPIClustersClusterNameBackups*)
+### 2.4 <span id="get-api-clusters-cluster-name-backups"></span> Retrieve backups for a specific cluster (*GetAPIClustersClusterNameBackups*)
 
 ```
 GET /api/clusters/{clusterName}/backups
@@ -587,23 +587,23 @@ GET /api/clusters/{clusterName}/backups
 
 This endpoint retrieves the backups for the specified cluster.
 
-#### Produces
+#### 2.4.1 Produces
   * application/json
 
-#### Parameters
+#### 2.4.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 
-#### All responses
+#### 2.4.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-backups-200) | OK | List of backups |  | [schema](#get-api-clusters-cluster-name-backups-200-schema) |
 | [403](#get-api-clusters-cluster-name-backups-403) | Forbidden | No valid ACL |  | [schema](#get-api-clusters-cluster-name-backups-403-schema) |
 | [500](#get-api-clusters-cluster-name-backups-500) | Internal Server Error | No cluster |  | [schema](#get-api-clusters-cluster-name-backups-500-schema) |
 
-#### Responses
+#### 2.4.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-backups-200"></span> 200 - List of backups
@@ -633,7 +633,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-certificates"></span> Retrieve client certificates for a specific cluster (*GetAPIClustersClusterNameCertificates*)
+### 2.5 <span id="get-api-clusters-cluster-name-certificates"></span> Retrieve client certificates for a specific cluster (*GetAPIClustersClusterNameCertificates*)
 
 ```
 GET /api/clusters/{clusterName}/certificates
@@ -641,22 +641,22 @@ GET /api/clusters/{clusterName}/certificates
 
 This endpoint retrieves the client certificates for the specified cluster.
 
-#### Produces
+#### 2.5.1 Produces
   * application/json
 
-#### Parameters
+#### 2.5.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 
-#### All responses
+#### 2.5.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-certificates-200) | OK | List of client certificates |  | [schema](#get-api-clusters-cluster-name-certificates-200-schema) |
 | [500](#get-api-clusters-cluster-name-certificates-500) | Internal Server Error | Internal Server Error |  | [schema](#get-api-clusters-cluster-name-certificates-500-schema) |
 
-#### Responses
+#### 2.5.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-certificates-200"></span> 200 - List of client certificates
@@ -677,7 +677,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-diffvariables"></span> Retrieve variable differences for a specific cluster (*GetAPIClustersClusterNameDiffvariables*)
+### 2.6 <span id="get-api-clusters-cluster-name-diffvariables"></span> Retrieve variable differences for a specific cluster (*GetAPIClustersClusterNameDiffvariables*)
 
 ```
 GET /api/clusters/{clusterName}/diffvariables
@@ -685,23 +685,23 @@ GET /api/clusters/{clusterName}/diffvariables
 
 This endpoint retrieves the variable differences for the specified cluster.
 
-#### Produces
+#### 2.6.1 Produces
   * application/json
 
-#### Parameters
+#### 2.6.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 
-#### All responses
+#### 2.6.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-diffvariables-200) | OK | List of variable differences |  | [schema](#get-api-clusters-cluster-name-diffvariables-200-schema) |
 | [403](#get-api-clusters-cluster-name-diffvariables-403) | Forbidden | No valid ACL |  | [schema](#get-api-clusters-cluster-name-diffvariables-403-schema) |
 | [500](#get-api-clusters-cluster-name-diffvariables-500) | Internal Server Error | No cluster |  | [schema](#get-api-clusters-cluster-name-diffvariables-500-schema) |
 
-#### Responses
+#### 2.6.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-diffvariables-200"></span> 200 - List of variable differences
@@ -731,7 +731,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-graphite-filterlist"></span> Retrieve Graphite filter list for a specific cluster (*GetAPIClustersClusterNameGraphiteFilterlist*)
+### 2.7 <span id="get-api-clusters-cluster-name-graphite-filterlist"></span> Retrieve Graphite filter list for a specific cluster (*GetAPIClustersClusterNameGraphiteFilterlist*)
 
 ```
 GET /api/clusters/{clusterName}/graphite-filterlist
@@ -739,22 +739,22 @@ GET /api/clusters/{clusterName}/graphite-filterlist
 
 This endpoint retrieves the Graphite filter list for the specified cluster.
 
-#### Produces
+#### 2.7.1 Produces
   * application/json
 
-#### Parameters
+#### 2.7.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 
-#### All responses
+#### 2.7.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-graphite-filterlist-200) | OK | List of Graphite filters |  | [schema](#get-api-clusters-cluster-name-graphite-filterlist-200-schema) |
 | [500](#get-api-clusters-cluster-name-graphite-filterlist-500) | Internal Server Error | Internal Server Error |  | [schema](#get-api-clusters-cluster-name-graphite-filterlist-500-schema) |
 
-#### Responses
+#### 2.7.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-graphite-filterlist-200"></span> 200 - List of Graphite filters
@@ -775,7 +775,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-jobs"></span> Retrieve job entries for a specific cluster (*GetAPIClustersClusterNameJobs*)
+### 2.8 <span id="get-api-clusters-cluster-name-jobs"></span> Retrieve job entries for a specific cluster (*GetAPIClustersClusterNameJobs*)
 
 ```
 GET /api/clusters/{clusterName}/jobs
@@ -783,23 +783,23 @@ GET /api/clusters/{clusterName}/jobs
 
 This endpoint retrieves the job entries for the specified cluster.
 
-#### Produces
+#### 2.8.1 Produces
   * application/json
 
-#### Parameters
+#### 2.8.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 
-#### All responses
+#### 2.8.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-jobs-200) | OK | List of job entries |  | [schema](#get-api-clusters-cluster-name-jobs-200-schema) |
 | [403](#get-api-clusters-cluster-name-jobs-403) | Forbidden | No valid ACL |  | [schema](#get-api-clusters-cluster-name-jobs-403-schema) |
 | [500](#get-api-clusters-cluster-name-jobs-500) | Internal Server Error | Cluster Not Found |  | [schema](#get-api-clusters-cluster-name-jobs-500-schema) |
 
-#### Responses
+#### 2.8.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-jobs-200"></span> 200 - List of job entries
@@ -829,7 +829,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-need-rolling-reprov"></span> Check if a cluster needs a rolling reprovision (*GetAPIClustersClusterNameNeedRollingReprov*)
+### 2.9 <span id="get-api-clusters-cluster-name-need-rolling-reprov"></span> Check if a cluster needs a rolling reprovision (*GetAPIClustersClusterNameNeedRollingReprov*)
 
 ```
 GET /api/clusters/{clusterName}/need-rolling-reprov
@@ -837,22 +837,22 @@ GET /api/clusters/{clusterName}/need-rolling-reprov
 
 Checks if a specified cluster needs a rolling reprovision.
 
-#### Produces
+#### 2.9.1 Produces
   * text/plain
 
-#### Parameters
+#### 2.9.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 
-#### All responses
+#### 2.9.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-need-rolling-reprov-200) | OK | 200 -Need rolling reprov! |  | [schema](#get-api-clusters-cluster-name-need-rolling-reprov-200-schema) |
 | [500](#get-api-clusters-cluster-name-need-rolling-reprov-500) | Internal Server Error | 503 -No rolling reprov needed!" or "500 -No cluster |  | [schema](#get-api-clusters-cluster-name-need-rolling-reprov-500-schema) |
 
-#### Responses
+#### 2.9.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-need-rolling-reprov-200"></span> 200 - 200 -Need rolling reprov!
@@ -873,7 +873,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-need-rolling-restart"></span> Check if a cluster needs a rolling restart (*GetAPIClustersClusterNameNeedRollingRestart*)
+### 2.10 <span id="get-api-clusters-cluster-name-need-rolling-restart"></span> Check if a cluster needs a rolling restart (*GetAPIClustersClusterNameNeedRollingRestart*)
 
 ```
 GET /api/clusters/{clusterName}/need-rolling-restart
@@ -881,22 +881,22 @@ GET /api/clusters/{clusterName}/need-rolling-restart
 
 Checks if a specified cluster needs a rolling restart.
 
-#### Produces
+#### 2.10.1 Produces
   * text/plain
 
-#### Parameters
+#### 2.10.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 
-#### All responses
+#### 2.10.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-need-rolling-restart-200) | OK | 200 -Need rolling restart! |  | [schema](#get-api-clusters-cluster-name-need-rolling-restart-200-schema) |
 | [500](#get-api-clusters-cluster-name-need-rolling-restart-500) | Internal Server Error | 503 -No rolling restart needed!" or "500 -No cluster |  | [schema](#get-api-clusters-cluster-name-need-rolling-restart-500-schema) |
 
-#### Responses
+#### 2.10.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-need-rolling-restart-200"></span> 200 - 200 -Need rolling restart!
@@ -917,7 +917,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-proxies-proxy-name-actions-need-reprov"></span> Check if Proxy Needs Reprovision (*GetAPIClustersClusterNameProxiesProxyNameActionsNeedReprov*)
+### 2.11 <span id="get-api-clusters-cluster-name-proxies-proxy-name-actions-need-reprov"></span> Check if Proxy Needs Reprovision (*GetAPIClustersClusterNameProxiesProxyNameActionsNeedReprov*)
 
 ```
 GET /api/clusters/{clusterName}/proxies/{proxyName}/actions/need-reprov
@@ -925,20 +925,20 @@ GET /api/clusters/{clusterName}/proxies/{proxyName}/actions/need-reprov
 
 Check if the proxy service for a given cluster and proxy needs reprovisioning
 
-#### Consumes
+#### 2.11.1 Consumes
   * application/json
 
-#### Produces
+#### 2.11.2 Produces
   * application/json
 
-#### Parameters
+#### 2.11.3 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 | proxyName | `path` | string | `string` |  | ✓ |  | Proxy Name |
 
-#### All responses
+#### 2.11.4 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-proxies-proxy-name-actions-need-reprov-200) | OK | Need reprov! |  | [schema](#get-api-clusters-cluster-name-proxies-proxy-name-actions-need-reprov-200-schema) |
@@ -946,7 +946,7 @@ Check if the proxy service for a given cluster and proxy needs reprovisioning
 | [500](#get-api-clusters-cluster-name-proxies-proxy-name-actions-need-reprov-500) | Internal Server Error | No cluster |  | [schema](#get-api-clusters-cluster-name-proxies-proxy-name-actions-need-reprov-500-schema) |
 | [503](#get-api-clusters-cluster-name-proxies-proxy-name-actions-need-reprov-503) | Service Unavailable | No reprov needed!" "Not a Valid Server! |  | [schema](#get-api-clusters-cluster-name-proxies-proxy-name-actions-need-reprov-503-schema) |
 
-#### Responses
+#### 2.11.5 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-proxies-proxy-name-actions-need-reprov-200"></span> 200 - Need reprov!
@@ -985,7 +985,7 @@ Status: Service Unavailable
 
 
 
-### <span id="get-api-clusters-cluster-name-proxies-proxy-name-actions-need-restart"></span> Check if Proxy Needs Restart (*GetAPIClustersClusterNameProxiesProxyNameActionsNeedRestart*)
+### 2.12 <span id="get-api-clusters-cluster-name-proxies-proxy-name-actions-need-restart"></span> Check if Proxy Needs Restart (*GetAPIClustersClusterNameProxiesProxyNameActionsNeedRestart*)
 
 ```
 GET /api/clusters/{clusterName}/proxies/{proxyName}/actions/need-restart
@@ -993,20 +993,20 @@ GET /api/clusters/{clusterName}/proxies/{proxyName}/actions/need-restart
 
 Check if the proxy service for a given cluster and proxy needs a restart
 
-#### Consumes
+#### 2.12.1 Consumes
   * application/json
 
-#### Produces
+#### 2.12.2 Produces
   * application/json
 
-#### Parameters
+#### 2.12.3 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 | proxyName | `path` | string | `string` |  | ✓ |  | Proxy Name |
 
-#### All responses
+#### 2.12.4 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-proxies-proxy-name-actions-need-restart-200) | OK | Need restart! |  | [schema](#get-api-clusters-cluster-name-proxies-proxy-name-actions-need-restart-200-schema) |
@@ -1014,7 +1014,7 @@ Check if the proxy service for a given cluster and proxy needs a restart
 | [500](#get-api-clusters-cluster-name-proxies-proxy-name-actions-need-restart-500) | Internal Server Error | No cluster |  | [schema](#get-api-clusters-cluster-name-proxies-proxy-name-actions-need-restart-500-schema) |
 | [503](#get-api-clusters-cluster-name-proxies-proxy-name-actions-need-restart-503) | Service Unavailable | No restart needed!" "Not a Valid Server! |  | [schema](#get-api-clusters-cluster-name-proxies-proxy-name-actions-need-restart-503-schema) |
 
-#### Responses
+#### 2.12.5 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-proxies-proxy-name-actions-need-restart-200"></span> 200 - Need restart!
@@ -1053,7 +1053,7 @@ Status: Service Unavailable
 
 
 
-### <span id="get-api-clusters-cluster-name-queryrules"></span> Retrieve query rules for a specific cluster (*GetAPIClustersClusterNameQueryrules*)
+### 2.13 <span id="get-api-clusters-cluster-name-queryrules"></span> Retrieve query rules for a specific cluster (*GetAPIClustersClusterNameQueryrules*)
 
 ```
 GET /api/clusters/{clusterName}/queryrules
@@ -1061,23 +1061,23 @@ GET /api/clusters/{clusterName}/queryrules
 
 This endpoint retrieves the query rules for the specified cluster.
 
-#### Produces
+#### 2.13.1 Produces
   * application/json
 
-#### Parameters
+#### 2.13.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 
-#### All responses
+#### 2.13.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-queryrules-200) | OK | List of query rules |  | [schema](#get-api-clusters-cluster-name-queryrules-200-schema) |
 | [403](#get-api-clusters-cluster-name-queryrules-403) | Forbidden | No valid ACL |  | [schema](#get-api-clusters-cluster-name-queryrules-403-schema) |
 | [500](#get-api-clusters-cluster-name-queryrules-500) | Internal Server Error | No cluster |  | [schema](#get-api-clusters-cluster-name-queryrules-500-schema) |
 
-#### Responses
+#### 2.13.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-queryrules-200"></span> 200 - List of query rules
@@ -1107,7 +1107,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-schema"></span> Retrieve schema information for a specific cluster (*GetAPIClustersClusterNameSchema*)
+### 2.14 <span id="get-api-clusters-cluster-name-schema"></span> Retrieve schema information for a specific cluster (*GetAPIClustersClusterNameSchema*)
 
 ```
 GET /api/clusters/{clusterName}/schema
@@ -1115,23 +1115,23 @@ GET /api/clusters/{clusterName}/schema
 
 This endpoint retrieves the schema information for the specified cluster.
 
-#### Produces
+#### 2.14.1 Produces
   * application/json
 
-#### Parameters
+#### 2.14.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 
-#### All responses
+#### 2.14.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-schema-200) | OK | Schema information |  | [schema](#get-api-clusters-cluster-name-schema-200-schema) |
 | [403](#get-api-clusters-cluster-name-schema-403) | Forbidden | No valid ACL |  | [schema](#get-api-clusters-cluster-name-schema-403-schema) |
 | [500](#get-api-clusters-cluster-name-schema-500) | Internal Server Error | No cluster |  | [schema](#get-api-clusters-cluster-name-schema-500-schema) |
 
-#### Responses
+#### 2.14.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-schema-200"></span> 200 - Schema information
@@ -1161,7 +1161,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-servers-server-name-actions-backup-error-log"></span> Perform a backup of the error log on a server (*GetAPIClustersClusterNameServersServerNameActionsBackupErrorLog*)
+### 2.15 <span id="get-api-clusters-cluster-name-servers-server-name-actions-backup-error-log"></span> Perform a backup of the error log on a server (*GetAPIClustersClusterNameServersServerNameActionsBackupErrorLog*)
 
 ```
 GET /api/clusters/{clusterName}/servers/{serverName}/actions/backup-error-log
@@ -1169,24 +1169,24 @@ GET /api/clusters/{clusterName}/servers/{serverName}/actions/backup-error-log
 
 Initiates a backup of the error log on a specified server within a cluster.
 
-#### Produces
+#### 2.15.1 Produces
   * application/json
 
-#### Parameters
+#### 2.15.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 | serverName | `path` | string | `string` |  | ✓ |  | Server Name |
 
-#### All responses
+#### 2.15.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-servers-server-name-actions-backup-error-log-200) | OK | Backup initiated successfully |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-backup-error-log-200-schema) |
 | [403](#get-api-clusters-cluster-name-servers-server-name-actions-backup-error-log-403) | Forbidden | No valid ACL |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-backup-error-log-403-schema) |
 | [500](#get-api-clusters-cluster-name-servers-server-name-actions-backup-error-log-500) | Internal Server Error | Cluster Not Found" or "Server Not Found |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-backup-error-log-500-schema) |
 
-#### Responses
+#### 2.15.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-servers-server-name-actions-backup-error-log-200"></span> 200 - Backup initiated successfully
@@ -1216,7 +1216,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-servers-server-name-actions-backup-logical"></span> Perform a logical backup on a server (*GetAPIClustersClusterNameServersServerNameActionsBackupLogical*)
+### 2.16 <span id="get-api-clusters-cluster-name-servers-server-name-actions-backup-logical"></span> Perform a logical backup on a server (*GetAPIClustersClusterNameServersServerNameActionsBackupLogical*)
 
 ```
 GET /api/clusters/{clusterName}/servers/{serverName}/actions/backup-logical
@@ -1224,24 +1224,24 @@ GET /api/clusters/{clusterName}/servers/{serverName}/actions/backup-logical
 
 Initiates a logical backup on a specified server within a cluster.
 
-#### Produces
+#### 2.16.1 Produces
   * application/json
 
-#### Parameters
+#### 2.16.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 | serverName | `path` | string | `string` |  | ✓ |  | Server Name |
 
-#### All responses
+#### 2.16.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-servers-server-name-actions-backup-logical-200) | OK | Backup initiated successfully |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-backup-logical-200-schema) |
 | [403](#get-api-clusters-cluster-name-servers-server-name-actions-backup-logical-403) | Forbidden | No valid ACL |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-backup-logical-403-schema) |
 | [500](#get-api-clusters-cluster-name-servers-server-name-actions-backup-logical-500) | Internal Server Error | Cluster Not Found" or "Server Not Found |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-backup-logical-500-schema) |
 
-#### Responses
+#### 2.16.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-servers-server-name-actions-backup-logical-200"></span> 200 - Backup initiated successfully
@@ -1271,7 +1271,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-servers-server-name-actions-backup-physical"></span> Perform a physical backup on a server (*GetAPIClustersClusterNameServersServerNameActionsBackupPhysical*)
+### 2.17 <span id="get-api-clusters-cluster-name-servers-server-name-actions-backup-physical"></span> Perform a physical backup on a server (*GetAPIClustersClusterNameServersServerNameActionsBackupPhysical*)
 
 ```
 GET /api/clusters/{clusterName}/servers/{serverName}/actions/backup-physical
@@ -1279,24 +1279,24 @@ GET /api/clusters/{clusterName}/servers/{serverName}/actions/backup-physical
 
 Initiates a physical backup on a specified server within a cluster.
 
-#### Produces
+#### 2.17.1 Produces
   * application/json
 
-#### Parameters
+#### 2.17.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 | serverName | `path` | string | `string` |  | ✓ |  | Server Name |
 
-#### All responses
+#### 2.17.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-servers-server-name-actions-backup-physical-200) | OK | Backup initiated successfully |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-backup-physical-200-schema) |
 | [403](#get-api-clusters-cluster-name-servers-server-name-actions-backup-physical-403) | Forbidden | No valid ACL |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-backup-physical-403-schema) |
 | [500](#get-api-clusters-cluster-name-servers-server-name-actions-backup-physical-500) | Internal Server Error | Cluster Not Found" or "Server Not Found |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-backup-physical-500-schema) |
 
-#### Responses
+#### 2.17.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-servers-server-name-actions-backup-physical-200"></span> 200 - Backup initiated successfully
@@ -1326,7 +1326,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-servers-server-name-actions-backup-slowquery-log"></span> Perform a backup of the slow query log on a server (*GetAPIClustersClusterNameServersServerNameActionsBackupSlowqueryLog*)
+### 2.18 <span id="get-api-clusters-cluster-name-servers-server-name-actions-backup-slowquery-log"></span> Perform a backup of the slow query log on a server (*GetAPIClustersClusterNameServersServerNameActionsBackupSlowqueryLog*)
 
 ```
 GET /api/clusters/{clusterName}/servers/{serverName}/actions/backup-slowquery-log
@@ -1334,24 +1334,24 @@ GET /api/clusters/{clusterName}/servers/{serverName}/actions/backup-slowquery-lo
 
 Initiates a backup of the slow query log on a specified server within a cluster.
 
-#### Produces
+#### 2.18.1 Produces
   * application/json
 
-#### Parameters
+#### 2.18.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 | serverName | `path` | string | `string` |  | ✓ |  | Server Name |
 
-#### All responses
+#### 2.18.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-servers-server-name-actions-backup-slowquery-log-200) | OK | Backup initiated successfully |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-backup-slowquery-log-200-schema) |
 | [403](#get-api-clusters-cluster-name-servers-server-name-actions-backup-slowquery-log-403) | Forbidden | No valid ACL |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-backup-slowquery-log-403-schema) |
 | [500](#get-api-clusters-cluster-name-servers-server-name-actions-backup-slowquery-log-500) | Internal Server Error | Cluster Not Found" or "Server Not Found |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-backup-slowquery-log-500-schema) |
 
-#### Responses
+#### 2.18.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-servers-server-name-actions-backup-slowquery-log-200"></span> 200 - Backup initiated successfully
@@ -1381,7 +1381,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-servers-server-name-actions-del-maintenance"></span> Delete maintenance mode on a server (*GetAPIClustersClusterNameServersServerNameActionsDelMaintenance*)
+### 2.19 <span id="get-api-clusters-cluster-name-servers-server-name-actions-del-maintenance"></span> Delete maintenance mode on a server (*GetAPIClustersClusterNameServersServerNameActionsDelMaintenance*)
 
 ```
 GET /api/clusters/{clusterName}/servers/{serverName}/actions/del-maintenance
@@ -1389,24 +1389,24 @@ GET /api/clusters/{clusterName}/servers/{serverName}/actions/del-maintenance
 
 Deletes the maintenance mode on a specified server within a cluster.
 
-#### Produces
+#### 2.19.1 Produces
   * application/json
 
-#### Parameters
+#### 2.19.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 | serverName | `path` | string | `string` |  | ✓ |  | Server Name |
 
-#### All responses
+#### 2.19.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-servers-server-name-actions-del-maintenance-200) | OK | Maintenance mode deleted successfully |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-del-maintenance-200-schema) |
 | [403](#get-api-clusters-cluster-name-servers-server-name-actions-del-maintenance-403) | Forbidden | No valid ACL |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-del-maintenance-403-schema) |
 | [500](#get-api-clusters-cluster-name-servers-server-name-actions-del-maintenance-500) | Internal Server Error | Cluster Not Found" or "Server Not Found |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-del-maintenance-500-schema) |
 
-#### Responses
+#### 2.19.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-servers-server-name-actions-del-maintenance-200"></span> 200 - Maintenance mode deleted successfully
@@ -1436,7 +1436,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-servers-server-name-actions-flush-logs"></span> Flush logs on a server (*GetAPIClustersClusterNameServersServerNameActionsFlushLogs*)
+### 2.20 <span id="get-api-clusters-cluster-name-servers-server-name-actions-flush-logs"></span> Flush logs on a server (*GetAPIClustersClusterNameServersServerNameActionsFlushLogs*)
 
 ```
 GET /api/clusters/{clusterName}/servers/{serverName}/actions/flush-logs
@@ -1444,24 +1444,24 @@ GET /api/clusters/{clusterName}/servers/{serverName}/actions/flush-logs
 
 Flushes the logs on a specified server within a cluster.
 
-#### Produces
+#### 2.20.1 Produces
   * application/json
 
-#### Parameters
+#### 2.20.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 | serverName | `path` | string | `string` |  | ✓ |  | Server Name |
 
-#### All responses
+#### 2.20.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-servers-server-name-actions-flush-logs-200) | OK | Logs flushed successfully |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-flush-logs-200-schema) |
 | [403](#get-api-clusters-cluster-name-servers-server-name-actions-flush-logs-403) | Forbidden | No valid ACL |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-flush-logs-403-schema) |
 | [500](#get-api-clusters-cluster-name-servers-server-name-actions-flush-logs-500) | Internal Server Error | Cluster Not Found" or "Server Not Found |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-flush-logs-500-schema) |
 
-#### Responses
+#### 2.20.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-servers-server-name-actions-flush-logs-200"></span> 200 - Logs flushed successfully
@@ -1491,7 +1491,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-servers-server-name-actions-job-cancel-task"></span> Cancel a task on a server (*GetAPIClustersClusterNameServersServerNameActionsJobCancelTask*)
+### 2.21 <span id="get-api-clusters-cluster-name-servers-server-name-actions-job-cancel-task"></span> Cancel a task on a server (*GetAPIClustersClusterNameServersServerNameActionsJobCancelTask*)
 
 ```
 GET /api/clusters/{clusterName}/servers/{serverName}/actions/job-cancel/{task}
@@ -1499,10 +1499,10 @@ GET /api/clusters/{clusterName}/servers/{serverName}/actions/job-cancel/{task}
 
 Cancels a task identified by its name on a specified server within a cluster.
 
-#### Produces
+#### 2.21.1 Produces
   * application/json
 
-#### Parameters
+#### 2.21.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
@@ -1510,14 +1510,14 @@ Cancels a task identified by its name on a specified server within a cluster.
 | serverName | `path` | string | `string` |  | ✓ |  | Server Name |
 | task | `path` | string | `string` |  | ✓ |  | Task Name |
 
-#### All responses
+#### 2.21.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-servers-server-name-actions-job-cancel-task-200) | OK | Task canceled successfully |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-job-cancel-task-200-schema) |
 | [403](#get-api-clusters-cluster-name-servers-server-name-actions-job-cancel-task-403) | Forbidden | No valid ACL |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-job-cancel-task-403-schema) |
 | [500](#get-api-clusters-cluster-name-servers-server-name-actions-job-cancel-task-500) | Internal Server Error | Cluster Not Found" or "Server Not Found" or "Error canceling task |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-job-cancel-task-500-schema) |
 
-#### Responses
+#### 2.21.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-servers-server-name-actions-job-cancel-task-200"></span> 200 - Task canceled successfully
@@ -1547,7 +1547,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-servers-server-name-actions-maintenance"></span> Toggle maintenance mode on a server (*GetAPIClustersClusterNameServersServerNameActionsMaintenance*)
+### 2.22 <span id="get-api-clusters-cluster-name-servers-server-name-actions-maintenance"></span> Toggle maintenance mode on a server (*GetAPIClustersClusterNameServersServerNameActionsMaintenance*)
 
 ```
 GET /api/clusters/{clusterName}/servers/{serverName}/actions/maintenance
@@ -1555,24 +1555,24 @@ GET /api/clusters/{clusterName}/servers/{serverName}/actions/maintenance
 
 Toggles the maintenance mode on a specified server within a cluster.
 
-#### Produces
+#### 2.22.1 Produces
   * application/json
 
-#### Parameters
+#### 2.22.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 | serverName | `path` | string | `string` |  | ✓ |  | Server Name |
 
-#### All responses
+#### 2.22.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-servers-server-name-actions-maintenance-200) | OK | Maintenance mode toggled successfully |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-maintenance-200-schema) |
 | [403](#get-api-clusters-cluster-name-servers-server-name-actions-maintenance-403) | Forbidden | No valid ACL |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-maintenance-403-schema) |
 | [500](#get-api-clusters-cluster-name-servers-server-name-actions-maintenance-500) | Internal Server Error | Cluster Not Found" or "Server Not Found |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-maintenance-500-schema) |
 
-#### Responses
+#### 2.22.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-servers-server-name-actions-maintenance-200"></span> 200 - Maintenance mode toggled successfully
@@ -1602,7 +1602,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-servers-server-name-actions-optimize"></span> Optimize a server (*GetAPIClustersClusterNameServersServerNameActionsOptimize*)
+### 2.23 <span id="get-api-clusters-cluster-name-servers-server-name-actions-optimize"></span> Optimize a server (*GetAPIClustersClusterNameServersServerNameActionsOptimize*)
 
 ```
 GET /api/clusters/{clusterName}/servers/{serverName}/actions/optimize
@@ -1610,24 +1610,24 @@ GET /api/clusters/{clusterName}/servers/{serverName}/actions/optimize
 
 Optimizes a specified server within a cluster.
 
-#### Produces
+#### 2.23.1 Produces
   * application/json
 
-#### Parameters
+#### 2.23.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 | serverName | `path` | string | `string` |  | ✓ |  | Server Name |
 
-#### All responses
+#### 2.23.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-servers-server-name-actions-optimize-200) | OK | Server optimized successfully |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-optimize-200-schema) |
 | [403](#get-api-clusters-cluster-name-servers-server-name-actions-optimize-403) | Forbidden | No valid ACL |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-optimize-403-schema) |
 | [500](#get-api-clusters-cluster-name-servers-server-name-actions-optimize-500) | Internal Server Error | Cluster Not Found" or "Server Not Found |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-optimize-500-schema) |
 
-#### Responses
+#### 2.23.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-servers-server-name-actions-optimize-200"></span> 200 - Server optimized successfully
@@ -1657,7 +1657,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-servers-server-name-actions-provision"></span> Provision a server (*GetAPIClustersClusterNameServersServerNameActionsProvision*)
+### 2.24 <span id="get-api-clusters-cluster-name-servers-server-name-actions-provision"></span> Provision a server (*GetAPIClustersClusterNameServersServerNameActionsProvision*)
 
 ```
 GET /api/clusters/{clusterName}/servers/{serverName}/actions/provision
@@ -1665,24 +1665,24 @@ GET /api/clusters/{clusterName}/servers/{serverName}/actions/provision
 
 Provisions a specified server within a cluster.
 
-#### Produces
+#### 2.24.1 Produces
   * application/json
 
-#### Parameters
+#### 2.24.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 | serverName | `path` | string | `string` |  | ✓ |  | Server Name |
 
-#### All responses
+#### 2.24.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-servers-server-name-actions-provision-200) | OK | Server provisioned successfully |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-provision-200-schema) |
 | [403](#get-api-clusters-cluster-name-servers-server-name-actions-provision-403) | Forbidden | No valid ACL |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-provision-403-schema) |
 | [500](#get-api-clusters-cluster-name-servers-server-name-actions-provision-500) | Internal Server Error | Cluster Not Found" or "Server Not Found |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-provision-500-schema) |
 
-#### Responses
+#### 2.24.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-servers-server-name-actions-provision-200"></span> 200 - Server provisioned successfully
@@ -1712,7 +1712,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-servers-server-name-actions-reseed-backup-method"></span> Reseed a server (*GetAPIClustersClusterNameServersServerNameActionsReseedBackupMethod*)
+### 2.25 <span id="get-api-clusters-cluster-name-servers-server-name-actions-reseed-backup-method"></span> Reseed a server (*GetAPIClustersClusterNameServersServerNameActionsReseedBackupMethod*)
 
 ```
 GET /api/clusters/{clusterName}/servers/{serverName}/actions/reseed/{backupMethod}
@@ -1720,10 +1720,10 @@ GET /api/clusters/{clusterName}/servers/{serverName}/actions/reseed/{backupMetho
 
 Reseeds a specified server within a cluster using the specified backup method.
 
-#### Produces
+#### 2.25.1 Produces
   * application/json
 
-#### Parameters
+#### 2.25.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
@@ -1731,14 +1731,14 @@ Reseeds a specified server within a cluster using the specified backup method.
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 | serverName | `path` | string | `string` |  | ✓ |  | Server Name |
 
-#### All responses
+#### 2.25.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-servers-server-name-actions-reseed-backup-method-200) | OK | Reseed initiated successfully |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-reseed-backup-method-200-schema) |
 | [403](#get-api-clusters-cluster-name-servers-server-name-actions-reseed-backup-method-403) | Forbidden | No valid ACL |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-reseed-backup-method-403-schema) |
 | [500](#get-api-clusters-cluster-name-servers-server-name-actions-reseed-backup-method-500) | Internal Server Error | Cluster Not Found" or "Server Not Found" or "Error reseed logical backup" or "Error reseed physical backup |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-reseed-backup-method-500-schema) |
 
-#### Responses
+#### 2.25.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-servers-server-name-actions-reseed-backup-method-200"></span> 200 - Reseed initiated successfully
@@ -1768,7 +1768,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-servers-server-name-actions-reseed-cancel-task"></span> Cancel a reseed task on a server (*GetAPIClustersClusterNameServersServerNameActionsReseedCancelTask*)
+### 2.26 <span id="get-api-clusters-cluster-name-servers-server-name-actions-reseed-cancel-task"></span> Cancel a reseed task on a server (*GetAPIClustersClusterNameServersServerNameActionsReseedCancelTask*)
 
 ```
 GET /api/clusters/{clusterName}/servers/{serverName}/actions/reseed-cancel/{task}
@@ -1776,10 +1776,10 @@ GET /api/clusters/{clusterName}/servers/{serverName}/actions/reseed-cancel/{task
 
 Cancels a reseed task identified by its name on a specified server within a cluster.
 
-#### Produces
+#### 2.26.1 Produces
   * application/json
 
-#### Parameters
+#### 2.26.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
@@ -1787,14 +1787,14 @@ Cancels a reseed task identified by its name on a specified server within a clus
 | serverName | `path` | string | `string` |  | ✓ |  | Server Name |
 | task | `path` | string | `string` |  | ✓ |  | Task Name |
 
-#### All responses
+#### 2.26.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-servers-server-name-actions-reseed-cancel-task-200) | OK | Task canceled successfully |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-reseed-cancel-task-200-schema) |
 | [403](#get-api-clusters-cluster-name-servers-server-name-actions-reseed-cancel-task-403) | Forbidden | No valid ACL |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-reseed-cancel-task-403-schema) |
 | [500](#get-api-clusters-cluster-name-servers-server-name-actions-reseed-cancel-task-500) | Internal Server Error | Cluster Not Found" or "Server Not Found" or "Error canceling task |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-reseed-cancel-task-500-schema) |
 
-#### Responses
+#### 2.26.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-servers-server-name-actions-reseed-cancel-task-200"></span> 200 - Task canceled successfully
@@ -1824,7 +1824,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-servers-server-name-actions-reset-master"></span> Reset the master on a server (*GetAPIClustersClusterNameServersServerNameActionsResetMaster*)
+### 2.27 <span id="get-api-clusters-cluster-name-servers-server-name-actions-reset-master"></span> Reset the master on a server (*GetAPIClustersClusterNameServersServerNameActionsResetMaster*)
 
 ```
 GET /api/clusters/{clusterName}/servers/{serverName}/actions/reset-master
@@ -1832,24 +1832,24 @@ GET /api/clusters/{clusterName}/servers/{serverName}/actions/reset-master
 
 Resets the master on a specified server within a cluster.
 
-#### Produces
+#### 2.27.1 Produces
   * application/json
 
-#### Parameters
+#### 2.27.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 | serverName | `path` | string | `string` |  | ✓ |  | Server Name |
 
-#### All responses
+#### 2.27.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-servers-server-name-actions-reset-master-200) | OK | Master reset successfully |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-reset-master-200-schema) |
 | [403](#get-api-clusters-cluster-name-servers-server-name-actions-reset-master-403) | Forbidden | No valid ACL |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-reset-master-403-schema) |
 | [500](#get-api-clusters-cluster-name-servers-server-name-actions-reset-master-500) | Internal Server Error | Cluster Not Found" or "Server Not Found |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-reset-master-500-schema) |
 
-#### Responses
+#### 2.27.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-servers-server-name-actions-reset-master-200"></span> 200 - Master reset successfully
@@ -1879,7 +1879,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-servers-server-name-actions-reset-pfs-queries"></span> Reset PFS queries on a server (*GetAPIClustersClusterNameServersServerNameActionsResetPfsQueries*)
+### 2.28 <span id="get-api-clusters-cluster-name-servers-server-name-actions-reset-pfs-queries"></span> Reset PFS queries on a server (*GetAPIClustersClusterNameServersServerNameActionsResetPfsQueries*)
 
 ```
 GET /api/clusters/{clusterName}/servers/{serverName}/actions/reset-pfs-queries
@@ -1887,24 +1887,24 @@ GET /api/clusters/{clusterName}/servers/{serverName}/actions/reset-pfs-queries
 
 Resets PFS queries on a specified server within a cluster.
 
-#### Produces
+#### 2.28.1 Produces
   * application/json
 
-#### Parameters
+#### 2.28.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 | serverName | `path` | string | `string` |  | ✓ |  | Server Name |
 
-#### All responses
+#### 2.28.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-servers-server-name-actions-reset-pfs-queries-200) | OK | PFS queries reset successfully |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-reset-pfs-queries-200-schema) |
 | [403](#get-api-clusters-cluster-name-servers-server-name-actions-reset-pfs-queries-403) | Forbidden | No valid ACL |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-reset-pfs-queries-403-schema) |
 | [500](#get-api-clusters-cluster-name-servers-server-name-actions-reset-pfs-queries-500) | Internal Server Error | Cluster Not Found" or "Server Not Found |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-reset-pfs-queries-500-schema) |
 
-#### Responses
+#### 2.28.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-servers-server-name-actions-reset-pfs-queries-200"></span> 200 - PFS queries reset successfully
@@ -1934,7 +1934,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-servers-server-name-actions-reset-slave-all"></span> Reset all slaves on a server (*GetAPIClustersClusterNameServersServerNameActionsResetSlaveAll*)
+### 2.29 <span id="get-api-clusters-cluster-name-servers-server-name-actions-reset-slave-all"></span> Reset all slaves on a server (*GetAPIClustersClusterNameServersServerNameActionsResetSlaveAll*)
 
 ```
 GET /api/clusters/{clusterName}/servers/{serverName}/actions/reset-slave-all
@@ -1942,24 +1942,24 @@ GET /api/clusters/{clusterName}/servers/{serverName}/actions/reset-slave-all
 
 Resets all slaves on a specified server within a cluster.
 
-#### Produces
+#### 2.29.1 Produces
   * application/json
 
-#### Parameters
+#### 2.29.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 | serverName | `path` | string | `string` |  | ✓ |  | Server Name |
 
-#### All responses
+#### 2.29.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-servers-server-name-actions-reset-slave-all-200) | OK | Slaves reset successfully |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-reset-slave-all-200-schema) |
 | [403](#get-api-clusters-cluster-name-servers-server-name-actions-reset-slave-all-403) | Forbidden | No valid ACL |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-reset-slave-all-403-schema) |
 | [500](#get-api-clusters-cluster-name-servers-server-name-actions-reset-slave-all-500) | Internal Server Error | Cluster Not Found" or "Server Not Found |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-reset-slave-all-500-schema) |
 
-#### Responses
+#### 2.29.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-servers-server-name-actions-reset-slave-all-200"></span> 200 - Slaves reset successfully
@@ -1989,7 +1989,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-servers-server-name-actions-run-jobs"></span> Run jobs on a server (*GetAPIClustersClusterNameServersServerNameActionsRunJobs*)
+### 2.30 <span id="get-api-clusters-cluster-name-servers-server-name-actions-run-jobs"></span> Run jobs on a server (*GetAPIClustersClusterNameServersServerNameActionsRunJobs*)
 
 ```
 GET /api/clusters/{clusterName}/servers/{serverName}/actions/run-jobs
@@ -1997,24 +1997,24 @@ GET /api/clusters/{clusterName}/servers/{serverName}/actions/run-jobs
 
 Runs jobs on a specified server within a cluster.
 
-#### Produces
+#### 2.30.1 Produces
   * application/json
 
-#### Parameters
+#### 2.30.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 | serverName | `path` | string | `string` |  | ✓ |  | Server Name |
 
-#### All responses
+#### 2.30.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-servers-server-name-actions-run-jobs-200) | OK | Jobs run successfully |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-run-jobs-200-schema) |
 | [403](#get-api-clusters-cluster-name-servers-server-name-actions-run-jobs-403) | Forbidden | No valid ACL |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-run-jobs-403-schema) |
 | [500](#get-api-clusters-cluster-name-servers-server-name-actions-run-jobs-500) | Internal Server Error | Cluster Not Found" or "Server Not Found" or "Error running job |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-run-jobs-500-schema) |
 
-#### Responses
+#### 2.30.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-servers-server-name-actions-run-jobs-200"></span> 200 - Jobs run successfully
@@ -2044,7 +2044,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-servers-server-name-actions-set-ignored"></span> Set a server as ignored (*GetAPIClustersClusterNameServersServerNameActionsSetIgnored*)
+### 2.31 <span id="get-api-clusters-cluster-name-servers-server-name-actions-set-ignored"></span> Set a server as ignored (*GetAPIClustersClusterNameServersServerNameActionsSetIgnored*)
 
 ```
 GET /api/clusters/{clusterName}/servers/{serverName}/actions/set-ignored
@@ -2052,24 +2052,24 @@ GET /api/clusters/{clusterName}/servers/{serverName}/actions/set-ignored
 
 Sets a specified server within a cluster as ignored.
 
-#### Produces
+#### 2.31.1 Produces
   * application/json
 
-#### Parameters
+#### 2.31.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 | serverName | `path` | string | `string` |  | ✓ |  | Server Name |
 
-#### All responses
+#### 2.31.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-servers-server-name-actions-set-ignored-200) | OK | Server set as ignored successfully |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-set-ignored-200-schema) |
 | [403](#get-api-clusters-cluster-name-servers-server-name-actions-set-ignored-403) | Forbidden | No valid ACL |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-set-ignored-403-schema) |
 | [500](#get-api-clusters-cluster-name-servers-server-name-actions-set-ignored-500) | Internal Server Error | Cluster Not Found" or "Server Not Found |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-set-ignored-500-schema) |
 
-#### Responses
+#### 2.31.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-servers-server-name-actions-set-ignored-200"></span> 200 - Server set as ignored successfully
@@ -2099,7 +2099,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-servers-server-name-actions-set-long-query-time-query-time"></span> Set long query time on a server (*GetAPIClustersClusterNameServersServerNameActionsSetLongQueryTimeQueryTime*)
+### 2.32 <span id="get-api-clusters-cluster-name-servers-server-name-actions-set-long-query-time-query-time"></span> Set long query time on a server (*GetAPIClustersClusterNameServersServerNameActionsSetLongQueryTimeQueryTime*)
 
 ```
 GET /api/clusters/{clusterName}/servers/{serverName}/actions/set-long-query-time/{queryTime}
@@ -2107,10 +2107,10 @@ GET /api/clusters/{clusterName}/servers/{serverName}/actions/set-long-query-time
 
 Sets the long query time on a specified server within a cluster.
 
-#### Produces
+#### 2.32.1 Produces
   * application/json
 
-#### Parameters
+#### 2.32.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
@@ -2118,14 +2118,14 @@ Sets the long query time on a specified server within a cluster.
 | queryTime | `path` | string | `string` |  | ✓ |  | Query Time |
 | serverName | `path` | string | `string` |  | ✓ |  | Server Name |
 
-#### All responses
+#### 2.32.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-servers-server-name-actions-set-long-query-time-query-time-200) | OK | Long query time set successfully |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-set-long-query-time-query-time-200-schema) |
 | [403](#get-api-clusters-cluster-name-servers-server-name-actions-set-long-query-time-query-time-403) | Forbidden | No valid ACL |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-set-long-query-time-query-time-403-schema) |
 | [500](#get-api-clusters-cluster-name-servers-server-name-actions-set-long-query-time-query-time-500) | Internal Server Error | Cluster Not Found" or "Server Not Found |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-set-long-query-time-query-time-500-schema) |
 
-#### Responses
+#### 2.32.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-servers-server-name-actions-set-long-query-time-query-time-200"></span> 200 - Long query time set successfully
@@ -2155,7 +2155,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-servers-server-name-actions-set-maintenance"></span> Set a server to maintenance mode (*GetAPIClustersClusterNameServersServerNameActionsSetMaintenance*)
+### 2.33 <span id="get-api-clusters-cluster-name-servers-server-name-actions-set-maintenance"></span> Set a server to maintenance mode (*GetAPIClustersClusterNameServersServerNameActionsSetMaintenance*)
 
 ```
 GET /api/clusters/{clusterName}/servers/{serverName}/actions/set-maintenance
@@ -2163,24 +2163,24 @@ GET /api/clusters/{clusterName}/servers/{serverName}/actions/set-maintenance
 
 Sets a specified server within a cluster to maintenance mode.
 
-#### Produces
+#### 2.33.1 Produces
   * application/json
 
-#### Parameters
+#### 2.33.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 | serverName | `path` | string | `string` |  | ✓ |  | Server Name |
 
-#### All responses
+#### 2.33.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-servers-server-name-actions-set-maintenance-200) | OK | Server set to maintenance mode successfully |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-set-maintenance-200-schema) |
 | [403](#get-api-clusters-cluster-name-servers-server-name-actions-set-maintenance-403) | Forbidden | No valid ACL |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-set-maintenance-403-schema) |
 | [500](#get-api-clusters-cluster-name-servers-server-name-actions-set-maintenance-500) | Internal Server Error | Cluster Not Found" or "Server Not Found |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-set-maintenance-500-schema) |
 
-#### Responses
+#### 2.33.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-servers-server-name-actions-set-maintenance-200"></span> 200 - Server set to maintenance mode successfully
@@ -2210,7 +2210,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-servers-server-name-actions-set-prefered"></span> Set a server as preferred (*GetAPIClustersClusterNameServersServerNameActionsSetPrefered*)
+### 2.34 <span id="get-api-clusters-cluster-name-servers-server-name-actions-set-prefered"></span> Set a server as preferred (*GetAPIClustersClusterNameServersServerNameActionsSetPrefered*)
 
 ```
 GET /api/clusters/{clusterName}/servers/{serverName}/actions/set-prefered
@@ -2218,24 +2218,24 @@ GET /api/clusters/{clusterName}/servers/{serverName}/actions/set-prefered
 
 Sets a specified server within a cluster as preferred.
 
-#### Produces
+#### 2.34.1 Produces
   * application/json
 
-#### Parameters
+#### 2.34.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 | serverName | `path` | string | `string` |  | ✓ |  | Server Name |
 
-#### All responses
+#### 2.34.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-servers-server-name-actions-set-prefered-200) | OK | Server set as preferred successfully |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-set-prefered-200-schema) |
 | [403](#get-api-clusters-cluster-name-servers-server-name-actions-set-prefered-403) | Forbidden | No valid ACL |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-set-prefered-403-schema) |
 | [500](#get-api-clusters-cluster-name-servers-server-name-actions-set-prefered-500) | Internal Server Error | Cluster Not Found" or "Server Not Found |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-set-prefered-500-schema) |
 
-#### Responses
+#### 2.34.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-servers-server-name-actions-set-prefered-200"></span> 200 - Server set as preferred successfully
@@ -2265,7 +2265,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-servers-server-name-actions-set-unrated"></span> Set a server as unrated (*GetAPIClustersClusterNameServersServerNameActionsSetUnrated*)
+### 2.35 <span id="get-api-clusters-cluster-name-servers-server-name-actions-set-unrated"></span> Set a server as unrated (*GetAPIClustersClusterNameServersServerNameActionsSetUnrated*)
 
 ```
 GET /api/clusters/{clusterName}/servers/{serverName}/actions/set-unrated
@@ -2273,24 +2273,24 @@ GET /api/clusters/{clusterName}/servers/{serverName}/actions/set-unrated
 
 Sets a specified server within a cluster as unrated.
 
-#### Produces
+#### 2.35.1 Produces
   * application/json
 
-#### Parameters
+#### 2.35.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 | serverName | `path` | string | `string` |  | ✓ |  | Server Name |
 
-#### All responses
+#### 2.35.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-servers-server-name-actions-set-unrated-200) | OK | Server set as unrated successfully |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-set-unrated-200-schema) |
 | [403](#get-api-clusters-cluster-name-servers-server-name-actions-set-unrated-403) | Forbidden | No valid ACL |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-set-unrated-403-schema) |
 | [500](#get-api-clusters-cluster-name-servers-server-name-actions-set-unrated-500) | Internal Server Error | Cluster Not Found" or "Server Not Found |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-set-unrated-500-schema) |
 
-#### Responses
+#### 2.35.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-servers-server-name-actions-set-unrated-200"></span> 200 - Server set as unrated successfully
@@ -2320,7 +2320,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-servers-server-name-actions-skip-replication-event"></span> Skip a replication event on a server (*GetAPIClustersClusterNameServersServerNameActionsSkipReplicationEvent*)
+### 2.36 <span id="get-api-clusters-cluster-name-servers-server-name-actions-skip-replication-event"></span> Skip a replication event on a server (*GetAPIClustersClusterNameServersServerNameActionsSkipReplicationEvent*)
 
 ```
 GET /api/clusters/{clusterName}/servers/{serverName}/actions/skip-replication-event
@@ -2328,24 +2328,24 @@ GET /api/clusters/{clusterName}/servers/{serverName}/actions/skip-replication-ev
 
 Skips a replication event on a specified server within a cluster.
 
-#### Produces
+#### 2.36.1 Produces
   * application/json
 
-#### Parameters
+#### 2.36.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 | serverName | `path` | string | `string` |  | ✓ |  | Server Name |
 
-#### All responses
+#### 2.36.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-servers-server-name-actions-skip-replication-event-200) | OK | Replication event skipped successfully |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-skip-replication-event-200-schema) |
 | [403](#get-api-clusters-cluster-name-servers-server-name-actions-skip-replication-event-403) | Forbidden | No valid ACL |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-skip-replication-event-403-schema) |
 | [500](#get-api-clusters-cluster-name-servers-server-name-actions-skip-replication-event-500) | Internal Server Error | Cluster Not Found" or "Server Not Found |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-skip-replication-event-500-schema) |
 
-#### Responses
+#### 2.36.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-servers-server-name-actions-skip-replication-event-200"></span> 200 - Replication event skipped successfully
@@ -2375,7 +2375,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-servers-server-name-actions-start"></span> Start a server (*GetAPIClustersClusterNameServersServerNameActionsStart*)
+### 2.37 <span id="get-api-clusters-cluster-name-servers-server-name-actions-start"></span> Start a server (*GetAPIClustersClusterNameServersServerNameActionsStart*)
 
 ```
 GET /api/clusters/{clusterName}/servers/{serverName}/actions/start
@@ -2383,24 +2383,24 @@ GET /api/clusters/{clusterName}/servers/{serverName}/actions/start
 
 Starts a specified server within a cluster.
 
-#### Produces
+#### 2.37.1 Produces
   * application/json
 
-#### Parameters
+#### 2.37.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 | serverName | `path` | string | `string` |  | ✓ |  | Server Name |
 
-#### All responses
+#### 2.37.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-servers-server-name-actions-start-200) | OK | Server started successfully |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-start-200-schema) |
 | [403](#get-api-clusters-cluster-name-servers-server-name-actions-start-403) | Forbidden | No valid ACL |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-start-403-schema) |
 | [500](#get-api-clusters-cluster-name-servers-server-name-actions-start-500) | Internal Server Error | Cluster Not Found" or "Server Not Found |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-start-500-schema) |
 
-#### Responses
+#### 2.37.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-servers-server-name-actions-start-200"></span> 200 - Server started successfully
@@ -2430,7 +2430,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-servers-server-name-actions-start-slave"></span> Start the slave on a server (*GetAPIClustersClusterNameServersServerNameActionsStartSlave*)
+### 2.38 <span id="get-api-clusters-cluster-name-servers-server-name-actions-start-slave"></span> Start the slave on a server (*GetAPIClustersClusterNameServersServerNameActionsStartSlave*)
 
 ```
 GET /api/clusters/{clusterName}/servers/{serverName}/actions/start-slave
@@ -2438,24 +2438,24 @@ GET /api/clusters/{clusterName}/servers/{serverName}/actions/start-slave
 
 Starts the slave on a specified server within a cluster.
 
-#### Produces
+#### 2.38.1 Produces
   * application/json
 
-#### Parameters
+#### 2.38.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 | serverName | `path` | string | `string` |  | ✓ |  | Server Name |
 
-#### All responses
+#### 2.38.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-servers-server-name-actions-start-slave-200) | OK | Slave started successfully |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-start-slave-200-schema) |
 | [403](#get-api-clusters-cluster-name-servers-server-name-actions-start-slave-403) | Forbidden | No valid ACL |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-start-slave-403-schema) |
 | [500](#get-api-clusters-cluster-name-servers-server-name-actions-start-slave-500) | Internal Server Error | Cluster Not Found" or "Server Not Found |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-start-slave-500-schema) |
 
-#### Responses
+#### 2.38.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-servers-server-name-actions-start-slave-200"></span> 200 - Slave started successfully
@@ -2485,7 +2485,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-servers-server-name-actions-stop"></span> Stop a server (*GetAPIClustersClusterNameServersServerNameActionsStop*)
+### 2.39 <span id="get-api-clusters-cluster-name-servers-server-name-actions-stop"></span> Stop a server (*GetAPIClustersClusterNameServersServerNameActionsStop*)
 
 ```
 GET /api/clusters/{clusterName}/servers/{serverName}/actions/stop
@@ -2493,24 +2493,24 @@ GET /api/clusters/{clusterName}/servers/{serverName}/actions/stop
 
 Stops a specified server within a cluster.
 
-#### Produces
+#### 2.39.1 Produces
   * application/json
 
-#### Parameters
+#### 2.39.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 | serverName | `path` | string | `string` |  | ✓ |  | Server Name |
 
-#### All responses
+#### 2.39.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-servers-server-name-actions-stop-200) | OK | Server stopped successfully |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-stop-200-schema) |
 | [403](#get-api-clusters-cluster-name-servers-server-name-actions-stop-403) | Forbidden | No valid ACL |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-stop-403-schema) |
 | [500](#get-api-clusters-cluster-name-servers-server-name-actions-stop-500) | Internal Server Error | Cluster Not Found" or "Server Not Found |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-stop-500-schema) |
 
-#### Responses
+#### 2.39.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-servers-server-name-actions-stop-200"></span> 200 - Server stopped successfully
@@ -2540,7 +2540,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-servers-server-name-actions-stop-slave"></span> Stop the slave on a server (*GetAPIClustersClusterNameServersServerNameActionsStopSlave*)
+### 2.40 <span id="get-api-clusters-cluster-name-servers-server-name-actions-stop-slave"></span> Stop the slave on a server (*GetAPIClustersClusterNameServersServerNameActionsStopSlave*)
 
 ```
 GET /api/clusters/{clusterName}/servers/{serverName}/actions/stop-slave
@@ -2548,24 +2548,24 @@ GET /api/clusters/{clusterName}/servers/{serverName}/actions/stop-slave
 
 Stops the slave on a specified server within a cluster.
 
-#### Produces
+#### 2.40.1 Produces
   * application/json
 
-#### Parameters
+#### 2.40.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 | serverName | `path` | string | `string` |  | ✓ |  | Server Name |
 
-#### All responses
+#### 2.40.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-servers-server-name-actions-stop-slave-200) | OK | Slave stopped successfully |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-stop-slave-200-schema) |
 | [403](#get-api-clusters-cluster-name-servers-server-name-actions-stop-slave-403) | Forbidden | No valid ACL |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-stop-slave-403-schema) |
 | [500](#get-api-clusters-cluster-name-servers-server-name-actions-stop-slave-500) | Internal Server Error | Cluster Not Found" or "Server Not Found |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-stop-slave-500-schema) |
 
-#### Responses
+#### 2.40.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-servers-server-name-actions-stop-slave-200"></span> 200 - Slave stopped successfully
@@ -2595,7 +2595,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-servers-server-name-actions-switchover"></span> Perform a switchover on a server (*GetAPIClustersClusterNameServersServerNameActionsSwitchover*)
+### 2.41 <span id="get-api-clusters-cluster-name-servers-server-name-actions-switchover"></span> Perform a switchover on a server (*GetAPIClustersClusterNameServersServerNameActionsSwitchover*)
 
 ```
 GET /api/clusters/{clusterName}/servers/{serverName}/actions/switchover
@@ -2603,24 +2603,24 @@ GET /api/clusters/{clusterName}/servers/{serverName}/actions/switchover
 
 Initiates a switchover on a specified server within a cluster.
 
-#### Produces
+#### 2.41.1 Produces
   * application/json
 
-#### Parameters
+#### 2.41.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 | serverName | `path` | string | `string` |  | ✓ |  | Server Name |
 
-#### All responses
+#### 2.41.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-servers-server-name-actions-switchover-200) | OK | Switchover initiated successfully |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-switchover-200-schema) |
 | [403](#get-api-clusters-cluster-name-servers-server-name-actions-switchover-403) | Forbidden | No valid ACL |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-switchover-403-schema) |
 | [500](#get-api-clusters-cluster-name-servers-server-name-actions-switchover-500) | Internal Server Error | Cluster Not Found" or "Server Not Found" or "Master failed, cannot initiate switchover |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-switchover-500-schema) |
 
-#### Responses
+#### 2.41.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-servers-server-name-actions-switchover-200"></span> 200 - Switchover initiated successfully
@@ -2650,7 +2650,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-servers-server-name-actions-toogle-innodb-monitor"></span> Toggle InnoDB monitor on a server (*GetAPIClustersClusterNameServersServerNameActionsToogleInnodbMonitor*)
+### 2.42 <span id="get-api-clusters-cluster-name-servers-server-name-actions-toogle-innodb-monitor"></span> Toggle InnoDB monitor on a server (*GetAPIClustersClusterNameServersServerNameActionsToogleInnodbMonitor*)
 
 ```
 GET /api/clusters/{clusterName}/servers/{serverName}/actions/toogle-innodb-monitor
@@ -2658,24 +2658,24 @@ GET /api/clusters/{clusterName}/servers/{serverName}/actions/toogle-innodb-monit
 
 Toggles the InnoDB monitor on a specified server within a cluster.
 
-#### Produces
+#### 2.42.1 Produces
   * application/json
 
-#### Parameters
+#### 2.42.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 | serverName | `path` | string | `string` |  | ✓ |  | Server Name |
 
-#### All responses
+#### 2.42.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-servers-server-name-actions-toogle-innodb-monitor-200) | OK | InnoDB monitor toggled successfully |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-toogle-innodb-monitor-200-schema) |
 | [403](#get-api-clusters-cluster-name-servers-server-name-actions-toogle-innodb-monitor-403) | Forbidden | No valid ACL |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-toogle-innodb-monitor-403-schema) |
 | [500](#get-api-clusters-cluster-name-servers-server-name-actions-toogle-innodb-monitor-500) | Internal Server Error | Cluster Not Found" or "Server Not Found |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-toogle-innodb-monitor-500-schema) |
 
-#### Responses
+#### 2.42.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-servers-server-name-actions-toogle-innodb-monitor-200"></span> 200 - InnoDB monitor toggled successfully
@@ -2705,7 +2705,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-servers-server-name-actions-toogle-meta-data-locks"></span> Toggle metadata locks on a server (*GetAPIClustersClusterNameServersServerNameActionsToogleMetaDataLocks*)
+### 2.43 <span id="get-api-clusters-cluster-name-servers-server-name-actions-toogle-meta-data-locks"></span> Toggle metadata locks on a server (*GetAPIClustersClusterNameServersServerNameActionsToogleMetaDataLocks*)
 
 ```
 GET /api/clusters/{clusterName}/servers/{serverName}/actions/toogle-meta-data-locks
@@ -2713,24 +2713,24 @@ GET /api/clusters/{clusterName}/servers/{serverName}/actions/toogle-meta-data-lo
 
 Toggles the metadata locks on a specified server within a cluster.
 
-#### Produces
+#### 2.43.1 Produces
   * application/json
 
-#### Parameters
+#### 2.43.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 | serverName | `path` | string | `string` |  | ✓ |  | Server Name |
 
-#### All responses
+#### 2.43.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-servers-server-name-actions-toogle-meta-data-locks-200) | OK | Metadata locks toggled successfully |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-toogle-meta-data-locks-200-schema) |
 | [403](#get-api-clusters-cluster-name-servers-server-name-actions-toogle-meta-data-locks-403) | Forbidden | No valid ACL |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-toogle-meta-data-locks-403-schema) |
 | [500](#get-api-clusters-cluster-name-servers-server-name-actions-toogle-meta-data-locks-500) | Internal Server Error | Cluster Not Found" or "Server Not Found |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-toogle-meta-data-locks-500-schema) |
 
-#### Responses
+#### 2.43.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-servers-server-name-actions-toogle-meta-data-locks-200"></span> 200 - Metadata locks toggled successfully
@@ -2760,7 +2760,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-servers-server-name-actions-toogle-pfs-slow-query"></span> Toggle PFS slow query capture on a server (*GetAPIClustersClusterNameServersServerNameActionsTooglePfsSlowQuery*)
+### 2.44 <span id="get-api-clusters-cluster-name-servers-server-name-actions-toogle-pfs-slow-query"></span> Toggle PFS slow query capture on a server (*GetAPIClustersClusterNameServersServerNameActionsTooglePfsSlowQuery*)
 
 ```
 GET /api/clusters/{clusterName}/servers/{serverName}/actions/toogle-pfs-slow-query
@@ -2768,24 +2768,24 @@ GET /api/clusters/{clusterName}/servers/{serverName}/actions/toogle-pfs-slow-que
 
 Toggles the PFS slow query capture on a specified server within a cluster.
 
-#### Produces
+#### 2.44.1 Produces
   * application/json
 
-#### Parameters
+#### 2.44.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 | serverName | `path` | string | `string` |  | ✓ |  | Server Name |
 
-#### All responses
+#### 2.44.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-servers-server-name-actions-toogle-pfs-slow-query-200) | OK | PFS slow query capture toggled successfully |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-toogle-pfs-slow-query-200-schema) |
 | [403](#get-api-clusters-cluster-name-servers-server-name-actions-toogle-pfs-slow-query-403) | Forbidden | No valid ACL |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-toogle-pfs-slow-query-403-schema) |
 | [500](#get-api-clusters-cluster-name-servers-server-name-actions-toogle-pfs-slow-query-500) | Internal Server Error | Cluster Not Found" or "Server Not Found |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-toogle-pfs-slow-query-500-schema) |
 
-#### Responses
+#### 2.44.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-servers-server-name-actions-toogle-pfs-slow-query-200"></span> 200 - PFS slow query capture toggled successfully
@@ -2815,7 +2815,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-servers-server-name-actions-toogle-query-response-time"></span> Toggle query response time on a server (*GetAPIClustersClusterNameServersServerNameActionsToogleQueryResponseTime*)
+### 2.45 <span id="get-api-clusters-cluster-name-servers-server-name-actions-toogle-query-response-time"></span> Toggle query response time on a server (*GetAPIClustersClusterNameServersServerNameActionsToogleQueryResponseTime*)
 
 ```
 GET /api/clusters/{clusterName}/servers/{serverName}/actions/toogle-query-response-time
@@ -2823,24 +2823,24 @@ GET /api/clusters/{clusterName}/servers/{serverName}/actions/toogle-query-respon
 
 Toggles the query response time on a specified server within a cluster.
 
-#### Produces
+#### 2.45.1 Produces
   * application/json
 
-#### Parameters
+#### 2.45.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 | serverName | `path` | string | `string` |  | ✓ |  | Server Name |
 
-#### All responses
+#### 2.45.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-servers-server-name-actions-toogle-query-response-time-200) | OK | Query response time toggled successfully |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-toogle-query-response-time-200-schema) |
 | [403](#get-api-clusters-cluster-name-servers-server-name-actions-toogle-query-response-time-403) | Forbidden | No valid ACL |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-toogle-query-response-time-403-schema) |
 | [500](#get-api-clusters-cluster-name-servers-server-name-actions-toogle-query-response-time-500) | Internal Server Error | Cluster Not Found" or "Server Not Found |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-toogle-query-response-time-500-schema) |
 
-#### Responses
+#### 2.45.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-servers-server-name-actions-toogle-query-response-time-200"></span> 200 - Query response time toggled successfully
@@ -2870,7 +2870,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-servers-server-name-actions-toogle-read-only"></span> Toggle read-only mode on a server (*GetAPIClustersClusterNameServersServerNameActionsToogleReadOnly*)
+### 2.46 <span id="get-api-clusters-cluster-name-servers-server-name-actions-toogle-read-only"></span> Toggle read-only mode on a server (*GetAPIClustersClusterNameServersServerNameActionsToogleReadOnly*)
 
 ```
 GET /api/clusters/{clusterName}/servers/{serverName}/actions/toogle-read-only
@@ -2878,24 +2878,24 @@ GET /api/clusters/{clusterName}/servers/{serverName}/actions/toogle-read-only
 
 Toggles the read-only mode on a specified server within a cluster.
 
-#### Produces
+#### 2.46.1 Produces
   * application/json
 
-#### Parameters
+#### 2.46.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 | serverName | `path` | string | `string` |  | ✓ |  | Server Name |
 
-#### All responses
+#### 2.46.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-servers-server-name-actions-toogle-read-only-200) | OK | Read-only mode toggled successfully |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-toogle-read-only-200-schema) |
 | [403](#get-api-clusters-cluster-name-servers-server-name-actions-toogle-read-only-403) | Forbidden | No valid ACL |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-toogle-read-only-403-schema) |
 | [500](#get-api-clusters-cluster-name-servers-server-name-actions-toogle-read-only-500) | Internal Server Error | Cluster Not Found" or "Server Not Found |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-toogle-read-only-500-schema) |
 
-#### Responses
+#### 2.46.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-servers-server-name-actions-toogle-read-only-200"></span> 200 - Read-only mode toggled successfully
@@ -2925,7 +2925,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-servers-server-name-actions-toogle-sql-error-log"></span> Toggle SQL error log on a server (*GetAPIClustersClusterNameServersServerNameActionsToogleSQLErrorLog*)
+### 2.47 <span id="get-api-clusters-cluster-name-servers-server-name-actions-toogle-sql-error-log"></span> Toggle SQL error log on a server (*GetAPIClustersClusterNameServersServerNameActionsToogleSQLErrorLog*)
 
 ```
 GET /api/clusters/{clusterName}/servers/{serverName}/actions/toogle-sql-error-log
@@ -2933,24 +2933,24 @@ GET /api/clusters/{clusterName}/servers/{serverName}/actions/toogle-sql-error-lo
 
 Toggles the SQL error log on a specified server within a cluster.
 
-#### Produces
+#### 2.47.1 Produces
   * application/json
 
-#### Parameters
+#### 2.47.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 | serverName | `path` | string | `string` |  | ✓ |  | Server Name |
 
-#### All responses
+#### 2.47.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-servers-server-name-actions-toogle-sql-error-log-200) | OK | SQL error log toggled successfully |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-toogle-sql-error-log-200-schema) |
 | [403](#get-api-clusters-cluster-name-servers-server-name-actions-toogle-sql-error-log-403) | Forbidden | No valid ACL |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-toogle-sql-error-log-403-schema) |
 | [500](#get-api-clusters-cluster-name-servers-server-name-actions-toogle-sql-error-log-500) | Internal Server Error | Cluster Not Found" or "Server Not Found |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-toogle-sql-error-log-500-schema) |
 
-#### Responses
+#### 2.47.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-servers-server-name-actions-toogle-sql-error-log-200"></span> 200 - SQL error log toggled successfully
@@ -2980,7 +2980,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-servers-server-name-actions-toogle-slow-query"></span> Toggle slow query on a server (*GetAPIClustersClusterNameServersServerNameActionsToogleSlowQuery*)
+### 2.48 <span id="get-api-clusters-cluster-name-servers-server-name-actions-toogle-slow-query"></span> Toggle slow query on a server (*GetAPIClustersClusterNameServersServerNameActionsToogleSlowQuery*)
 
 ```
 GET /api/clusters/{clusterName}/servers/{serverName}/actions/toogle-slow-query
@@ -2988,24 +2988,24 @@ GET /api/clusters/{clusterName}/servers/{serverName}/actions/toogle-slow-query
 
 Toggles the slow query on a specified server within a cluster.
 
-#### Produces
+#### 2.48.1 Produces
   * application/json
 
-#### Parameters
+#### 2.48.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 | serverName | `path` | string | `string` |  | ✓ |  | Server Name |
 
-#### All responses
+#### 2.48.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-servers-server-name-actions-toogle-slow-query-200) | OK | Slow query toggled successfully |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-toogle-slow-query-200-schema) |
 | [403](#get-api-clusters-cluster-name-servers-server-name-actions-toogle-slow-query-403) | Forbidden | No valid ACL |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-toogle-slow-query-403-schema) |
 | [500](#get-api-clusters-cluster-name-servers-server-name-actions-toogle-slow-query-500) | Internal Server Error | Cluster Not Found" or "Server Not Found |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-toogle-slow-query-500-schema) |
 
-#### Responses
+#### 2.48.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-servers-server-name-actions-toogle-slow-query-200"></span> 200 - Slow query toggled successfully
@@ -3035,7 +3035,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-servers-server-name-actions-toogle-slow-query-capture"></span> Toggle slow query capture on a server (*GetAPIClustersClusterNameServersServerNameActionsToogleSlowQueryCapture*)
+### 2.49 <span id="get-api-clusters-cluster-name-servers-server-name-actions-toogle-slow-query-capture"></span> Toggle slow query capture on a server (*GetAPIClustersClusterNameServersServerNameActionsToogleSlowQueryCapture*)
 
 ```
 GET /api/clusters/{clusterName}/servers/{serverName}/actions/toogle-slow-query-capture
@@ -3043,24 +3043,24 @@ GET /api/clusters/{clusterName}/servers/{serverName}/actions/toogle-slow-query-c
 
 Toggles the slow query capture on a specified server within a cluster.
 
-#### Produces
+#### 2.49.1 Produces
   * application/json
 
-#### Parameters
+#### 2.49.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 | serverName | `path` | string | `string` |  | ✓ |  | Server Name |
 
-#### All responses
+#### 2.49.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-servers-server-name-actions-toogle-slow-query-capture-200) | OK | Slow query capture toggled successfully |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-toogle-slow-query-capture-200-schema) |
 | [403](#get-api-clusters-cluster-name-servers-server-name-actions-toogle-slow-query-capture-403) | Forbidden | No valid ACL |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-toogle-slow-query-capture-403-schema) |
 | [500](#get-api-clusters-cluster-name-servers-server-name-actions-toogle-slow-query-capture-500) | Internal Server Error | Cluster Not Found" or "Server Not Found |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-toogle-slow-query-capture-500-schema) |
 
-#### Responses
+#### 2.49.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-servers-server-name-actions-toogle-slow-query-capture-200"></span> 200 - Slow query capture toggled successfully
@@ -3090,7 +3090,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-servers-server-name-actions-toogle-slow-query-table"></span> Toggle slow query table mode on a server (*GetAPIClustersClusterNameServersServerNameActionsToogleSlowQueryTable*)
+### 2.50 <span id="get-api-clusters-cluster-name-servers-server-name-actions-toogle-slow-query-table"></span> Toggle slow query table mode on a server (*GetAPIClustersClusterNameServersServerNameActionsToogleSlowQueryTable*)
 
 ```
 GET /api/clusters/{clusterName}/servers/{serverName}/actions/toogle-slow-query-table
@@ -3098,24 +3098,24 @@ GET /api/clusters/{clusterName}/servers/{serverName}/actions/toogle-slow-query-t
 
 Toggles the slow query table mode on a specified server within a cluster.
 
-#### Produces
+#### 2.50.1 Produces
   * application/json
 
-#### Parameters
+#### 2.50.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 | serverName | `path` | string | `string` |  | ✓ |  | Server Name |
 
-#### All responses
+#### 2.50.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-servers-server-name-actions-toogle-slow-query-table-200) | OK | Slow query table mode toggled successfully |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-toogle-slow-query-table-200-schema) |
 | [403](#get-api-clusters-cluster-name-servers-server-name-actions-toogle-slow-query-table-403) | Forbidden | No valid ACL |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-toogle-slow-query-table-403-schema) |
 | [500](#get-api-clusters-cluster-name-servers-server-name-actions-toogle-slow-query-table-500) | Internal Server Error | Cluster Not Found" or "Server Not Found |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-toogle-slow-query-table-500-schema) |
 
-#### Responses
+#### 2.50.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-servers-server-name-actions-toogle-slow-query-table-200"></span> 200 - Slow query table mode toggled successfully
@@ -3145,7 +3145,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-servers-server-name-actions-unprovision"></span> Unprovision a server (*GetAPIClustersClusterNameServersServerNameActionsUnprovision*)
+### 2.51 <span id="get-api-clusters-cluster-name-servers-server-name-actions-unprovision"></span> Unprovision a server (*GetAPIClustersClusterNameServersServerNameActionsUnprovision*)
 
 ```
 GET /api/clusters/{clusterName}/servers/{serverName}/actions/unprovision
@@ -3153,24 +3153,24 @@ GET /api/clusters/{clusterName}/servers/{serverName}/actions/unprovision
 
 Unprovisions a specified server within a cluster.
 
-#### Produces
+#### 2.51.1 Produces
   * application/json
 
-#### Parameters
+#### 2.51.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 | serverName | `path` | string | `string` |  | ✓ |  | Server Name |
 
-#### All responses
+#### 2.51.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-servers-server-name-actions-unprovision-200) | OK | Server unprovisioned successfully |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-unprovision-200-schema) |
 | [403](#get-api-clusters-cluster-name-servers-server-name-actions-unprovision-403) | Forbidden | No valid ACL |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-unprovision-403-schema) |
 | [500](#get-api-clusters-cluster-name-servers-server-name-actions-unprovision-500) | Internal Server Error | Cluster Not Found" or "Server Not Found |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-unprovision-500-schema) |
 
-#### Responses
+#### 2.51.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-servers-server-name-actions-unprovision-200"></span> 200 - Server unprovisioned successfully
@@ -3200,7 +3200,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-servers-server-name-actions-wait-innodb-purge"></span> Wait for InnoDB purge on a server (*GetAPIClustersClusterNameServersServerNameActionsWaitInnodbPurge*)
+### 2.52 <span id="get-api-clusters-cluster-name-servers-server-name-actions-wait-innodb-purge"></span> Wait for InnoDB purge on a server (*GetAPIClustersClusterNameServersServerNameActionsWaitInnodbPurge*)
 
 ```
 GET /api/clusters/{clusterName}/servers/{serverName}/actions/wait-innodb-purge
@@ -3208,24 +3208,24 @@ GET /api/clusters/{clusterName}/servers/{serverName}/actions/wait-innodb-purge
 
 Waits for InnoDB purge on a specified server within a cluster.
 
-#### Produces
+#### 2.52.1 Produces
   * application/json
 
-#### Parameters
+#### 2.52.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 | serverName | `path` | string | `string` |  | ✓ |  | Server Name |
 
-#### All responses
+#### 2.52.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-servers-server-name-actions-wait-innodb-purge-200) | OK | InnoDB purge completed successfully |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-wait-innodb-purge-200-schema) |
 | [403](#get-api-clusters-cluster-name-servers-server-name-actions-wait-innodb-purge-403) | Forbidden | No valid ACL |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-wait-innodb-purge-403-schema) |
 | [500](#get-api-clusters-cluster-name-servers-server-name-actions-wait-innodb-purge-500) | Internal Server Error | Cluster Not Found" or "Server Not Found" or "Error waiting for InnoDB purge |  | [schema](#get-api-clusters-cluster-name-servers-server-name-actions-wait-innodb-purge-500-schema) |
 
-#### Responses
+#### 2.52.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-servers-server-name-actions-wait-innodb-purge-200"></span> 200 - InnoDB purge completed successfully
@@ -3255,7 +3255,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-servers-server-name-all-slaves-status"></span> Get status of all slaves of a server (*GetAPIClustersClusterNameServersServerNameAllSlavesStatus*)
+### 2.53 <span id="get-api-clusters-cluster-name-servers-server-name-all-slaves-status"></span> Get status of all slaves of a server (*GetAPIClustersClusterNameServersServerNameAllSlavesStatus*)
 
 ```
 GET /api/clusters/{clusterName}/servers/{serverName}/all-slaves-status
@@ -3263,24 +3263,24 @@ GET /api/clusters/{clusterName}/servers/{serverName}/all-slaves-status
 
 Retrieves the status of all slaves of a specified server within a cluster.
 
-#### Produces
+#### 2.53.1 Produces
   * application/json
 
-#### Parameters
+#### 2.53.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 | serverName | `path` | string | `string` |  | ✓ |  | Server Name |
 
-#### All responses
+#### 2.53.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-servers-server-name-all-slaves-status-200) | OK | Status of all slaves retrieved successfully |  | [schema](#get-api-clusters-cluster-name-servers-server-name-all-slaves-status-200-schema) |
 | [403](#get-api-clusters-cluster-name-servers-server-name-all-slaves-status-403) | Forbidden | No valid ACL |  | [schema](#get-api-clusters-cluster-name-servers-server-name-all-slaves-status-403-schema) |
 | [500](#get-api-clusters-cluster-name-servers-server-name-all-slaves-status-500) | Internal Server Error | Cluster Not Found" or "Server Not Found" or "Encoding error |  | [schema](#get-api-clusters-cluster-name-servers-server-name-all-slaves-status-500-schema) |
 
-#### Responses
+#### 2.53.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-servers-server-name-all-slaves-status-200"></span> 200 - Status of all slaves retrieved successfully
@@ -3310,7 +3310,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-servers-server-name-digest-statements-pfs"></span> Get PFS statements of a server (*GetAPIClustersClusterNameServersServerNameDigestStatementsPfs*)
+### 2.54 <span id="get-api-clusters-cluster-name-servers-server-name-digest-statements-pfs"></span> Get PFS statements of a server (*GetAPIClustersClusterNameServersServerNameDigestStatementsPfs*)
 
 ```
 GET /api/clusters/{clusterName}/servers/{serverName}/digest-statements-pfs
@@ -3318,24 +3318,24 @@ GET /api/clusters/{clusterName}/servers/{serverName}/digest-statements-pfs
 
 Retrieves the PFS statements of a specified server within a cluster.
 
-#### Produces
+#### 2.54.1 Produces
   * application/json
 
-#### Parameters
+#### 2.54.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 | serverName | `path` | string | `string` |  | ✓ |  | Server Name |
 
-#### All responses
+#### 2.54.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-servers-server-name-digest-statements-pfs-200) | OK | PFS statements retrieved successfully |  | [schema](#get-api-clusters-cluster-name-servers-server-name-digest-statements-pfs-200-schema) |
 | [403](#get-api-clusters-cluster-name-servers-server-name-digest-statements-pfs-403) | Forbidden | No valid ACL |  | [schema](#get-api-clusters-cluster-name-servers-server-name-digest-statements-pfs-403-schema) |
 | [500](#get-api-clusters-cluster-name-servers-server-name-digest-statements-pfs-500) | Internal Server Error | Cluster Not Found" or "Server Not Found" or "Encoding error |  | [schema](#get-api-clusters-cluster-name-servers-server-name-digest-statements-pfs-500-schema) |
 
-#### Responses
+#### 2.54.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-servers-server-name-digest-statements-pfs-200"></span> 200 - PFS statements retrieved successfully
@@ -3365,7 +3365,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-servers-server-name-digest-statements-slow"></span> Get PFS statements from the slow log of a server (*GetAPIClustersClusterNameServersServerNameDigestStatementsSlow*)
+### 2.55 <span id="get-api-clusters-cluster-name-servers-server-name-digest-statements-slow"></span> Get PFS statements from the slow log of a server (*GetAPIClustersClusterNameServersServerNameDigestStatementsSlow*)
 
 ```
 GET /api/clusters/{clusterName}/servers/{serverName}/digest-statements-slow
@@ -3373,24 +3373,24 @@ GET /api/clusters/{clusterName}/servers/{serverName}/digest-statements-slow
 
 Retrieves the PFS statements from the slow log of a specified server within a cluster.
 
-#### Produces
+#### 2.55.1 Produces
   * application/json
 
-#### Parameters
+#### 2.55.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 | serverName | `path` | string | `string` |  | ✓ |  | Server Name |
 
-#### All responses
+#### 2.55.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-servers-server-name-digest-statements-slow-200) | OK | PFS statements from slow log retrieved successfully |  | [schema](#get-api-clusters-cluster-name-servers-server-name-digest-statements-slow-200-schema) |
 | [403](#get-api-clusters-cluster-name-servers-server-name-digest-statements-slow-403) | Forbidden | No valid ACL |  | [schema](#get-api-clusters-cluster-name-servers-server-name-digest-statements-slow-403-schema) |
 | [500](#get-api-clusters-cluster-name-servers-server-name-digest-statements-slow-500) | Internal Server Error | Cluster Not Found" or "Server Not Found" or "Encoding error |  | [schema](#get-api-clusters-cluster-name-servers-server-name-digest-statements-slow-500-schema) |
 
-#### Responses
+#### 2.55.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-servers-server-name-digest-statements-slow-200"></span> 200 - PFS statements from slow log retrieved successfully
@@ -3420,7 +3420,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-servers-server-name-errorlog"></span> Get error log of a server (*GetAPIClustersClusterNameServersServerNameErrorlog*)
+### 2.56 <span id="get-api-clusters-cluster-name-servers-server-name-errorlog"></span> Get error log of a server (*GetAPIClustersClusterNameServersServerNameErrorlog*)
 
 ```
 GET /api/clusters/{clusterName}/servers/{serverName}/errorlog
@@ -3428,24 +3428,24 @@ GET /api/clusters/{clusterName}/servers/{serverName}/errorlog
 
 Retrieves the error log of a specified server within a cluster.
 
-#### Produces
+#### 2.56.1 Produces
   * application/json
 
-#### Parameters
+#### 2.56.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 | serverName | `path` | string | `string` |  | ✓ |  | Server Name |
 
-#### All responses
+#### 2.56.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-servers-server-name-errorlog-200) | OK | Error log retrieved successfully |  | [schema](#get-api-clusters-cluster-name-servers-server-name-errorlog-200-schema) |
 | [403](#get-api-clusters-cluster-name-servers-server-name-errorlog-403) | Forbidden | No valid ACL |  | [schema](#get-api-clusters-cluster-name-servers-server-name-errorlog-403-schema) |
 | [500](#get-api-clusters-cluster-name-servers-server-name-errorlog-500) | Internal Server Error | Cluster Not Found" or "Server Not Found" or "Encoding error |  | [schema](#get-api-clusters-cluster-name-servers-server-name-errorlog-500-schema) |
 
-#### Responses
+#### 2.56.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-servers-server-name-errorlog-200"></span> 200 - Error log retrieved successfully
@@ -3475,7 +3475,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-servers-server-name-is-master"></span> Check if a server is a master (*GetAPIClustersClusterNameServersServerNameIsMaster*)
+### 2.57 <span id="get-api-clusters-cluster-name-servers-server-name-is-master"></span> Check if a server is a master (*GetAPIClustersClusterNameServersServerNameIsMaster*)
 
 ```
 GET /api/clusters/{clusterName}/servers/{serverName}/is-master
@@ -3483,24 +3483,24 @@ GET /api/clusters/{clusterName}/servers/{serverName}/is-master
 
 Checks if a specified server within a cluster is a master.
 
-#### Produces
+#### 2.57.1 Produces
   * text/plain
 
-#### Parameters
+#### 2.57.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 | serverName | `path` | string | `string` |  | ✓ |  | Server Name |
 
-#### All responses
+#### 2.57.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-servers-server-name-is-master-200) | OK | 200 -Valid Master! |  | [schema](#get-api-clusters-cluster-name-servers-server-name-is-master-200-schema) |
 | [500](#get-api-clusters-cluster-name-servers-server-name-is-master-500) | Internal Server Error | No cluster |  | [schema](#get-api-clusters-cluster-name-servers-server-name-is-master-500-schema) |
 | [503](#get-api-clusters-cluster-name-servers-server-name-is-master-503) | Service Unavailable | 503 -Not a Valid Master! |  | [schema](#get-api-clusters-cluster-name-servers-server-name-is-master-503-schema) |
 
-#### Responses
+#### 2.57.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-servers-server-name-is-master-200"></span> 200 - 200 -Valid Master!
@@ -3530,7 +3530,7 @@ Status: Service Unavailable
 
 
 
-### <span id="get-api-clusters-cluster-name-servers-server-name-is-slave"></span> Check if a server is a slave (*GetAPIClustersClusterNameServersServerNameIsSlave*)
+### 2.58 <span id="get-api-clusters-cluster-name-servers-server-name-is-slave"></span> Check if a server is a slave (*GetAPIClustersClusterNameServersServerNameIsSlave*)
 
 ```
 GET /api/clusters/{clusterName}/servers/{serverName}/is-slave
@@ -3538,24 +3538,24 @@ GET /api/clusters/{clusterName}/servers/{serverName}/is-slave
 
 Checks if a specified server within a cluster is a slave.
 
-#### Produces
+#### 2.58.1 Produces
   * text/plain
 
-#### Parameters
+#### 2.58.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 | serverName | `path` | string | `string` |  | ✓ |  | Server Name |
 
-#### All responses
+#### 2.58.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-servers-server-name-is-slave-200) | OK | 200 -Valid Slave! |  | [schema](#get-api-clusters-cluster-name-servers-server-name-is-slave-200-schema) |
 | [500](#get-api-clusters-cluster-name-servers-server-name-is-slave-500) | Internal Server Error | No cluster |  | [schema](#get-api-clusters-cluster-name-servers-server-name-is-slave-500-schema) |
 | [503](#get-api-clusters-cluster-name-servers-server-name-is-slave-503) | Service Unavailable | 503 -Not a Valid Slave! |  | [schema](#get-api-clusters-cluster-name-servers-server-name-is-slave-503-schema) |
 
-#### Responses
+#### 2.58.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-servers-server-name-is-slave-200"></span> 200 - 200 -Valid Slave!
@@ -3585,7 +3585,7 @@ Status: Service Unavailable
 
 
 
-### <span id="get-api-clusters-cluster-name-servers-server-name-master-status"></span> Get master status of a server (*GetAPIClustersClusterNameServersServerNameMasterStatus*)
+### 2.59 <span id="get-api-clusters-cluster-name-servers-server-name-master-status"></span> Get master status of a server (*GetAPIClustersClusterNameServersServerNameMasterStatus*)
 
 ```
 GET /api/clusters/{clusterName}/servers/{serverName}/master-status
@@ -3593,24 +3593,24 @@ GET /api/clusters/{clusterName}/servers/{serverName}/master-status
 
 Retrieves the master status of a specified server within a cluster.
 
-#### Produces
+#### 2.59.1 Produces
   * application/json
 
-#### Parameters
+#### 2.59.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 | serverName | `path` | string | `string` |  | ✓ |  | Server Name |
 
-#### All responses
+#### 2.59.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-servers-server-name-master-status-200) | OK | Master status retrieved successfully |  | [schema](#get-api-clusters-cluster-name-servers-server-name-master-status-200-schema) |
 | [403](#get-api-clusters-cluster-name-servers-server-name-master-status-403) | Forbidden | No valid ACL |  | [schema](#get-api-clusters-cluster-name-servers-server-name-master-status-403-schema) |
 | [500](#get-api-clusters-cluster-name-servers-server-name-master-status-500) | Internal Server Error | Cluster Not Found" or "Server Not Found" or "Encoding error |  | [schema](#get-api-clusters-cluster-name-servers-server-name-master-status-500-schema) |
 
-#### Responses
+#### 2.59.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-servers-server-name-master-status-200"></span> 200 - Master status retrieved successfully
@@ -3640,7 +3640,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-servers-server-name-meta-data-locks"></span> Get metadata locks of a server (*GetAPIClustersClusterNameServersServerNameMetaDataLocks*)
+### 2.60 <span id="get-api-clusters-cluster-name-servers-server-name-meta-data-locks"></span> Get metadata locks of a server (*GetAPIClustersClusterNameServersServerNameMetaDataLocks*)
 
 ```
 GET /api/clusters/{clusterName}/servers/{serverName}/meta-data-locks
@@ -3648,24 +3648,24 @@ GET /api/clusters/{clusterName}/servers/{serverName}/meta-data-locks
 
 Retrieves the metadata locks of a specified server within a cluster.
 
-#### Produces
+#### 2.60.1 Produces
   * application/json
 
-#### Parameters
+#### 2.60.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 | serverName | `path` | string | `string` |  | ✓ |  | Server Name |
 
-#### All responses
+#### 2.60.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-servers-server-name-meta-data-locks-200) | OK | Metadata locks retrieved successfully |  | [schema](#get-api-clusters-cluster-name-servers-server-name-meta-data-locks-200-schema) |
 | [403](#get-api-clusters-cluster-name-servers-server-name-meta-data-locks-403) | Forbidden | No valid ACL |  | [schema](#get-api-clusters-cluster-name-servers-server-name-meta-data-locks-403-schema) |
 | [500](#get-api-clusters-cluster-name-servers-server-name-meta-data-locks-500) | Internal Server Error | Cluster Not Found" or "Server Not Found" or "Encoding error |  | [schema](#get-api-clusters-cluster-name-servers-server-name-meta-data-locks-500-schema) |
 
-#### Responses
+#### 2.60.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-servers-server-name-meta-data-locks-200"></span> 200 - Metadata locks retrieved successfully
@@ -3695,7 +3695,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-servers-server-name-processlist"></span> Get process list of a server (*GetAPIClustersClusterNameServersServerNameProcesslist*)
+### 2.61 <span id="get-api-clusters-cluster-name-servers-server-name-processlist"></span> Get process list of a server (*GetAPIClustersClusterNameServersServerNameProcesslist*)
 
 ```
 GET /api/clusters/{clusterName}/servers/{serverName}/processlist
@@ -3703,24 +3703,24 @@ GET /api/clusters/{clusterName}/servers/{serverName}/processlist
 
 Retrieves the process list of a specified server within a cluster.
 
-#### Produces
+#### 2.61.1 Produces
   * application/json
 
-#### Parameters
+#### 2.61.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 | serverName | `path` | string | `string` |  | ✓ |  | Server Name |
 
-#### All responses
+#### 2.61.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-servers-server-name-processlist-200) | OK | Process list retrieved successfully |  | [schema](#get-api-clusters-cluster-name-servers-server-name-processlist-200-schema) |
 | [403](#get-api-clusters-cluster-name-servers-server-name-processlist-403) | Forbidden | No valid ACL |  | [schema](#get-api-clusters-cluster-name-servers-server-name-processlist-403-schema) |
 | [500](#get-api-clusters-cluster-name-servers-server-name-processlist-500) | Internal Server Error | Cluster Not Found" or "Server Not Found" or "Encoding error |  | [schema](#get-api-clusters-cluster-name-servers-server-name-processlist-500-schema) |
 
-#### Responses
+#### 2.61.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-servers-server-name-processlist-200"></span> 200 - Process list retrieved successfully
@@ -3750,7 +3750,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-servers-server-name-queries-query-digest-actions-analyze-pfs"></span> Analyze a query using PFS on a server (*GetAPIClustersClusterNameServersServerNameQueriesQueryDigestActionsAnalyzePfs*)
+### 2.62 <span id="get-api-clusters-cluster-name-servers-server-name-queries-query-digest-actions-analyze-pfs"></span> Analyze a query using PFS on a server (*GetAPIClustersClusterNameServersServerNameQueriesQueryDigestActionsAnalyzePfs*)
 
 ```
 GET /api/clusters/{clusterName}/servers/{serverName}/queries/{queryDigest}/actions/analyze-pfs
@@ -3758,10 +3758,10 @@ GET /api/clusters/{clusterName}/servers/{serverName}/queries/{queryDigest}/actio
 
 Analyzes a query identified by its digest on a specified server within a cluster using PFS.
 
-#### Produces
+#### 2.62.1 Produces
   * application/json
 
-#### Parameters
+#### 2.62.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
@@ -3769,14 +3769,14 @@ Analyzes a query identified by its digest on a specified server within a cluster
 | queryDigest | `path` | string | `string` |  | ✓ |  | Query Digest |
 | serverName | `path` | string | `string` |  | ✓ |  | Server Name |
 
-#### All responses
+#### 2.62.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-servers-server-name-queries-query-digest-actions-analyze-pfs-200) | OK | Query analyzed successfully |  | [schema](#get-api-clusters-cluster-name-servers-server-name-queries-query-digest-actions-analyze-pfs-200-schema) |
 | [403](#get-api-clusters-cluster-name-servers-server-name-queries-query-digest-actions-analyze-pfs-403) | Forbidden | No valid ACL |  | [schema](#get-api-clusters-cluster-name-servers-server-name-queries-query-digest-actions-analyze-pfs-403-schema) |
 | [500](#get-api-clusters-cluster-name-servers-server-name-queries-query-digest-actions-analyze-pfs-500) | Internal Server Error | Cluster Not Found" or "Server Not Found |  | [schema](#get-api-clusters-cluster-name-servers-server-name-queries-query-digest-actions-analyze-pfs-500-schema) |
 
-#### Responses
+#### 2.62.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-servers-server-name-queries-query-digest-actions-analyze-pfs-200"></span> 200 - Query analyzed successfully
@@ -3806,7 +3806,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-servers-server-name-queries-query-digest-actions-analyze-slowlog"></span> Analyze a query using the slow log on a server (*GetAPIClustersClusterNameServersServerNameQueriesQueryDigestActionsAnalyzeSlowlog*)
+### 2.63 <span id="get-api-clusters-cluster-name-servers-server-name-queries-query-digest-actions-analyze-slowlog"></span> Analyze a query using the slow log on a server (*GetAPIClustersClusterNameServersServerNameQueriesQueryDigestActionsAnalyzeSlowlog*)
 
 ```
 GET /api/clusters/{clusterName}/servers/{serverName}/queries/{queryDigest}/actions/analyze-slowlog
@@ -3814,10 +3814,10 @@ GET /api/clusters/{clusterName}/servers/{serverName}/queries/{queryDigest}/actio
 
 Analyzes a query identified by its digest on a specified server within a cluster using the slow log.
 
-#### Produces
+#### 2.63.1 Produces
   * application/json
 
-#### Parameters
+#### 2.63.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
@@ -3825,14 +3825,14 @@ Analyzes a query identified by its digest on a specified server within a cluster
 | queryDigest | `path` | string | `string` |  | ✓ |  | Query Digest |
 | serverName | `path` | string | `string` |  | ✓ |  | Server Name |
 
-#### All responses
+#### 2.63.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-servers-server-name-queries-query-digest-actions-analyze-slowlog-200) | OK | Query analyzed successfully |  | [schema](#get-api-clusters-cluster-name-servers-server-name-queries-query-digest-actions-analyze-slowlog-200-schema) |
 | [403](#get-api-clusters-cluster-name-servers-server-name-queries-query-digest-actions-analyze-slowlog-403) | Forbidden | No valid ACL |  | [schema](#get-api-clusters-cluster-name-servers-server-name-queries-query-digest-actions-analyze-slowlog-403-schema) |
 | [500](#get-api-clusters-cluster-name-servers-server-name-queries-query-digest-actions-analyze-slowlog-500) | Internal Server Error | Cluster Not Found" or "Server Not Found |  | [schema](#get-api-clusters-cluster-name-servers-server-name-queries-query-digest-actions-analyze-slowlog-500-schema) |
 
-#### Responses
+#### 2.63.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-servers-server-name-queries-query-digest-actions-analyze-slowlog-200"></span> 200 - Query analyzed successfully
@@ -3862,7 +3862,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-servers-server-name-queries-query-digest-actions-explain-pfs"></span> Explain a query using PFS on a server (*GetAPIClustersClusterNameServersServerNameQueriesQueryDigestActionsExplainPfs*)
+### 2.64 <span id="get-api-clusters-cluster-name-servers-server-name-queries-query-digest-actions-explain-pfs"></span> Explain a query using PFS on a server (*GetAPIClustersClusterNameServersServerNameQueriesQueryDigestActionsExplainPfs*)
 
 ```
 GET /api/clusters/{clusterName}/servers/{serverName}/queries/{queryDigest}/actions/explain-pfs
@@ -3870,10 +3870,10 @@ GET /api/clusters/{clusterName}/servers/{serverName}/queries/{queryDigest}/actio
 
 Explains a query identified by its digest on a specified server within a cluster using PFS.
 
-#### Produces
+#### 2.64.1 Produces
   * application/json
 
-#### Parameters
+#### 2.64.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
@@ -3881,14 +3881,14 @@ Explains a query identified by its digest on a specified server within a cluster
 | queryDigest | `path` | string | `string` |  | ✓ |  | Query Digest |
 | serverName | `path` | string | `string` |  | ✓ |  | Server Name |
 
-#### All responses
+#### 2.64.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-servers-server-name-queries-query-digest-actions-explain-pfs-200) | OK | Query explained successfully |  | [schema](#get-api-clusters-cluster-name-servers-server-name-queries-query-digest-actions-explain-pfs-200-schema) |
 | [403](#get-api-clusters-cluster-name-servers-server-name-queries-query-digest-actions-explain-pfs-403) | Forbidden | No valid ACL |  | [schema](#get-api-clusters-cluster-name-servers-server-name-queries-query-digest-actions-explain-pfs-403-schema) |
 | [500](#get-api-clusters-cluster-name-servers-server-name-queries-query-digest-actions-explain-pfs-500) | Internal Server Error | Cluster Not Found" or "Server Not Found" or "Encoding error |  | [schema](#get-api-clusters-cluster-name-servers-server-name-queries-query-digest-actions-explain-pfs-500-schema) |
 
-#### Responses
+#### 2.64.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-servers-server-name-queries-query-digest-actions-explain-pfs-200"></span> 200 - Query explained successfully
@@ -3918,7 +3918,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-servers-server-name-queries-query-digest-actions-explain-slowlog"></span> Explain a query using the slow log on a server (*GetAPIClustersClusterNameServersServerNameQueriesQueryDigestActionsExplainSlowlog*)
+### 2.65 <span id="get-api-clusters-cluster-name-servers-server-name-queries-query-digest-actions-explain-slowlog"></span> Explain a query using the slow log on a server (*GetAPIClustersClusterNameServersServerNameQueriesQueryDigestActionsExplainSlowlog*)
 
 ```
 GET /api/clusters/{clusterName}/servers/{serverName}/queries/{queryDigest}/actions/explain-slowlog
@@ -3926,10 +3926,10 @@ GET /api/clusters/{clusterName}/servers/{serverName}/queries/{queryDigest}/actio
 
 Explains a query identified by its digest on a specified server within a cluster using the slow log.
 
-#### Produces
+#### 2.65.1 Produces
   * application/json
 
-#### Parameters
+#### 2.65.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
@@ -3937,14 +3937,14 @@ Explains a query identified by its digest on a specified server within a cluster
 | queryDigest | `path` | string | `string` |  | ✓ |  | Query Digest |
 | serverName | `path` | string | `string` |  | ✓ |  | Server Name |
 
-#### All responses
+#### 2.65.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-servers-server-name-queries-query-digest-actions-explain-slowlog-200) | OK | Query explained successfully |  | [schema](#get-api-clusters-cluster-name-servers-server-name-queries-query-digest-actions-explain-slowlog-200-schema) |
 | [403](#get-api-clusters-cluster-name-servers-server-name-queries-query-digest-actions-explain-slowlog-403) | Forbidden | No valid ACL |  | [schema](#get-api-clusters-cluster-name-servers-server-name-queries-query-digest-actions-explain-slowlog-403-schema) |
 | [500](#get-api-clusters-cluster-name-servers-server-name-queries-query-digest-actions-explain-slowlog-500) | Internal Server Error | Cluster Not Found" or "Server Not Found" or "Encoding error |  | [schema](#get-api-clusters-cluster-name-servers-server-name-queries-query-digest-actions-explain-slowlog-500-schema) |
 
-#### Responses
+#### 2.65.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-servers-server-name-queries-query-digest-actions-explain-slowlog-200"></span> 200 - Query explained successfully
@@ -3974,7 +3974,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-servers-server-name-queries-query-digest-actions-kill-query"></span> Kill a query on a server (*GetAPIClustersClusterNameServersServerNameQueriesQueryDigestActionsKillQuery*)
+### 2.66 <span id="get-api-clusters-cluster-name-servers-server-name-queries-query-digest-actions-kill-query"></span> Kill a query on a server (*GetAPIClustersClusterNameServersServerNameQueriesQueryDigestActionsKillQuery*)
 
 ```
 GET /api/clusters/{clusterName}/servers/{serverName}/queries/{queryDigest}/actions/kill-query
@@ -3982,10 +3982,10 @@ GET /api/clusters/{clusterName}/servers/{serverName}/queries/{queryDigest}/actio
 
 Kills a query identified by its digest on a specified server within a cluster.
 
-#### Produces
+#### 2.66.1 Produces
   * application/json
 
-#### Parameters
+#### 2.66.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
@@ -3993,14 +3993,14 @@ Kills a query identified by its digest on a specified server within a cluster.
 | queryDigest | `path` | string | `string` |  | ✓ |  | Query Digest |
 | serverName | `path` | string | `string` |  | ✓ |  | Server Name |
 
-#### All responses
+#### 2.66.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-servers-server-name-queries-query-digest-actions-kill-query-200) | OK | Query killed successfully |  | [schema](#get-api-clusters-cluster-name-servers-server-name-queries-query-digest-actions-kill-query-200-schema) |
 | [403](#get-api-clusters-cluster-name-servers-server-name-queries-query-digest-actions-kill-query-403) | Forbidden | No valid ACL |  | [schema](#get-api-clusters-cluster-name-servers-server-name-queries-query-digest-actions-kill-query-403-schema) |
 | [500](#get-api-clusters-cluster-name-servers-server-name-queries-query-digest-actions-kill-query-500) | Internal Server Error | Cluster Not Found" or "Server Not Found |  | [schema](#get-api-clusters-cluster-name-servers-server-name-queries-query-digest-actions-kill-query-500-schema) |
 
-#### Responses
+#### 2.66.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-servers-server-name-queries-query-digest-actions-kill-query-200"></span> 200 - Query killed successfully
@@ -4030,7 +4030,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-servers-server-name-queries-query-digest-actions-kill-thread"></span> Kill a thread on a server (*GetAPIClustersClusterNameServersServerNameQueriesQueryDigestActionsKillThread*)
+### 2.67 <span id="get-api-clusters-cluster-name-servers-server-name-queries-query-digest-actions-kill-thread"></span> Kill a thread on a server (*GetAPIClustersClusterNameServersServerNameQueriesQueryDigestActionsKillThread*)
 
 ```
 GET /api/clusters/{clusterName}/servers/{serverName}/queries/{queryDigest}/actions/kill-thread
@@ -4038,10 +4038,10 @@ GET /api/clusters/{clusterName}/servers/{serverName}/queries/{queryDigest}/actio
 
 Kills a thread identified by its digest on a specified server within a cluster.
 
-#### Produces
+#### 2.67.1 Produces
   * application/json
 
-#### Parameters
+#### 2.67.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
@@ -4049,14 +4049,14 @@ Kills a thread identified by its digest on a specified server within a cluster.
 | queryDigest | `path` | string | `string` |  | ✓ |  | Query Digest |
 | serverName | `path` | string | `string` |  | ✓ |  | Server Name |
 
-#### All responses
+#### 2.67.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-servers-server-name-queries-query-digest-actions-kill-thread-200) | OK | Query killed successfully |  | [schema](#get-api-clusters-cluster-name-servers-server-name-queries-query-digest-actions-kill-thread-200-schema) |
 | [403](#get-api-clusters-cluster-name-servers-server-name-queries-query-digest-actions-kill-thread-403) | Forbidden | No valid ACL |  | [schema](#get-api-clusters-cluster-name-servers-server-name-queries-query-digest-actions-kill-thread-403-schema) |
 | [500](#get-api-clusters-cluster-name-servers-server-name-queries-query-digest-actions-kill-thread-500) | Internal Server Error | Cluster Not Found" or "Server Not Found |  | [schema](#get-api-clusters-cluster-name-servers-server-name-queries-query-digest-actions-kill-thread-500-schema) |
 
-#### Responses
+#### 2.67.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-servers-server-name-queries-query-digest-actions-kill-thread-200"></span> 200 - Query killed successfully
@@ -4086,7 +4086,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-servers-server-name-query-response-time"></span> Get query response time of a server (*GetAPIClustersClusterNameServersServerNameQueryResponseTime*)
+### 2.68 <span id="get-api-clusters-cluster-name-servers-server-name-query-response-time"></span> Get query response time of a server (*GetAPIClustersClusterNameServersServerNameQueryResponseTime*)
 
 ```
 GET /api/clusters/{clusterName}/servers/{serverName}/query-response-time
@@ -4094,24 +4094,24 @@ GET /api/clusters/{clusterName}/servers/{serverName}/query-response-time
 
 Retrieves the query response time of a specified server within a cluster.
 
-#### Produces
+#### 2.68.1 Produces
   * application/json
 
-#### Parameters
+#### 2.68.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 | serverName | `path` | string | `string` |  | ✓ |  | Server Name |
 
-#### All responses
+#### 2.68.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-servers-server-name-query-response-time-200) | OK | Query response time retrieved successfully |  | [schema](#get-api-clusters-cluster-name-servers-server-name-query-response-time-200-schema) |
 | [403](#get-api-clusters-cluster-name-servers-server-name-query-response-time-403) | Forbidden | No valid ACL |  | [schema](#get-api-clusters-cluster-name-servers-server-name-query-response-time-403-schema) |
 | [500](#get-api-clusters-cluster-name-servers-server-name-query-response-time-500) | Internal Server Error | Cluster Not Found" or "Server Not Found" or "Encoding error |  | [schema](#get-api-clusters-cluster-name-servers-server-name-query-response-time-500-schema) |
 
-#### Responses
+#### 2.68.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-servers-server-name-query-response-time-200"></span> 200 - Query response time retrieved successfully
@@ -4141,7 +4141,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-servers-server-name-schemas"></span> Get schemas of a server (*GetAPIClustersClusterNameServersServerNameSchemas*)
+### 2.69 <span id="get-api-clusters-cluster-name-servers-server-name-schemas"></span> Get schemas of a server (*GetAPIClustersClusterNameServersServerNameSchemas*)
 
 ```
 GET /api/clusters/{clusterName}/servers/{serverName}/schemas
@@ -4149,24 +4149,24 @@ GET /api/clusters/{clusterName}/servers/{serverName}/schemas
 
 Retrieves the schemas of a specified server within a cluster.
 
-#### Produces
+#### 2.69.1 Produces
   * application/json
 
-#### Parameters
+#### 2.69.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 | serverName | `path` | string | `string` |  | ✓ |  | Server Name |
 
-#### All responses
+#### 2.69.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-servers-server-name-schemas-200) | OK | Schemas retrieved successfully |  | [schema](#get-api-clusters-cluster-name-servers-server-name-schemas-200-schema) |
 | [403](#get-api-clusters-cluster-name-servers-server-name-schemas-403) | Forbidden | No valid ACL |  | [schema](#get-api-clusters-cluster-name-servers-server-name-schemas-403-schema) |
 | [500](#get-api-clusters-cluster-name-servers-server-name-schemas-500) | Internal Server Error | Cluster Not Found" or "Server Not Found" or "Encoding error |  | [schema](#get-api-clusters-cluster-name-servers-server-name-schemas-500-schema) |
 
-#### Responses
+#### 2.69.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-servers-server-name-schemas-200"></span> 200 - Schemas retrieved successfully
@@ -4196,7 +4196,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-servers-server-name-server-port-backup"></span> Perform a physical backup on a server port (*GetAPIClustersClusterNameServersServerNameServerPortBackup*)
+### 2.70 <span id="get-api-clusters-cluster-name-servers-server-name-server-port-backup"></span> Perform a physical backup on a server port (*GetAPIClustersClusterNameServersServerNameServerPortBackup*)
 
 ```
 GET /api/clusters/{clusterName}/servers/{serverName}/{serverPort}/backup
@@ -4204,10 +4204,10 @@ GET /api/clusters/{clusterName}/servers/{serverName}/{serverPort}/backup
 
 Initiates a physical backup on a specified server port within a cluster.
 
-#### Produces
+#### 2.70.1 Produces
   * application/json
 
-#### Parameters
+#### 2.70.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
@@ -4215,14 +4215,14 @@ Initiates a physical backup on a specified server port within a cluster.
 | serverName | `path` | string | `string` |  | ✓ |  | Server Name |
 | serverPort | `path` | string | `string` |  | ✓ |  | Server Port |
 
-#### All responses
+#### 2.70.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-servers-server-name-server-port-backup-200) | OK | Backup initiated successfully |  | [schema](#get-api-clusters-cluster-name-servers-server-name-server-port-backup-200-schema) |
 | [403](#get-api-clusters-cluster-name-servers-server-name-server-port-backup-403) | Forbidden | No valid ACL |  | [schema](#get-api-clusters-cluster-name-servers-server-name-server-port-backup-403-schema) |
 | [500](#get-api-clusters-cluster-name-servers-server-name-server-port-backup-500) | Internal Server Error | Cluster Not Found" or "Server Not Found |  | [schema](#get-api-clusters-cluster-name-servers-server-name-server-port-backup-500-schema) |
 
-#### Responses
+#### 2.70.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-servers-server-name-server-port-backup-200"></span> 200 - Backup initiated successfully
@@ -4252,7 +4252,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-servers-server-name-server-port-config"></span> Get server port configuration (*GetAPIClustersClusterNameServersServerNameServerPortConfig*)
+### 2.71 <span id="get-api-clusters-cluster-name-servers-server-name-server-port-config"></span> Get server port configuration (*GetAPIClustersClusterNameServersServerNameServerPortConfig*)
 
 ```
 GET /api/clusters/{clusterName}/servers/{serverName}/{serverPort}/config
@@ -4260,10 +4260,10 @@ GET /api/clusters/{clusterName}/servers/{serverName}/{serverPort}/config
 
 Retrieves the configuration of a specified server port within a cluster.
 
-#### Produces
+#### 2.71.1 Produces
   * application/octet-stream
 
-#### Parameters
+#### 2.71.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
@@ -4271,7 +4271,7 @@ Retrieves the configuration of a specified server port within a cluster.
 | serverName | `path` | string | `string` |  | ✓ |  | Server Name |
 | serverPort | `path` | string | `string` |  | ✓ |  | Server Port |
 
-#### All responses
+#### 2.71.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-servers-server-name-server-port-config-200) | OK | Configuration file |  | [schema](#get-api-clusters-cluster-name-servers-server-name-server-port-config-200-schema) |
@@ -4279,7 +4279,7 @@ Retrieves the configuration of a specified server port within a cluster.
 | [404](#get-api-clusters-cluster-name-servers-server-name-server-port-config-404) | Not Found | File not found |  | [schema](#get-api-clusters-cluster-name-servers-server-name-server-port-config-404-schema) |
 | [500](#get-api-clusters-cluster-name-servers-server-name-server-port-config-500) | Internal Server Error | No cluster" or "No server |  | [schema](#get-api-clusters-cluster-name-servers-server-name-server-port-config-500-schema) |
 
-#### Responses
+#### 2.71.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-servers-server-name-server-port-config-200"></span> 200 - Configuration file
@@ -4318,7 +4318,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-servers-server-name-server-port-is-master"></span> Check if a server port is a master (*GetAPIClustersClusterNameServersServerNameServerPortIsMaster*)
+### 2.72 <span id="get-api-clusters-cluster-name-servers-server-name-server-port-is-master"></span> Check if a server port is a master (*GetAPIClustersClusterNameServersServerNameServerPortIsMaster*)
 
 ```
 GET /api/clusters/{clusterName}/servers/{serverName}/{serverPort}/is-master
@@ -4326,10 +4326,10 @@ GET /api/clusters/{clusterName}/servers/{serverName}/{serverPort}/is-master
 
 Checks if a specified server port within a cluster is a master.
 
-#### Produces
+#### 2.72.1 Produces
   * text/plain
 
-#### Parameters
+#### 2.72.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
@@ -4337,14 +4337,14 @@ Checks if a specified server port within a cluster is a master.
 | serverName | `path` | string | `string` |  | ✓ |  | Server Name |
 | serverPort | `path` | string | `string` |  | ✓ |  | Server Port |
 
-#### All responses
+#### 2.72.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-servers-server-name-server-port-is-master-200) | OK | 200 -Valid Master! |  | [schema](#get-api-clusters-cluster-name-servers-server-name-server-port-is-master-200-schema) |
 | [500](#get-api-clusters-cluster-name-servers-server-name-server-port-is-master-500) | Internal Server Error | No cluster |  | [schema](#get-api-clusters-cluster-name-servers-server-name-server-port-is-master-500-schema) |
 | [503](#get-api-clusters-cluster-name-servers-server-name-server-port-is-master-503) | Service Unavailable | 503 -Not a Valid Master! |  | [schema](#get-api-clusters-cluster-name-servers-server-name-server-port-is-master-503-schema) |
 
-#### Responses
+#### 2.72.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-servers-server-name-server-port-is-master-200"></span> 200 - 200 -Valid Master!
@@ -4374,7 +4374,7 @@ Status: Service Unavailable
 
 
 
-### <span id="get-api-clusters-cluster-name-servers-server-name-server-port-is-slave"></span> Check if a server port is a slave (*GetAPIClustersClusterNameServersServerNameServerPortIsSlave*)
+### 2.73 <span id="get-api-clusters-cluster-name-servers-server-name-server-port-is-slave"></span> Check if a server port is a slave (*GetAPIClustersClusterNameServersServerNameServerPortIsSlave*)
 
 ```
 GET /api/clusters/{clusterName}/servers/{serverName}/{serverPort}/is-slave
@@ -4382,10 +4382,10 @@ GET /api/clusters/{clusterName}/servers/{serverName}/{serverPort}/is-slave
 
 Checks if a specified server port within a cluster is a slave.
 
-#### Produces
+#### 2.73.1 Produces
   * text/plain
 
-#### Parameters
+#### 2.73.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
@@ -4393,14 +4393,14 @@ Checks if a specified server port within a cluster is a slave.
 | serverName | `path` | string | `string` |  | ✓ |  | Server Name |
 | serverPort | `path` | string | `string` |  | ✓ |  | Server Port |
 
-#### All responses
+#### 2.73.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-servers-server-name-server-port-is-slave-200) | OK | 200 -Valid Slave! |  | [schema](#get-api-clusters-cluster-name-servers-server-name-server-port-is-slave-200-schema) |
 | [500](#get-api-clusters-cluster-name-servers-server-name-server-port-is-slave-500) | Internal Server Error | No cluster |  | [schema](#get-api-clusters-cluster-name-servers-server-name-server-port-is-slave-500-schema) |
 | [503](#get-api-clusters-cluster-name-servers-server-name-server-port-is-slave-503) | Service Unavailable | 503 -Not a Valid Slave! |  | [schema](#get-api-clusters-cluster-name-servers-server-name-server-port-is-slave-503-schema) |
 
-#### Responses
+#### 2.73.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-servers-server-name-server-port-is-slave-200"></span> 200 - 200 -Valid Slave!
@@ -4430,7 +4430,7 @@ Status: Service Unavailable
 
 
 
-### <span id="get-api-clusters-cluster-name-servers-server-name-server-port-need-config-change"></span> Check if a server needs a config change (*GetAPIClustersClusterNameServersServerNameServerPortNeedConfigChange*)
+### 2.74 <span id="get-api-clusters-cluster-name-servers-server-name-server-port-need-config-change"></span> Check if a server needs a config change (*GetAPIClustersClusterNameServersServerNameServerPortNeedConfigChange*)
 
 ```
 GET /api/clusters/{clusterName}/servers/{serverName}/{serverPort}/need-config-change
@@ -4438,10 +4438,10 @@ GET /api/clusters/{clusterName}/servers/{serverName}/{serverPort}/need-config-ch
 
 Checks if a specified server within a cluster needs a config change.
 
-#### Produces
+#### 2.74.1 Produces
   * text/plain
 
-#### Parameters
+#### 2.74.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
@@ -4449,13 +4449,13 @@ Checks if a specified server within a cluster needs a config change.
 | serverName | `path` | string | `string` |  | ✓ |  | Server Name |
 | serverPort | `path` | string | `string` |  | ✓ |  | Server Port |
 
-#### All responses
+#### 2.74.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-servers-server-name-server-port-need-config-change-200) | OK | 200 -Need config change! |  | [schema](#get-api-clusters-cluster-name-servers-server-name-server-port-need-config-change-200-schema) |
 | [500](#get-api-clusters-cluster-name-servers-server-name-server-port-need-config-change-500) | Internal Server Error | 500 -No config change needed!" or "500 -No valid server!" or "500 -No cluster! |  | [schema](#get-api-clusters-cluster-name-servers-server-name-server-port-need-config-change-500-schema) |
 
-#### Responses
+#### 2.74.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-servers-server-name-server-port-need-config-change-200"></span> 200 - 200 -Need config change!
@@ -4476,7 +4476,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-servers-server-name-server-port-need-prov"></span> Check if a server needs provisioning (*GetAPIClustersClusterNameServersServerNameServerPortNeedProv*)
+### 2.75 <span id="get-api-clusters-cluster-name-servers-server-name-server-port-need-prov"></span> Check if a server needs provisioning (*GetAPIClustersClusterNameServersServerNameServerPortNeedProv*)
 
 ```
 GET /api/clusters/{clusterName}/servers/{serverName}/{serverPort}/need-prov
@@ -4484,10 +4484,10 @@ GET /api/clusters/{clusterName}/servers/{serverName}/{serverPort}/need-prov
 
 Checks if a specified server within a cluster needs provisioning.
 
-#### Produces
+#### 2.75.1 Produces
   * text/plain
 
-#### Parameters
+#### 2.75.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
@@ -4495,14 +4495,14 @@ Checks if a specified server within a cluster needs provisioning.
 | serverName | `path` | string | `string` |  | ✓ |  | Server Name |
 | serverPort | `path` | string | `string` |  | ✓ |  | Server Port |
 
-#### All responses
+#### 2.75.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-servers-server-name-server-port-need-prov-200) | OK | 200 -Need provisioning! |  | [schema](#get-api-clusters-cluster-name-servers-server-name-server-port-need-prov-200-schema) |
 | [500](#get-api-clusters-cluster-name-servers-server-name-server-port-need-prov-500) | Internal Server Error | 503 -Not a Valid Server! |  | [schema](#get-api-clusters-cluster-name-servers-server-name-server-port-need-prov-500-schema) |
 | [503](#get-api-clusters-cluster-name-servers-server-name-server-port-need-prov-503) | Service Unavailable | 503 -No provisioning needed! |  | [schema](#get-api-clusters-cluster-name-servers-server-name-server-port-need-prov-503-schema) |
 
-#### Responses
+#### 2.75.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-servers-server-name-server-port-need-prov-200"></span> 200 - 200 -Need provisioning!
@@ -4532,7 +4532,7 @@ Status: Service Unavailable
 
 
 
-### <span id="get-api-clusters-cluster-name-servers-server-name-server-port-need-reprov"></span> Check if a server needs re-provisioning (*GetAPIClustersClusterNameServersServerNameServerPortNeedReprov*)
+### 2.76 <span id="get-api-clusters-cluster-name-servers-server-name-server-port-need-reprov"></span> Check if a server needs re-provisioning (*GetAPIClustersClusterNameServersServerNameServerPortNeedReprov*)
 
 ```
 GET /api/clusters/{clusterName}/servers/{serverName}/{serverPort}/need-reprov
@@ -4540,10 +4540,10 @@ GET /api/clusters/{clusterName}/servers/{serverName}/{serverPort}/need-reprov
 
 Checks if a specified server within a cluster needs re-provisioning.
 
-#### Produces
+#### 2.76.1 Produces
   * text/plain
 
-#### Parameters
+#### 2.76.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
@@ -4551,14 +4551,14 @@ Checks if a specified server within a cluster needs re-provisioning.
 | serverName | `path` | string | `string` |  | ✓ |  | Server Name |
 | serverPort | `path` | string | `string` |  | ✓ |  | Server Port |
 
-#### All responses
+#### 2.76.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-servers-server-name-server-port-need-reprov-200) | OK | 200 -Need reprov! |  | [schema](#get-api-clusters-cluster-name-servers-server-name-server-port-need-reprov-200-schema) |
 | [500](#get-api-clusters-cluster-name-servers-server-name-server-port-need-reprov-500) | Internal Server Error | 503 -Not a Valid Server! |  | [schema](#get-api-clusters-cluster-name-servers-server-name-server-port-need-reprov-500-schema) |
 | [503](#get-api-clusters-cluster-name-servers-server-name-server-port-need-reprov-503) | Service Unavailable | 503 -No reprov needed! |  | [schema](#get-api-clusters-cluster-name-servers-server-name-server-port-need-reprov-503-schema) |
 
-#### Responses
+#### 2.76.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-servers-server-name-server-port-need-reprov-200"></span> 200 - 200 -Need reprov!
@@ -4588,7 +4588,7 @@ Status: Service Unavailable
 
 
 
-### <span id="get-api-clusters-cluster-name-servers-server-name-server-port-need-restart"></span> Check if a server needs a restart (*GetAPIClustersClusterNameServersServerNameServerPortNeedRestart*)
+### 2.77 <span id="get-api-clusters-cluster-name-servers-server-name-server-port-need-restart"></span> Check if a server needs a restart (*GetAPIClustersClusterNameServersServerNameServerPortNeedRestart*)
 
 ```
 GET /api/clusters/{clusterName}/servers/{serverName}/{serverPort}/need-restart
@@ -4596,10 +4596,10 @@ GET /api/clusters/{clusterName}/servers/{serverName}/{serverPort}/need-restart
 
 Checks if a specified server within a cluster needs a restart.
 
-#### Produces
+#### 2.77.1 Produces
   * text/plain
 
-#### Parameters
+#### 2.77.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
@@ -4607,14 +4607,14 @@ Checks if a specified server within a cluster needs a restart.
 | serverName | `path` | string | `string` |  | ✓ |  | Server Name |
 | serverPort | `path` | string | `string` |  | ✓ |  | Server Port |
 
-#### All responses
+#### 2.77.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-servers-server-name-server-port-need-restart-200) | OK | 200 -Need restart! |  | [schema](#get-api-clusters-cluster-name-servers-server-name-server-port-need-restart-200-schema) |
 | [500](#get-api-clusters-cluster-name-servers-server-name-server-port-need-restart-500) | Internal Server Error | 503 -Not a Valid Server! |  | [schema](#get-api-clusters-cluster-name-servers-server-name-server-port-need-restart-500-schema) |
 | [503](#get-api-clusters-cluster-name-servers-server-name-server-port-need-restart-503) | Service Unavailable | 503 -No restart needed! |  | [schema](#get-api-clusters-cluster-name-servers-server-name-server-port-need-restart-503-schema) |
 
-#### Responses
+#### 2.77.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-servers-server-name-server-port-need-restart-200"></span> 200 - 200 -Need restart!
@@ -4644,7 +4644,7 @@ Status: Service Unavailable
 
 
 
-### <span id="get-api-clusters-cluster-name-servers-server-name-server-port-need-start"></span> Check if a server needs to start (*GetAPIClustersClusterNameServersServerNameServerPortNeedStart*)
+### 2.78 <span id="get-api-clusters-cluster-name-servers-server-name-server-port-need-start"></span> Check if a server needs to start (*GetAPIClustersClusterNameServersServerNameServerPortNeedStart*)
 
 ```
 GET /api/clusters/{clusterName}/servers/{serverName}/{serverPort}/need-start
@@ -4652,10 +4652,10 @@ GET /api/clusters/{clusterName}/servers/{serverName}/{serverPort}/need-start
 
 Checks if a specified server within a cluster needs to start.
 
-#### Produces
+#### 2.78.1 Produces
   * text/plain
 
-#### Parameters
+#### 2.78.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
@@ -4663,13 +4663,13 @@ Checks if a specified server within a cluster needs to start.
 | serverName | `path` | string | `string` |  | ✓ |  | Server Name |
 | serverPort | `path` | string | `string` |  | ✓ |  | Server Port |
 
-#### All responses
+#### 2.78.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-servers-server-name-server-port-need-start-200) | OK | 200 -Need start! |  | [schema](#get-api-clusters-cluster-name-servers-server-name-server-port-need-start-200-schema) |
 | [500](#get-api-clusters-cluster-name-servers-server-name-server-port-need-start-500) | Internal Server Error | 500 -No start needed!" or "500 -No valid server!" or "500 -No cluster! |  | [schema](#get-api-clusters-cluster-name-servers-server-name-server-port-need-start-500-schema) |
 
-#### Responses
+#### 2.78.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-servers-server-name-server-port-need-start-200"></span> 200 - 200 -Need start!
@@ -4690,7 +4690,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-servers-server-name-server-port-need-stop"></span> Check if a server needs to stop (*GetAPIClustersClusterNameServersServerNameServerPortNeedStop*)
+### 2.79 <span id="get-api-clusters-cluster-name-servers-server-name-server-port-need-stop"></span> Check if a server needs to stop (*GetAPIClustersClusterNameServersServerNameServerPortNeedStop*)
 
 ```
 GET /api/clusters/{clusterName}/servers/{serverName}/{serverPort}/need-stop
@@ -4698,10 +4698,10 @@ GET /api/clusters/{clusterName}/servers/{serverName}/{serverPort}/need-stop
 
 Checks if a specified server within a cluster needs to stop.
 
-#### Produces
+#### 2.79.1 Produces
   * text/plain
 
-#### Parameters
+#### 2.79.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
@@ -4709,13 +4709,13 @@ Checks if a specified server within a cluster needs to stop.
 | serverName | `path` | string | `string` |  | ✓ |  | Server Name |
 | serverPort | `path` | string | `string` |  | ✓ |  | Server Port |
 
-#### All responses
+#### 2.79.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-servers-server-name-server-port-need-stop-200) | OK | 200 -Need stop! |  | [schema](#get-api-clusters-cluster-name-servers-server-name-server-port-need-stop-200-schema) |
 | [500](#get-api-clusters-cluster-name-servers-server-name-server-port-need-stop-500) | Internal Server Error | 500 -No stop needed!" or "500 -No valid server!" or "500 -No cluster! |  | [schema](#get-api-clusters-cluster-name-servers-server-name-server-port-need-stop-500-schema) |
 
-#### Responses
+#### 2.79.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-servers-server-name-server-port-need-stop-200"></span> 200 - 200 -Need stop!
@@ -4736,7 +4736,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-servers-server-name-server-port-need-unprov"></span> Check if a server needs unprovisioning (*GetAPIClustersClusterNameServersServerNameServerPortNeedUnprov*)
+### 2.80 <span id="get-api-clusters-cluster-name-servers-server-name-server-port-need-unprov"></span> Check if a server needs unprovisioning (*GetAPIClustersClusterNameServersServerNameServerPortNeedUnprov*)
 
 ```
 GET /api/clusters/{clusterName}/servers/{serverName}/{serverPort}/need-unprov
@@ -4744,10 +4744,10 @@ GET /api/clusters/{clusterName}/servers/{serverName}/{serverPort}/need-unprov
 
 Checks if a specified server within a cluster needs unprovisioning.
 
-#### Produces
+#### 2.80.1 Produces
   * text/plain
 
-#### Parameters
+#### 2.80.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
@@ -4755,14 +4755,14 @@ Checks if a specified server within a cluster needs unprovisioning.
 | serverName | `path` | string | `string` |  | ✓ |  | Server Name |
 | serverPort | `path` | string | `string` |  | ✓ |  | Server Port |
 
-#### All responses
+#### 2.80.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-servers-server-name-server-port-need-unprov-200) | OK | 200 -Need unprov! |  | [schema](#get-api-clusters-cluster-name-servers-server-name-server-port-need-unprov-200-schema) |
 | [500](#get-api-clusters-cluster-name-servers-server-name-server-port-need-unprov-500) | Internal Server Error | 503 -Not a Valid Server! |  | [schema](#get-api-clusters-cluster-name-servers-server-name-server-port-need-unprov-500-schema) |
 | [503](#get-api-clusters-cluster-name-servers-server-name-server-port-need-unprov-503) | Service Unavailable | 503 -No unprov needed! |  | [schema](#get-api-clusters-cluster-name-servers-server-name-server-port-need-unprov-503-schema) |
 
-#### Responses
+#### 2.80.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-servers-server-name-server-port-need-unprov-200"></span> 200 - 200 -Need unprov!
@@ -4792,7 +4792,7 @@ Status: Service Unavailable
 
 
 
-### <span id="get-api-clusters-cluster-name-servers-server-name-service-opensvc"></span> Get database service configuration of a server (*GetAPIClustersClusterNameServersServerNameServiceOpensvc*)
+### 2.81 <span id="get-api-clusters-cluster-name-servers-server-name-service-opensvc"></span> Get database service configuration of a server (*GetAPIClustersClusterNameServersServerNameServiceOpensvc*)
 
 ```
 GET /api/clusters/{clusterName}/servers/{serverName}/service-opensvc
@@ -4800,24 +4800,24 @@ GET /api/clusters/{clusterName}/servers/{serverName}/service-opensvc
 
 Retrieves the database service configuration of a specified server within a cluster.
 
-#### Produces
+#### 2.81.1 Produces
   * application/json
 
-#### Parameters
+#### 2.81.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 | serverName | `path` | string | `string` |  | ✓ |  | Server Name |
 
-#### All responses
+#### 2.81.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-servers-server-name-service-opensvc-200) | OK | Database service configuration retrieved successfully |  | [schema](#get-api-clusters-cluster-name-servers-server-name-service-opensvc-200-schema) |
 | [403](#get-api-clusters-cluster-name-servers-server-name-service-opensvc-403) | Forbidden | No valid ACL |  | [schema](#get-api-clusters-cluster-name-servers-server-name-service-opensvc-403-schema) |
 | [500](#get-api-clusters-cluster-name-servers-server-name-service-opensvc-500) | Internal Server Error | Cluster Not Found" or "Server Not Found |  | [schema](#get-api-clusters-cluster-name-servers-server-name-service-opensvc-500-schema) |
 
-#### Responses
+#### 2.81.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-servers-server-name-service-opensvc-200"></span> 200 - Database service configuration retrieved successfully
@@ -4847,7 +4847,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-servers-server-name-slow-queries"></span> Get slow log of a server (*GetAPIClustersClusterNameServersServerNameSlowQueries*)
+### 2.82 <span id="get-api-clusters-cluster-name-servers-server-name-slow-queries"></span> Get slow log of a server (*GetAPIClustersClusterNameServersServerNameSlowQueries*)
 
 ```
 GET /api/clusters/{clusterName}/servers/{serverName}/slow-queries
@@ -4855,24 +4855,24 @@ GET /api/clusters/{clusterName}/servers/{serverName}/slow-queries
 
 Retrieves the slow log of a specified server within a cluster.
 
-#### Produces
+#### 2.82.1 Produces
   * application/json
 
-#### Parameters
+#### 2.82.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 | serverName | `path` | string | `string` |  | ✓ |  | Server Name |
 
-#### All responses
+#### 2.82.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-servers-server-name-slow-queries-200) | OK | Slow log retrieved successfully |  | [schema](#get-api-clusters-cluster-name-servers-server-name-slow-queries-200-schema) |
 | [403](#get-api-clusters-cluster-name-servers-server-name-slow-queries-403) | Forbidden | No valid ACL |  | [schema](#get-api-clusters-cluster-name-servers-server-name-slow-queries-403-schema) |
 | [500](#get-api-clusters-cluster-name-servers-server-name-slow-queries-500) | Internal Server Error | Cluster Not Found" or "Server Not Found" or "Encoding error |  | [schema](#get-api-clusters-cluster-name-servers-server-name-slow-queries-500-schema) |
 
-#### Responses
+#### 2.82.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-servers-server-name-slow-queries-200"></span> 200 - Slow log retrieved successfully
@@ -4902,7 +4902,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-servers-server-name-status"></span> Get status of a server (*GetAPIClustersClusterNameServersServerNameStatus*)
+### 2.83 <span id="get-api-clusters-cluster-name-servers-server-name-status"></span> Get status of a server (*GetAPIClustersClusterNameServersServerNameStatus*)
 
 ```
 GET /api/clusters/{clusterName}/servers/{serverName}/status
@@ -4910,24 +4910,24 @@ GET /api/clusters/{clusterName}/servers/{serverName}/status
 
 Retrieves the status of a specified server within a cluster.
 
-#### Produces
+#### 2.83.1 Produces
   * application/json
 
-#### Parameters
+#### 2.83.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 | serverName | `path` | string | `string` |  | ✓ |  | Server Name |
 
-#### All responses
+#### 2.83.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-servers-server-name-status-200) | OK | Status retrieved successfully |  | [schema](#get-api-clusters-cluster-name-servers-server-name-status-200-schema) |
 | [403](#get-api-clusters-cluster-name-servers-server-name-status-403) | Forbidden | No valid ACL |  | [schema](#get-api-clusters-cluster-name-servers-server-name-status-403-schema) |
 | [500](#get-api-clusters-cluster-name-servers-server-name-status-500) | Internal Server Error | Cluster Not Found" or "Server Not Found" or "Encoding error |  | [schema](#get-api-clusters-cluster-name-servers-server-name-status-500-schema) |
 
-#### Responses
+#### 2.83.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-servers-server-name-status-200"></span> 200 - Status retrieved successfully
@@ -4957,7 +4957,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-servers-server-name-status-delta"></span> Get status delta of a server (*GetAPIClustersClusterNameServersServerNameStatusDelta*)
+### 2.84 <span id="get-api-clusters-cluster-name-servers-server-name-status-delta"></span> Get status delta of a server (*GetAPIClustersClusterNameServersServerNameStatusDelta*)
 
 ```
 GET /api/clusters/{clusterName}/servers/{serverName}/status-delta
@@ -4965,24 +4965,24 @@ GET /api/clusters/{clusterName}/servers/{serverName}/status-delta
 
 Retrieves the status delta of a specified server within a cluster.
 
-#### Produces
+#### 2.84.1 Produces
   * application/json
 
-#### Parameters
+#### 2.84.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 | serverName | `path` | string | `string` |  | ✓ |  | Server Name |
 
-#### All responses
+#### 2.84.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-servers-server-name-status-delta-200) | OK | Status delta retrieved successfully |  | [schema](#get-api-clusters-cluster-name-servers-server-name-status-delta-200-schema) |
 | [403](#get-api-clusters-cluster-name-servers-server-name-status-delta-403) | Forbidden | No valid ACL |  | [schema](#get-api-clusters-cluster-name-servers-server-name-status-delta-403-schema) |
 | [500](#get-api-clusters-cluster-name-servers-server-name-status-delta-500) | Internal Server Error | Cluster Not Found" or "Server Not Found" or "Encoding error |  | [schema](#get-api-clusters-cluster-name-servers-server-name-status-delta-500-schema) |
 
-#### Responses
+#### 2.84.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-servers-server-name-status-delta-200"></span> 200 - Status delta retrieved successfully
@@ -5012,7 +5012,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-servers-server-name-status-innodb"></span> Get InnoDB status of a server (*GetAPIClustersClusterNameServersServerNameStatusInnodb*)
+### 2.85 <span id="get-api-clusters-cluster-name-servers-server-name-status-innodb"></span> Get InnoDB status of a server (*GetAPIClustersClusterNameServersServerNameStatusInnodb*)
 
 ```
 GET /api/clusters/{clusterName}/servers/{serverName}/status-innodb
@@ -5020,24 +5020,24 @@ GET /api/clusters/{clusterName}/servers/{serverName}/status-innodb
 
 Retrieves the InnoDB status of a specified server within a cluster.
 
-#### Produces
+#### 2.85.1 Produces
   * application/json
 
-#### Parameters
+#### 2.85.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 | serverName | `path` | string | `string` |  | ✓ |  | Server Name |
 
-#### All responses
+#### 2.85.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-servers-server-name-status-innodb-200) | OK | InnoDB status retrieved successfully |  | [schema](#get-api-clusters-cluster-name-servers-server-name-status-innodb-200-schema) |
 | [403](#get-api-clusters-cluster-name-servers-server-name-status-innodb-403) | Forbidden | No valid ACL |  | [schema](#get-api-clusters-cluster-name-servers-server-name-status-innodb-403-schema) |
 | [500](#get-api-clusters-cluster-name-servers-server-name-status-innodb-500) | Internal Server Error | Cluster Not Found" or "Server Not Found" or "Encoding error |  | [schema](#get-api-clusters-cluster-name-servers-server-name-status-innodb-500-schema) |
 
-#### Responses
+#### 2.85.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-servers-server-name-status-innodb-200"></span> 200 - InnoDB status retrieved successfully
@@ -5067,7 +5067,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-servers-server-name-tables"></span> Get tables of a server (*GetAPIClustersClusterNameServersServerNameTables*)
+### 2.86 <span id="get-api-clusters-cluster-name-servers-server-name-tables"></span> Get tables of a server (*GetAPIClustersClusterNameServersServerNameTables*)
 
 ```
 GET /api/clusters/{clusterName}/servers/{serverName}/tables
@@ -5075,24 +5075,24 @@ GET /api/clusters/{clusterName}/servers/{serverName}/tables
 
 Retrieves the tables of a specified server within a cluster.
 
-#### Produces
+#### 2.86.1 Produces
   * application/json
 
-#### Parameters
+#### 2.86.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 | serverName | `path` | string | `string` |  | ✓ |  | Server Name |
 
-#### All responses
+#### 2.86.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-servers-server-name-tables-200) | OK | Tables retrieved successfully |  | [schema](#get-api-clusters-cluster-name-servers-server-name-tables-200-schema) |
 | [403](#get-api-clusters-cluster-name-servers-server-name-tables-403) | Forbidden | No valid ACL |  | [schema](#get-api-clusters-cluster-name-servers-server-name-tables-403-schema) |
 | [500](#get-api-clusters-cluster-name-servers-server-name-tables-500) | Internal Server Error | Cluster Not Found" or "Server Not Found" or "Encoding error |  | [schema](#get-api-clusters-cluster-name-servers-server-name-tables-500-schema) |
 
-#### Responses
+#### 2.86.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-servers-server-name-tables-200"></span> 200 - Tables retrieved successfully
@@ -5122,7 +5122,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-servers-server-name-variables"></span> Get variables of a server (*GetAPIClustersClusterNameServersServerNameVariables*)
+### 2.87 <span id="get-api-clusters-cluster-name-servers-server-name-variables"></span> Get variables of a server (*GetAPIClustersClusterNameServersServerNameVariables*)
 
 ```
 GET /api/clusters/{clusterName}/servers/{serverName}/variables
@@ -5130,24 +5130,24 @@ GET /api/clusters/{clusterName}/servers/{serverName}/variables
 
 Retrieves the variables of a specified server within a cluster.
 
-#### Produces
+#### 2.87.1 Produces
   * application/json
 
-#### Parameters
+#### 2.87.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 | serverName | `path` | string | `string` |  | ✓ |  | Server Name |
 
-#### All responses
+#### 2.87.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-servers-server-name-variables-200) | OK | Variables retrieved successfully |  | [schema](#get-api-clusters-cluster-name-servers-server-name-variables-200-schema) |
 | [403](#get-api-clusters-cluster-name-servers-server-name-variables-403) | Forbidden | No valid ACL |  | [schema](#get-api-clusters-cluster-name-servers-server-name-variables-403-schema) |
 | [500](#get-api-clusters-cluster-name-servers-server-name-variables-500) | Internal Server Error | Cluster Not Found" or "Server Not Found" or "Encoding error |  | [schema](#get-api-clusters-cluster-name-servers-server-name-variables-500-schema) |
 
-#### Responses
+#### 2.87.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-servers-server-name-variables-200"></span> 200 - Variables retrieved successfully
@@ -5177,7 +5177,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-servers-server-name-vtables"></span> Get virtual tables of a server (*GetAPIClustersClusterNameServersServerNameVtables*)
+### 2.88 <span id="get-api-clusters-cluster-name-servers-server-name-vtables"></span> Get virtual tables of a server (*GetAPIClustersClusterNameServersServerNameVtables*)
 
 ```
 GET /api/clusters/{clusterName}/servers/{serverName}/vtables
@@ -5185,24 +5185,24 @@ GET /api/clusters/{clusterName}/servers/{serverName}/vtables
 
 Retrieves the virtual tables of a specified server within a cluster.
 
-#### Produces
+#### 2.88.1 Produces
   * application/json
 
-#### Parameters
+#### 2.88.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 | serverName | `path` | string | `string` |  | ✓ |  | Server Name |
 
-#### All responses
+#### 2.88.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-servers-server-name-vtables-200) | OK | Virtual tables retrieved successfully |  | [schema](#get-api-clusters-cluster-name-servers-server-name-vtables-200-schema) |
 | [403](#get-api-clusters-cluster-name-servers-server-name-vtables-403) | Forbidden | No valid ACL |  | [schema](#get-api-clusters-cluster-name-servers-server-name-vtables-403-schema) |
 | [500](#get-api-clusters-cluster-name-servers-server-name-vtables-500) | Internal Server Error | Cluster Not Found" or "Server Not Found" or "Encoding error |  | [schema](#get-api-clusters-cluster-name-servers-server-name-vtables-500-schema) |
 
-#### Responses
+#### 2.88.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-servers-server-name-vtables-200"></span> 200 - Virtual tables retrieved successfully
@@ -5232,7 +5232,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-settings"></span> Retrieve settings for a specific cluster (*GetAPIClustersClusterNameSettings*)
+### 2.89 <span id="get-api-clusters-cluster-name-settings"></span> Retrieve settings for a specific cluster (*GetAPIClustersClusterNameSettings*)
 
 ```
 GET /api/clusters/{clusterName}/settings
@@ -5240,23 +5240,23 @@ GET /api/clusters/{clusterName}/settings
 
 This endpoint retrieves the settings for the specified cluster.
 
-#### Produces
+#### 2.89.1 Produces
   * application/json
 
-#### Parameters
+#### 2.89.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 
-#### All responses
+#### 2.89.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-settings-200) | OK | Cluster settings |  | [schema](#get-api-clusters-cluster-name-settings-200-schema) |
 | [403](#get-api-clusters-cluster-name-settings-403) | Forbidden | No valid ACL |  | [schema](#get-api-clusters-cluster-name-settings-403-schema) |
 | [500](#get-api-clusters-cluster-name-settings-500) | Internal Server Error | No cluster |  | [schema](#get-api-clusters-cluster-name-settings-500-schema) |
 
-#### Responses
+#### 2.89.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-settings-200"></span> 200 - Cluster settings
@@ -5286,7 +5286,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-shardclusters"></span> Retrieve shard clusters for a specific cluster (*GetAPIClustersClusterNameShardclusters*)
+### 2.90 <span id="get-api-clusters-cluster-name-shardclusters"></span> Retrieve shard clusters for a specific cluster (*GetAPIClustersClusterNameShardclusters*)
 
 ```
 GET /api/clusters/{clusterName}/shardclusters
@@ -5294,23 +5294,23 @@ GET /api/clusters/{clusterName}/shardclusters
 
 This endpoint retrieves the shard clusters for the specified cluster.
 
-#### Produces
+#### 2.90.1 Produces
   * application/json
 
-#### Parameters
+#### 2.90.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 
-#### All responses
+#### 2.90.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-shardclusters-200) | OK | List of shard clusters |  | [schema](#get-api-clusters-cluster-name-shardclusters-200-schema) |
 | [403](#get-api-clusters-cluster-name-shardclusters-403) | Forbidden | No valid ACL |  | [schema](#get-api-clusters-cluster-name-shardclusters-403-schema) |
 | [500](#get-api-clusters-cluster-name-shardclusters-500) | Internal Server Error | No cluster |  | [schema](#get-api-clusters-cluster-name-shardclusters-500-schema) |
 
-#### Responses
+#### 2.90.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-shardclusters-200"></span> 200 - List of shard clusters
@@ -5340,7 +5340,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-sphinx-indexes"></span> Get Sphinx Indexes (*GetAPIClustersClusterNameSphinxIndexes*)
+### 2.91 <span id="get-api-clusters-cluster-name-sphinx-indexes"></span> Get Sphinx Indexes (*GetAPIClustersClusterNameSphinxIndexes*)
 
 ```
 GET /api/clusters/{clusterName}/sphinx/indexes
@@ -5348,19 +5348,19 @@ GET /api/clusters/{clusterName}/sphinx/indexes
 
 Get the Sphinx indexes for a given cluster
 
-#### Consumes
+#### 2.91.1 Consumes
   * application/json
 
-#### Produces
+#### 2.91.2 Produces
   * application/json
 
-#### Parameters
+#### 2.91.3 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 
-#### All responses
+#### 2.91.4 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-sphinx-indexes-200) | OK | Sphinx Indexes |  | [schema](#get-api-clusters-cluster-name-sphinx-indexes-200-schema) |
@@ -5368,7 +5368,7 @@ Get the Sphinx indexes for a given cluster
 | [404](#get-api-clusters-cluster-name-sphinx-indexes-404) | Not Found | Something went wrong |  | [schema](#get-api-clusters-cluster-name-sphinx-indexes-404-schema) |
 | [500](#get-api-clusters-cluster-name-sphinx-indexes-500) | Internal Server Error | Cluster Not Found |  | [schema](#get-api-clusters-cluster-name-sphinx-indexes-500-schema) |
 
-#### Responses
+#### 2.91.5 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-sphinx-indexes-200"></span> 200 - Sphinx Indexes
@@ -5407,7 +5407,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-status"></span> Retrieve status of a cluster (*GetAPIClustersClusterNameStatus*)
+### 2.92 <span id="get-api-clusters-cluster-name-status"></span> Retrieve status of a cluster (*GetAPIClustersClusterNameStatus*)
 
 ```
 GET /api/clusters/{clusterName}/status
@@ -5415,22 +5415,22 @@ GET /api/clusters/{clusterName}/status
 
 This endpoint retrieves the status of a specified cluster and returns it in JSON format.
 
-#### Produces
+#### 2.92.1 Produces
   * application/json
 
-#### Parameters
+#### 2.92.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 
-#### All responses
+#### 2.92.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-status-200) | OK | Cluster status |  | [schema](#get-api-clusters-cluster-name-status-200-schema) |
 | [400](#get-api-clusters-cluster-name-status-400) | Bad Request | No cluster found |  | [schema](#get-api-clusters-cluster-name-status-400-schema) |
 
-#### Responses
+#### 2.92.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-status-200"></span> 200 - Cluster status
@@ -5451,7 +5451,7 @@ Status: Bad Request
 
 
 
-### <span id="get-api-clusters-cluster-name-tags"></span> Retrieve tags for a specific cluster (*GetAPIClustersClusterNameTags*)
+### 2.93 <span id="get-api-clusters-cluster-name-tags"></span> Retrieve tags for a specific cluster (*GetAPIClustersClusterNameTags*)
 
 ```
 GET /api/clusters/{clusterName}/tags
@@ -5459,22 +5459,22 @@ GET /api/clusters/{clusterName}/tags
 
 This endpoint retrieves the tags for the specified cluster.
 
-#### Produces
+#### 2.93.1 Produces
   * application/json
 
-#### Parameters
+#### 2.93.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 
-#### All responses
+#### 2.93.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-tags-200) | OK | List of tags |  | [schema](#get-api-clusters-cluster-name-tags-200-schema) |
 | [500](#get-api-clusters-cluster-name-tags-500) | Internal Server Error | Internal Server Error |  | [schema](#get-api-clusters-cluster-name-tags-500-schema) |
 
-#### Responses
+#### 2.93.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-tags-200"></span> 200 - List of tags
@@ -5495,7 +5495,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-top"></span> Retrieve top metrics for a specific cluster (*GetAPIClustersClusterNameTop*)
+### 2.94 <span id="get-api-clusters-cluster-name-top"></span> Retrieve top metrics for a specific cluster (*GetAPIClustersClusterNameTop*)
 
 ```
 GET /api/clusters/{clusterName}/top
@@ -5503,24 +5503,24 @@ GET /api/clusters/{clusterName}/top
 
 This endpoint retrieves the top metrics for the specified cluster.
 
-#### Produces
+#### 2.94.1 Produces
   * application/json
 
-#### Parameters
+#### 2.94.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 | serverName | `query` | string | `string` |  |  |  | Server Name |
 
-#### All responses
+#### 2.94.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-top-200) | OK | Top metrics |  | [schema](#get-api-clusters-cluster-name-top-200-schema) |
 | [403](#get-api-clusters-cluster-name-top-403) | Forbidden | No valid ACL |  | [schema](#get-api-clusters-cluster-name-top-403-schema) |
 | [500](#get-api-clusters-cluster-name-top-500) | Internal Server Error | No cluster |  | [schema](#get-api-clusters-cluster-name-top-500-schema) |
 
-#### Responses
+#### 2.94.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-top-200"></span> 200 - Top metrics
@@ -5550,7 +5550,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-topology-alerts"></span> Shows the alerts for that specific named cluster (*GetAPIClustersClusterNameTopologyAlerts*)
+### 2.95 <span id="get-api-clusters-cluster-name-topology-alerts"></span> Shows the alerts for that specific named cluster (*GetAPIClustersClusterNameTopologyAlerts*)
 
 ```
 GET /api/clusters/{clusterName}/topology/alerts
@@ -5558,19 +5558,19 @@ GET /api/clusters/{clusterName}/topology/alerts
 
 Shows the alerts for that specific named cluster
 
-#### Parameters
+#### 2.95.1 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 
-#### All responses
+#### 2.95.2 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-topology-alerts-200) | OK | A list of alerts |  | [schema](#get-api-clusters-cluster-name-topology-alerts-200-schema) |
 | [500](#get-api-clusters-cluster-name-topology-alerts-500) | Internal Server Error | Internal Server Error |  | [schema](#get-api-clusters-cluster-name-topology-alerts-500-schema) |
 
-#### Responses
+#### 2.95.3 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-topology-alerts-200"></span> 200 - A list of alerts
@@ -5591,7 +5591,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-topology-crashes"></span> Retrieve crashes for a specific cluster (*GetAPIClustersClusterNameTopologyCrashes*)
+### 2.96 <span id="get-api-clusters-cluster-name-topology-crashes"></span> Retrieve crashes for a specific cluster (*GetAPIClustersClusterNameTopologyCrashes*)
 
 ```
 GET /api/clusters/{clusterName}/topology/crashes
@@ -5599,22 +5599,22 @@ GET /api/clusters/{clusterName}/topology/crashes
 
 This endpoint retrieves the crashes for the specified cluster.
 
-#### Produces
+#### 2.96.1 Produces
   * application/json
 
-#### Parameters
+#### 2.96.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 
-#### All responses
+#### 2.96.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-topology-crashes-200) | OK | List of crashes |  | [schema](#get-api-clusters-cluster-name-topology-crashes-200-schema) |
 | [500](#get-api-clusters-cluster-name-topology-crashes-500) | Internal Server Error | Cluster Not Found |  | [schema](#get-api-clusters-cluster-name-topology-crashes-500-schema) |
 
-#### Responses
+#### 2.96.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-topology-crashes-200"></span> 200 - List of crashes
@@ -5635,7 +5635,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-topology-logs"></span> Retrieve logs for a specific cluster (*GetAPIClustersClusterNameTopologyLogs*)
+### 2.97 <span id="get-api-clusters-cluster-name-topology-logs"></span> Retrieve logs for a specific cluster (*GetAPIClustersClusterNameTopologyLogs*)
 
 ```
 GET /api/clusters/{clusterName}/topology/logs
@@ -5643,22 +5643,22 @@ GET /api/clusters/{clusterName}/topology/logs
 
 This endpoint retrieves the logs for the specified cluster.
 
-#### Produces
+#### 2.97.1 Produces
   * application/json
 
-#### Parameters
+#### 2.97.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 
-#### All responses
+#### 2.97.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-topology-logs-200) | OK | List of logs |  | [schema](#get-api-clusters-cluster-name-topology-logs-200-schema) |
 | [500](#get-api-clusters-cluster-name-topology-logs-500) | Internal Server Error | Internal Server Error |  | [schema](#get-api-clusters-cluster-name-topology-logs-500-schema) |
 
-#### Responses
+#### 2.97.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-topology-logs-200"></span> 200 - List of logs
@@ -5679,7 +5679,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-topology-master"></span> Retrieve master of a cluster (*GetAPIClustersClusterNameTopologyMaster*)
+### 2.98 <span id="get-api-clusters-cluster-name-topology-master"></span> Retrieve master of a cluster (*GetAPIClustersClusterNameTopologyMaster*)
 
 ```
 GET /api/clusters/{clusterName}/topology/master
@@ -5687,22 +5687,22 @@ GET /api/clusters/{clusterName}/topology/master
 
 This endpoint retrieves the master of a specified cluster and returns it in JSON format.
 
-#### Produces
+#### 2.98.1 Produces
   * application/json
 
-#### Parameters
+#### 2.98.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 
-#### All responses
+#### 2.98.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-topology-master-200) | OK | Master server |  | [schema](#get-api-clusters-cluster-name-topology-master-200-schema) |
 | [500](#get-api-clusters-cluster-name-topology-master-500) | Internal Server Error | Internal Server Error |  | [schema](#get-api-clusters-cluster-name-topology-master-500-schema) |
 
-#### Responses
+#### 2.98.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-topology-master-200"></span> 200 - Master server
@@ -5723,7 +5723,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-topology-proxies"></span> Shows the proxies for that specific named cluster (*GetAPIClustersClusterNameTopologyProxies*)
+### 2.99 <span id="get-api-clusters-cluster-name-topology-proxies"></span> Shows the proxies for that specific named cluster (*GetAPIClustersClusterNameTopologyProxies*)
 
 ```
 GET /api/clusters/{clusterName}/topology/proxies
@@ -5731,19 +5731,19 @@ GET /api/clusters/{clusterName}/topology/proxies
 
 Shows the proxies for that specific named cluster
 
-#### Parameters
+#### 2.99.1 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 
-#### All responses
+#### 2.99.2 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-topology-proxies-200) | OK | A list of proxies |  | [schema](#get-api-clusters-cluster-name-topology-proxies-200-schema) |
 | [500](#get-api-clusters-cluster-name-topology-proxies-500) | Internal Server Error | Internal Server Error |  | [schema](#get-api-clusters-cluster-name-topology-proxies-500-schema) |
 
-#### Responses
+#### 2.99.3 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-topology-proxies-200"></span> 200 - A list of proxies
@@ -5764,7 +5764,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-topology-servers"></span> Retrieve servers for a specific cluster (*GetAPIClustersClusterNameTopologyServers*)
+### 2.100 <span id="get-api-clusters-cluster-name-topology-servers"></span> Retrieve servers for a specific cluster (*GetAPIClustersClusterNameTopologyServers*)
 
 ```
 GET /api/clusters/{clusterName}/topology/servers
@@ -5772,22 +5772,22 @@ GET /api/clusters/{clusterName}/topology/servers
 
 This endpoint retrieves the servers for the specified cluster.
 
-#### Produces
+#### 2.100.1 Produces
   * application/json
 
-#### Parameters
+#### 2.100.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 
-#### All responses
+#### 2.100.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-topology-servers-200) | OK | List of servers |  | [schema](#get-api-clusters-cluster-name-topology-servers-200-schema) |
 | [500](#get-api-clusters-cluster-name-topology-servers-500) | Internal Server Error | Internal Server Error |  | [schema](#get-api-clusters-cluster-name-topology-servers-500-schema) |
 
-#### Responses
+#### 2.100.4 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-topology-servers-200"></span> 200 - List of servers
@@ -5808,7 +5808,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-cluster-name-topology-slaves"></span> Shows the slaves for that specific named cluster (*GetAPIClustersClusterNameTopologySlaves*)
+### 2.101 <span id="get-api-clusters-cluster-name-topology-slaves"></span> Shows the slaves for that specific named cluster (*GetAPIClustersClusterNameTopologySlaves*)
 
 ```
 GET /api/clusters/{clusterName}/topology/slaves
@@ -5816,19 +5816,19 @@ GET /api/clusters/{clusterName}/topology/slaves
 
 Shows the slaves for that specific named cluster
 
-#### Parameters
+#### 2.101.1 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 
-#### All responses
+#### 2.101.2 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-cluster-name-topology-slaves-200) | OK | A list of slaves |  | [schema](#get-api-clusters-cluster-name-topology-slaves-200-schema) |
 | [500](#get-api-clusters-cluster-name-topology-slaves-500) | Internal Server Error | Internal Server Error |  | [schema](#get-api-clusters-cluster-name-topology-slaves-500-schema) |
 
-#### Responses
+#### 2.101.3 Responses
 
 
 ##### <span id="get-api-clusters-cluster-name-topology-slaves-200"></span> 200 - A list of slaves
@@ -5849,7 +5849,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-for-sale"></span> Retrieve peer clusters for sale (*GetAPIClustersForSale*)
+### 2.102 <span id="get-api-clusters-for-sale"></span> Retrieve peer clusters for sale (*GetAPIClustersForSale*)
 
 ```
 GET /api/clusters/for-sale
@@ -5857,23 +5857,23 @@ GET /api/clusters/for-sale
 
 This endpoint returns a list of peer clusters that are available for sale, excluding those that are booked by the requesting user.
 
-#### Produces
+#### 2.102.1 Produces
   * application/json
 
-#### Parameters
+#### 2.102.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | Authorization | `header` | string | `string` |  | ✓ |  | JWT token |
 
-#### All responses
+#### 2.102.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-for-sale-200) | OK | List of peer clusters available for sale |  | [schema](#get-api-clusters-for-sale-200-schema) |
 | [401](#get-api-clusters-for-sale-401) | Unauthorized | Unauthenticated resource |  | [schema](#get-api-clusters-for-sale-401-schema) |
 | [500](#get-api-clusters-for-sale-500) | Internal Server Error | Failed to get token claims or Error Marshal |  | [schema](#get-api-clusters-for-sale-500-schema) |
 
-#### Responses
+#### 2.102.4 Responses
 
 
 ##### <span id="get-api-clusters-for-sale-200"></span> 200 - List of peer clusters available for sale
@@ -5903,7 +5903,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-clusters-peers"></span> Retrieve peer clusters for a user (*GetAPIClustersPeers*)
+### 2.103 <span id="get-api-clusters-peers"></span> Retrieve peer clusters for a user (*GetAPIClustersPeers*)
 
 ```
 GET /api/clusters/peers
@@ -5911,23 +5911,23 @@ GET /api/clusters/peers
 
 This endpoint retrieves the peer clusters that a user has access to.
 
-#### Produces
+#### 2.103.1 Produces
   * application/json
 
-#### Parameters
+#### 2.103.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | Authorization | `header` | string | `string` |  | ✓ |  | Bearer token |
 
-#### All responses
+#### 2.103.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-clusters-peers-200) | OK | List of peer clusters |  | [schema](#get-api-clusters-peers-200-schema) |
 | [401](#get-api-clusters-peers-401) | Unauthorized | Unauthenticated resource |  | [schema](#get-api-clusters-peers-401-schema) |
 | [500](#get-api-clusters-peers-500) | Internal Server Error | Failed to get token claims or Error Marshal |  | [schema](#get-api-clusters-peers-500-schema) |
 
-#### Responses
+#### 2.103.4 Responses
 
 
 ##### <span id="get-api-clusters-peers-200"></span> 200 - List of peer clusters
@@ -5957,7 +5957,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-configs-grafana"></span> List Grafana files (*GetAPIConfigsGrafana*)
+### 2.104 <span id="get-api-configs-grafana"></span> List Grafana files (*GetAPIConfigsGrafana*)
 
 ```
 GET /api/configs/grafana
@@ -5965,16 +5965,16 @@ GET /api/configs/grafana
 
 Returns a list of Grafana files from the specified directory.
 
-#### Produces
+#### 2.104.1 Produces
   * application/json
 
-#### All responses
+#### 2.104.2 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-configs-grafana-200) | OK | List of Grafana files |  | [schema](#get-api-configs-grafana-200-schema) |
 | [500](#get-api-configs-grafana-500) | Internal Server Error | Internal Server Error |  | [schema](#get-api-configs-grafana-500-schema) |
 
-#### Responses
+#### 2.104.3 Responses
 
 
 ##### <span id="get-api-configs-grafana-200"></span> 200 - List of Grafana files
@@ -5995,7 +5995,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-heartbeat"></span> Monitor Heartbeat (*GetAPIHeartbeat*)
+### 2.105 <span id="get-api-heartbeat"></span> Monitor Heartbeat (*GetAPIHeartbeat*)
 
 ```
 GET /api/heartbeat
@@ -6003,19 +6003,19 @@ GET /api/heartbeat
 
 Returns the heartbeat status of the replication manager.
 
-#### Consumes
+#### 2.105.1 Consumes
   * application/json
 
-#### Produces
+#### 2.105.2 Produces
   * application/json
 
-#### All responses
+#### 2.105.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-heartbeat-200) | OK | OK |  | [schema](#get-api-heartbeat-200-schema) |
 | [500](#get-api-heartbeat-500) | Internal Server Error | Internal Server Error |  | [schema](#get-api-heartbeat-500-schema) |
 
-#### Responses
+#### 2.105.4 Responses
 
 
 ##### <span id="get-api-heartbeat-200"></span> 200 - OK
@@ -6036,7 +6036,7 @@ Status: Internal Server Error
 
 map of string
 
-### <span id="get-api-monitor"></span> Handles replication manager requests (*GetAPIMonitor*)
+### 2.106 <span id="get-api-monitor"></span> Handles replication manager requests (*GetAPIMonitor*)
 
 ```
 GET /api/monitor
@@ -6044,19 +6044,19 @@ GET /api/monitor
 
 This endpoint processes the replication manager requests, validates cluster ACLs, and returns the cluster list in JSON format.
 
-#### Consumes
+#### 2.106.1 Consumes
   * application/json
 
-#### Produces
+#### 2.106.2 Produces
   * application/json
 
-#### All responses
+#### 2.106.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-monitor-200) | OK | Successful response with replication manager details |  | [schema](#get-api-monitor-200-schema) |
 | [500](#get-api-monitor-500) | Internal Server Error | Internal Server Error |  | [schema](#get-api-monitor-500-schema) |
 
-#### Responses
+#### 2.106.4 Responses
 
 
 ##### <span id="get-api-monitor-200"></span> 200 - Successful response with replication manager details
@@ -6077,7 +6077,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-prometheus"></span> Fetch Prometheus metrics (*GetAPIPrometheus*)
+### 2.107 <span id="get-api-prometheus"></span> Fetch Prometheus metrics (*GetAPIPrometheus*)
 
 ```
 GET /api/prometheus
@@ -6085,16 +6085,16 @@ GET /api/prometheus
 
 Fetches Prometheus metrics for all servers in all clusters managed by the replication manager.
 
-#### Produces
+#### 2.107.1 Produces
   * text/plain
 
-#### All responses
+#### 2.107.2 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-prometheus-200) | OK | Prometheus metrics |  | [schema](#get-api-prometheus-200-schema) |
 | [500](#get-api-prometheus-500) | Internal Server Error | Internal Server Error |  | [schema](#get-api-prometheus-500-schema) |
 
-#### Responses
+#### 2.107.3 Responses
 
 
 ##### <span id="get-api-prometheus-200"></span> 200 - Prometheus metrics
@@ -6115,7 +6115,7 @@ Status: Internal Server Error
 
 
 
-### <span id="get-api-repocomp-current"></span> Retrieve current repository component (*GetAPIRepocompCurrent*)
+### 2.108 <span id="get-api-repocomp-current"></span> Retrieve current repository component (*GetAPIRepocompCurrent*)
 
 ```
 GET /api/repocomp/current
@@ -6123,16 +6123,16 @@ GET /api/repocomp/current
 
 Reads the current repository component from the specified directory and returns its content.
 
-#### Produces
+#### 2.108.1 Produces
   * text/plain
 
-#### All responses
+#### 2.108.2 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-repocomp-current-200) | OK | Current repository component content |  | [schema](#get-api-repocomp-current-200-schema) |
 | [404](#get-api-repocomp-current-404) | Not Found | 404 Something went wrong - Not Found |  | [schema](#get-api-repocomp-current-404-schema) |
 
-#### Responses
+#### 2.108.3 Responses
 
 
 ##### <span id="get-api-repocomp-current-200"></span> 200 - Current repository component content
@@ -6153,7 +6153,7 @@ Status: Not Found
 
 
 
-### <span id="get-api-status"></span> Get Replication Manager Status (*GetAPIStatus*)
+### 2.109 <span id="get-api-status"></span> Get Replication Manager Status (*GetAPIStatus*)
 
 ```
 GET /api/status
@@ -6161,15 +6161,15 @@ GET /api/status
 
 Returns the status of the replication manager indicating whether it is running or starting.
 
-#### Produces
+#### 2.109.1 Produces
   * application/json
 
-#### All responses
+#### 2.109.2 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-status-200) | OK | {"alive": "running"} or {"alive": "starting"} |  | [schema](#get-api-status-200-schema) |
 
-#### Responses
+#### 2.109.3 Responses
 
 
 ##### <span id="get-api-status-200"></span> 200 - {"alive": "running"} or {"alive": "starting"}
@@ -6181,7 +6181,7 @@ Status: OK
 
 map of string
 
-### <span id="get-api-terms"></span> Retrieves terms (*GetAPITerms*)
+### 2.110 <span id="get-api-terms"></span> Retrieves terms (*GetAPITerms*)
 
 ```
 GET /api/terms
@@ -6189,15 +6189,15 @@ GET /api/terms
 
 This endpoint returns the terms managed by the replication manager.
 
-#### Produces
+#### 2.110.1 Produces
   * text/plain
 
-#### All responses
+#### 2.110.2 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-terms-200) | OK | Terms |  | [schema](#get-api-terms-200-schema) |
 
-#### Responses
+#### 2.110.3 Responses
 
 
 ##### <span id="get-api-terms-200"></span> 200 - Terms
@@ -6209,7 +6209,7 @@ Status: OK
 
 
 
-### <span id="get-api-timeout"></span> Check if the replication manager is running (*GetAPITimeout*)
+### 2.111 <span id="get-api-timeout"></span> Check if the replication manager is running (*GetAPITimeout*)
 
 ```
 GET /api/timeout
@@ -6217,15 +6217,15 @@ GET /api/timeout
 
 This endpoint is used to check if the replication manager is running. It will respond with a JSON object after a delay of 1200 seconds.
 
-#### Produces
+#### 2.111.1 Produces
   * application/json
 
-#### All responses
+#### 2.111.2 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#get-api-timeout-200) | OK | OK |  | [schema](#get-api-timeout-200-schema) |
 
-#### Responses
+#### 2.111.3 Responses
 
 
 ##### <span id="get-api-timeout-200"></span> 200 - OK
@@ -6237,7 +6237,7 @@ Status: OK
 
 map of string
 
-### <span id="post-api-clusters-actions-add-cluster-name"></span> Add a new cluster (*PostAPIClustersActionsAddClusterName*)
+### 2.112 <span id="post-api-clusters-actions-add-cluster-name"></span> Add a new cluster (*PostAPIClustersActionsAddClusterName*)
 
 ```
 POST /api/clusters/actions/add/{clusterName}
@@ -6245,27 +6245,27 @@ POST /api/clusters/actions/add/{clusterName}
 
 Adds a new cluster to the replication manager. If the cluster already exists, it returns an error.
 
-#### Consumes
+#### 2.112.1 Consumes
   * application/json
 
-#### Produces
+#### 2.112.2 Produces
   * application/json
 
-#### Parameters
+#### 2.112.3 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 | cluster | `body` | [ClusterClusterForm](#cluster-cluster-form) | `models.ClusterClusterForm` | | ✓ | | Cluster Form |
 
-#### All responses
+#### 2.112.4 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#post-api-clusters-actions-add-cluster-name-200) | OK | Cluster added successfully |  | [schema](#post-api-clusters-actions-add-cluster-name-200-schema) |
 | [400](#post-api-clusters-actions-add-cluster-name-400) | Bad Request | Error in request or Cluster already exists |  | [schema](#post-api-clusters-actions-add-cluster-name-400-schema) |
 | [500](#post-api-clusters-actions-add-cluster-name-500) | Internal Server Error | User is not valid |  | [schema](#post-api-clusters-actions-add-cluster-name-500-schema) |
 
-#### Responses
+#### 2.112.5 Responses
 
 
 ##### <span id="post-api-clusters-actions-add-cluster-name-200"></span> 200 - Cluster added successfully
@@ -6295,7 +6295,7 @@ Status: Internal Server Error
 
 
 
-### <span id="post-api-clusters-cluster-name-actions-add-cluster-sharding-name"></span> Add a sharding cluster to an existing cluster (*PostAPIClustersClusterNameActionsAddClusterShardingName*)
+### 2.113 <span id="post-api-clusters-cluster-name-actions-add-cluster-sharding-name"></span> Add a sharding cluster to an existing cluster (*PostAPIClustersClusterNameActionsAddClusterShardingName*)
 
 ```
 POST /api/clusters/{clusterName}/actions/add/{clusterShardingName}
@@ -6303,27 +6303,27 @@ POST /api/clusters/{clusterName}/actions/add/{clusterShardingName}
 
 This endpoint adds a sharding cluster to an existing cluster and triggers a rolling restart.
 
-#### Consumes
+#### 2.113.1 Consumes
   * application/json
 
-#### Produces
+#### 2.113.2 Produces
   * application/json
 
-#### Parameters
+#### 2.113.3 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 | clusterShardingName | `path` | string | `string` |  | ✓ |  | Cluster Sharding Name |
 
-#### All responses
+#### 2.113.4 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#post-api-clusters-cluster-name-actions-add-cluster-sharding-name-200) | OK | Sharding cluster added successfully |  | [schema](#post-api-clusters-cluster-name-actions-add-cluster-sharding-name-200-schema) |
 | [403](#post-api-clusters-cluster-name-actions-add-cluster-sharding-name-403) | Forbidden | No valid ACL |  | [schema](#post-api-clusters-cluster-name-actions-add-cluster-sharding-name-403-schema) |
 | [500](#post-api-clusters-cluster-name-actions-add-cluster-sharding-name-500) | Internal Server Error | No cluster |  | [schema](#post-api-clusters-cluster-name-actions-add-cluster-sharding-name-500-schema) |
 
-#### Responses
+#### 2.113.5 Responses
 
 
 ##### <span id="post-api-clusters-cluster-name-actions-add-cluster-sharding-name-200"></span> 200 - Sharding cluster added successfully
@@ -6353,7 +6353,7 @@ Status: Internal Server Error
 
 
 
-### <span id="post-api-clusters-cluster-name-actions-addserver-host-port"></span> Add a server to a specific cluster (*PostAPIClustersClusterNameActionsAddserverHostPort*)
+### 2.114 <span id="post-api-clusters-cluster-name-actions-addserver-host-port"></span> Add a server to a specific cluster (*PostAPIClustersClusterNameActionsAddserverHostPort*)
 
 ```
 POST /api/clusters/{clusterName}/actions/addserver/{host}/{port}
@@ -6361,13 +6361,13 @@ POST /api/clusters/{clusterName}/actions/addserver/{host}/{port}
 
 This endpoint adds a server to the specified cluster.
 
-#### Consumes
+#### 2.114.1 Consumes
   * application/json
 
-#### Produces
+#### 2.114.2 Produces
   * application/json
 
-#### Parameters
+#### 2.114.3 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
@@ -6375,7 +6375,7 @@ This endpoint adds a server to the specified cluster.
 | host | `path` | string | `string` |  | ✓ |  | Host |
 | port | `path` | string | `string` |  | ✓ |  | Port |
 
-#### All responses
+#### 2.114.4 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#post-api-clusters-cluster-name-actions-addserver-host-port-200) | OK | Monitor added |  | [schema](#post-api-clusters-cluster-name-actions-addserver-host-port-200-schema) |
@@ -6383,7 +6383,7 @@ This endpoint adds a server to the specified cluster.
 | [409](#post-api-clusters-cluster-name-actions-addserver-host-port-409) | Conflict | Error adding new monitor |  | [schema](#post-api-clusters-cluster-name-actions-addserver-host-port-409-schema) |
 | [500](#post-api-clusters-cluster-name-actions-addserver-host-port-500) | Internal Server Error | Cluster Not Found |  | [schema](#post-api-clusters-cluster-name-actions-addserver-host-port-500-schema) |
 
-#### Responses
+#### 2.114.5 Responses
 
 
 ##### <span id="post-api-clusters-cluster-name-actions-addserver-host-port-200"></span> 200 - Monitor added
@@ -6422,7 +6422,7 @@ Status: Internal Server Error
 
 
 
-### <span id="post-api-clusters-cluster-name-actions-addserver-host-port-type"></span> Add a server to a specific cluster (*PostAPIClustersClusterNameActionsAddserverHostPortType*)
+### 2.115 <span id="post-api-clusters-cluster-name-actions-addserver-host-port-type"></span> Add a server to a specific cluster (*PostAPIClustersClusterNameActionsAddserverHostPortType*)
 
 ```
 POST /api/clusters/{clusterName}/actions/addserver/{host}/{port}/{type}
@@ -6430,13 +6430,13 @@ POST /api/clusters/{clusterName}/actions/addserver/{host}/{port}/{type}
 
 This endpoint adds a server to the specified cluster.
 
-#### Consumes
+#### 2.115.1 Consumes
   * application/json
 
-#### Produces
+#### 2.115.2 Produces
   * application/json
 
-#### Parameters
+#### 2.115.3 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
@@ -6445,7 +6445,7 @@ This endpoint adds a server to the specified cluster.
 | port | `path` | string | `string` |  | ✓ |  | Port |
 | type | `path` | string | `string` |  |  |  | Type |
 
-#### All responses
+#### 2.115.4 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#post-api-clusters-cluster-name-actions-addserver-host-port-type-200) | OK | Monitor added |  | [schema](#post-api-clusters-cluster-name-actions-addserver-host-port-type-200-schema) |
@@ -6453,7 +6453,7 @@ This endpoint adds a server to the specified cluster.
 | [409](#post-api-clusters-cluster-name-actions-addserver-host-port-type-409) | Conflict | Error adding new monitor |  | [schema](#post-api-clusters-cluster-name-actions-addserver-host-port-type-409-schema) |
 | [500](#post-api-clusters-cluster-name-actions-addserver-host-port-type-500) | Internal Server Error | Cluster Not Found |  | [schema](#post-api-clusters-cluster-name-actions-addserver-host-port-type-500-schema) |
 
-#### Responses
+#### 2.115.5 Responses
 
 
 ##### <span id="post-api-clusters-cluster-name-actions-addserver-host-port-type-200"></span> 200 - Monitor added
@@ -6492,7 +6492,7 @@ Status: Internal Server Error
 
 
 
-### <span id="post-api-clusters-cluster-name-actions-cancel-rolling-reprov"></span> Cancel rolling reprovision for a specific cluster (*PostAPIClustersClusterNameActionsCancelRollingReprov*)
+### 2.116 <span id="post-api-clusters-cluster-name-actions-cancel-rolling-reprov"></span> Cancel rolling reprovision for a specific cluster (*PostAPIClustersClusterNameActionsCancelRollingReprov*)
 
 ```
 POST /api/clusters/{clusterName}/actions/cancel-rolling-reprov
@@ -6500,26 +6500,26 @@ POST /api/clusters/{clusterName}/actions/cancel-rolling-reprov
 
 This endpoint cancels the rolling reprovision for the specified cluster.
 
-#### Consumes
+#### 2.116.1 Consumes
   * application/json
 
-#### Produces
+#### 2.116.2 Produces
   * application/json
 
-#### Parameters
+#### 2.116.3 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 
-#### All responses
+#### 2.116.4 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#post-api-clusters-cluster-name-actions-cancel-rolling-reprov-200) | OK | Successfully cancelled rolling reprovision |  | [schema](#post-api-clusters-cluster-name-actions-cancel-rolling-reprov-200-schema) |
 | [403](#post-api-clusters-cluster-name-actions-cancel-rolling-reprov-403) | Forbidden | No valid ACL |  | [schema](#post-api-clusters-cluster-name-actions-cancel-rolling-reprov-403-schema) |
 | [500](#post-api-clusters-cluster-name-actions-cancel-rolling-reprov-500) | Internal Server Error | No cluster |  | [schema](#post-api-clusters-cluster-name-actions-cancel-rolling-reprov-500-schema) |
 
-#### Responses
+#### 2.116.5 Responses
 
 
 ##### <span id="post-api-clusters-cluster-name-actions-cancel-rolling-reprov-200"></span> 200 - Successfully cancelled rolling reprovision
@@ -6549,7 +6549,7 @@ Status: Internal Server Error
 
 
 
-### <span id="post-api-clusters-cluster-name-actions-cancel-rolling-restart"></span> Cancel rolling restart for a specific cluster (*PostAPIClustersClusterNameActionsCancelRollingRestart*)
+### 2.117 <span id="post-api-clusters-cluster-name-actions-cancel-rolling-restart"></span> Cancel rolling restart for a specific cluster (*PostAPIClustersClusterNameActionsCancelRollingRestart*)
 
 ```
 POST /api/clusters/{clusterName}/actions/cancel-rolling-restart
@@ -6557,26 +6557,26 @@ POST /api/clusters/{clusterName}/actions/cancel-rolling-restart
 
 This endpoint cancels the rolling restart for the specified cluster.
 
-#### Consumes
+#### 2.117.1 Consumes
   * application/json
 
-#### Produces
+#### 2.117.2 Produces
   * application/json
 
-#### Parameters
+#### 2.117.3 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 
-#### All responses
+#### 2.117.4 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#post-api-clusters-cluster-name-actions-cancel-rolling-restart-200) | OK | Successfully cancelled rolling restart |  | [schema](#post-api-clusters-cluster-name-actions-cancel-rolling-restart-200-schema) |
 | [403](#post-api-clusters-cluster-name-actions-cancel-rolling-restart-403) | Forbidden | No valid ACL |  | [schema](#post-api-clusters-cluster-name-actions-cancel-rolling-restart-403-schema) |
 | [500](#post-api-clusters-cluster-name-actions-cancel-rolling-restart-500) | Internal Server Error | No cluster |  | [schema](#post-api-clusters-cluster-name-actions-cancel-rolling-restart-500-schema) |
 
-#### Responses
+#### 2.117.5 Responses
 
 
 ##### <span id="post-api-clusters-cluster-name-actions-cancel-rolling-restart-200"></span> 200 - Successfully cancelled rolling restart
@@ -6606,7 +6606,7 @@ Status: Internal Server Error
 
 
 
-### <span id="post-api-clusters-cluster-name-actions-certificates-rotate"></span> Rotate keys for a specific cluster (*PostAPIClustersClusterNameActionsCertificatesRotate*)
+### 2.118 <span id="post-api-clusters-cluster-name-actions-certificates-rotate"></span> Rotate keys for a specific cluster (*PostAPIClustersClusterNameActionsCertificatesRotate*)
 
 ```
 POST /api/clusters/{clusterName}/actions/certificates-rotate
@@ -6614,20 +6614,20 @@ POST /api/clusters/{clusterName}/actions/certificates-rotate
 
 Rotate the keys for the specified cluster
 
-#### Parameters
+#### 2.118.1 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 
-#### All responses
+#### 2.118.2 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#post-api-clusters-cluster-name-actions-certificates-rotate-200) | OK | Keys rotated successfully |  | [schema](#post-api-clusters-cluster-name-actions-certificates-rotate-200-schema) |
 | [403](#post-api-clusters-cluster-name-actions-certificates-rotate-403) | Forbidden | No valid ACL |  | [schema](#post-api-clusters-cluster-name-actions-certificates-rotate-403-schema) |
 | [500](#post-api-clusters-cluster-name-actions-certificates-rotate-500) | Internal Server Error | No cluster |  | [schema](#post-api-clusters-cluster-name-actions-certificates-rotate-500-schema) |
 
-#### Responses
+#### 2.118.3 Responses
 
 
 ##### <span id="post-api-clusters-cluster-name-actions-certificates-rotate-200"></span> 200 - Keys rotated successfully
@@ -6657,7 +6657,7 @@ Status: Internal Server Error
 
 
 
-### <span id="post-api-clusters-cluster-name-actions-checksum-all-tables"></span> Calculate checksum for all tables in a specific cluster (*PostAPIClustersClusterNameActionsChecksumAllTables*)
+### 2.119 <span id="post-api-clusters-cluster-name-actions-checksum-all-tables"></span> Calculate checksum for all tables in a specific cluster (*PostAPIClustersClusterNameActionsChecksumAllTables*)
 
 ```
 POST /api/clusters/{clusterName}/actions/checksum-all-tables
@@ -6665,26 +6665,26 @@ POST /api/clusters/{clusterName}/actions/checksum-all-tables
 
 This endpoint triggers the checksum calculation for all tables in the specified cluster.
 
-#### Consumes
+#### 2.119.1 Consumes
   * application/json
 
-#### Produces
+#### 2.119.2 Produces
   * application/json
 
-#### Parameters
+#### 2.119.3 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 
-#### All responses
+#### 2.119.4 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#post-api-clusters-cluster-name-actions-checksum-all-tables-200) | OK | Successfully triggered checksum calculation for all tables |  | [schema](#post-api-clusters-cluster-name-actions-checksum-all-tables-200-schema) |
 | [403](#post-api-clusters-cluster-name-actions-checksum-all-tables-403) | Forbidden | No valid ACL |  | [schema](#post-api-clusters-cluster-name-actions-checksum-all-tables-403-schema) |
 | [500](#post-api-clusters-cluster-name-actions-checksum-all-tables-500) | Internal Server Error | No cluster |  | [schema](#post-api-clusters-cluster-name-actions-checksum-all-tables-500-schema) |
 
-#### Responses
+#### 2.119.5 Responses
 
 
 ##### <span id="post-api-clusters-cluster-name-actions-checksum-all-tables-200"></span> 200 - Successfully triggered checksum calculation for all tables
@@ -6714,7 +6714,7 @@ Status: Internal Server Error
 
 
 
-### <span id="post-api-clusters-cluster-name-actions-failover"></span> Handles the failover process for a given cluster. (*PostAPIClustersClusterNameActionsFailover*)
+### 2.120 <span id="post-api-clusters-cluster-name-actions-failover"></span> Handles the failover process for a given cluster. (*PostAPIClustersClusterNameActionsFailover*)
 
 ```
 POST /api/clusters/{clusterName}/actions/failover
@@ -6722,26 +6722,26 @@ POST /api/clusters/{clusterName}/actions/failover
 
 This endpoint triggers a master failover for the specified cluster.
 
-#### Consumes
+#### 2.120.1 Consumes
   * application/json
 
-#### Produces
+#### 2.120.2 Produces
   * application/json
 
-#### Parameters
+#### 2.120.3 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 
-#### All responses
+#### 2.120.4 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#post-api-clusters-cluster-name-actions-failover-200) | OK | Successfully triggered failover |  | [schema](#post-api-clusters-cluster-name-actions-failover-200-schema) |
 | [403](#post-api-clusters-cluster-name-actions-failover-403) | Forbidden | No valid ACL |  | [schema](#post-api-clusters-cluster-name-actions-failover-403-schema) |
 | [500](#post-api-clusters-cluster-name-actions-failover-500) | Internal Server Error | No cluster |  | [schema](#post-api-clusters-cluster-name-actions-failover-500-schema) |
 
-#### Responses
+#### 2.120.5 Responses
 
 
 ##### <span id="post-api-clusters-cluster-name-actions-failover-200"></span> 200 - Successfully triggered failover
@@ -6771,7 +6771,7 @@ Status: Internal Server Error
 
 
 
-### <span id="post-api-clusters-cluster-name-actions-master-physical-backup"></span> Perform a physical backup for the master of a specific cluster (*PostAPIClustersClusterNameActionsMasterPhysicalBackup*)
+### 2.121 <span id="post-api-clusters-cluster-name-actions-master-physical-backup"></span> Perform a physical backup for the master of a specific cluster (*PostAPIClustersClusterNameActionsMasterPhysicalBackup*)
 
 ```
 POST /api/clusters/{clusterName}/actions/master-physical-backup
@@ -6779,26 +6779,26 @@ POST /api/clusters/{clusterName}/actions/master-physical-backup
 
 This endpoint triggers a physical backup for the master of the specified cluster.
 
-#### Consumes
+#### 2.121.1 Consumes
   * application/json
 
-#### Produces
+#### 2.121.2 Produces
   * application/json
 
-#### Parameters
+#### 2.121.3 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 
-#### All responses
+#### 2.121.4 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#post-api-clusters-cluster-name-actions-master-physical-backup-200) | OK | Successfully triggered physical backup |  | [schema](#post-api-clusters-cluster-name-actions-master-physical-backup-200-schema) |
 | [400](#post-api-clusters-cluster-name-actions-master-physical-backup-400) | Bad Request | No cluster found |  | [schema](#post-api-clusters-cluster-name-actions-master-physical-backup-400-schema) |
 | [403](#post-api-clusters-cluster-name-actions-master-physical-backup-403) | Forbidden | No valid ACL |  | [schema](#post-api-clusters-cluster-name-actions-master-physical-backup-403-schema) |
 
-#### Responses
+#### 2.121.5 Responses
 
 
 ##### <span id="post-api-clusters-cluster-name-actions-master-physical-backup-200"></span> 200 - Successfully triggered physical backup
@@ -6828,7 +6828,7 @@ Status: Forbidden
 
 
 
-### <span id="post-api-clusters-cluster-name-actions-optimize"></span> Optimize a specific cluster (*PostAPIClustersClusterNameActionsOptimize*)
+### 2.122 <span id="post-api-clusters-cluster-name-actions-optimize"></span> Optimize a specific cluster (*PostAPIClustersClusterNameActionsOptimize*)
 
 ```
 POST /api/clusters/{clusterName}/actions/optimize
@@ -6836,26 +6836,26 @@ POST /api/clusters/{clusterName}/actions/optimize
 
 This endpoint triggers the optimization process for the specified cluster.
 
-#### Consumes
+#### 2.122.1 Consumes
   * application/json
 
-#### Produces
+#### 2.122.2 Produces
   * application/json
 
-#### Parameters
+#### 2.122.3 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 
-#### All responses
+#### 2.122.4 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#post-api-clusters-cluster-name-actions-optimize-200) | OK | Successfully triggered optimization |  | [schema](#post-api-clusters-cluster-name-actions-optimize-200-schema) |
 | [400](#post-api-clusters-cluster-name-actions-optimize-400) | Bad Request | No cluster found |  | [schema](#post-api-clusters-cluster-name-actions-optimize-400-schema) |
 | [403](#post-api-clusters-cluster-name-actions-optimize-403) | Forbidden | No valid ACL |  | [schema](#post-api-clusters-cluster-name-actions-optimize-403-schema) |
 
-#### Responses
+#### 2.122.5 Responses
 
 
 ##### <span id="post-api-clusters-cluster-name-actions-optimize-200"></span> 200 - Successfully triggered optimization
@@ -6885,7 +6885,7 @@ Status: Forbidden
 
 
 
-### <span id="post-api-clusters-cluster-name-actions-replication-bootstrap-topology"></span> Bootstrap replication for a specific cluster (*PostAPIClustersClusterNameActionsReplicationBootstrapTopology*)
+### 2.123 <span id="post-api-clusters-cluster-name-actions-replication-bootstrap-topology"></span> Bootstrap replication for a specific cluster (*PostAPIClustersClusterNameActionsReplicationBootstrapTopology*)
 
 ```
 POST /api/clusters/{clusterName}/actions/replication/bootstrap/{topology}
@@ -6893,27 +6893,27 @@ POST /api/clusters/{clusterName}/actions/replication/bootstrap/{topology}
 
 This endpoint triggers the bootstrap replication process for the specified cluster.
 
-#### Consumes
+#### 2.123.1 Consumes
   * application/json
 
-#### Produces
+#### 2.123.2 Produces
   * application/json
 
-#### Parameters
+#### 2.123.3 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 | topology | `path` | string | `string` |  | ✓ |  | Topology |
 
-#### All responses
+#### 2.123.4 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#post-api-clusters-cluster-name-actions-replication-bootstrap-topology-200) | OK | Successfully bootstrapped replication |  | [schema](#post-api-clusters-cluster-name-actions-replication-bootstrap-topology-200-schema) |
 | [403](#post-api-clusters-cluster-name-actions-replication-bootstrap-topology-403) | Forbidden | No valid ACL |  | [schema](#post-api-clusters-cluster-name-actions-replication-bootstrap-topology-403-schema) |
 | [500](#post-api-clusters-cluster-name-actions-replication-bootstrap-topology-500) | Internal Server Error | No cluster |  | [schema](#post-api-clusters-cluster-name-actions-replication-bootstrap-topology-500-schema) |
 
-#### Responses
+#### 2.123.5 Responses
 
 
 ##### <span id="post-api-clusters-cluster-name-actions-replication-bootstrap-topology-200"></span> 200 - Successfully bootstrapped replication
@@ -6943,7 +6943,7 @@ Status: Internal Server Error
 
 
 
-### <span id="post-api-clusters-cluster-name-actions-replication-cleanup"></span> Cleanup replication bootstrap for a specific cluster (*PostAPIClustersClusterNameActionsReplicationCleanup*)
+### 2.124 <span id="post-api-clusters-cluster-name-actions-replication-cleanup"></span> Cleanup replication bootstrap for a specific cluster (*PostAPIClustersClusterNameActionsReplicationCleanup*)
 
 ```
 POST /api/clusters/{clusterName}/actions/replication/cleanup
@@ -6951,26 +6951,26 @@ POST /api/clusters/{clusterName}/actions/replication/cleanup
 
 This endpoint triggers the cleanup process for replication bootstrap for the specified cluster.
 
-#### Consumes
+#### 2.124.1 Consumes
   * application/json
 
-#### Produces
+#### 2.124.2 Produces
   * application/json
 
-#### Parameters
+#### 2.124.3 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 
-#### All responses
+#### 2.124.4 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#post-api-clusters-cluster-name-actions-replication-cleanup-200) | OK | Successfully cleaned up replication bootstrap |  | [schema](#post-api-clusters-cluster-name-actions-replication-cleanup-200-schema) |
 | [403](#post-api-clusters-cluster-name-actions-replication-cleanup-403) | Forbidden | No valid ACL |  | [schema](#post-api-clusters-cluster-name-actions-replication-cleanup-403-schema) |
 | [500](#post-api-clusters-cluster-name-actions-replication-cleanup-500) | Internal Server Error | No cluster |  | [schema](#post-api-clusters-cluster-name-actions-replication-cleanup-500-schema) |
 
-#### Responses
+#### 2.124.5 Responses
 
 
 ##### <span id="post-api-clusters-cluster-name-actions-replication-cleanup-200"></span> 200 - Successfully cleaned up replication bootstrap
@@ -7000,7 +7000,7 @@ Status: Internal Server Error
 
 
 
-### <span id="post-api-clusters-cluster-name-actions-reset-failover-control"></span> Reset failover control for a specific cluster (*PostAPIClustersClusterNameActionsResetFailoverControl*)
+### 2.125 <span id="post-api-clusters-cluster-name-actions-reset-failover-control"></span> Reset failover control for a specific cluster (*PostAPIClustersClusterNameActionsResetFailoverControl*)
 
 ```
 POST /api/clusters/{clusterName}/actions/reset-failover-control
@@ -7008,26 +7008,26 @@ POST /api/clusters/{clusterName}/actions/reset-failover-control
 
 This endpoint resets the failover control for the specified cluster.
 
-#### Consumes
+#### 2.125.1 Consumes
   * application/json
 
-#### Produces
+#### 2.125.2 Produces
   * application/json
 
-#### Parameters
+#### 2.125.3 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 
-#### All responses
+#### 2.125.4 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#post-api-clusters-cluster-name-actions-reset-failover-control-200) | OK | Successfully reset failover control |  | [schema](#post-api-clusters-cluster-name-actions-reset-failover-control-200-schema) |
 | [403](#post-api-clusters-cluster-name-actions-reset-failover-control-403) | Forbidden | No valid ACL |  | [schema](#post-api-clusters-cluster-name-actions-reset-failover-control-403-schema) |
 | [500](#post-api-clusters-cluster-name-actions-reset-failover-control-500) | Internal Server Error | No cluster |  | [schema](#post-api-clusters-cluster-name-actions-reset-failover-control-500-schema) |
 
-#### Responses
+#### 2.125.5 Responses
 
 
 ##### <span id="post-api-clusters-cluster-name-actions-reset-failover-control-200"></span> 200 - Successfully reset failover control
@@ -7057,7 +7057,7 @@ Status: Internal Server Error
 
 
 
-### <span id="post-api-clusters-cluster-name-actions-reset-sla"></span> Reset SLA for a specific cluster (*PostAPIClustersClusterNameActionsResetSLA*)
+### 2.126 <span id="post-api-clusters-cluster-name-actions-reset-sla"></span> Reset SLA for a specific cluster (*PostAPIClustersClusterNameActionsResetSLA*)
 
 ```
 POST /api/clusters/{clusterName}/actions/reset-sla
@@ -7065,20 +7065,20 @@ POST /api/clusters/{clusterName}/actions/reset-sla
 
 Reset the SLA for the specified cluster
 
-#### Parameters
+#### 2.126.1 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 
-#### All responses
+#### 2.126.2 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#post-api-clusters-cluster-name-actions-reset-sla-200) | OK | SLA reset successfully |  | [schema](#post-api-clusters-cluster-name-actions-reset-sla-200-schema) |
 | [403](#post-api-clusters-cluster-name-actions-reset-sla-403) | Forbidden | No valid ACL |  | [schema](#post-api-clusters-cluster-name-actions-reset-sla-403-schema) |
 | [500](#post-api-clusters-cluster-name-actions-reset-sla-500) | Internal Server Error | No cluster |  | [schema](#post-api-clusters-cluster-name-actions-reset-sla-500-schema) |
 
-#### Responses
+#### 2.126.3 Responses
 
 
 ##### <span id="post-api-clusters-cluster-name-actions-reset-sla-200"></span> 200 - SLA reset successfully
@@ -7108,7 +7108,7 @@ Status: Internal Server Error
 
 
 
-### <span id="post-api-clusters-cluster-name-actions-rolling"></span> Handles the rolling restart process for a given cluster. (*PostAPIClustersClusterNameActionsRolling*)
+### 2.127 <span id="post-api-clusters-cluster-name-actions-rolling"></span> Handles the rolling restart process for a given cluster. (*PostAPIClustersClusterNameActionsRolling*)
 
 ```
 POST /api/clusters/{clusterName}/actions/rolling
@@ -7116,26 +7116,26 @@ POST /api/clusters/{clusterName}/actions/rolling
 
 This endpoint triggers a rolling restart for the specified cluster.
 
-#### Consumes
+#### 2.127.1 Consumes
   * application/json
 
-#### Produces
+#### 2.127.2 Produces
   * application/json
 
-#### Parameters
+#### 2.127.3 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 
-#### All responses
+#### 2.127.4 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#post-api-clusters-cluster-name-actions-rolling-200) | OK | Successfully triggered rolling restart |  | [schema](#post-api-clusters-cluster-name-actions-rolling-200-schema) |
 | [403](#post-api-clusters-cluster-name-actions-rolling-403) | Forbidden | No valid ACL |  | [schema](#post-api-clusters-cluster-name-actions-rolling-403-schema) |
 | [500](#post-api-clusters-cluster-name-actions-rolling-500) | Internal Server Error | No cluster |  | [schema](#post-api-clusters-cluster-name-actions-rolling-500-schema) |
 
-#### Responses
+#### 2.127.5 Responses
 
 
 ##### <span id="post-api-clusters-cluster-name-actions-rolling-200"></span> 200 - Successfully triggered rolling restart
@@ -7165,7 +7165,7 @@ Status: Internal Server Error
 
 
 
-### <span id="post-api-clusters-cluster-name-actions-rotate-passwords"></span> Rotate passwords for a specific cluster (*PostAPIClustersClusterNameActionsRotatePasswords*)
+### 2.128 <span id="post-api-clusters-cluster-name-actions-rotate-passwords"></span> Rotate passwords for a specific cluster (*PostAPIClustersClusterNameActionsRotatePasswords*)
 
 ```
 POST /api/clusters/{clusterName}/actions/rotate-passwords
@@ -7173,26 +7173,26 @@ POST /api/clusters/{clusterName}/actions/rotate-passwords
 
 This endpoint rotates the passwords for the specified cluster.
 
-#### Consumes
+#### 2.128.1 Consumes
   * application/json
 
-#### Produces
+#### 2.128.2 Produces
   * application/json
 
-#### Parameters
+#### 2.128.3 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 
-#### All responses
+#### 2.128.4 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#post-api-clusters-cluster-name-actions-rotate-passwords-200) | OK | Successfully rotated passwords |  | [schema](#post-api-clusters-cluster-name-actions-rotate-passwords-200-schema) |
 | [403](#post-api-clusters-cluster-name-actions-rotate-passwords-403) | Forbidden | No valid ACL |  | [schema](#post-api-clusters-cluster-name-actions-rotate-passwords-403-schema) |
 | [500](#post-api-clusters-cluster-name-actions-rotate-passwords-500) | Internal Server Error | No cluster |  | [schema](#post-api-clusters-cluster-name-actions-rotate-passwords-500-schema) |
 
-#### Responses
+#### 2.128.5 Responses
 
 
 ##### <span id="post-api-clusters-cluster-name-actions-rotate-passwords-200"></span> 200 - Successfully rotated passwords
@@ -7222,7 +7222,7 @@ Status: Internal Server Error
 
 
 
-### <span id="post-api-clusters-cluster-name-actions-start-traffic"></span> Start traffic for a specific cluster (*PostAPIClustersClusterNameActionsStartTraffic*)
+### 2.129 <span id="post-api-clusters-cluster-name-actions-start-traffic"></span> Start traffic for a specific cluster (*PostAPIClustersClusterNameActionsStartTraffic*)
 
 ```
 POST /api/clusters/{clusterName}/actions/start-traffic
@@ -7230,26 +7230,26 @@ POST /api/clusters/{clusterName}/actions/start-traffic
 
 This endpoint starts traffic for the specified cluster.
 
-#### Consumes
+#### 2.129.1 Consumes
   * application/json
 
-#### Produces
+#### 2.129.2 Produces
   * application/json
 
-#### Parameters
+#### 2.129.3 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 
-#### All responses
+#### 2.129.4 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#post-api-clusters-cluster-name-actions-start-traffic-200) | OK | Successfully started traffic |  | [schema](#post-api-clusters-cluster-name-actions-start-traffic-200-schema) |
 | [403](#post-api-clusters-cluster-name-actions-start-traffic-403) | Forbidden | No valid ACL |  | [schema](#post-api-clusters-cluster-name-actions-start-traffic-403-schema) |
 | [500](#post-api-clusters-cluster-name-actions-start-traffic-500) | Internal Server Error | No cluster |  | [schema](#post-api-clusters-cluster-name-actions-start-traffic-500-schema) |
 
-#### Responses
+#### 2.129.5 Responses
 
 
 ##### <span id="post-api-clusters-cluster-name-actions-start-traffic-200"></span> 200 - Successfully started traffic
@@ -7279,7 +7279,7 @@ Status: Internal Server Error
 
 
 
-### <span id="post-api-clusters-cluster-name-actions-stop-traffic"></span> Stop traffic for a specific cluster (*PostAPIClustersClusterNameActionsStopTraffic*)
+### 2.130 <span id="post-api-clusters-cluster-name-actions-stop-traffic"></span> Stop traffic for a specific cluster (*PostAPIClustersClusterNameActionsStopTraffic*)
 
 ```
 POST /api/clusters/{clusterName}/actions/stop-traffic
@@ -7287,26 +7287,26 @@ POST /api/clusters/{clusterName}/actions/stop-traffic
 
 This endpoint stops traffic for the specified cluster.
 
-#### Consumes
+#### 2.130.1 Consumes
   * application/json
 
-#### Produces
+#### 2.130.2 Produces
   * application/json
 
-#### Parameters
+#### 2.130.3 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 
-#### All responses
+#### 2.130.4 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#post-api-clusters-cluster-name-actions-stop-traffic-200) | OK | Successfully stopped traffic |  | [schema](#post-api-clusters-cluster-name-actions-stop-traffic-200-schema) |
 | [403](#post-api-clusters-cluster-name-actions-stop-traffic-403) | Forbidden | No valid ACL |  | [schema](#post-api-clusters-cluster-name-actions-stop-traffic-403-schema) |
 | [500](#post-api-clusters-cluster-name-actions-stop-traffic-500) | Internal Server Error | No cluster |  | [schema](#post-api-clusters-cluster-name-actions-stop-traffic-500-schema) |
 
-#### Responses
+#### 2.130.5 Responses
 
 
 ##### <span id="post-api-clusters-cluster-name-actions-stop-traffic-200"></span> 200 - Successfully stopped traffic
@@ -7336,7 +7336,7 @@ Status: Internal Server Error
 
 
 
-### <span id="post-api-clusters-cluster-name-actions-switchover"></span> Handles the switchover process for a given cluster. (*PostAPIClustersClusterNameActionsSwitchover*)
+### 2.131 <span id="post-api-clusters-cluster-name-actions-switchover"></span> Handles the switchover process for a given cluster. (*PostAPIClustersClusterNameActionsSwitchover*)
 
 ```
 POST /api/clusters/{clusterName}/actions/switchover
@@ -7344,20 +7344,20 @@ POST /api/clusters/{clusterName}/actions/switchover
 
 This endpoint triggers a master switchover for the specified cluster.
 
-#### Consumes
+#### 2.131.1 Consumes
   * application/json
 
-#### Produces
+#### 2.131.2 Produces
   * application/json
 
-#### Parameters
+#### 2.131.3 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 | prefmaster | `formData` | string | `string` |  |  |  | Preferred Master |
 
-#### All responses
+#### 2.131.4 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#post-api-clusters-cluster-name-actions-switchover-200) | OK | Successfully triggered switchover |  | [schema](#post-api-clusters-cluster-name-actions-switchover-200-schema) |
@@ -7365,7 +7365,7 @@ This endpoint triggers a master switchover for the specified cluster.
 | [403](#post-api-clusters-cluster-name-actions-switchover-403) | Forbidden | No valid ACL |  | [schema](#post-api-clusters-cluster-name-actions-switchover-403-schema) |
 | [500](#post-api-clusters-cluster-name-actions-switchover-500) | Internal Server Error | No cluster |  | [schema](#post-api-clusters-cluster-name-actions-switchover-500-schema) |
 
-#### Responses
+#### 2.131.5 Responses
 
 
 ##### <span id="post-api-clusters-cluster-name-actions-switchover-200"></span> 200 - Successfully triggered switchover
@@ -7404,7 +7404,7 @@ Status: Internal Server Error
 
 
 
-### <span id="post-api-clusters-cluster-name-actions-sysbench"></span> Run sysbench for a specific cluster (*PostAPIClustersClusterNameActionsSysbench*)
+### 2.132 <span id="post-api-clusters-cluster-name-actions-sysbench"></span> Run sysbench for a specific cluster (*PostAPIClustersClusterNameActionsSysbench*)
 
 ```
 POST /api/clusters/{clusterName}/actions/sysbench
@@ -7412,27 +7412,27 @@ POST /api/clusters/{clusterName}/actions/sysbench
 
 This endpoint runs sysbench for the specified cluster.
 
-#### Consumes
+#### 2.132.1 Consumes
   * application/json
 
-#### Produces
+#### 2.132.2 Produces
   * application/json
 
-#### Parameters
+#### 2.132.3 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 | threads | `query` | string | `string` |  |  |  | Number of threads |
 
-#### All responses
+#### 2.132.4 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#post-api-clusters-cluster-name-actions-sysbench-200) | OK | Successfully triggered sysbench |  | [schema](#post-api-clusters-cluster-name-actions-sysbench-200-schema) |
 | [403](#post-api-clusters-cluster-name-actions-sysbench-403) | Forbidden | No valid ACL |  | [schema](#post-api-clusters-cluster-name-actions-sysbench-403-schema) |
 | [500](#post-api-clusters-cluster-name-actions-sysbench-500) | Internal Server Error | No cluster |  | [schema](#post-api-clusters-cluster-name-actions-sysbench-500-schema) |
 
-#### Responses
+#### 2.132.5 Responses
 
 
 ##### <span id="post-api-clusters-cluster-name-actions-sysbench-200"></span> 200 - Successfully triggered sysbench
@@ -7462,7 +7462,7 @@ Status: Internal Server Error
 
 
 
-### <span id="post-api-clusters-cluster-name-actions-waitdatabases"></span> Wait for databases to be ready for a specific cluster (*PostAPIClustersClusterNameActionsWaitdatabases*)
+### 2.133 <span id="post-api-clusters-cluster-name-actions-waitdatabases"></span> Wait for databases to be ready for a specific cluster (*PostAPIClustersClusterNameActionsWaitdatabases*)
 
 ```
 POST /api/clusters/{clusterName}/actions/waitdatabases
@@ -7470,26 +7470,26 @@ POST /api/clusters/{clusterName}/actions/waitdatabases
 
 This endpoint waits for the databases to be ready for the specified cluster.
 
-#### Consumes
+#### 2.133.1 Consumes
   * application/json
 
-#### Produces
+#### 2.133.2 Produces
   * application/json
 
-#### Parameters
+#### 2.133.3 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 
-#### All responses
+#### 2.133.4 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#post-api-clusters-cluster-name-actions-waitdatabases-200) | OK | Databases are ready |  | [schema](#post-api-clusters-cluster-name-actions-waitdatabases-200-schema) |
 | [403](#post-api-clusters-cluster-name-actions-waitdatabases-403) | Forbidden | No valid ACL |  | [schema](#post-api-clusters-cluster-name-actions-waitdatabases-403-schema) |
 | [500](#post-api-clusters-cluster-name-actions-waitdatabases-500) | Internal Server Error | No cluster |  | [schema](#post-api-clusters-cluster-name-actions-waitdatabases-500-schema) |
 
-#### Responses
+#### 2.133.5 Responses
 
 
 ##### <span id="post-api-clusters-cluster-name-actions-waitdatabases-200"></span> 200 - Databases are ready
@@ -7519,7 +7519,7 @@ Status: Internal Server Error
 
 
 
-### <span id="post-api-clusters-cluster-name-proxies-proxy-name-actions-provision"></span> Provision Proxy Service (*PostAPIClustersClusterNameProxiesProxyNameActionsProvision*)
+### 2.134 <span id="post-api-clusters-cluster-name-proxies-proxy-name-actions-provision"></span> Provision Proxy Service (*PostAPIClustersClusterNameProxiesProxyNameActionsProvision*)
 
 ```
 POST /api/clusters/{clusterName}/proxies/{proxyName}/actions/provision
@@ -7527,27 +7527,27 @@ POST /api/clusters/{clusterName}/proxies/{proxyName}/actions/provision
 
 Provision the proxy service for a given cluster and proxy
 
-#### Consumes
+#### 2.134.1 Consumes
   * application/json
 
-#### Produces
+#### 2.134.2 Produces
   * application/json
 
-#### Parameters
+#### 2.134.3 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 | proxyName | `path` | string | `string` |  | ✓ |  | Proxy Name |
 
-#### All responses
+#### 2.134.4 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#post-api-clusters-cluster-name-proxies-proxy-name-actions-provision-200) | OK | Proxy Service Provisioned |  | [schema](#post-api-clusters-cluster-name-proxies-proxy-name-actions-provision-200-schema) |
 | [403](#post-api-clusters-cluster-name-proxies-proxy-name-actions-provision-403) | Forbidden | No valid ACL |  | [schema](#post-api-clusters-cluster-name-proxies-proxy-name-actions-provision-403-schema) |
 | [500](#post-api-clusters-cluster-name-proxies-proxy-name-actions-provision-500) | Internal Server Error | Cluster Not Found" "Server Not Found |  | [schema](#post-api-clusters-cluster-name-proxies-proxy-name-actions-provision-500-schema) |
 
-#### Responses
+#### 2.134.5 Responses
 
 
 ##### <span id="post-api-clusters-cluster-name-proxies-proxy-name-actions-provision-200"></span> 200 - Proxy Service Provisioned
@@ -7577,7 +7577,7 @@ Status: Internal Server Error
 
 
 
-### <span id="post-api-clusters-cluster-name-proxies-proxy-name-actions-start"></span> Start Proxy Service (*PostAPIClustersClusterNameProxiesProxyNameActionsStart*)
+### 2.135 <span id="post-api-clusters-cluster-name-proxies-proxy-name-actions-start"></span> Start Proxy Service (*PostAPIClustersClusterNameProxiesProxyNameActionsStart*)
 
 ```
 POST /api/clusters/{clusterName}/proxies/{proxyName}/actions/start
@@ -7585,27 +7585,27 @@ POST /api/clusters/{clusterName}/proxies/{proxyName}/actions/start
 
 Start the proxy service for a given cluster and proxy
 
-#### Consumes
+#### 2.135.1 Consumes
   * application/json
 
-#### Produces
+#### 2.135.2 Produces
   * application/json
 
-#### Parameters
+#### 2.135.3 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 | proxyName | `path` | string | `string` |  | ✓ |  | Proxy Name |
 
-#### All responses
+#### 2.135.4 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#post-api-clusters-cluster-name-proxies-proxy-name-actions-start-200) | OK | Proxy Service Started |  | [schema](#post-api-clusters-cluster-name-proxies-proxy-name-actions-start-200-schema) |
 | [403](#post-api-clusters-cluster-name-proxies-proxy-name-actions-start-403) | Forbidden | No valid ACL |  | [schema](#post-api-clusters-cluster-name-proxies-proxy-name-actions-start-403-schema) |
 | [500](#post-api-clusters-cluster-name-proxies-proxy-name-actions-start-500) | Internal Server Error | Cluster Not Found" "Server Not Found |  | [schema](#post-api-clusters-cluster-name-proxies-proxy-name-actions-start-500-schema) |
 
-#### Responses
+#### 2.135.5 Responses
 
 
 ##### <span id="post-api-clusters-cluster-name-proxies-proxy-name-actions-start-200"></span> 200 - Proxy Service Started
@@ -7635,7 +7635,7 @@ Status: Internal Server Error
 
 
 
-### <span id="post-api-clusters-cluster-name-proxies-proxy-name-actions-stop"></span> Stop Proxy Service (*PostAPIClustersClusterNameProxiesProxyNameActionsStop*)
+### 2.136 <span id="post-api-clusters-cluster-name-proxies-proxy-name-actions-stop"></span> Stop Proxy Service (*PostAPIClustersClusterNameProxiesProxyNameActionsStop*)
 
 ```
 POST /api/clusters/{clusterName}/proxies/{proxyName}/actions/stop
@@ -7643,27 +7643,27 @@ POST /api/clusters/{clusterName}/proxies/{proxyName}/actions/stop
 
 Stop the proxy service for a given cluster and proxy
 
-#### Consumes
+#### 2.136.1 Consumes
   * application/json
 
-#### Produces
+#### 2.136.2 Produces
   * application/json
 
-#### Parameters
+#### 2.136.3 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 | proxyName | `path` | string | `string` |  | ✓ |  | Proxy Name |
 
-#### All responses
+#### 2.136.4 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#post-api-clusters-cluster-name-proxies-proxy-name-actions-stop-200) | OK | Proxy Service Stopped |  | [schema](#post-api-clusters-cluster-name-proxies-proxy-name-actions-stop-200-schema) |
 | [403](#post-api-clusters-cluster-name-proxies-proxy-name-actions-stop-403) | Forbidden | No valid ACL |  | [schema](#post-api-clusters-cluster-name-proxies-proxy-name-actions-stop-403-schema) |
 | [500](#post-api-clusters-cluster-name-proxies-proxy-name-actions-stop-500) | Internal Server Error | Cluster Not Found" "Server Not Found |  | [schema](#post-api-clusters-cluster-name-proxies-proxy-name-actions-stop-500-schema) |
 
-#### Responses
+#### 2.136.5 Responses
 
 
 ##### <span id="post-api-clusters-cluster-name-proxies-proxy-name-actions-stop-200"></span> 200 - Proxy Service Stopped
@@ -7693,7 +7693,7 @@ Status: Internal Server Error
 
 
 
-### <span id="post-api-clusters-cluster-name-proxies-proxy-name-actions-unprovision"></span> Unprovision Proxy Service (*PostAPIClustersClusterNameProxiesProxyNameActionsUnprovision*)
+### 2.137 <span id="post-api-clusters-cluster-name-proxies-proxy-name-actions-unprovision"></span> Unprovision Proxy Service (*PostAPIClustersClusterNameProxiesProxyNameActionsUnprovision*)
 
 ```
 POST /api/clusters/{clusterName}/proxies/{proxyName}/actions/unprovision
@@ -7701,27 +7701,27 @@ POST /api/clusters/{clusterName}/proxies/{proxyName}/actions/unprovision
 
 Unprovision the proxy service for a given cluster and proxy
 
-#### Consumes
+#### 2.137.1 Consumes
   * application/json
 
-#### Produces
+#### 2.137.2 Produces
   * application/json
 
-#### Parameters
+#### 2.137.3 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 | proxyName | `path` | string | `string` |  | ✓ |  | Proxy Name |
 
-#### All responses
+#### 2.137.4 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#post-api-clusters-cluster-name-proxies-proxy-name-actions-unprovision-200) | OK | Proxy Service Unprovisioned |  | [schema](#post-api-clusters-cluster-name-proxies-proxy-name-actions-unprovision-200-schema) |
 | [403](#post-api-clusters-cluster-name-proxies-proxy-name-actions-unprovision-403) | Forbidden | No valid ACL |  | [schema](#post-api-clusters-cluster-name-proxies-proxy-name-actions-unprovision-403-schema) |
 | [500](#post-api-clusters-cluster-name-proxies-proxy-name-actions-unprovision-500) | Internal Server Error | Cluster Not Found" "Server Not Found |  | [schema](#post-api-clusters-cluster-name-proxies-proxy-name-actions-unprovision-500-schema) |
 
-#### Responses
+#### 2.137.5 Responses
 
 
 ##### <span id="post-api-clusters-cluster-name-proxies-proxy-name-actions-unprovision-200"></span> 200 - Proxy Service Unprovisioned
@@ -7751,7 +7751,7 @@ Status: Internal Server Error
 
 
 
-### <span id="post-api-clusters-cluster-name-sales-accept-subscription"></span> Accept a subscription for a specific cluster (*PostAPIClustersClusterNameSalesAcceptSubscription*)
+### 2.138 <span id="post-api-clusters-cluster-name-sales-accept-subscription"></span> Accept a subscription for a specific cluster (*PostAPIClustersClusterNameSalesAcceptSubscription*)
 
 ```
 POST /api/clusters/{clusterName}/sales/accept-subscription
@@ -7759,27 +7759,27 @@ POST /api/clusters/{clusterName}/sales/accept-subscription
 
 This endpoint accepts a subscription for the specified cluster.
 
-#### Consumes
+#### 2.138.1 Consumes
   * application/json
 
-#### Produces
+#### 2.138.2 Produces
   * application/json
 
-#### Parameters
+#### 2.138.3 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 | body | `body` | [ClusterUserForm](#cluster-user-form) | `models.ClusterUserForm` | | ✓ | | User Form |
 
-#### All responses
+#### 2.138.4 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#post-api-clusters-cluster-name-sales-accept-subscription-200) | OK | Email sent to sponsor! |  | [schema](#post-api-clusters-cluster-name-sales-accept-subscription-200-schema) |
 | [403](#post-api-clusters-cluster-name-sales-accept-subscription-403) | Forbidden | No valid ACL |  | [schema](#post-api-clusters-cluster-name-sales-accept-subscription-403-schema) |
 | [500](#post-api-clusters-cluster-name-sales-accept-subscription-500) | Internal Server Error | Error accepting subscription |  | [schema](#post-api-clusters-cluster-name-sales-accept-subscription-500-schema) |
 
-#### Responses
+#### 2.138.5 Responses
 
 
 ##### <span id="post-api-clusters-cluster-name-sales-accept-subscription-200"></span> 200 - Email sent to sponsor!
@@ -7809,7 +7809,7 @@ Status: Internal Server Error
 
 
 
-### <span id="post-api-clusters-cluster-name-sales-end-subscription"></span> Remove a sponsor from a specific cluster (*PostAPIClustersClusterNameSalesEndSubscription*)
+### 2.139 <span id="post-api-clusters-cluster-name-sales-end-subscription"></span> Remove a sponsor from a specific cluster (*PostAPIClustersClusterNameSalesEndSubscription*)
 
 ```
 POST /api/clusters/{clusterName}/sales/end-subscription
@@ -7817,27 +7817,27 @@ POST /api/clusters/{clusterName}/sales/end-subscription
 
 This endpoint removes a sponsor from the specified cluster.
 
-#### Consumes
+#### 2.139.1 Consumes
   * application/json
 
-#### Produces
+#### 2.139.2 Produces
   * application/json
 
-#### Parameters
+#### 2.139.3 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 | body | `body` | [ClusterUserForm](#cluster-user-form) | `models.ClusterUserForm` | | ✓ | | User Form |
 
-#### All responses
+#### 2.139.4 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#post-api-clusters-cluster-name-sales-end-subscription-200) | OK | Sponsor subscription removed! |  | [schema](#post-api-clusters-cluster-name-sales-end-subscription-200-schema) |
 | [403](#post-api-clusters-cluster-name-sales-end-subscription-403) | Forbidden | No valid ACL |  | [schema](#post-api-clusters-cluster-name-sales-end-subscription-403-schema) |
 | [500](#post-api-clusters-cluster-name-sales-end-subscription-500) | Internal Server Error | Error removing sponsor subscription |  | [schema](#post-api-clusters-cluster-name-sales-end-subscription-500-schema) |
 
-#### Responses
+#### 2.139.5 Responses
 
 
 ##### <span id="post-api-clusters-cluster-name-sales-end-subscription-200"></span> 200 - Sponsor subscription removed!
@@ -7867,7 +7867,7 @@ Status: Internal Server Error
 
 
 
-### <span id="post-api-clusters-cluster-name-sales-refuse-subscription"></span> Reject a subscription for a specific cluster (*PostAPIClustersClusterNameSalesRefuseSubscription*)
+### 2.140 <span id="post-api-clusters-cluster-name-sales-refuse-subscription"></span> Reject a subscription for a specific cluster (*PostAPIClustersClusterNameSalesRefuseSubscription*)
 
 ```
 POST /api/clusters/{clusterName}/sales/refuse-subscription
@@ -7875,27 +7875,27 @@ POST /api/clusters/{clusterName}/sales/refuse-subscription
 
 This endpoint rejects a subscription for the specified cluster.
 
-#### Consumes
+#### 2.140.1 Consumes
   * application/json
 
-#### Produces
+#### 2.140.2 Produces
   * application/json
 
-#### Parameters
+#### 2.140.3 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 | body | `body` | [ClusterUserForm](#cluster-user-form) | `models.ClusterUserForm` | | ✓ | | User Form |
 
-#### All responses
+#### 2.140.4 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#post-api-clusters-cluster-name-sales-refuse-subscription-200) | OK | Subscription removed! |  | [schema](#post-api-clusters-cluster-name-sales-refuse-subscription-200-schema) |
 | [403](#post-api-clusters-cluster-name-sales-refuse-subscription-403) | Forbidden | No valid ACL |  | [schema](#post-api-clusters-cluster-name-sales-refuse-subscription-403-schema) |
 | [500](#post-api-clusters-cluster-name-sales-refuse-subscription-500) | Internal Server Error | Error removing subscription |  | [schema](#post-api-clusters-cluster-name-sales-refuse-subscription-500-schema) |
 
-#### Responses
+#### 2.140.5 Responses
 
 
 ##### <span id="post-api-clusters-cluster-name-sales-refuse-subscription-200"></span> 200 - Subscription removed!
@@ -7925,7 +7925,7 @@ Status: Internal Server Error
 
 
 
-### <span id="post-api-clusters-cluster-name-schema-schema-name-table-name-actions-checksum-table"></span> Calculate checksum for a specific table in a specific cluster (*PostAPIClustersClusterNameSchemaSchemaNameTableNameActionsChecksumTable*)
+### 2.141 <span id="post-api-clusters-cluster-name-schema-schema-name-table-name-actions-checksum-table"></span> Calculate checksum for a specific table in a specific cluster (*PostAPIClustersClusterNameSchemaSchemaNameTableNameActionsChecksumTable*)
 
 ```
 POST /api/clusters/{clusterName}/schema/{schemaName}/{tableName}/actions/checksum-table
@@ -7933,13 +7933,13 @@ POST /api/clusters/{clusterName}/schema/{schemaName}/{tableName}/actions/checksu
 
 This endpoint triggers the checksum calculation for a specific table in the specified cluster.
 
-#### Consumes
+#### 2.141.1 Consumes
   * application/json
 
-#### Produces
+#### 2.141.2 Produces
   * application/json
 
-#### Parameters
+#### 2.141.3 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
@@ -7947,14 +7947,14 @@ This endpoint triggers the checksum calculation for a specific table in the spec
 | schemaName | `path` | string | `string` |  | ✓ |  | Schema Name |
 | tableName | `path` | string | `string` |  | ✓ |  | Table Name |
 
-#### All responses
+#### 2.141.4 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#post-api-clusters-cluster-name-schema-schema-name-table-name-actions-checksum-table-200) | OK | Successfully triggered checksum calculation for the table |  | [schema](#post-api-clusters-cluster-name-schema-schema-name-table-name-actions-checksum-table-200-schema) |
 | [403](#post-api-clusters-cluster-name-schema-schema-name-table-name-actions-checksum-table-403) | Forbidden | No valid ACL |  | [schema](#post-api-clusters-cluster-name-schema-schema-name-table-name-actions-checksum-table-403-schema) |
 | [500](#post-api-clusters-cluster-name-schema-schema-name-table-name-actions-checksum-table-500) | Internal Server Error | No cluster |  | [schema](#post-api-clusters-cluster-name-schema-schema-name-table-name-actions-checksum-table-500-schema) |
 
-#### Responses
+#### 2.141.5 Responses
 
 
 ##### <span id="post-api-clusters-cluster-name-schema-schema-name-table-name-actions-checksum-table-200"></span> 200 - Successfully triggered checksum calculation for the table
@@ -7984,7 +7984,7 @@ Status: Internal Server Error
 
 
 
-### <span id="post-api-clusters-cluster-name-schema-schema-name-table-name-actions-move-table-cluster-shard"></span> Move a table to a different shard cluster (*PostAPIClustersClusterNameSchemaSchemaNameTableNameActionsMoveTableClusterShard*)
+### 2.142 <span id="post-api-clusters-cluster-name-schema-schema-name-table-name-actions-move-table-cluster-shard"></span> Move a table to a different shard cluster (*PostAPIClustersClusterNameSchemaSchemaNameTableNameActionsMoveTableClusterShard*)
 
 ```
 POST /api/clusters/{clusterName}/schema/{schemaName}/{tableName}/actions/move-table/{clusterShard}
@@ -7992,13 +7992,13 @@ POST /api/clusters/{clusterName}/schema/{schemaName}/{tableName}/actions/move-ta
 
 This endpoint moves a table to a different shard cluster for the specified cluster.
 
-#### Consumes
+#### 2.142.1 Consumes
   * application/json
 
-#### Produces
+#### 2.142.2 Produces
   * application/json
 
-#### Parameters
+#### 2.142.3 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
@@ -8007,14 +8007,14 @@ This endpoint moves a table to a different shard cluster for the specified clust
 | schemaName | `path` | string | `string` |  | ✓ |  | Schema Name |
 | tableName | `path` | string | `string` |  | ✓ |  | Table Name |
 
-#### All responses
+#### 2.142.4 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#post-api-clusters-cluster-name-schema-schema-name-table-name-actions-move-table-cluster-shard-200) | OK | Successfully moved table |  | [schema](#post-api-clusters-cluster-name-schema-schema-name-table-name-actions-move-table-cluster-shard-200-schema) |
 | [403](#post-api-clusters-cluster-name-schema-schema-name-table-name-actions-move-table-cluster-shard-403) | Forbidden | No valid ACL |  | [schema](#post-api-clusters-cluster-name-schema-schema-name-table-name-actions-move-table-cluster-shard-403-schema) |
 | [500](#post-api-clusters-cluster-name-schema-schema-name-table-name-actions-move-table-cluster-shard-500) | Internal Server Error | No cluster |  | [schema](#post-api-clusters-cluster-name-schema-schema-name-table-name-actions-move-table-cluster-shard-500-schema) |
 
-#### Responses
+#### 2.142.5 Responses
 
 
 ##### <span id="post-api-clusters-cluster-name-schema-schema-name-table-name-actions-move-table-cluster-shard-200"></span> 200 - Successfully moved table
@@ -8044,7 +8044,7 @@ Status: Internal Server Error
 
 
 
-### <span id="post-api-clusters-cluster-name-schema-schema-name-table-name-actions-reshard-table"></span> Reshard a table for a specific cluster (*PostAPIClustersClusterNameSchemaSchemaNameTableNameActionsReshardTable*)
+### 2.143 <span id="post-api-clusters-cluster-name-schema-schema-name-table-name-actions-reshard-table"></span> Reshard a table for a specific cluster (*PostAPIClustersClusterNameSchemaSchemaNameTableNameActionsReshardTable*)
 
 ```
 POST /api/clusters/{clusterName}/schema/{schemaName}/{tableName}/actions/reshard-table
@@ -8052,13 +8052,13 @@ POST /api/clusters/{clusterName}/schema/{schemaName}/{tableName}/actions/reshard
 
 This endpoint triggers the resharding of a table for the specified cluster.
 
-#### Consumes
+#### 2.143.1 Consumes
   * application/json
 
-#### Produces
+#### 2.143.2 Produces
   * application/json
 
-#### Parameters
+#### 2.143.3 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
@@ -8066,14 +8066,14 @@ This endpoint triggers the resharding of a table for the specified cluster.
 | schemaName | `path` | string | `string` |  | ✓ |  | Schema Name |
 | tableName | `path` | string | `string` |  | ✓ |  | Table Name |
 
-#### All responses
+#### 2.143.4 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#post-api-clusters-cluster-name-schema-schema-name-table-name-actions-reshard-table-200) | OK | Successfully triggered resharding of the table |  | [schema](#post-api-clusters-cluster-name-schema-schema-name-table-name-actions-reshard-table-200-schema) |
 | [403](#post-api-clusters-cluster-name-schema-schema-name-table-name-actions-reshard-table-403) | Forbidden | No valid ACL |  | [schema](#post-api-clusters-cluster-name-schema-schema-name-table-name-actions-reshard-table-403-schema) |
 | [500](#post-api-clusters-cluster-name-schema-schema-name-table-name-actions-reshard-table-500) | Internal Server Error | No cluster |  | [schema](#post-api-clusters-cluster-name-schema-schema-name-table-name-actions-reshard-table-500-schema) |
 
-#### Responses
+#### 2.143.5 Responses
 
 
 ##### <span id="post-api-clusters-cluster-name-schema-schema-name-table-name-actions-reshard-table-200"></span> 200 - Successfully triggered resharding of the table
@@ -8103,7 +8103,7 @@ Status: Internal Server Error
 
 
 
-### <span id="post-api-clusters-cluster-name-schema-schema-name-table-name-actions-reshard-table-cluster-list"></span> Reshard a table for a specific cluster (*PostAPIClustersClusterNameSchemaSchemaNameTableNameActionsReshardTableClusterList*)
+### 2.144 <span id="post-api-clusters-cluster-name-schema-schema-name-table-name-actions-reshard-table-cluster-list"></span> Reshard a table for a specific cluster (*PostAPIClustersClusterNameSchemaSchemaNameTableNameActionsReshardTableClusterList*)
 
 ```
 POST /api/clusters/{clusterName}/schema/{schemaName}/{tableName}/actions/reshard-table/{clusterList}
@@ -8111,13 +8111,13 @@ POST /api/clusters/{clusterName}/schema/{schemaName}/{tableName}/actions/reshard
 
 This endpoint triggers the resharding of a table for the specified cluster.
 
-#### Consumes
+#### 2.144.1 Consumes
   * application/json
 
-#### Produces
+#### 2.144.2 Produces
   * application/json
 
-#### Parameters
+#### 2.144.3 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
@@ -8126,14 +8126,14 @@ This endpoint triggers the resharding of a table for the specified cluster.
 | schemaName | `path` | string | `string` |  | ✓ |  | Schema Name |
 | tableName | `path` | string | `string` |  | ✓ |  | Table Name |
 
-#### All responses
+#### 2.144.4 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#post-api-clusters-cluster-name-schema-schema-name-table-name-actions-reshard-table-cluster-list-200) | OK | Successfully triggered resharding of the table |  | [schema](#post-api-clusters-cluster-name-schema-schema-name-table-name-actions-reshard-table-cluster-list-200-schema) |
 | [403](#post-api-clusters-cluster-name-schema-schema-name-table-name-actions-reshard-table-cluster-list-403) | Forbidden | No valid ACL |  | [schema](#post-api-clusters-cluster-name-schema-schema-name-table-name-actions-reshard-table-cluster-list-403-schema) |
 | [500](#post-api-clusters-cluster-name-schema-schema-name-table-name-actions-reshard-table-cluster-list-500) | Internal Server Error | No cluster |  | [schema](#post-api-clusters-cluster-name-schema-schema-name-table-name-actions-reshard-table-cluster-list-500-schema) |
 
-#### Responses
+#### 2.144.5 Responses
 
 
 ##### <span id="post-api-clusters-cluster-name-schema-schema-name-table-name-actions-reshard-table-cluster-list-200"></span> 200 - Successfully triggered resharding of the table
@@ -8163,7 +8163,7 @@ Status: Internal Server Error
 
 
 
-### <span id="post-api-clusters-cluster-name-schema-schema-name-table-name-actions-universal-table"></span> Set a universal table for a specific cluster (*PostAPIClustersClusterNameSchemaSchemaNameTableNameActionsUniversalTable*)
+### 2.145 <span id="post-api-clusters-cluster-name-schema-schema-name-table-name-actions-universal-table"></span> Set a universal table for a specific cluster (*PostAPIClustersClusterNameSchemaSchemaNameTableNameActionsUniversalTable*)
 
 ```
 POST /api/clusters/{clusterName}/schema/{schemaName}/{tableName}/actions/universal-table
@@ -8171,13 +8171,13 @@ POST /api/clusters/{clusterName}/schema/{schemaName}/{tableName}/actions/univers
 
 This endpoint sets a universal table for the specified cluster.
 
-#### Consumes
+#### 2.145.1 Consumes
   * application/json
 
-#### Produces
+#### 2.145.2 Produces
   * application/json
 
-#### Parameters
+#### 2.145.3 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
@@ -8185,14 +8185,14 @@ This endpoint sets a universal table for the specified cluster.
 | schemaName | `path` | string | `string` |  | ✓ |  | Schema Name |
 | tableName | `path` | string | `string` |  | ✓ |  | Table Name |
 
-#### All responses
+#### 2.145.4 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#post-api-clusters-cluster-name-schema-schema-name-table-name-actions-universal-table-200) | OK | Successfully set universal table |  | [schema](#post-api-clusters-cluster-name-schema-schema-name-table-name-actions-universal-table-200-schema) |
 | [403](#post-api-clusters-cluster-name-schema-schema-name-table-name-actions-universal-table-403) | Forbidden | No valid ACL |  | [schema](#post-api-clusters-cluster-name-schema-schema-name-table-name-actions-universal-table-403-schema) |
 | [500](#post-api-clusters-cluster-name-schema-schema-name-table-name-actions-universal-table-500) | Internal Server Error | No cluster |  | [schema](#post-api-clusters-cluster-name-schema-schema-name-table-name-actions-universal-table-500-schema) |
 
-#### Responses
+#### 2.145.5 Responses
 
 
 ##### <span id="post-api-clusters-cluster-name-schema-schema-name-table-name-actions-universal-table-200"></span> 200 - Successfully set universal table
@@ -8222,7 +8222,7 @@ Status: Internal Server Error
 
 
 
-### <span id="post-api-clusters-cluster-name-send-vault-token"></span> Send Vault token to a specific cluster (*PostAPIClustersClusterNameSendVaultToken*)
+### 2.146 <span id="post-api-clusters-cluster-name-send-vault-token"></span> Send Vault token to a specific cluster (*PostAPIClustersClusterNameSendVaultToken*)
 
 ```
 POST /api/clusters/{clusterName}/send-vault-token
@@ -8230,26 +8230,26 @@ POST /api/clusters/{clusterName}/send-vault-token
 
 This endpoint sends the Vault token to the specified cluster via email.
 
-#### Consumes
+#### 2.146.1 Consumes
   * application/json
 
-#### Produces
+#### 2.146.2 Produces
   * application/json
 
-#### Parameters
+#### 2.146.3 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 
-#### All responses
+#### 2.146.4 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#post-api-clusters-cluster-name-send-vault-token-200) | OK | Vault token sent successfully |  | [schema](#post-api-clusters-cluster-name-send-vault-token-200-schema) |
 | [403](#post-api-clusters-cluster-name-send-vault-token-403) | Forbidden | No valid ACL |  | [schema](#post-api-clusters-cluster-name-send-vault-token-403-schema) |
 | [500](#post-api-clusters-cluster-name-send-vault-token-500) | Internal Server Error | No cluster |  | [schema](#post-api-clusters-cluster-name-send-vault-token-500-schema) |
 
-#### Responses
+#### 2.146.5 Responses
 
 
 ##### <span id="post-api-clusters-cluster-name-send-vault-token-200"></span> 200 - Vault token sent successfully
@@ -8279,7 +8279,7 @@ Status: Internal Server Error
 
 
 
-### <span id="post-api-clusters-cluster-name-servers-server-name-actions-pitr"></span> Perform a point-in-time recovery on a server (*PostAPIClustersClusterNameServersServerNameActionsPitr*)
+### 2.147 <span id="post-api-clusters-cluster-name-servers-server-name-actions-pitr"></span> Perform a point-in-time recovery on a server (*PostAPIClustersClusterNameServersServerNameActionsPitr*)
 
 ```
 POST /api/clusters/{clusterName}/servers/{serverName}/actions/pitr
@@ -8287,24 +8287,24 @@ POST /api/clusters/{clusterName}/servers/{serverName}/actions/pitr
 
 Initiates a point-in-time recovery on a specified server within a cluster.
 
-#### Produces
+#### 2.147.1 Produces
   * application/json
 
-#### Parameters
+#### 2.147.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 | serverName | `path` | string | `string` |  | ✓ |  | Server Name |
 
-#### All responses
+#### 2.147.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#post-api-clusters-cluster-name-servers-server-name-actions-pitr-200) | OK | PITR initiated successfully |  | [schema](#post-api-clusters-cluster-name-servers-server-name-actions-pitr-200-schema) |
 | [403](#post-api-clusters-cluster-name-servers-server-name-actions-pitr-403) | Forbidden | No valid ACL |  | [schema](#post-api-clusters-cluster-name-servers-server-name-actions-pitr-403-schema) |
 | [500](#post-api-clusters-cluster-name-servers-server-name-actions-pitr-500) | Internal Server Error | Cluster Not Found" or "Server Not Found" or "Decode error" or "PITR error |  | [schema](#post-api-clusters-cluster-name-servers-server-name-actions-pitr-500-schema) |
 
-#### Responses
+#### 2.147.4 Responses
 
 
 ##### <span id="post-api-clusters-cluster-name-servers-server-name-actions-pitr-200"></span> 200 - PITR initiated successfully
@@ -8334,7 +8334,7 @@ Status: Internal Server Error
 
 
 
-### <span id="post-api-clusters-cluster-name-servers-server-name-server-port-write-log-task"></span> Write logs for a server (*PostAPIClustersClusterNameServersServerNameServerPortWriteLogTask*)
+### 2.148 <span id="post-api-clusters-cluster-name-servers-server-name-server-port-write-log-task"></span> Write logs for a server (*PostAPIClustersClusterNameServersServerNameServerPortWriteLogTask*)
 
 ```
 POST /api/clusters/{clusterName}/servers/{serverName}/{serverPort}/write-log/{task}
@@ -8342,10 +8342,10 @@ POST /api/clusters/{clusterName}/servers/{serverName}/{serverPort}/write-log/{ta
 
 Writes logs for a specified server within a cluster.
 
-#### Produces
+#### 2.148.1 Produces
   * application/json
 
-#### Parameters
+#### 2.148.2 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
@@ -8355,14 +8355,14 @@ Writes logs for a specified server within a cluster.
 | task | `path` | string | `string` |  | ✓ |  | Task |
 | data | `body` | [ServerDecodedData](#server-decoded-data) | `models.ServerDecodedData` | | ✓ | | Log Data |
 
-#### All responses
+#### 2.148.3 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#post-api-clusters-cluster-name-servers-server-name-server-port-write-log-task-200) | OK | Message logged |  | [schema](#post-api-clusters-cluster-name-servers-server-name-server-port-write-log-task-200-schema) |
 | [400](#post-api-clusters-cluster-name-servers-server-name-server-port-write-log-task-400) | Bad Request | Bad request: Task is not registered" or "Decode reading body" or "Decode body |  | [schema](#post-api-clusters-cluster-name-servers-server-name-server-port-write-log-task-400-schema) |
 | [500](#post-api-clusters-cluster-name-servers-server-name-server-port-write-log-task-500) | Internal Server Error | No cluster" or "No server" or "Error decrypting data |  | [schema](#post-api-clusters-cluster-name-servers-server-name-server-port-write-log-task-500-schema) |
 
-#### Responses
+#### 2.148.4 Responses
 
 
 ##### <span id="post-api-clusters-cluster-name-servers-server-name-server-port-write-log-task-200"></span> 200 - Message logged
@@ -8392,7 +8392,7 @@ Status: Internal Server Error
 
 
 
-### <span id="post-api-clusters-cluster-name-services-actions-provision"></span> Provision services for a specific cluster (*PostAPIClustersClusterNameServicesActionsProvision*)
+### 2.149 <span id="post-api-clusters-cluster-name-services-actions-provision"></span> Provision services for a specific cluster (*PostAPIClustersClusterNameServicesActionsProvision*)
 
 ```
 POST /api/clusters/{clusterName}/services/actions/provision
@@ -8400,26 +8400,26 @@ POST /api/clusters/{clusterName}/services/actions/provision
 
 This endpoint provisions services for the specified cluster.
 
-#### Consumes
+#### 2.149.1 Consumes
   * application/json
 
-#### Produces
+#### 2.149.2 Produces
   * application/json
 
-#### Parameters
+#### 2.149.3 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 
-#### All responses
+#### 2.149.4 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#post-api-clusters-cluster-name-services-actions-provision-200) | OK | Successfully provisioned services |  | [schema](#post-api-clusters-cluster-name-services-actions-provision-200-schema) |
 | [403](#post-api-clusters-cluster-name-services-actions-provision-403) | Forbidden | No valid ACL |  | [schema](#post-api-clusters-cluster-name-services-actions-provision-403-schema) |
 | [500](#post-api-clusters-cluster-name-services-actions-provision-500) | Internal Server Error | No cluster |  | [schema](#post-api-clusters-cluster-name-services-actions-provision-500-schema) |
 
-#### Responses
+#### 2.149.5 Responses
 
 
 ##### <span id="post-api-clusters-cluster-name-services-actions-provision-200"></span> 200 - Successfully provisioned services
@@ -8449,7 +8449,7 @@ Status: Internal Server Error
 
 
 
-### <span id="post-api-clusters-cluster-name-services-actions-unprovision"></span> Unprovision services for a specific cluster (*PostAPIClustersClusterNameServicesActionsUnprovision*)
+### 2.150 <span id="post-api-clusters-cluster-name-services-actions-unprovision"></span> Unprovision services for a specific cluster (*PostAPIClustersClusterNameServicesActionsUnprovision*)
 
 ```
 POST /api/clusters/{clusterName}/services/actions/unprovision
@@ -8457,26 +8457,26 @@ POST /api/clusters/{clusterName}/services/actions/unprovision
 
 This endpoint unprovisions services for the specified cluster.
 
-#### Consumes
+#### 2.150.1 Consumes
   * application/json
 
-#### Produces
+#### 2.150.2 Produces
   * application/json
 
-#### Parameters
+#### 2.150.3 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 
-#### All responses
+#### 2.150.4 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#post-api-clusters-cluster-name-services-actions-unprovision-200) | OK | Successfully unprovisioned services |  | [schema](#post-api-clusters-cluster-name-services-actions-unprovision-200-schema) |
 | [403](#post-api-clusters-cluster-name-services-actions-unprovision-403) | Forbidden | No valid ACL |  | [schema](#post-api-clusters-cluster-name-services-actions-unprovision-403-schema) |
 | [500](#post-api-clusters-cluster-name-services-actions-unprovision-500) | Internal Server Error | No cluster |  | [schema](#post-api-clusters-cluster-name-services-actions-unprovision-500-schema) |
 
-#### Responses
+#### 2.150.5 Responses
 
 
 ##### <span id="post-api-clusters-cluster-name-services-actions-unprovision-200"></span> 200 - Successfully unprovisioned services
@@ -8506,7 +8506,7 @@ Status: Internal Server Error
 
 
 
-### <span id="post-api-clusters-cluster-name-settings-actions-add-db-tag-tag-value"></span> Add a tag to a specific cluster (*PostAPIClustersClusterNameSettingsActionsAddDbTagTagValue*)
+### 2.151 <span id="post-api-clusters-cluster-name-settings-actions-add-db-tag-tag-value"></span> Add a tag to a specific cluster (*PostAPIClustersClusterNameSettingsActionsAddDbTagTagValue*)
 
 ```
 POST /api/clusters/{clusterName}/settings/actions/add-db-tag/{tagValue}
@@ -8514,27 +8514,27 @@ POST /api/clusters/{clusterName}/settings/actions/add-db-tag/{tagValue}
 
 This endpoint adds a tag to the specified cluster.
 
-#### Consumes
+#### 2.151.1 Consumes
   * application/json
 
-#### Produces
+#### 2.151.2 Produces
   * application/json
 
-#### Parameters
+#### 2.151.3 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 | tagValue | `path` | string | `string` |  | ✓ |  | Tag Value |
 
-#### All responses
+#### 2.151.4 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#post-api-clusters-cluster-name-settings-actions-add-db-tag-tag-value-200) | OK | Tag added successfully |  | [schema](#post-api-clusters-cluster-name-settings-actions-add-db-tag-tag-value-200-schema) |
 | [403](#post-api-clusters-cluster-name-settings-actions-add-db-tag-tag-value-403) | Forbidden | No valid ACL |  | [schema](#post-api-clusters-cluster-name-settings-actions-add-db-tag-tag-value-403-schema) |
 | [500](#post-api-clusters-cluster-name-settings-actions-add-db-tag-tag-value-500) | Internal Server Error | Cluster Not Found |  | [schema](#post-api-clusters-cluster-name-settings-actions-add-db-tag-tag-value-500-schema) |
 
-#### Responses
+#### 2.151.5 Responses
 
 
 ##### <span id="post-api-clusters-cluster-name-settings-actions-add-db-tag-tag-value-200"></span> 200 - Tag added successfully
@@ -8564,7 +8564,7 @@ Status: Internal Server Error
 
 
 
-### <span id="post-api-clusters-cluster-name-settings-actions-add-proxy-tag-tag-value"></span> Add a proxy tag to a specific cluster (*PostAPIClustersClusterNameSettingsActionsAddProxyTagTagValue*)
+### 2.152 <span id="post-api-clusters-cluster-name-settings-actions-add-proxy-tag-tag-value"></span> Add a proxy tag to a specific cluster (*PostAPIClustersClusterNameSettingsActionsAddProxyTagTagValue*)
 
 ```
 POST /api/clusters/{clusterName}/settings/actions/add-proxy-tag/{tagValue}
@@ -8572,27 +8572,27 @@ POST /api/clusters/{clusterName}/settings/actions/add-proxy-tag/{tagValue}
 
 This endpoint adds a proxy tag to the specified cluster.
 
-#### Consumes
+#### 2.152.1 Consumes
   * application/json
 
-#### Produces
+#### 2.152.2 Produces
   * application/json
 
-#### Parameters
+#### 2.152.3 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 | tagValue | `path` | string | `string` |  | ✓ |  | Tag Value |
 
-#### All responses
+#### 2.152.4 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#post-api-clusters-cluster-name-settings-actions-add-proxy-tag-tag-value-200) | OK | Tag added successfully |  | [schema](#post-api-clusters-cluster-name-settings-actions-add-proxy-tag-tag-value-200-schema) |
 | [403](#post-api-clusters-cluster-name-settings-actions-add-proxy-tag-tag-value-403) | Forbidden | No valid ACL |  | [schema](#post-api-clusters-cluster-name-settings-actions-add-proxy-tag-tag-value-403-schema) |
 | [500](#post-api-clusters-cluster-name-settings-actions-add-proxy-tag-tag-value-500) | Internal Server Error | Cluster Not Found |  | [schema](#post-api-clusters-cluster-name-settings-actions-add-proxy-tag-tag-value-500-schema) |
 
-#### Responses
+#### 2.152.5 Responses
 
 
 ##### <span id="post-api-clusters-cluster-name-settings-actions-add-proxy-tag-tag-value-200"></span> 200 - Tag added successfully
@@ -8622,7 +8622,7 @@ Status: Internal Server Error
 
 
 
-### <span id="post-api-clusters-cluster-name-settings-actions-apply-dynamic-config"></span> Apply dynamic configuration for a specific cluster (*PostAPIClustersClusterNameSettingsActionsApplyDynamicConfig*)
+### 2.153 <span id="post-api-clusters-cluster-name-settings-actions-apply-dynamic-config"></span> Apply dynamic configuration for a specific cluster (*PostAPIClustersClusterNameSettingsActionsApplyDynamicConfig*)
 
 ```
 POST /api/clusters/{clusterName}/settings/actions/apply-dynamic-config
@@ -8630,26 +8630,26 @@ POST /api/clusters/{clusterName}/settings/actions/apply-dynamic-config
 
 This endpoint applies dynamic configuration for the specified cluster.
 
-#### Consumes
+#### 2.153.1 Consumes
   * application/json
 
-#### Produces
+#### 2.153.2 Produces
   * application/json
 
-#### Parameters
+#### 2.153.3 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 
-#### All responses
+#### 2.153.4 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#post-api-clusters-cluster-name-settings-actions-apply-dynamic-config-200) | OK | Successfully applied dynamic configuration |  | [schema](#post-api-clusters-cluster-name-settings-actions-apply-dynamic-config-200-schema) |
 | [403](#post-api-clusters-cluster-name-settings-actions-apply-dynamic-config-403) | Forbidden | No valid ACL |  | [schema](#post-api-clusters-cluster-name-settings-actions-apply-dynamic-config-403-schema) |
 | [500](#post-api-clusters-cluster-name-settings-actions-apply-dynamic-config-500) | Internal Server Error | No cluster |  | [schema](#post-api-clusters-cluster-name-settings-actions-apply-dynamic-config-500-schema) |
 
-#### Responses
+#### 2.153.5 Responses
 
 
 ##### <span id="post-api-clusters-cluster-name-settings-actions-apply-dynamic-config-200"></span> 200 - Successfully applied dynamic configuration
@@ -8679,7 +8679,7 @@ Status: Internal Server Error
 
 
 
-### <span id="post-api-clusters-cluster-name-settings-actions-certificates-reload"></span> Reload client certificates for a specific cluster (*PostAPIClustersClusterNameSettingsActionsCertificatesReload*)
+### 2.154 <span id="post-api-clusters-cluster-name-settings-actions-certificates-reload"></span> Reload client certificates for a specific cluster (*PostAPIClustersClusterNameSettingsActionsCertificatesReload*)
 
 ```
 POST /api/clusters/{clusterName}/settings/actions/certificates-reload
@@ -8687,26 +8687,26 @@ POST /api/clusters/{clusterName}/settings/actions/certificates-reload
 
 This endpoint reloads the client certificates for the specified cluster.
 
-#### Consumes
+#### 2.154.1 Consumes
   * application/json
 
-#### Produces
+#### 2.154.2 Produces
   * application/json
 
-#### Parameters
+#### 2.154.3 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 
-#### All responses
+#### 2.154.4 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#post-api-clusters-cluster-name-settings-actions-certificates-reload-200) | OK | Successfully reloaded client certificates |  | [schema](#post-api-clusters-cluster-name-settings-actions-certificates-reload-200-schema) |
 | [403](#post-api-clusters-cluster-name-settings-actions-certificates-reload-403) | Forbidden | No valid ACL |  | [schema](#post-api-clusters-cluster-name-settings-actions-certificates-reload-403-schema) |
 | [500](#post-api-clusters-cluster-name-settings-actions-certificates-reload-500) | Internal Server Error | No cluster |  | [schema](#post-api-clusters-cluster-name-settings-actions-certificates-reload-500-schema) |
 
-#### Responses
+#### 2.154.5 Responses
 
 
 ##### <span id="post-api-clusters-cluster-name-settings-actions-certificates-reload-200"></span> 200 - Successfully reloaded client certificates
@@ -8736,7 +8736,7 @@ Status: Internal Server Error
 
 
 
-### <span id="post-api-clusters-cluster-name-settings-actions-discover"></span> Discover settings for a specific cluster (*PostAPIClustersClusterNameSettingsActionsDiscover*)
+### 2.155 <span id="post-api-clusters-cluster-name-settings-actions-discover"></span> Discover settings for a specific cluster (*PostAPIClustersClusterNameSettingsActionsDiscover*)
 
 ```
 POST /api/clusters/{clusterName}/settings/actions/discover
@@ -8744,26 +8744,26 @@ POST /api/clusters/{clusterName}/settings/actions/discover
 
 This endpoint triggers the discovery of settings for the specified cluster.
 
-#### Consumes
+#### 2.155.1 Consumes
   * application/json
 
-#### Produces
+#### 2.155.2 Produces
   * application/json
 
-#### Parameters
+#### 2.155.3 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 
-#### All responses
+#### 2.155.4 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#post-api-clusters-cluster-name-settings-actions-discover-200) | OK | Successfully discovered settings |  | [schema](#post-api-clusters-cluster-name-settings-actions-discover-200-schema) |
 | [403](#post-api-clusters-cluster-name-settings-actions-discover-403) | Forbidden | No valid ACL |  | [schema](#post-api-clusters-cluster-name-settings-actions-discover-403-schema) |
 | [500](#post-api-clusters-cluster-name-settings-actions-discover-500) | Internal Server Error | No cluster |  | [schema](#post-api-clusters-cluster-name-settings-actions-discover-500-schema) |
 
-#### Responses
+#### 2.155.5 Responses
 
 
 ##### <span id="post-api-clusters-cluster-name-settings-actions-discover-200"></span> 200 - Successfully discovered settings
@@ -8793,7 +8793,7 @@ Status: Internal Server Error
 
 
 
-### <span id="post-api-clusters-cluster-name-settings-actions-drop-db-tag-tag-value"></span> Remove a tag from a specific cluster (*PostAPIClustersClusterNameSettingsActionsDropDbTagTagValue*)
+### 2.156 <span id="post-api-clusters-cluster-name-settings-actions-drop-db-tag-tag-value"></span> Remove a tag from a specific cluster (*PostAPIClustersClusterNameSettingsActionsDropDbTagTagValue*)
 
 ```
 POST /api/clusters/{clusterName}/settings/actions/drop-db-tag/{tagValue}
@@ -8801,27 +8801,27 @@ POST /api/clusters/{clusterName}/settings/actions/drop-db-tag/{tagValue}
 
 This endpoint removes a tag from the specified cluster.
 
-#### Consumes
+#### 2.156.1 Consumes
   * application/json
 
-#### Produces
+#### 2.156.2 Produces
   * application/json
 
-#### Parameters
+#### 2.156.3 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 | tagValue | `path` | string | `string` |  | ✓ |  | Tag Value |
 
-#### All responses
+#### 2.156.4 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#post-api-clusters-cluster-name-settings-actions-drop-db-tag-tag-value-200) | OK | Tag removed successfully |  | [schema](#post-api-clusters-cluster-name-settings-actions-drop-db-tag-tag-value-200-schema) |
 | [403](#post-api-clusters-cluster-name-settings-actions-drop-db-tag-tag-value-403) | Forbidden | No valid ACL |  | [schema](#post-api-clusters-cluster-name-settings-actions-drop-db-tag-tag-value-403-schema) |
 | [500](#post-api-clusters-cluster-name-settings-actions-drop-db-tag-tag-value-500) | Internal Server Error | Cluster Not Found |  | [schema](#post-api-clusters-cluster-name-settings-actions-drop-db-tag-tag-value-500-schema) |
 
-#### Responses
+#### 2.156.5 Responses
 
 
 ##### <span id="post-api-clusters-cluster-name-settings-actions-drop-db-tag-tag-value-200"></span> 200 - Tag removed successfully
@@ -8851,7 +8851,7 @@ Status: Internal Server Error
 
 
 
-### <span id="post-api-clusters-cluster-name-settings-actions-drop-proxy-tag-tag-value"></span> Remove a proxy tag from a specific cluster (*PostAPIClustersClusterNameSettingsActionsDropProxyTagTagValue*)
+### 2.157 <span id="post-api-clusters-cluster-name-settings-actions-drop-proxy-tag-tag-value"></span> Remove a proxy tag from a specific cluster (*PostAPIClustersClusterNameSettingsActionsDropProxyTagTagValue*)
 
 ```
 POST /api/clusters/{clusterName}/settings/actions/drop-proxy-tag/{tagValue}
@@ -8859,27 +8859,27 @@ POST /api/clusters/{clusterName}/settings/actions/drop-proxy-tag/{tagValue}
 
 This endpoint removes a proxy tag from the specified cluster.
 
-#### Consumes
+#### 2.157.1 Consumes
   * application/json
 
-#### Produces
+#### 2.157.2 Produces
   * application/json
 
-#### Parameters
+#### 2.157.3 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 | tagValue | `path` | string | `string` |  | ✓ |  | Tag Value |
 
-#### All responses
+#### 2.157.4 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#post-api-clusters-cluster-name-settings-actions-drop-proxy-tag-tag-value-200) | OK | Tag removed successfully |  | [schema](#post-api-clusters-cluster-name-settings-actions-drop-proxy-tag-tag-value-200-schema) |
 | [403](#post-api-clusters-cluster-name-settings-actions-drop-proxy-tag-tag-value-403) | Forbidden | No valid ACL |  | [schema](#post-api-clusters-cluster-name-settings-actions-drop-proxy-tag-tag-value-403-schema) |
 | [500](#post-api-clusters-cluster-name-settings-actions-drop-proxy-tag-tag-value-500) | Internal Server Error | Cluster Not Found |  | [schema](#post-api-clusters-cluster-name-settings-actions-drop-proxy-tag-tag-value-500-schema) |
 
-#### Responses
+#### 2.157.5 Responses
 
 
 ##### <span id="post-api-clusters-cluster-name-settings-actions-drop-proxy-tag-tag-value-200"></span> 200 - Tag removed successfully
@@ -8909,7 +8909,7 @@ Status: Internal Server Error
 
 
 
-### <span id="post-api-clusters-cluster-name-settings-actions-reload"></span> Reload cluster settings (*PostAPIClustersClusterNameSettingsActionsReload*)
+### 2.158 <span id="post-api-clusters-cluster-name-settings-actions-reload"></span> Reload cluster settings (*PostAPIClustersClusterNameSettingsActionsReload*)
 
 ```
 POST /api/clusters/{clusterName}/settings/actions/reload
@@ -8917,25 +8917,25 @@ POST /api/clusters/{clusterName}/settings/actions/reload
 
 This endpoint reloads the settings for the specified cluster.
 
-#### Consumes
+#### 2.158.1 Consumes
   * application/json
 
-#### Produces
+#### 2.158.2 Produces
   * application/json
 
-#### Parameters
+#### 2.158.3 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 
-#### All responses
+#### 2.158.4 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#post-api-clusters-cluster-name-settings-actions-reload-200) | OK | Successfully reloaded settings |  | [schema](#post-api-clusters-cluster-name-settings-actions-reload-200-schema) |
 | [500](#post-api-clusters-cluster-name-settings-actions-reload-500) | Internal Server Error | Cluster Not Found |  | [schema](#post-api-clusters-cluster-name-settings-actions-reload-500-schema) |
 
-#### Responses
+#### 2.158.5 Responses
 
 
 ##### <span id="post-api-clusters-cluster-name-settings-actions-reload-200"></span> 200 - Successfully reloaded settings
@@ -8956,7 +8956,7 @@ Status: Internal Server Error
 
 
 
-### <span id="post-api-clusters-cluster-name-settings-actions-reload-graphite-filterlist"></span> Reload Graphite filter list for a specific cluster (*PostAPIClustersClusterNameSettingsActionsReloadGraphiteFilterlist*)
+### 2.159 <span id="post-api-clusters-cluster-name-settings-actions-reload-graphite-filterlist"></span> Reload Graphite filter list for a specific cluster (*PostAPIClustersClusterNameSettingsActionsReloadGraphiteFilterlist*)
 
 ```
 POST /api/clusters/{clusterName}/settings/actions/reload-graphite-filterlist
@@ -8964,26 +8964,26 @@ POST /api/clusters/{clusterName}/settings/actions/reload-graphite-filterlist
 
 This endpoint reloads the Graphite filter list for the specified cluster.
 
-#### Consumes
+#### 2.159.1 Consumes
   * application/json
 
-#### Produces
+#### 2.159.2 Produces
   * application/json
 
-#### Parameters
+#### 2.159.3 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 
-#### All responses
+#### 2.159.4 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#post-api-clusters-cluster-name-settings-actions-reload-graphite-filterlist-200) | OK | Successfully reloaded Graphite filter list |  | [schema](#post-api-clusters-cluster-name-settings-actions-reload-graphite-filterlist-200-schema) |
 | [403](#post-api-clusters-cluster-name-settings-actions-reload-graphite-filterlist-403) | Forbidden | No valid ACL |  | [schema](#post-api-clusters-cluster-name-settings-actions-reload-graphite-filterlist-403-schema) |
 | [500](#post-api-clusters-cluster-name-settings-actions-reload-graphite-filterlist-500) | Internal Server Error | No cluster |  | [schema](#post-api-clusters-cluster-name-settings-actions-reload-graphite-filterlist-500-schema) |
 
-#### Responses
+#### 2.159.5 Responses
 
 
 ##### <span id="post-api-clusters-cluster-name-settings-actions-reload-graphite-filterlist-200"></span> 200 - Successfully reloaded Graphite filter list
@@ -9013,7 +9013,7 @@ Status: Internal Server Error
 
 
 
-### <span id="post-api-clusters-cluster-name-settings-actions-reset-graphite-filterlist-template"></span> Reset Graphite filter list for a specific cluster (*PostAPIClustersClusterNameSettingsActionsResetGraphiteFilterlistTemplate*)
+### 2.160 <span id="post-api-clusters-cluster-name-settings-actions-reset-graphite-filterlist-template"></span> Reset Graphite filter list for a specific cluster (*PostAPIClustersClusterNameSettingsActionsResetGraphiteFilterlistTemplate*)
 
 ```
 POST /api/clusters/{clusterName}/settings/actions/reset-graphite-filterlist/{template}
@@ -9021,27 +9021,27 @@ POST /api/clusters/{clusterName}/settings/actions/reset-graphite-filterlist/{tem
 
 This endpoint resets the Graphite filter list for the specified cluster.
 
-#### Consumes
+#### 2.160.1 Consumes
   * application/json
 
-#### Produces
+#### 2.160.2 Produces
   * application/json
 
-#### Parameters
+#### 2.160.3 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 | template | `path` | string | `string` |  | ✓ |  | Template |
 
-#### All responses
+#### 2.160.4 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#post-api-clusters-cluster-name-settings-actions-reset-graphite-filterlist-template-200) | OK | Successfully reset Graphite filter list |  | [schema](#post-api-clusters-cluster-name-settings-actions-reset-graphite-filterlist-template-200-schema) |
 | [403](#post-api-clusters-cluster-name-settings-actions-reset-graphite-filterlist-template-403) | Forbidden | No valid ACL |  | [schema](#post-api-clusters-cluster-name-settings-actions-reset-graphite-filterlist-template-403-schema) |
 | [500](#post-api-clusters-cluster-name-settings-actions-reset-graphite-filterlist-template-500) | Internal Server Error | No cluster |  | [schema](#post-api-clusters-cluster-name-settings-actions-reset-graphite-filterlist-template-500-schema) |
 
-#### Responses
+#### 2.160.5 Responses
 
 
 ##### <span id="post-api-clusters-cluster-name-settings-actions-reset-graphite-filterlist-template-200"></span> 200 - Successfully reset Graphite filter list
@@ -9071,7 +9071,7 @@ Status: Internal Server Error
 
 
 
-### <span id="post-api-clusters-cluster-name-settings-actions-set-cron-setting-name-setting-value"></span> Set cron jobs for a specific cluster (*PostAPIClustersClusterNameSettingsActionsSetCronSettingNameSettingValue*)
+### 2.161 <span id="post-api-clusters-cluster-name-settings-actions-set-cron-setting-name-setting-value"></span> Set cron jobs for a specific cluster (*PostAPIClustersClusterNameSettingsActionsSetCronSettingNameSettingValue*)
 
 ```
 POST /api/clusters/{clusterName}/settings/actions/set-cron/{settingName}/{settingValue}
@@ -9079,13 +9079,13 @@ POST /api/clusters/{clusterName}/settings/actions/set-cron/{settingName}/{settin
 
 This endpoint sets the cron jobs for the specified cluster.
 
-#### Consumes
+#### 2.161.1 Consumes
   * application/json
 
-#### Produces
+#### 2.161.2 Produces
   * application/json
 
-#### Parameters
+#### 2.161.3 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
@@ -9093,14 +9093,14 @@ This endpoint sets the cron jobs for the specified cluster.
 | settingName | `path` | string | `string` |  | ✓ |  | Setting Name |
 | settingValue | `path` | string | `string` |  | ✓ |  | Setting Value |
 
-#### All responses
+#### 2.161.4 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#post-api-clusters-cluster-name-settings-actions-set-cron-setting-name-setting-value-200) | OK | Successfully set cron job |  | [schema](#post-api-clusters-cluster-name-settings-actions-set-cron-setting-name-setting-value-200-schema) |
 | [403](#post-api-clusters-cluster-name-settings-actions-set-cron-setting-name-setting-value-403) | Forbidden | No valid ACL |  | [schema](#post-api-clusters-cluster-name-settings-actions-set-cron-setting-name-setting-value-403-schema) |
 | [500](#post-api-clusters-cluster-name-settings-actions-set-cron-setting-name-setting-value-500) | Internal Server Error | No cluster |  | [schema](#post-api-clusters-cluster-name-settings-actions-set-cron-setting-name-setting-value-500-schema) |
 
-#### Responses
+#### 2.161.5 Responses
 
 
 ##### <span id="post-api-clusters-cluster-name-settings-actions-set-cron-setting-name-setting-value-200"></span> 200 - Successfully set cron job
@@ -9130,7 +9130,7 @@ Status: Internal Server Error
 
 
 
-### <span id="post-api-clusters-cluster-name-settings-actions-set-graphite-filterlist-filter-type"></span> Set Graphite filter list for a specific cluster (*PostAPIClustersClusterNameSettingsActionsSetGraphiteFilterlistFilterType*)
+### 2.162 <span id="post-api-clusters-cluster-name-settings-actions-set-graphite-filterlist-filter-type"></span> Set Graphite filter list for a specific cluster (*PostAPIClustersClusterNameSettingsActionsSetGraphiteFilterlistFilterType*)
 
 ```
 POST /api/clusters/{clusterName}/settings/actions/set-graphite-filterlist/{filterType}
@@ -9138,13 +9138,13 @@ POST /api/clusters/{clusterName}/settings/actions/set-graphite-filterlist/{filte
 
 This endpoint sets the Graphite filter list for the specified cluster.
 
-#### Consumes
+#### 2.162.1 Consumes
   * application/json
 
-#### Produces
+#### 2.162.2 Produces
   * application/json
 
-#### Parameters
+#### 2.162.3 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
@@ -9152,14 +9152,14 @@ This endpoint sets the Graphite filter list for the specified cluster.
 | filterType | `path` | string | `string` |  | ✓ |  | Filter Type |
 | body | `body` | [ClusterGraphiteFilterList](#cluster-graphite-filter-list) | `models.ClusterGraphiteFilterList` | | ✓ | | Graphite Filter List |
 
-#### All responses
+#### 2.162.4 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#post-api-clusters-cluster-name-settings-actions-set-graphite-filterlist-filter-type-200) | OK | Filterlist updated |  | [schema](#post-api-clusters-cluster-name-settings-actions-set-graphite-filterlist-filter-type-200-schema) |
 | [403](#post-api-clusters-cluster-name-settings-actions-set-graphite-filterlist-filter-type-403) | Forbidden | No valid ACL |  | [schema](#post-api-clusters-cluster-name-settings-actions-set-graphite-filterlist-filter-type-403-schema) |
 | [500](#post-api-clusters-cluster-name-settings-actions-set-graphite-filterlist-filter-type-500) | Internal Server Error | No cluster |  | [schema](#post-api-clusters-cluster-name-settings-actions-set-graphite-filterlist-filter-type-500-schema) |
 
-#### Responses
+#### 2.162.5 Responses
 
 
 ##### <span id="post-api-clusters-cluster-name-settings-actions-set-graphite-filterlist-filter-type-200"></span> 200 - Filterlist updated
@@ -9189,7 +9189,7 @@ Status: Internal Server Error
 
 
 
-### <span id="post-api-clusters-cluster-name-settings-actions-set-setting-name-setting-value"></span> Set settings for a specific cluster (*PostAPIClustersClusterNameSettingsActionsSetSettingNameSettingValue*)
+### 2.163 <span id="post-api-clusters-cluster-name-settings-actions-set-setting-name-setting-value"></span> Set settings for a specific cluster (*PostAPIClustersClusterNameSettingsActionsSetSettingNameSettingValue*)
 
 ```
 POST /api/clusters/{clusterName}/settings/actions/set/{settingName}/{settingValue}
@@ -9197,13 +9197,13 @@ POST /api/clusters/{clusterName}/settings/actions/set/{settingName}/{settingValu
 
 This endpoint sets the settings for the specified cluster.
 
-#### Consumes
+#### 2.163.1 Consumes
   * application/json
 
-#### Produces
+#### 2.163.2 Produces
   * application/json
 
-#### Parameters
+#### 2.163.3 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
@@ -9211,14 +9211,14 @@ This endpoint sets the settings for the specified cluster.
 | settingName | `path` | string | `string` |  | ✓ |  | Setting Name |
 | settingValue | `path` | string | `string` |  | ✓ |  | Setting Value |
 
-#### All responses
+#### 2.163.4 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#post-api-clusters-cluster-name-settings-actions-set-setting-name-setting-value-200) | OK | Successfully set setting |  | [schema](#post-api-clusters-cluster-name-settings-actions-set-setting-name-setting-value-200-schema) |
 | [403](#post-api-clusters-cluster-name-settings-actions-set-setting-name-setting-value-403) | Forbidden | No valid ACL |  | [schema](#post-api-clusters-cluster-name-settings-actions-set-setting-name-setting-value-403-schema) |
 | [500](#post-api-clusters-cluster-name-settings-actions-set-setting-name-setting-value-500) | Internal Server Error | No cluster |  | [schema](#post-api-clusters-cluster-name-settings-actions-set-setting-name-setting-value-500-schema) |
 
-#### Responses
+#### 2.163.5 Responses
 
 
 ##### <span id="post-api-clusters-cluster-name-settings-actions-set-setting-name-setting-value-200"></span> 200 - Successfully set setting
@@ -9248,7 +9248,7 @@ Status: Internal Server Error
 
 
 
-### <span id="post-api-clusters-cluster-name-settings-actions-switch-setting-name"></span> Switch settings for a specific cluster (*PostAPIClustersClusterNameSettingsActionsSwitchSettingName*)
+### 2.164 <span id="post-api-clusters-cluster-name-settings-actions-switch-setting-name"></span> Switch settings for a specific cluster (*PostAPIClustersClusterNameSettingsActionsSwitchSettingName*)
 
 ```
 POST /api/clusters/{clusterName}/settings/actions/switch/{settingName}
@@ -9256,27 +9256,27 @@ POST /api/clusters/{clusterName}/settings/actions/switch/{settingName}
 
 This endpoint switches the settings for the specified cluster.
 
-#### Consumes
+#### 2.164.1 Consumes
   * application/json
 
-#### Produces
+#### 2.164.2 Produces
   * application/json
 
-#### Parameters
+#### 2.164.3 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 | settingName | `path` | string | `string` |  | ✓ |  | Setting Name |
 
-#### All responses
+#### 2.164.4 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#post-api-clusters-cluster-name-settings-actions-switch-setting-name-200) | OK | Successfully switched setting |  | [schema](#post-api-clusters-cluster-name-settings-actions-switch-setting-name-200-schema) |
 | [403](#post-api-clusters-cluster-name-settings-actions-switch-setting-name-403) | Forbidden | No valid ACL |  | [schema](#post-api-clusters-cluster-name-settings-actions-switch-setting-name-403-schema) |
 | [500](#post-api-clusters-cluster-name-settings-actions-switch-setting-name-500) | Internal Server Error | No cluster |  | [schema](#post-api-clusters-cluster-name-settings-actions-switch-setting-name-500-schema) |
 
-#### Responses
+#### 2.164.5 Responses
 
 
 ##### <span id="post-api-clusters-cluster-name-settings-actions-switch-setting-name-200"></span> 200 - Successfully switched setting
@@ -9306,7 +9306,7 @@ Status: Internal Server Error
 
 
 
-### <span id="post-api-clusters-cluster-name-subscribe"></span> Subscribe a user to a cluster (*PostAPIClustersClusterNameSubscribe*)
+### 2.165 <span id="post-api-clusters-cluster-name-subscribe"></span> Subscribe a user to a cluster (*PostAPIClustersClusterNameSubscribe*)
 
 ```
 POST /api/clusters/{clusterName}/subscribe
@@ -9314,20 +9314,20 @@ POST /api/clusters/{clusterName}/subscribe
 
 This endpoint allows a user to subscribe to a specified cluster.
 
-#### Consumes
+#### 2.165.1 Consumes
   * application/json
 
-#### Produces
+#### 2.165.2 Produces
   * application/json
 
-#### Parameters
+#### 2.165.3 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 | userform | `body` | [ClusterUserForm](#cluster-user-form) | `models.ClusterUserForm` | | ✓ | | User Form |
 
-#### All responses
+#### 2.165.4 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#post-api-clusters-cluster-name-subscribe-200) | OK | Email sent to admin! |  | [schema](#post-api-clusters-cluster-name-subscribe-200-schema) |
@@ -9337,7 +9337,7 @@ This endpoint allows a user to subscribe to a specified cluster.
 | [409](#post-api-clusters-cluster-name-subscribe-409) | Conflict | User already subscribed on peer cluster!" / "Another user already subscribed on peer cluster! |  | [schema](#post-api-clusters-cluster-name-subscribe-409-schema) |
 | [500](#post-api-clusters-cluster-name-subscribe-500) | Internal Server Error | No valid cluster" / "Peer does not have cloud18 setup!" / "Error sending email |  | [schema](#post-api-clusters-cluster-name-subscribe-500-schema) |
 
-#### Responses
+#### 2.165.5 Responses
 
 
 ##### <span id="post-api-clusters-cluster-name-subscribe-200"></span> 200 - Email sent to admin!
@@ -9394,7 +9394,7 @@ Status: Internal Server Error
 
 
 
-### <span id="post-api-clusters-cluster-name-tests-actions-run-all"></span> Run all tests for a given cluster (*PostAPIClustersClusterNameTestsActionsRunAll*)
+### 2.166 <span id="post-api-clusters-cluster-name-tests-actions-run-all"></span> Run all tests for a given cluster (*PostAPIClustersClusterNameTestsActionsRunAll*)
 
 ```
 POST /api/clusters/{clusterName}/tests/actions/run/all
@@ -9402,26 +9402,26 @@ POST /api/clusters/{clusterName}/tests/actions/run/all
 
 This endpoint runs all tests for the specified cluster.
 
-#### Consumes
+#### 2.166.1 Consumes
   * application/json
 
-#### Produces
+#### 2.166.2 Produces
   * application/json
 
-#### Parameters
+#### 2.166.3 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 
-#### All responses
+#### 2.166.4 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#post-api-clusters-cluster-name-tests-actions-run-all-200) | OK | List of test results |  | [schema](#post-api-clusters-cluster-name-tests-actions-run-all-200-schema) |
 | [403](#post-api-clusters-cluster-name-tests-actions-run-all-403) | Forbidden | No valid ACL |  | [schema](#post-api-clusters-cluster-name-tests-actions-run-all-403-schema) |
 | [500](#post-api-clusters-cluster-name-tests-actions-run-all-500) | Internal Server Error | Cluster Not Found |  | [schema](#post-api-clusters-cluster-name-tests-actions-run-all-500-schema) |
 
-#### Responses
+#### 2.166.5 Responses
 
 
 ##### <span id="post-api-clusters-cluster-name-tests-actions-run-all-200"></span> 200 - List of test results
@@ -9451,7 +9451,7 @@ Status: Internal Server Error
 
 
 
-### <span id="post-api-clusters-cluster-name-tests-actions-run-test-name"></span> Run a specific test for a given cluster (*PostAPIClustersClusterNameTestsActionsRunTestName*)
+### 2.167 <span id="post-api-clusters-cluster-name-tests-actions-run-test-name"></span> Run a specific test for a given cluster (*PostAPIClustersClusterNameTestsActionsRunTestName*)
 
 ```
 POST /api/clusters/{clusterName}/tests/actions/run/{testName}
@@ -9459,13 +9459,13 @@ POST /api/clusters/{clusterName}/tests/actions/run/{testName}
 
 This endpoint runs a specific test for the specified cluster.
 
-#### Consumes
+#### 2.167.1 Consumes
   * application/json
 
-#### Produces
+#### 2.167.2 Produces
   * application/json
 
-#### Parameters
+#### 2.167.3 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
@@ -9474,14 +9474,14 @@ This endpoint runs a specific test for the specified cluster.
 | provision | `formData` | string | `string` |  |  |  | Provision the cluster before running the test |
 | unprovision | `formData` | string | `string` |  |  |  | Unprovision the cluster after running the test |
 
-#### All responses
+#### 2.167.4 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#post-api-clusters-cluster-name-tests-actions-run-test-name-200) | OK | Test result |  | [schema](#post-api-clusters-cluster-name-tests-actions-run-test-name-200-schema) |
 | [403](#post-api-clusters-cluster-name-tests-actions-run-test-name-403) | Forbidden | No valid ACL |  | [schema](#post-api-clusters-cluster-name-tests-actions-run-test-name-403-schema) |
 | [500](#post-api-clusters-cluster-name-tests-actions-run-test-name-500) | Internal Server Error | Cluster Not Found |  | [schema](#post-api-clusters-cluster-name-tests-actions-run-test-name-500-schema) |
 
-#### Responses
+#### 2.167.5 Responses
 
 
 ##### <span id="post-api-clusters-cluster-name-tests-actions-run-test-name-200"></span> 200 - Test result
@@ -9511,7 +9511,7 @@ Status: Internal Server Error
 
 
 
-### <span id="post-api-clusters-cluster-name-users-add"></span> Add a new user to a cluster (*PostAPIClustersClusterNameUsersAdd*)
+### 2.168 <span id="post-api-clusters-cluster-name-users-add"></span> Add a new user to a cluster (*PostAPIClustersClusterNameUsersAdd*)
 
 ```
 POST /api/clusters/{clusterName}/users/add
@@ -9519,20 +9519,20 @@ POST /api/clusters/{clusterName}/users/add
 
 Adds a new user to the specified cluster if the request is valid and the user has the necessary permissions.
 
-#### Consumes
+#### 2.168.1 Consumes
   * application/json
 
-#### Produces
+#### 2.168.2 Produces
   * application/json
 
-#### Parameters
+#### 2.168.3 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 | userform | `body` | [ClusterUserForm](#cluster-user-form) | `models.ClusterUserForm` | | ✓ | | User Form |
 
-#### All responses
+#### 2.168.4 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#post-api-clusters-cluster-name-users-add-200) | OK | User added successfully |  | [schema](#post-api-clusters-cluster-name-users-add-200-schema) |
@@ -9540,7 +9540,7 @@ Adds a new user to the specified cluster if the request is valid and the user ha
 | [403](#post-api-clusters-cluster-name-users-add-403) | Forbidden | No Valid ACL |  | [schema](#post-api-clusters-cluster-name-users-add-403-schema) |
 | [500](#post-api-clusters-cluster-name-users-add-500) | Internal Server Error | Error adding new user" or "No valid cluster |  | [schema](#post-api-clusters-cluster-name-users-add-500-schema) |
 
-#### Responses
+#### 2.168.5 Responses
 
 
 ##### <span id="post-api-clusters-cluster-name-users-add-200"></span> 200 - User added successfully
@@ -9579,7 +9579,7 @@ Status: Internal Server Error
 
 
 
-### <span id="post-api-clusters-cluster-name-users-drop"></span> Drop a cluster user (*PostAPIClustersClusterNameUsersDrop*)
+### 2.169 <span id="post-api-clusters-cluster-name-users-drop"></span> Drop a cluster user (*PostAPIClustersClusterNameUsersDrop*)
 
 ```
 POST /api/clusters/{clusterName}/users/drop
@@ -9587,20 +9587,20 @@ POST /api/clusters/{clusterName}/users/drop
 
 Drops a user from the specified cluster.
 
-#### Consumes
+#### 2.169.1 Consumes
   * application/json
 
-#### Produces
+#### 2.169.2 Produces
   * application/json
 
-#### Parameters
+#### 2.169.3 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 | userform | `body` | [ClusterUserForm](#cluster-user-form) | `models.ClusterUserForm` | | ✓ | | User Form |
 
-#### All responses
+#### 2.169.4 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#post-api-clusters-cluster-name-users-drop-200) | OK | User dropped successfully |  | [schema](#post-api-clusters-cluster-name-users-drop-200-schema) |
@@ -9608,7 +9608,7 @@ Drops a user from the specified cluster.
 | [403](#post-api-clusters-cluster-name-users-drop-403) | Forbidden | No Valid ACL |  | [schema](#post-api-clusters-cluster-name-users-drop-403-schema) |
 | [500](#post-api-clusters-cluster-name-users-drop-500) | Internal Server Error | Error dropping user" or "No valid cluster |  | [schema](#post-api-clusters-cluster-name-users-drop-500-schema) |
 
-#### Responses
+#### 2.169.5 Responses
 
 
 ##### <span id="post-api-clusters-cluster-name-users-drop-200"></span> 200 - User dropped successfully
@@ -9647,7 +9647,7 @@ Status: Internal Server Error
 
 
 
-### <span id="post-api-clusters-cluster-name-users-send-credentials"></span> Send credentials to a specific user (*PostAPIClustersClusterNameUsersSendCredentials*)
+### 2.170 <span id="post-api-clusters-cluster-name-users-send-credentials"></span> Send credentials to a specific user (*PostAPIClustersClusterNameUsersSendCredentials*)
 
 ```
 POST /api/clusters/{clusterName}/users/send-credentials
@@ -9655,27 +9655,27 @@ POST /api/clusters/{clusterName}/users/send-credentials
 
 This endpoint sends the credentials to the specified user via email.
 
-#### Consumes
+#### 2.170.1 Consumes
   * application/json
 
-#### Produces
+#### 2.170.2 Produces
   * application/json
 
-#### Parameters
+#### 2.170.3 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 | body | `body` | [ServerCredentialMailForm](#server-credential-mail-form) | `models.ServerCredentialMailForm` | | ✓ | | Credential Mail Form |
 
-#### All responses
+#### 2.170.4 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#post-api-clusters-cluster-name-users-send-credentials-200) | OK | Credentials sent to user! |  | [schema](#post-api-clusters-cluster-name-users-send-credentials-200-schema) |
 | [403](#post-api-clusters-cluster-name-users-send-credentials-403) | Forbidden | No valid ACL |  | [schema](#post-api-clusters-cluster-name-users-send-credentials-403-schema) |
 | [500](#post-api-clusters-cluster-name-users-send-credentials-500) | Internal Server Error | Error sending email |  | [schema](#post-api-clusters-cluster-name-users-send-credentials-500-schema) |
 
-#### Responses
+#### 2.170.5 Responses
 
 
 ##### <span id="post-api-clusters-cluster-name-users-send-credentials-200"></span> 200 - Credentials sent to user!
@@ -9705,7 +9705,7 @@ Status: Internal Server Error
 
 
 
-### <span id="post-api-clusters-cluster-name-users-update"></span> Update a cluster user (*PostAPIClustersClusterNameUsersUpdate*)
+### 2.171 <span id="post-api-clusters-cluster-name-users-update"></span> Update a cluster user (*PostAPIClustersClusterNameUsersUpdate*)
 
 ```
 POST /api/clusters/{clusterName}/users/update
@@ -9713,20 +9713,20 @@ POST /api/clusters/{clusterName}/users/update
 
 Updates the user information for a specified cluster.
 
-#### Consumes
+#### 2.171.1 Consumes
   * application/json
 
-#### Produces
+#### 2.171.2 Produces
   * application/json
 
-#### Parameters
+#### 2.171.3 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  | ✓ |  | Cluster Name |
 | userform | `body` | [ClusterUserForm](#cluster-user-form) | `models.ClusterUserForm` | | ✓ | | User Form |
 
-#### All responses
+#### 2.171.4 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#post-api-clusters-cluster-name-users-update-200) | OK | User updated successfully |  | [schema](#post-api-clusters-cluster-name-users-update-200-schema) |
@@ -9734,7 +9734,7 @@ Updates the user information for a specified cluster.
 | [403](#post-api-clusters-cluster-name-users-update-403) | Forbidden | No Valid ACL |  | [schema](#post-api-clusters-cluster-name-users-update-403-schema) |
 | [500](#post-api-clusters-cluster-name-users-update-500) | Internal Server Error | Error updating user" or "No valid cluster |  | [schema](#post-api-clusters-cluster-name-users-update-500-schema) |
 
-#### Responses
+#### 2.171.5 Responses
 
 
 ##### <span id="post-api-clusters-cluster-name-users-update-200"></span> 200 - User updated successfully
@@ -9773,7 +9773,7 @@ Status: Internal Server Error
 
 
 
-### <span id="post-api-clusters-settings-actions-reload-clusters-plans"></span> Reload cluster plans (*PostAPIClustersSettingsActionsReloadClustersPlans*)
+### 2.172 <span id="post-api-clusters-settings-actions-reload-clusters-plans"></span> Reload cluster plans (*PostAPIClustersSettingsActionsReloadClustersPlans*)
 
 ```
 POST /api/clusters/settings/actions/reload-clusters-plans
@@ -9781,14 +9781,14 @@ POST /api/clusters/settings/actions/reload-clusters-plans
 
 This endpoint reloads the cluster plans for all clusters.
 
-#### All responses
+#### 2.172.1 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#post-api-clusters-settings-actions-reload-clusters-plans-200) | OK | Successfully reloaded plans |  | [schema](#post-api-clusters-settings-actions-reload-clusters-plans-200-schema) |
 | [403](#post-api-clusters-settings-actions-reload-clusters-plans-403) | Forbidden | No valid ACL |  | [schema](#post-api-clusters-settings-actions-reload-clusters-plans-403-schema) |
 | [500](#post-api-clusters-settings-actions-reload-clusters-plans-500) | Internal Server Error | No cluster |  | [schema](#post-api-clusters-settings-actions-reload-clusters-plans-500-schema) |
 
-#### Responses
+#### 2.172.2 Responses
 
 
 ##### <span id="post-api-clusters-settings-actions-reload-clusters-plans-200"></span> 200 - Successfully reloaded plans
@@ -9818,7 +9818,7 @@ Status: Internal Server Error
 
 
 
-### <span id="post-api-clusters-settings-actions-set-setting-name-setting-value"></span> Set global settings for the server (*PostAPIClustersSettingsActionsSetSettingNameSettingValue*)
+### 2.173 <span id="post-api-clusters-settings-actions-set-setting-name-setting-value"></span> Set global settings for the server (*PostAPIClustersSettingsActionsSetSettingNameSettingValue*)
 
 ```
 POST /api/clusters/settings/actions/set/{settingName}/{settingValue}
@@ -9826,13 +9826,13 @@ POST /api/clusters/settings/actions/set/{settingName}/{settingValue}
 
 This endpoint sets the global settings for the server.
 
-#### Consumes
+#### 2.173.1 Consumes
   * application/json
 
-#### Produces
+#### 2.173.2 Produces
   * application/json
 
-#### Parameters
+#### 2.173.3 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
@@ -9840,14 +9840,14 @@ This endpoint sets the global settings for the server.
 | settingName | `path` | string | `string` |  | ✓ |  | Setting Name |
 | settingValue | `path` | string | `string` |  | ✓ |  | Setting Value |
 
-#### All responses
+#### 2.173.4 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#post-api-clusters-settings-actions-set-setting-name-setting-value-200) | OK | Successfully set setting |  | [schema](#post-api-clusters-settings-actions-set-setting-name-setting-value-200-schema) |
 | [403](#post-api-clusters-settings-actions-set-setting-name-setting-value-403) | Forbidden | No valid ACL |  | [schema](#post-api-clusters-settings-actions-set-setting-name-setting-value-403-schema) |
 | [500](#post-api-clusters-settings-actions-set-setting-name-setting-value-500) | Internal Server Error | No cluster |  | [schema](#post-api-clusters-settings-actions-set-setting-name-setting-value-500-schema) |
 
-#### Responses
+#### 2.173.5 Responses
 
 
 ##### <span id="post-api-clusters-settings-actions-set-setting-name-setting-value-200"></span> 200 - Successfully set setting
@@ -9877,7 +9877,7 @@ Status: Internal Server Error
 
 
 
-### <span id="post-api-clusters-settings-actions-switch-setting-name"></span> Switch global settings for the server (*PostAPIClustersSettingsActionsSwitchSettingName*)
+### 2.174 <span id="post-api-clusters-settings-actions-switch-setting-name"></span> Switch global settings for the server (*PostAPIClustersSettingsActionsSwitchSettingName*)
 
 ```
 POST /api/clusters/settings/actions/switch/{settingName}
@@ -9885,27 +9885,27 @@ POST /api/clusters/settings/actions/switch/{settingName}
 
 This endpoint switches the global settings for the server.
 
-#### Consumes
+#### 2.174.1 Consumes
   * application/json
 
-#### Produces
+#### 2.174.2 Produces
   * application/json
 
-#### Parameters
+#### 2.174.3 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | clusterName | `path` | string | `string` |  |  |  | Cluster Name |
 | settingName | `path` | string | `string` |  | ✓ |  | Setting Name |
 
-#### All responses
+#### 2.174.4 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#post-api-clusters-settings-actions-switch-setting-name-200) | OK | Successfully switched setting |  | [schema](#post-api-clusters-settings-actions-switch-setting-name-200-schema) |
 | [403](#post-api-clusters-settings-actions-switch-setting-name-403) | Forbidden | No valid ACL |  | [schema](#post-api-clusters-settings-actions-switch-setting-name-403-schema) |
 | [500](#post-api-clusters-settings-actions-switch-setting-name-500) | Internal Server Error | No cluster |  | [schema](#post-api-clusters-settings-actions-switch-setting-name-500-schema) |
 
-#### Responses
+#### 2.174.5 Responses
 
 
 ##### <span id="post-api-clusters-settings-actions-switch-setting-name-200"></span> 200 - Successfully switched setting
@@ -9935,7 +9935,7 @@ Status: Internal Server Error
 
 
 
-### <span id="post-api-login"></span> User login (*PostAPILogin*)
+### 2.175 <span id="post-api-login"></span> User login (*PostAPILogin*)
 
 ```
 POST /api/login
@@ -9943,19 +9943,19 @@ POST /api/login
 
 Authenticates a user and returns a JWT token upon successful login.
 
-#### Consumes
+#### 2.175.1 Consumes
   * application/json
 
-#### Produces
+#### 2.175.2 Produces
   * application/json
 
-#### Parameters
+#### 2.175.3 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
 | userCredentials | `body` | [ServerUserCredentials](#server-user-credentials) | `models.ServerUserCredentials` | | ✓ | | User credentials |
 
-#### All responses
+#### 2.175.4 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#post-api-login-200) | OK | JWT token |  | [schema](#post-api-login-200-schema) |
@@ -9964,7 +9964,7 @@ Authenticates a user and returns a JWT token upon successful login.
 | [429](#post-api-login-429) | Too Many Requests | Too many requests |  | [schema](#post-api-login-429-schema) |
 | [500](#post-api-login-500) | Internal Server Error | Error signing token |  | [schema](#post-api-login-500-schema) |
 
-#### Responses
+#### 2.175.5 Responses
 
 
 ##### <span id="post-api-login-200"></span> 200 - JWT token
@@ -10012,7 +10012,7 @@ Status: Internal Server Error
 
 
 
-### <span id="post-cluster-cluster-name-actions-dropserver-host-port"></span> Drop a server monitor from a cluster (*PostClusterClusterNameActionsDropserverHostPort*)
+### 2.176 <span id="post-cluster-cluster-name-actions-dropserver-host-port"></span> Drop a server monitor from a cluster (*PostClusterClusterNameActionsDropserverHostPort*)
 
 ```
 POST /cluster/{clusterName}/actions/dropserver/{host}/{port}
@@ -10020,13 +10020,13 @@ POST /cluster/{clusterName}/actions/dropserver/{host}/{port}
 
 This endpoint allows dropping a server monitor or proxy monitor from a specified cluster.
 
-#### Consumes
+#### 2.176.1 Consumes
   * application/json
 
-#### Produces
+#### 2.176.2 Produces
   * application/json
 
-#### Parameters
+#### 2.176.3 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
@@ -10034,14 +10034,14 @@ This endpoint allows dropping a server monitor or proxy monitor from a specified
 | host | `path` | string | `string` |  | ✓ |  | Host |
 | port | `path` | string | `string` |  | ✓ |  | Port |
 
-#### All responses
+#### 2.176.4 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#post-cluster-cluster-name-actions-dropserver-host-port-200) | OK | Monitor dropped successfully |  | [schema](#post-cluster-cluster-name-actions-dropserver-host-port-200-schema) |
 | [403](#post-cluster-cluster-name-actions-dropserver-host-port-403) | Forbidden | No valid ACL |  | [schema](#post-cluster-cluster-name-actions-dropserver-host-port-403-schema) |
 | [500](#post-cluster-cluster-name-actions-dropserver-host-port-500) | Internal Server Error | Cluster Not Found |  | [schema](#post-cluster-cluster-name-actions-dropserver-host-port-500-schema) |
 
-#### Responses
+#### 2.176.5 Responses
 
 
 ##### <span id="post-cluster-cluster-name-actions-dropserver-host-port-200"></span> 200 - Monitor dropped successfully
@@ -10071,7 +10071,7 @@ Status: Internal Server Error
 
 
 
-### <span id="post-cluster-cluster-name-actions-dropserver-host-port-type"></span> Drop a server monitor from a cluster (*PostClusterClusterNameActionsDropserverHostPortType*)
+### 2.177 <span id="post-cluster-cluster-name-actions-dropserver-host-port-type"></span> Drop a server monitor from a cluster (*PostClusterClusterNameActionsDropserverHostPortType*)
 
 ```
 POST /cluster/{clusterName}/actions/dropserver/{host}/{port}/{type}
@@ -10079,13 +10079,13 @@ POST /cluster/{clusterName}/actions/dropserver/{host}/{port}/{type}
 
 This endpoint allows dropping a server monitor or proxy monitor from a specified cluster.
 
-#### Consumes
+#### 2.177.1 Consumes
   * application/json
 
-#### Produces
+#### 2.177.2 Produces
   * application/json
 
-#### Parameters
+#### 2.177.3 Parameters
 
 | Name | Source | Type | Go type | Separator | Required | Default | Description |
 |------|--------|------|---------|-----------| :------: |---------|-------------|
@@ -10094,14 +10094,14 @@ This endpoint allows dropping a server monitor or proxy monitor from a specified
 | port | `path` | string | `string` |  | ✓ |  | Port |
 | type | `path` | string | `string` |  |  |  | Monitor Type (proxy or database) |
 
-#### All responses
+#### 2.177.4 All responses
 | Code | Status | Description | Has headers | Schema |
 |------|--------|-------------|:-----------:|--------|
 | [200](#post-cluster-cluster-name-actions-dropserver-host-port-type-200) | OK | Monitor dropped successfully |  | [schema](#post-cluster-cluster-name-actions-dropserver-host-port-type-200-schema) |
 | [403](#post-cluster-cluster-name-actions-dropserver-host-port-type-403) | Forbidden | No valid ACL |  | [schema](#post-cluster-cluster-name-actions-dropserver-host-port-type-403-schema) |
 | [500](#post-cluster-cluster-name-actions-dropserver-host-port-type-500) | Internal Server Error | Cluster Not Found |  | [schema](#post-cluster-cluster-name-actions-dropserver-host-port-type-500-schema) |
 
-#### Responses
+#### 2.177.5 Responses
 
 
 ##### <span id="post-cluster-cluster-name-actions-dropserver-host-port-type-200"></span> 200 - Monitor dropped successfully
@@ -10131,9 +10131,9 @@ Status: Internal Server Error
 
 
 
-## Models
+## 3. Models
 
-### <span id="cluster-api-user"></span> cluster.APIUser
+### 3.1 <span id="cluster-api-user"></span> cluster.APIUser
 
 
   
@@ -10150,7 +10150,7 @@ Status: Internal Server Error
 
 
 
-### <span id="cluster-agent"></span> cluster.Agent
+### 3.2 <span id="cluster-agent"></span> cluster.Agent
 
 
   
@@ -10174,7 +10174,7 @@ Status: Internal Server Error
 
 
 
-### <span id="cluster-alerts"></span> cluster.Alerts
+### 3.3 <span id="cluster-alerts"></span> cluster.Alerts
 
 
   
@@ -10190,7 +10190,7 @@ Status: Internal Server Error
 
 
 
-### <span id="cluster-cluster"></span> cluster.Cluster
+### 3.4 <span id="cluster-cluster"></span> cluster.Cluster
 
 
   
@@ -10287,7 +10287,7 @@ Status: Internal Server Error
 
 
 
-### <span id="cluster-cluster-form"></span> cluster.ClusterForm
+### 3.5 <span id="cluster-cluster-form"></span> cluster.ClusterForm
 
 
   
@@ -10304,7 +10304,7 @@ Status: Internal Server Error
 
 
 
-### <span id="cluster-crash"></span> cluster.Crash
+### 3.6 <span id="cluster-crash"></span> cluster.Crash
 
 
   
@@ -10328,7 +10328,7 @@ Status: Internal Server Error
 
 
 
-### <span id="cluster-delay-stat"></span> cluster.DelayStat
+### 3.7 <span id="cluster-delay-stat"></span> cluster.DelayStat
 
 
   
@@ -10346,7 +10346,7 @@ Status: Internal Server Error
 
 
 
-### <span id="cluster-delay-stat-history"></span> cluster.DelayStatHistory
+### 3.8 <span id="cluster-delay-stat-history"></span> cluster.DelayStatHistory
 
 
   
@@ -10362,7 +10362,7 @@ Status: Internal Server Error
 
 
 
-### <span id="cluster-diff"></span> cluster.Diff
+### 3.9 <span id="cluster-diff"></span> cluster.Diff
 
 
   
@@ -10378,7 +10378,7 @@ Status: Internal Server Error
 
 
 
-### <span id="cluster-graphite-filter-list"></span> cluster.GraphiteFilterList
+### 3.10 <span id="cluster-graphite-filter-list"></span> cluster.GraphiteFilterList
 
 
   
@@ -10394,7 +10394,7 @@ Status: Internal Server Error
 
 
 
-### <span id="cluster-server-backup-meta"></span> cluster.ServerBackupMeta
+### 3.11 <span id="cluster-server-backup-meta"></span> cluster.ServerBackupMeta
 
 
   
@@ -10410,7 +10410,7 @@ Status: Internal Server Error
 
 
 
-### <span id="cluster-server-delay-stat"></span> cluster.ServerDelayStat
+### 3.12 <span id="cluster-server-delay-stat"></span> cluster.ServerDelayStat
 
 
   
@@ -10429,7 +10429,7 @@ Status: Internal Server Error
 
 
 
-### <span id="cluster-server-monitor"></span> cluster.ServerMonitor
+### 3.13 <span id="cluster-server-monitor"></span> cluster.ServerMonitor
 
 
   
@@ -10584,7 +10584,7 @@ Status: Internal Server Error
 
 
 
-### <span id="cluster-slave-variables"></span> cluster.SlaveVariables
+### 3.14 <span id="cluster-slave-variables"></span> cluster.SlaveVariables
 
 
   
@@ -10603,7 +10603,7 @@ Status: Internal Server Error
 
 
 
-### <span id="cluster-slaves-oldest-master-file"></span> cluster.SlavesOldestMasterFile
+### 3.15 <span id="cluster-slaves-oldest-master-file"></span> cluster.SlavesOldestMasterFile
 
 
   
@@ -10620,7 +10620,7 @@ Status: Internal Server Error
 
 
 
-### <span id="cluster-test"></span> cluster.Test
+### 3.16 <span id="cluster-test"></span> cluster.Test
 
 
   
@@ -10639,7 +10639,7 @@ Status: Internal Server Error
 
 
 
-### <span id="cluster-user-form"></span> cluster.UserForm
+### 3.17 <span id="cluster-user-form"></span> cluster.UserForm
 
 
   
@@ -10657,7 +10657,7 @@ Status: Internal Server Error
 
 
 
-### <span id="cluster-variable-diff"></span> cluster.VariableDiff
+### 3.18 <span id="cluster-variable-diff"></span> cluster.VariableDiff
 
 
   
@@ -10673,14 +10673,14 @@ Status: Internal Server Error
 
 
 
-### <span id="config-backup-meta-map"></span> config.BackupMetaMap
+### 3.19 <span id="config-backup-meta-map"></span> config.BackupMetaMap
 
 
   
 
 [interface{}](#interface)
 
-### <span id="config-backup-metadata"></span> config.BackupMetadata
+### 3.20 <span id="config-backup-metadata"></span> config.BackupMetadata
 
 
   
@@ -10714,7 +10714,7 @@ Status: Internal Server Error
 
 
 
-### <span id="config-config-variable-type"></span> config.ConfigVariableType
+### 3.21 <span id="config-config-variable-type"></span> config.ConfigVariableType
 
 
   
@@ -10732,7 +10732,7 @@ Status: Internal Server Error
 
 
 
-### <span id="config-docker-repo"></span> config.DockerRepo
+### 3.22 <span id="config-docker-repo"></span> config.DockerRepo
 
 
   
@@ -10749,7 +10749,7 @@ Status: Internal Server Error
 
 
 
-### <span id="config-docker-tag"></span> config.DockerTag
+### 3.23 <span id="config-docker-tag"></span> config.DockerTag
 
 
   
@@ -10764,7 +10764,7 @@ Status: Internal Server Error
 
 
 
-### <span id="config-grant"></span> config.Grant
+### 3.24 <span id="config-grant"></span> config.Grant
 
 
   
@@ -10780,7 +10780,7 @@ Status: Internal Server Error
 
 
 
-### <span id="config-partner"></span> config.Partner
+### 3.25 <span id="config-partner"></span> config.Partner
 
 
   
@@ -10802,7 +10802,7 @@ Status: Internal Server Error
 
 
 
-### <span id="config-peer-cluster"></span> config.PeerCluster
+### 3.26 <span id="config-peer-cluster"></span> config.PeerCluster
 
 
   
@@ -10856,7 +10856,7 @@ Status: Internal Server Error
 
 
 
-### <span id="config-point-in-time-meta"></span> config.PointInTimeMeta
+### 3.27 <span id="config-point-in-time-meta"></span> config.PointInTimeMeta
 
 
   
@@ -10874,7 +10874,7 @@ Status: Internal Server Error
 
 
 
-### <span id="config-role"></span> config.Role
+### 3.28 <span id="config-role"></span> config.Role
 
 
   
@@ -10890,7 +10890,7 @@ Status: Internal Server Error
 
 
 
-### <span id="config-service-plan"></span> config.ServicePlan
+### 3.29 <span id="config-service-plan"></span> config.ServicePlan
 
 
   
@@ -10931,14 +10931,14 @@ Status: Internal Server Error
 
 
 
-### <span id="config-strings-map"></span> config.StringsMap
+### 3.30 <span id="config-strings-map"></span> config.StringsMap
 
 
   
 
 [interface{}](#interface)
 
-### <span id="config-tag-result"></span> config.TagResult
+### 3.31 <span id="config-tag-result"></span> config.TagResult
 
 
   
@@ -10953,7 +10953,7 @@ Status: Internal Server Error
 
 
 
-### <span id="config-tarball"></span> config.Tarball
+### 3.32 <span id="config-tarball"></span> config.Tarball
 
 
   
@@ -10979,21 +10979,21 @@ Status: Internal Server Error
 
 
 
-### <span id="config-tasks-map"></span> config.TasksMap
+### 3.33 <span id="config-tasks-map"></span> config.TasksMap
 
 
   
 
 [interface{}](#interface)
 
-### <span id="config-versions-map"></span> config.VersionsMap
+### 3.34 <span id="config-versions-map"></span> config.VersionsMap
 
 
   
 
 [interface{}](#interface)
 
-### <span id="config-work-load"></span> config.WorkLoad
+### 3.35 <span id="config-work-load"></span> config.WorkLoad
 
 
   
@@ -11014,14 +11014,14 @@ Status: Internal Server Error
 
 
 
-### <span id="config-work-loads-map"></span> config.WorkLoadsMap
+### 3.36 <span id="config-work-loads-map"></span> config.WorkLoadsMap
 
 
   
 
 [interface{}](#interface)
 
-### <span id="configurator-configurator"></span> configurator.Configurator
+### 3.37 <span id="configurator-configurator"></span> configurator.Configurator
 
 
   
@@ -11041,14 +11041,14 @@ Status: Internal Server Error
 
 
 
-### <span id="dbhelper-binary-log-meta-map"></span> dbhelper.BinaryLogMetaMap
+### 3.38 <span id="dbhelper-binary-log-meta-map"></span> dbhelper.BinaryLogMetaMap
 
 
   
 
 [interface{}](#interface)
 
-### <span id="dbhelper-event"></span> dbhelper.Event
+### 3.39 <span id="dbhelper-event"></span> dbhelper.Event
 
 
   
@@ -11066,7 +11066,7 @@ Status: Internal Server Error
 
 
 
-### <span id="dbhelper-master-status"></span> dbhelper.MasterStatus
+### 3.40 <span id="dbhelper-master-status"></span> dbhelper.MasterStatus
 
 
   
@@ -11084,7 +11084,7 @@ Status: Internal Server Error
 
 
 
-### <span id="dbhelper-slave-status"></span> dbhelper.SlaveStatus
+### 3.41 <span id="dbhelper-slave-status"></span> dbhelper.SlaveStatus
 
 
   
@@ -11132,7 +11132,7 @@ Status: Internal Server Error
 
 
 
-### <span id="github-com-signal18-replication-manager-config-config"></span> github_com_signal18_replication-manager_config.Config
+### 3.42 <span id="github-com-signal18-replication-manager-config-config"></span> github_com_signal18_replication-manager_config.Config
 
 
   
@@ -11802,7 +11802,7 @@ Status: Internal Server Error
 
 
 
-### <span id="gtid-gtid"></span> gtid.Gtid
+### 3.43 <span id="gtid-gtid"></span> gtid.Gtid
 
 
   
@@ -11819,7 +11819,7 @@ Status: Internal Server Error
 
 
 
-### <span id="opensvc-addr"></span> opensvc.Addr
+### 3.44 <span id="opensvc-addr"></span> opensvc.Addr
 
 
   
@@ -11841,7 +11841,7 @@ Status: Internal Server Error
 
 
 
-### <span id="opensvc-host"></span> opensvc.Host
+### 3.45 <span id="opensvc-host"></span> opensvc.Host
 
 
   
@@ -11865,7 +11865,7 @@ Status: Internal Server Error
 
 
 
-### <span id="opensvc-service"></span> opensvc.Service
+### 3.46 <span id="opensvc-service"></span> opensvc.Service
 
 
   
@@ -11884,7 +11884,7 @@ Status: Internal Server Error
 
 
 
-### <span id="os-process"></span> os.Process
+### 3.47 <span id="os-process"></span> os.Process
 
 
   
@@ -11899,14 +11899,14 @@ Status: Internal Server Error
 
 
 
-### <span id="regexp-regexp"></span> regexp.Regexp
+### 3.48 <span id="regexp-regexp"></span> regexp.Regexp
 
 
   
 
 [interface{}](#interface)
 
-### <span id="repmanv3-backup-stat"></span> repmanv3.BackupStat
+### 3.49 <span id="repmanv3-backup-stat"></span> repmanv3.BackupStat
 
 
   
@@ -11923,7 +11923,7 @@ Status: Internal Server Error
 
 
 
-### <span id="repmanv3-tag"></span> repmanv3.Tag
+### 3.50 <span id="repmanv3-tag"></span> repmanv3.Tag
 
 
   
@@ -11940,7 +11940,7 @@ Status: Internal Server Error
 
 
 
-### <span id="s18log-http-log"></span> s18log.HttpLog
+### 3.51 <span id="s18log-http-log"></span> s18log.HttpLog
 
 
   
@@ -11957,7 +11957,7 @@ Status: Internal Server Error
 
 
 
-### <span id="s18log-http-message"></span> s18log.HttpMessage
+### 3.52 <span id="s18log-http-message"></span> s18log.HttpMessage
 
 
   
@@ -11975,7 +11975,7 @@ Status: Internal Server Error
 
 
 
-### <span id="server-api-response"></span> server.ApiResponse
+### 3.53 <span id="server-api-response"></span> server.ApiResponse
 
 
   
@@ -11991,7 +11991,7 @@ Status: Internal Server Error
 
 
 
-### <span id="server-credential-mail-form"></span> server.CredentialMailForm
+### 3.54 <span id="server-credential-mail-form"></span> server.CredentialMailForm
 
 
   
@@ -12007,7 +12007,7 @@ Status: Internal Server Error
 
 
 
-### <span id="server-decoded-data"></span> server.DecodedData
+### 3.55 <span id="server-decoded-data"></span> server.DecodedData
 
 
   
@@ -12022,7 +12022,7 @@ Status: Internal Server Error
 
 
 
-### <span id="server-heartbeat"></span> server.Heartbeat
+### 3.56 <span id="server-heartbeat"></span> server.Heartbeat
 
 
   
@@ -12044,7 +12044,7 @@ Status: Internal Server Error
 
 
 
-### <span id="server-replication-manager"></span> server.ReplicationManager
+### 3.57 <span id="server-replication-manager"></span> server.ReplicationManager
 
 
   
@@ -12098,7 +12098,7 @@ Status: Internal Server Error
 
 
 
-### <span id="server-token"></span> server.token
+### 3.58 <span id="server-token"></span> server.token
 
 
   
@@ -12113,7 +12113,7 @@ Status: Internal Server Error
 
 
 
-### <span id="server-user-credentials"></span> server.userCredentials
+### 3.59 <span id="server-user-credentials"></span> server.userCredentials
 
 
   
@@ -12129,7 +12129,7 @@ Status: Internal Server Error
 
 
 
-### <span id="sql-null-int64"></span> sql.NullInt64
+### 3.60 <span id="sql-null-int64"></span> sql.NullInt64
 
 
   
@@ -12145,7 +12145,7 @@ Status: Internal Server Error
 
 
 
-### <span id="sql-null-string"></span> sql.NullString
+### 3.61 <span id="sql-null-string"></span> sql.NullString
 
 
   
@@ -12161,7 +12161,7 @@ Status: Internal Server Error
 
 
 
-### <span id="state-sla"></span> state.Sla
+### 3.62 <span id="state-sla"></span> state.Sla
 
 
   
@@ -12180,7 +12180,7 @@ Status: Internal Server Error
 
 
 
-### <span id="state-state-http"></span> state.StateHttp
+### 3.63 <span id="state-state-http"></span> state.StateHttp
 
 
   
@@ -12197,7 +12197,7 @@ Status: Internal Server Error
 
 
 
-### <span id="state-state-machine"></span> state.StateMachine
+### 3.64 <span id="state-state-machine"></span> state.StateMachine
 
 
   
@@ -12214,7 +12214,7 @@ Status: Internal Server Error
 
 
 
-### <span id="user-user"></span> user.User
+### 3.65 <span id="user-user"></span> user.User
 
 
   
@@ -12233,7 +12233,7 @@ Status: Internal Server Error
 
 
 
-### <span id="version-version"></span> version.Version
+### 3.66 <span id="version-version"></span> version.Version
 
 
   

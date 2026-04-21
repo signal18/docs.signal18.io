@@ -4,13 +4,13 @@ taxonomy:
     category: docs
 ---
 
-## Install from Source
+## 1. Install from Source
 
 Building from source requires [Go 1.24 or later](https://golang.org/dl/) and Node.js 22 (for the React dashboard).
 
 ---
 
-## Clone and Build
+## 2. Clone and Build
 
 ```bash
 git clone https://github.com/signal18/replication-manager.git \
@@ -33,7 +33,7 @@ make react
 
 ---
 
-## Build Specific Flavors
+## 3. Build Specific Flavors
 
 ```bash
 make osc        # Open Source Community — no provisioning
@@ -46,7 +46,7 @@ make cli        # CLI client only
 
 ---
 
-## Build Packages
+## 4. Build Packages
 
 ```bash
 make package
@@ -56,7 +56,7 @@ This runs `package_linux.sh` and produces RPM and DEB packages in `build/`.
 
 ---
 
-## Build Tags
+## 5. Build Tags
 
 The build system uses Go compile-time feature flags (`-X` linker flags) to control which features are compiled into each binary. Key flags:
 
@@ -74,7 +74,7 @@ See the `Makefile` for the full flag sets used per flavor.
 
 ---
 
-## Running from Source
+## 6. Running from Source
 
 After building, binaries are written to `build/binaries/`. The embedded binary can be run directly:
 
@@ -86,6 +86,6 @@ build/binaries/replication-manager monitor \
 
 ---
 
-## Continuous Integration
+## 7. Continuous Integration
 
 Development builds from the `develop` branch are available on the [Signal18 CI Server](http://ci.signal18.io/mrm/builds/tags/).

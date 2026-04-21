@@ -4,7 +4,7 @@ taxonomy:
     category: docs
 ---
 
-## Crash recovery
+## 1. Crash recovery
 
 **replication-manager** <1.1 release only rejoin failed master that get equal GTID at election time in such case it can re-attach to the cluster
 
@@ -106,7 +106,7 @@ In some cascading failure scenarios **replication-manager** have not way to foun
 | Type          | Boolean |
 | Default Value | false |
 
-## All cluster down
+## 2. All cluster down
 
 The default rejoining method is to not promote a slave as a master when the no crash information state can be found and to wait for the old master to recover.
 

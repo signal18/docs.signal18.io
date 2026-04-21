@@ -4,7 +4,7 @@ taxonomy:
     category: docs
 ---
 
-### Failover
+### 0.1 Failover
 
 **replication-manager** is checking all master failures up to N times, and when all false positive checks pass, the default behavior is to send alerts and put itself in waiting mode until a user forces the failover or that the master self-heals.
 

@@ -4,7 +4,7 @@ taxonomy:
     category: docs
 ---
 
-### External Scripts
+### 0.1 External Scripts
 
 **replication-manager** can automate route changes with popular proxies. however in some edge cases e.g. pacemaker or keepalived, logic like vip or hardware load balancer api calls can be managed through the external scripts option.
 
@@ -32,7 +32,7 @@ cluster.oldMaster.Host cluster.master.Host cluster.oldMaster.Port cluster.master
 Arguments passed to the script:
 cluster.oldMaster.Host cluster.master.Host cluster.oldMaster.Port cluster.master.Port
 
-### External Proxy & Route
+### 0.2 External Proxy & Route
 
 **replication-manager** can inject heartbeat into the route and check that the internal master is alway the one reach via the proxies or the route.
 

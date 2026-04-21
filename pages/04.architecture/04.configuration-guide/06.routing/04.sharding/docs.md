@@ -4,7 +4,7 @@ taxonomy:
     category: docs
 ---
 
-#### MariaDBShardProxy
+#### 0.0.1 MariaDBShardProxy
 
 Since version 1.1 **replication-manager** can manage Spider proxy for schema and table Sharding.
 
@@ -43,7 +43,7 @@ For every cluster definition you wan't to proxy add extra MariaDBShardProxy conf
 
 
 
-## Testing Configuration
+## 1. Testing Configuration
 
 Give a path to MariaDB 10.3  or Spiral Spider if you would like *replication-manager-tst* to bootstrap a local MariaDBShardProxy.   
 

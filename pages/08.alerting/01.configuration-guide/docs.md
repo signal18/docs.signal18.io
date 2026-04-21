@@ -4,13 +4,13 @@ taxonomy:
     category: docs
 ---
 
-## Alerting Configuration Guide
+## 1. Alerting Configuration Guide
 
 replication-manager can deliver alerts through multiple channels when cluster state changes. Alerts fire when a monitored error or warning code first appears in the cluster state and again when it clears.
 
 ---
 
-## Alert Triggering
+## 2. Alert Triggering
 
 ##### `monitoring-alert-trigger`
 
@@ -32,7 +32,7 @@ replication-manager can deliver alerts through multiple channels when cluster st
 
 ---
 
-## Alert Blackout Window
+## 3. Alert Blackout Window
 
 Alerts can be suppressed on a schedule — useful for planned maintenance windows or known noisy periods (e.g. nightly batch jobs).
 
@@ -63,7 +63,7 @@ Alerts can be suppressed on a schedule — useful for planned maintenance window
 
 ---
 
-## External Script
+## 4. External Script
 
 An external script is called on every state change for every monitored server, regardless of `monitoring-alert-trigger`. It receives the affected server information as arguments.
 
@@ -84,7 +84,7 @@ echo "$(date) $1 changed from $2 to $3" >> /var/log/repman-alerts.log
 
 ---
 
-## Email
+## 5. Email
 
 Email alerts require a reachable SMTP server. The mail alert fires for all state transitions.
 
@@ -156,7 +156,7 @@ Email alerts require a reachable SMTP server. The mail alert fires for all state
 
 ---
 
-## Slack
+## 6. Slack
 
 Slack alerts use an incoming webhook URL. Slack alerting is global to the replication-manager instance — all clusters share the same webhook.
 
@@ -187,7 +187,7 @@ Slack alerts use an incoming webhook URL. Slack alerting is global to the replic
 
 ---
 
-## Pushover
+## 7. Pushover
 
 Pushover delivers mobile push notifications to iOS and Android via the [Pushover](https://pushover.net) service.
 
@@ -209,7 +209,7 @@ Pushover delivers mobile push notifications to iOS and Android via the [Pushover
 
 ---
 
-## Microsoft Teams
+## 8. Microsoft Teams
 
 Teams alerts are sent via an incoming webhook. Alerting can be filtered to specific severity levels.
 
@@ -240,7 +240,7 @@ Teams alerts are sent via an incoming webhook. Alerting can be filtered to speci
 
 ---
 
-## Syslog
+## 9. Syslog
 
 ##### `log-syslog`
 
@@ -252,7 +252,7 @@ Teams alerts are sent via an incoming webhook. Alerting can be filtered to speci
 
 ---
 
-## Cloud18 Integration
+## 10. Cloud18 Integration
 
 When the instance is registered with the Signal18 SSO, alert notifications can also be forwarded to the Signal18 Mattermost instance. These settings are global (not per-cluster).
 
@@ -290,7 +290,7 @@ When the instance is registered with the Signal18 SSO, alert notifications can a
 
 ---
 
-## Checking Alert Status via API
+## 11. Checking Alert Status via API
 
 The following endpoints allow external monitoring systems to poll cluster health:
 

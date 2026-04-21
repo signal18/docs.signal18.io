@@ -3,7 +3,7 @@ title: Report Bugs
 taxonomy:
     category: docs
 ---
-### Report Bugs
+### 0.1 Report Bugs
 
 Bugs can be reported in github https://github.com/signal18/replication-manager/issues for a list of issues.
 

@@ -5,7 +5,7 @@ taxonomy:
     category: docs
 ---
 
-## Setup Provisioning
+## 1. Setup Provisioning
 
 **replication-manager-pro** stands for provisioning and work best and by default in coordination with OpenSVC to deliver docker or podman services.
 

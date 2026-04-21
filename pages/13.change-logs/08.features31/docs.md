@@ -6,7 +6,7 @@ taxonomy:
 
 ### 3.1 Features
 
-#### Monitoring Enhancements
+#### 0.0.1 Monitoring Enhancements
 
 * **Sleeping Transactions Monitoring**: Monitor long-running transactions including sleeping transactions that hold InnoDB locks. Tracks transaction duration, isolation level, tables locked, rows modified, and memory usage. [See documentation](/configuration/monitoring/processlist-monitoring)
 
@@ -18,11 +18,11 @@ taxonomy:
 
 * **Per-Module Log Levels**: Configure log verbosity independently for each subsystem (backup, proxy, heartbeat, scheduler, etc.). 20+ new `log-level-*` parameters for fine-grained logging control
 
-#### Topology
+#### 0.0.2 Topology
 
 * **Active-Passive Topology**: New topology mode for monitoring single servers or multiple independent servers without replication management. Disables automatic failover while maintaining full monitoring capabilities. [See documentation](/architecture/topologies/active-passive)
 
-#### Backup Enhancements
+#### 0.0.3 Backup Enhancements
 
 * **Restic Task Management**: Background task queue for backup operations with pause/resume/cancel support via API
 
@@ -36,7 +36,7 @@ taxonomy:
 
 * **MariaDB Backup Tools**: Native support for `mariadb-backup` and `mariadb-import` (formerly `maria-backup`)
 
-#### Configuration Management
+#### 0.0.4 Configuration Management
 
 * **Configurator Diff Tracking**: Track differences between proposed and current configuration
 
@@ -44,11 +44,11 @@ taxonomy:
 
 * **Deprecated Configuration Detection**: Automatically identify outdated configuration parameters
 
-#### Backup & Restore
+#### 0.0.5 Backup & Restore
 
 * **Cross-Cluster User Restore**: Restore backups between clusters while merging database USERS tables
 
-#### Provisioning
+#### 0.0.6 Provisioning
 
 * **OpenSVC Go Agent**: Migration to new OpenSVC go-based agent
 
@@ -56,7 +56,7 @@ taxonomy:
 
 * **OpenSVC Failover Monitoring**: Split-brain detection and monitoring for OpenSVC clusters
 
-#### API & Integration
+#### 0.0.7 API & Integration
 
 * **Application Deployments**: Support for managing application deployments via peering
 
@@ -64,7 +64,7 @@ taxonomy:
 
 * **OAuth Authentication**: OAuth2 provider integration for API authentication (parameters: `api-oauth-client-id`, `api-oauth-client-secret`, `api-oauth-provider-url`, `api-oauth-redirect-url`)
 
-#### Scheduler
+#### 0.0.8 Scheduler
 
 * **Enhanced Scheduler System**: Comprehensive task scheduling with cron support for database maintenance, backups, and administrative operations
 
@@ -72,13 +72,13 @@ taxonomy:
 
 * **SLA Rotation**: Automated SLA metric rotation via scheduler
 
-#### Database Compatibility
+#### 0.0.9 Database Compatibility
 
 * **MySQL 8.4 Support**: Version parsing and SSL mode compatibility fixes for MySQL 8.4
 
 * **PostgreSQL Enhancements**: Improved PostgreSQL logical and streaming replication support
 
-#### Performance & Reliability
+#### 0.0.10 Performance & Reliability
 
 * **Job Script Versioning**: Automatic upgrades and version tracking for database job scripts
 
@@ -88,6 +88,6 @@ taxonomy:
 
 * **Audit Log Tailers**: Capture and monitor audit log entries
 
-#### Development & Build
+#### 0.0.11 Development & Build
 
 * **SBOM Generation**: Software Bill of Materials generation for security compliance  

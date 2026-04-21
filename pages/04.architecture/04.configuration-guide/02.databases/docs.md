@@ -4,7 +4,7 @@ taxonomy:
     category: docs
 ---
 
-## Database servers configuration (`db-servers`)
+## 1. Database servers configuration (`db-servers`)
 
 ##### `db-servers-hosts` (2.0), `hosts` (1.1)
 

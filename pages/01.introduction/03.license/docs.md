@@ -6,7 +6,7 @@ taxonomy:
 
 **replication-manager** is licensed under the **GNU Public License version 3**.
 
-### GNU GENERAL PUBLIC LICENSE
+### 0.1 GNU GENERAL PUBLIC LICENSE
 
 Version 3, 29 June 2007
 
@@ -16,7 +16,7 @@ Copyright (C) 2007 Free Software Foundation, Inc.
 Everyone is permitted to copy and distribute verbatim copies of this
 license document, but changing it is not allowed.
 
-### Preamble
+### 0.2 Preamble
 
 The GNU General Public License is a free, copyleft license for
 software and other kinds of works.
@@ -81,7 +81,7 @@ assures that patents cannot be used to render the program non-free.
 The precise terms and conditions for copying, distribution and
 modification follow.
 
-### TERMS AND CONDITIONS
+### 0.3 TERMS AND CONDITIONS
 
 #### 0. Definitions.
 

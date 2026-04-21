@@ -5,11 +5,11 @@ taxonomy:
     category: docs
 ---
 
-## About this Image
+## 1. About this Image
 
 Official Signal18 container images provide a complete deployment of **replication-manager** with all dependencies included.
 
-### Key Features
+### 1.1 Key Features
 
 **Replication Management:**
 - Replication monitoring (GTID, multi-source, delayed replication)
@@ -48,7 +48,7 @@ Official Signal18 container images provide a complete deployment of **replicatio
 - SLA tracking and reporting
 - Performance capture during high load events
 
-### Available Tags
+### 1.2 Available Tags
 
 **`version-pro`** (recommended for production)
 - Includes all dependencies for database maintenance
@@ -86,12 +86,12 @@ docker run --user=124:132 \
            /bin/bash
 ```
 
-### Logs
+### 1.3 Logs
 
 Container logs are written to `/var/log/replication-manager.log` inside the container.
 
 
-#### How to use this Image
+#### 1.3.1 How to use this Image
 
 **Step 1: Create directory structure**
 
@@ -185,6 +185,6 @@ docker run -v ~/etc:/etc/replication-manager:rw \
 >__Important__: Version 3.x requires the third volume mount (`/root/.config/replication-manager`) to persist dynamic configuration changes. Without it, any configuration changes made via the API or web UI will be lost when the container restarts  
 
 
-### [Documentation](https://docs.signal18.io)
+### 1.4 [Documentation](https://docs.signal18.io)
 
-### [Code](https://github.com/signal18/replication-manager)
+### 1.5 [Code](https://github.com/signal18/replication-manager)

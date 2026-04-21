@@ -4,13 +4,13 @@ taxonomy:
     category: docs
 ---
 
-## Logs and Troubleshooting
+## 1. Logs and Troubleshooting
 
 replication-manager writes several log files and diagnostic files. Knowing where each one lives and what it contains is the first step when investigating unexpected behaviour.
 
 ---
 
-## replication-manager Daemon Log
+## 2. replication-manager Daemon Log
 
 The main process log captures everything replication-manager does: topology discovery, failover decisions, API calls, job execution, and internal errors.
 
@@ -26,7 +26,7 @@ The main process log captures everything replication-manager does: topology disc
 
 All of these are set in the global (non-cluster) section of the configuration file. See [Daemon Monitoring](../01.configuration-guide/00.server) for the full parameter reference.
 
-### Typical log-level guide
+### 2.1 Typical log-level guide
 
 | Level | When to use |
 |---|---|
@@ -37,7 +37,7 @@ All of these are set in the global (non-cluster) section of the configuration fi
 
 ---
 
-## Per-Cluster Diagnostic Files
+## 3. Per-Cluster Diagnostic Files
 
 These files are written inside the replication-manager data directory, one subdirectory per cluster:
 
@@ -49,7 +49,7 @@ These files are written inside the replication-manager data directory, one subdi
     └── ...              Per-server config and state files
 ```
 
-### sql_general.log
+### 3.1 sql_general.log
 
 Enabled by `log-sql-in-monitoring = true`. Records every SQL query that replication-manager sends to monitored servers (SHOW SLAVE STATUS, SHOW GLOBAL STATUS, etc.).
 
@@ -59,7 +59,7 @@ This log is valuable during failover and rejoin analysis: you can replay exactly
 log-sql-in-monitoring = true
 ```
 
-### Capture files
+### 3.2 Capture files
 
 When `monitoring-capture` is enabled, replication-manager automatically dumps a diagnostic snapshot whenever a monitored error code fires. Each capture saves:
 
@@ -78,7 +78,7 @@ Capture is triggered by the error codes listed in `monitoring-capture-trigger` (
 
 ---
 
-## Memory Profiling
+## 4. Memory Profiling
 
 ```toml
 memprofile = "/tmp/repmgr.mprof"
@@ -92,29 +92,29 @@ go tool pprof /tmp/repmgr.mprof
 
 ---
 
-## Common Troubleshooting Steps
+## 5. Common Troubleshooting Steps
 
-### Replication-manager won't connect to a server
+### 5.1 Replication-manager won't connect to a server
 
 1. Set `log-level = 5` temporarily and restart
 2. Watch the daemon log for the connection attempt and error
 3. Verify `db-servers-hosts`, `db-servers-credential`, and network access
 4. Check that `log-sql-in-monitoring = true` to see the exact queries being sent
 
-### Failover triggered unexpectedly
+### 5.2 Failover triggered unexpectedly
 
 1. Check the daemon log around the time of the event — look for the `ERR` code that fired
 2. Check the capture files in `{monitoring-datadir}/{cluster-name}/` — they contain the exact server state at the moment of the error
 3. Look at `monitoring-capture-trigger` to see which codes arm a capture
 
-### Alert firing but no notification received
+### 5.3 Alert firing but no notification received
 
 1. Verify the error code is in `monitoring-alert-trigger` (see [Alerting Configuration Guide](../../08.alerting/01.configuration-guide))
 2. Check if the code is in `monitoring-ignore-errors` (suppression list)
 3. Check if `scheduler-alert-disable` is active (scheduled blackout)
 4. Set `log-level = 3` to see alert dispatch in the daemon log
 
-### High log volume
+### 5.4 High log volume
 
 - Lower `log-level` back to `1` or `2` for production
 - Enable `log-rotate-max-size` to cap file growth

@@ -4,9 +4,9 @@ taxonomy:
     category: docs
 ---
 
-## Replication best practices
+## 1. Replication best practices
 
-### Parallel replication
+### 1.1 Parallel replication
 
 The history of MariaDB replication has reached a point where replication can almost in any case catch up with the master. It can be ensured using new features like Group Commit improvement, optimistic in-order parallel replication and semi-synchronous replication.
 
@@ -22,7 +22,7 @@ sync_binlog = 1
 log_slave_updates = ON
 ```
 
-### Semi-synchronous replication
+### 1.2 Semi-synchronous replication
 
 Semi-synchronous replication enables to delay transaction commit until the transactional event reaches at least one replica. The "In Sync" status will be lost only when a tunable replication delay is attained. This Sync status is checked by __replication-manager__ to compute the last SLA metrics, the time we may auto-failover without losing data and when we can reintroduce the dead leader without re-provisioning it.
 

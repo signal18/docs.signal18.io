@@ -3,7 +3,7 @@ title: Backups
 taxonomy:
     category: docs
 ---
-## Backups
+## 1. Backups
 
 Supported backups methods are mysqldump, mydumper, xtrabackup, mariabackup
 

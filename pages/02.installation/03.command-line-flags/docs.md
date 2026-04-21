@@ -14,7 +14,7 @@ The following command line flags are also used to manually run the monitoring da
 
 > Command line flags are overwrite by variables found in the config.toml file.
 
-## Command Line Flags
+## 1. Command Line Flags
 
 ##### `config`
 

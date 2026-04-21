@@ -4,13 +4,13 @@ taxonomy:
     category: docs
 ---
 
-## First Config
+## 1. First Config
 
 replication-manager uses a TOML configuration file. The default file is `config.toml`, split into a mandatory `[Default]` section and one or more named cluster sections.
 
 ---
 
-## Config File Structure
+## 2. Config File Structure
 
 ```toml
 [Default]
@@ -34,7 +34,7 @@ A single `[Default]` section with no separate cluster section is valid for singl
 
 ---
 
-## Config File Search Order
+## 3. Config File Search Order
 
 replication-manager searches for `config.toml` in this order:
 
@@ -48,7 +48,7 @@ The first file found wins.
 
 ---
 
-## Using the Include Directory
+## 4. Using the Include Directory
 
 For multi-cluster setups, split configuration across individual files:
 
@@ -78,7 +78,7 @@ All `*.toml` files in the include directory are merged with the main config at s
 
 ---
 
-## Dynamic Configuration
+## 5. Dynamic Configuration
 
 When `monitoring-save-config = true` is set in `[Default]`, changes made via the API or GUI are persisted to the **active configuration directory**:
 
@@ -90,7 +90,7 @@ This is separate from `/etc/replication-manager/` so the template config is neve
 
 ---
 
-## Minimal Working Config
+## 6. Minimal Working Config
 
 ```toml
 [Default]
@@ -112,7 +112,7 @@ Change `api-credentials` before first start to avoid the [WARN0108 default passw
 
 ---
 
-## Sample Configuration Files
+## 7. Sample Configuration Files
 
 Package installations include ready-to-use samples:
 
@@ -133,7 +133,7 @@ cp /usr/local/replication-manager/etc/config.toml.sample.masterslave-haproxy \
 
 ---
 
-## Starting replication-manager
+## 8. Starting replication-manager
 
 ```bash
 # Package / systemd
@@ -150,7 +150,7 @@ replication-manager monitor --http-server
 
 ---
 
-## Command Line Flags
+## 9. Command Line Flags
 
 Every configuration key has a corresponding command line flag. Flags on the command line take priority over the config file.
 
@@ -178,7 +178,7 @@ Key startup flags:
 
 ---
 
-## Discovering All Available Flags
+## 10. Discovering All Available Flags
 
 > **Tip:** `replication-manager monitor --help` is the authoritative reference — it prints all 400+ flags with defaults and descriptions for the exact version you have installed, including anything added after this documentation was written.
 

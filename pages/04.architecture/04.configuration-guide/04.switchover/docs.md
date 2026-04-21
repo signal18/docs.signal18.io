@@ -3,7 +3,7 @@ title: Switchover
 taxonomy:
     category: docs
 ---
-## Switchover Configuration
+## 1. Switchover Configuration
 
 ##### `switchover-at-equal-gtid` (1.1), `gtidcheck` (0.7)
 

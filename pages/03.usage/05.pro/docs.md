@@ -3,9 +3,9 @@ title: Provisioning Agent
 taxonomy:
     category: docs
 ---
-## Provisioning Agent
+## 1. Provisioning Agent
 
-### Get services manage by the agent
+### 1.1 Get services manage by the agent
 
 **om mon**
 ```
@@ -37,7 +37,7 @@ Nodes                                                 s18-fr-4    s18-fr-5     s
  arceau/svc/prx2         up             ha    1/1   |             O^                      
 ```
 
-### Check service status
+### 1.2 Check service status
 Get to the node running the service  
 **om arceau/svc/db3 print status**  
 ```
@@ -54,7 +54,7 @@ arceau/svc/db3                   up
 
 ```
 
-### Get service configuration
+### 1.3 Get service configuration
 
 **om arceau/svc/db3 print config**
 ```
@@ -159,7 +159,7 @@ Working with services
 - **om arceau/svc/db3 start**
 
 
-### Get logs of a docker image
+### 1.4 Get logs of a docker image
 
 **om arceau/svc/db3 docker logs {db}**
 ```
@@ -174,11 +174,11 @@ In memory Standard Query Cache (SQC) rev. 1.2.0905 -- Query_Cache.cpp -- Sat Oct
 Standard MySQL Monitor (StdMyMon) rev. 1.2.0723 -- MySQL_Monitor.cpp -- Sat Oct 29 13:47:26 2016
 ```
 
-### Entering a docker image
+### 1.5 Entering a docker image
 
 **om arceau/svc/db3 docker exec -ti {db} /bin/sh**
 
-### Secret and config services  
+### 1.6 Secret and config services  
 
 **om arceau/*/env mon**
 ```

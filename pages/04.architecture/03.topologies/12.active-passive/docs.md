@@ -6,7 +6,7 @@ taxonomy:
 
 Active-Passive topology is a special mode where **replication-manager** monitors a single active database server without managing replication or performing automatic failover. This topology is useful for scenarios requiring external orchestration or when automatic failover is not desired.
 
-## Configuration
+## 1. Configuration
 
 ##### `replication-active-passive` (3.1)
 
@@ -16,9 +16,9 @@ Active-Passive topology is a special mode where **replication-manager** monitors
 | Type | boolean |
 | Default Value | false |
 
-## Topology Characteristics
+## 2. Topology Characteristics
 
-### Behavior
+### 2.1 Behavior
 
 In Active-Passive mode:
 
@@ -29,13 +29,13 @@ In Active-Passive mode:
 - **No privilege checks**: REPLICATION and SUPER privilege checks are bypassed
 - **Simplified monitoring**: Focuses on server availability and health metrics
 
-### Automatic Detection
+### 2.2 Automatic Detection
 
 Active-Passive topology is automatically enabled when:
 - Configuration explicitly sets `replication-active-passive = true`
 - Only one server is defined in the `db-servers-hosts` list
 
-## Use Cases
+## 3. Use Cases
 
 **1. External Orchestration**
 
@@ -67,7 +67,7 @@ Collect metrics and health information without infrastructure changes:
 - Schema change detection
 - Query analysis
 
-## Features Available in Active-Passive Mode
+## 4. Features Available in Active-Passive Mode
 
 Active-Passive mode supports:
 
@@ -79,7 +79,7 @@ Active-Passive mode supports:
 - **API access**: Full REST API for server information
 - **Web UI**: Dashboard with server metrics and status
 
-## Features Disabled in Active-Passive Mode
+## 5. Features Disabled in Active-Passive Mode
 
 Active-Passive mode disables:
 
@@ -91,9 +91,9 @@ Active-Passive mode disables:
 - **Privilege checks**: Skips replication user privilege validation
 - **Maintenance mode**: Maintenance flag not applied to master
 
-## Configuration Example
+## 6. Configuration Example
 
-### Minimal Configuration
+### 6.1 Minimal Configuration
 
 ```toml
 [default]
@@ -103,7 +103,7 @@ replication-active-passive = true
 monitoring-datadir = "/var/lib/replication-manager"
 ```
 
-### Full Monitoring Configuration
+### 6.2 Full Monitoring Configuration
 
 ```toml
 [myapp]
@@ -133,7 +133,7 @@ monitoring-queries = true
 monitoring-long-query-time = 5000
 ```
 
-### Multi-Server Active-Passive (No Replication)
+### 6.3 Multi-Server Active-Passive (No Replication)
 
 ```toml
 [cluster1]
@@ -148,9 +148,9 @@ When multiple servers are configured with Active-Passive mode:
 - No replication is expected or configured
 - Useful for monitoring multiple independent databases as a single logical cluster
 
-## Transitioning Between Modes
+## 7. Transitioning Between Modes
 
-### From Master-Slave to Active-Passive
+### 7.1 From Master-Slave to Active-Passive
 
 To disable automatic failover on an existing replicated cluster:
 
@@ -164,7 +164,7 @@ replication-active-passive = true
 - Maintain current topology unchanged
 - Allow manual intervention for topology changes
 
-### From Active-Passive to Master-Slave
+### 7.2 From Active-Passive to Master-Slave
 
 To enable automatic failover:
 
@@ -178,7 +178,7 @@ replication-active-passive = false
 3. Restart **replication-manager** or reload configuration
 4. **replication-manager** will detect topology and enable failover
 
-## API Behavior
+## 8. API Behavior
 
 In Active-Passive mode, API endpoints behave differently:
 
@@ -193,7 +193,7 @@ In Active-Passive mode, API endpoints behave differently:
 - Server maintenance endpoints (start, stop, provision)
 - Configuration management endpoints
 
-## Comparison with Other Topologies
+## 9. Comparison with Other Topologies
 
 | Feature | Active-Passive | Master-Slave | Multi-Master |
 | ------- | -------------- | ------------ | ------------ |
@@ -204,7 +204,7 @@ In Active-Passive mode, API endpoints behave differently:
 | Privilege checks | No | Yes | Yes |
 | Server count | 1+ | 2+ | 2+ |
 
-## Troubleshooting
+## 10. Troubleshooting
 
 **Problem**: Cannot perform switchover in Active-Passive mode
 
@@ -224,7 +224,7 @@ In Active-Passive mode, API endpoints behave differently:
 - Use API: `PUT /api/clusters/{cluster}/servers/{server}/actions/set-master`
 - Or configure `db-servers-prefered-master` to specify desired active server
 
-## Best Practices
+## 11. Best Practices
 
 **Monitoring without disruption:**
 - Use Active-Passive mode when **replication-manager** should observe but not modify infrastructure

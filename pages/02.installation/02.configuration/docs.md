@@ -25,11 +25,11 @@ monitoring-save-config=true
 
 Once enabled, setting changes will be persisted in the replication-manager working directory /var/lib/replication-manager/cluster_name/config.toml
 
-## Minimal configuration
+## 1. Minimal configuration
 
 **Version 3.x** uses a two-part configuration structure with a `[Default]` section for global settings and separate cluster sections.
 
-### Minimal configuration for single cluster
+### 1.1 Minimal configuration for single cluster
 
 ```
 [Default]
@@ -45,7 +45,7 @@ db-servers-credential = "root:password"
 replication-credential = "repl_user:repl_password"
 ```
 
-### Alternative: Single cluster in Default section (legacy style)
+### 1.2 Alternative: Single cluster in Default section (legacy style)
 
 For simple single-cluster deployments, cluster parameters can be placed directly in `[Default]`:
 
@@ -58,7 +58,7 @@ replication-credential = "repl_user:repl_password"
 failover-mode = "manual"
 ```
 
-### Multi-cluster configuration with includes
+### 1.3 Multi-cluster configuration with includes
 
 For managing multiple clusters, use the include directory:
 
@@ -94,10 +94,10 @@ replication-credential = "repl_user:repl_password"
 
 Copy a sample configuration file to config.toml auto loaded configuration:
 
-## Sample configuration for package
+## 2. Sample configuration for package
 
 `sudo cp /etc/replication-manager/etc/config.toml.sample.masterslave-haproxy  /etc/replication-manager/config.toml`
 
-## Sample configuration for archive  
+## 3. Sample configuration for archive  
 
 `sudo cp /usr/local/replication-manager/etc/config.toml.sample.masterslave-haproxy  /usr/local/replication-manager/etc/config.toml`

@@ -4,7 +4,7 @@ taxonomy:
     category: docs
 ---
 
-## Workload Plugins
+## 1. Workload Plugins
 
 > **Tier:** Community — requires a free registered instance at gitlab.signal18.io
 
@@ -14,7 +14,7 @@ All workload plugins are **external binaries** located in the cluster plugins di
 
 ---
 
-## plugin-innodb-corruption
+## 2. plugin-innodb-corruption
 
 **Binary:** `plugin-innodb-corruption`  
 **Finding:** `WARN0300`  
@@ -26,7 +26,7 @@ Scans the error log for InnoDB corruption indicators within the last 24 hours. K
 
 ---
 
-## plugin-connection-storm
+## 3. plugin-connection-storm
 
 **Binary:** `plugin-connection-storm`  
 **Finding:** `WARN0307`  
@@ -51,7 +51,7 @@ Evaluation is skipped entirely when total connections are below `min-connections
 
 ---
 
-## plugin-error-storm
+## 4. plugin-error-storm
 
 **Binary:** `plugin-error-storm`  
 **Finding:** `WARN0302`  
@@ -72,7 +72,7 @@ Both the MariaDB/MySQL error log and the SQL error log are scanned.
 
 ---
 
-## plugin-full-table-scan-spike
+## 5. plugin-full-table-scan-spike
 
 **Binary:** `plugin-full-table-scan-spike`  
 **Finding:** `WARN0304`  
@@ -102,7 +102,7 @@ Digests with fewer than `min-exec-count` total executions are excluded to filter
 
 ---
 
-## plugin-metadata-lock-contention
+## 6. plugin-metadata-lock-contention
 
 **Binary:** `plugin-metadata-lock-contention`  
 **Finding:** `WARN0305`  
@@ -131,7 +131,7 @@ Metadata lock waits occur when a DDL statement (`ALTER TABLE`, `DROP TABLE`) hol
 
 ---
 
-## plugin-replication-lag-predictor
+## 7. plugin-replication-lag-predictor
 
 **Binary:** `plugin-replication-lag-predictor`  
 **Finding:** `WARN0303`  
@@ -159,7 +159,7 @@ DML verbs counted: `INSERT`, `UPDATE`, `DELETE`, `REPLACE`, `LOAD DATA`.
 
 ---
 
-## plugin-slow-query-regression
+## 8. plugin-slow-query-regression
 
 **Binary:** `plugin-slow-query-regression`  
 **Finding:** `WARN0301`  
@@ -189,7 +189,7 @@ The current window is the last `timeframe-hours` hours of slow log. Only digests
 
 ---
 
-## plugin-tmp-table-storm
+## 9. plugin-tmp-table-storm
 
 **Binary:** `plugin-tmp-table-storm`  
 **Finding:** `WARN0306`  
@@ -218,7 +218,7 @@ Only digests with at least `min-exec-count` executions are included. Common caus
 
 ---
 
-## plugin-off-hours-access
+## 10. plugin-off-hours-access
 
 **Binary:** `plugin-off-hours-access`  
 **Finding:** `WARN0309`  
@@ -253,7 +253,7 @@ A finding is raised when all of the following hold:
 
 ---
 
-## plugin-privilege-escalation
+## 11. plugin-privilege-escalation
 
 **Binary:** `plugin-privilege-escalation`  
 **Finding:** `WARN0308`  
@@ -280,7 +280,7 @@ Watched operations: `GRANT`, `REVOKE`, `CREATE USER`, `ALTER USER`, `DROP USER`,
 
 ---
 
-## plugin-binlog-cleartext-password
+## 12. plugin-binlog-cleartext-password
 
 **Binary:** `plugin-binlog-cleartext-password`  
 **Finding:** `WARN0310`  
@@ -311,7 +311,7 @@ Password values are partially redacted in findings (first and last character sho
 
 ---
 
-## plugin-binlog-creditcard-leak
+## 13. plugin-binlog-creditcard-leak
 
 **Binary:** `plugin-binlog-creditcard-leak`  
 **Finding:** `WARN0311`  
@@ -339,7 +339,7 @@ PANs are masked in findings (last four digits shown). Findings are capped at `ma
 
 ---
 
-## WARN Code Reference
+## 14. WARN Code Reference
 
 | Code | Plugin | Condition | Notes |
 |---|---|---|---|

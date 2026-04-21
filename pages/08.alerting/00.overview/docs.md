@@ -4,13 +4,13 @@ taxonomy:
     category: docs
 ---
 
-## Alerting
+## 1. Alerting
 
 replication-manager continuously monitors cluster state and emits alerts the moment a condition is detected — and resolves them automatically once it clears. Every alert is sent through all configured channels simultaneously, and a matching resolve notification follows when the state returns to normal.
 
 ---
 
-## Alert Channels
+## 2. Alert Channels
 
 | Channel | Description |
 |---|---|
@@ -23,7 +23,7 @@ replication-manager continuously monitors cluster state and emits alerts the mom
 
 ---
 
-## What Triggers an Alert
+## 3. What Triggers an Alert
 
 Alerts fire on any cluster state transition — new error or warning states detected on the monitoring tick that were absent on the previous tick. Common triggers:
 
@@ -37,7 +37,7 @@ Alerts fire on any cluster state transition — new error or warning states dete
 
 ---
 
-## Alert Lifecycle
+## 4. Alert Lifecycle
 
 1. **Trigger** — `SetState()` adds an error or warning code to the current cluster state
 2. **Detect** — next monitoring tick compares current state to the previous tick's state
@@ -47,6 +47,6 @@ Alerts fire on any cluster state transition — new error or warning states dete
 
 ---
 
-## Configuration Guide
+## 5. Configuration Guide
 
 See [Configuration Guide](configuration-guide) for all SMTP, Slack, Teams, Mattermost, Pushover, and script settings.
