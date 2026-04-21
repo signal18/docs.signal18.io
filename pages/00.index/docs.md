@@ -157,7 +157,7 @@ taxonomy:
     - 13.9. [Roadmap](/change-logs/Roadmap)
 
 14. **FAQ**
-    - [Frequently Asked Questions](/FAQ)
+    - [Frequently Asked Questions](/faq)
 
 ---
 
