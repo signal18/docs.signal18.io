@@ -1,0 +1,125 @@
+name: Generate Documentation PDF
+
+on:
+  push:
+    branches: [master, main]
+  release:
+    types: [created]
+  workflow_dispatch:
+
+jobs:
+  build-pdf:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout docs repository
+        uses: actions/checkout@v4
+
+      - name: Install pandoc and LaTeX
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y pandoc texlive-xetex texlive-fonts-recommended texlive-fonts-extra
+
+      - name: Collect and order docs.md files
+        run: |
+          python3 << 'PYEOF'
+          import os, re
+
+          pages = 'pages'
+
+          def has_docs(d):
+              for root, dirs, files in os.walk(d):
+                  if 'docs.md' in files:
+                      return True
+              return False
+
+          def doc_children(d):
+              try:
+                  entries = sorted([e for e in os.listdir(d)
+                                   if os.path.isdir(os.path.join(d, e)) and re.match(r'^\d+\.', e)])
+              except:
+                  return []
+              return [e for e in entries if has_docs(os.path.join(d, e))]
+
+          def collect_files(d, out):
+              docs = os.path.join(d, 'docs.md')
+              if os.path.exists(docs):
+                  out.append(docs)
+              for child in doc_children(d):
+                  collect_files(os.path.join(d, child), out)
+
+          files = []
+          for chap in doc_children(pages):
+              collect_files(os.path.join(pages, chap), files)
+
+          with open('/tmp/doc_files.txt', 'w') as f:
+              for path in files:
+                  f.write(path + '\n')
+
+          print(f'Collected {len(files)} docs.md files')
+          PYEOF
+
+      - name: Strip Grav frontmatter and build combined Markdown
+        run: |
+          python3 << 'PYEOF'
+          import re
+
+          with open('/tmp/doc_files.txt') as f:
+              files = [line.strip() for line in f if line.strip()]
+
+          combined = []
+          combined.append('---')
+          combined.append('title: replication-manager Documentation')
+          combined.append('author: Signal18')
+          combined.append('date: \\today')
+          combined.append('toc: true')
+          combined.append('toc-depth: 3')
+          combined.append('numbersections: false')
+          combined.append('geometry: margin=2.5cm')
+          combined.append('fontsize: 10pt')
+          combined.append('---')
+          combined.append('')
+          combined.append('\\newpage')
+          combined.append('')
+
+          for path in files:
+              with open(path) as f:
+                  content = f.read()
+              # Strip YAML frontmatter
+              content = re.sub(r'^---\n.*?\n---\n', '', content, count=1, flags=re.DOTALL)
+              content = content.strip()
+              if content:
+                  combined.append(content)
+                  combined.append('')
+                  combined.append('\\newpage')
+                  combined.append('')
+
+          with open('/tmp/combined-docs.md', 'w') as f:
+              f.write('\n'.join(combined))
+
+          print('Combined Markdown written')
+          PYEOF
+
+      - name: Generate PDF with pandoc
+        run: |
+          pandoc /tmp/combined-docs.md \
+            --pdf-engine=xelatex \
+            --toc \
+            --toc-depth=3 \
+            -V colorlinks=true \
+            -V linkcolor=blue \
+            -V urlcolor=blue \
+            -o replication-manager-docs.pdf
+
+      - name: Upload PDF artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: replication-manager-docs-pdf
+          path: replication-manager-docs.pdf
+          retention-days: 90
+
+      - name: Attach PDF to release
+        if: github.event_name == 'release'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: replication-manager-docs.pdf
