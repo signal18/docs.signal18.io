@@ -31,14 +31,6 @@ taxonomy:
 | Type | int |
 | Example | 1 to 7 |
 
-##### `log-syslog ` (2.0)
-
-| Item          | Value |
-| ----          | ----- |
-| Description   | duplicate stdout to local UDP syslog port |
-| Type          | boolean |
-| Example       | true |
-
 ##### `log-rotate-max-age` (2.1)
 
 | Item          | Value |

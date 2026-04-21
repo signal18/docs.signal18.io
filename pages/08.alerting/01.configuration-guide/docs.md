@@ -4,204 +4,316 @@ taxonomy:
     category: docs
 ---
 
-## Alert Configuration
+## Alerting Configuration Guide
 
-**replication-manager** offers multiple way of alerting on cluster node status change.
+replication-manager can deliver alerts through multiple channels when cluster state changes. Alerts fire when a monitored error or warning code first appears in the cluster state and again when it clears.
 
-### External Script Configuration
+---
 
-An alert script can be triggered when enabled via this config file parameter:
+## Alert Triggering
 
-##### `monitoring-ignore-errors` (2.1)
+##### `monitoring-alert-trigger`
 
-| Item | Value |
-| ---- | ----- |
-| Description | List errors or warnings to be ignored. |
+| | |
+|---|---|
+| Description | Comma-separated list of error/warning codes that trigger an alert notification. Only codes in this list cause notifications to be sent — all other state changes are logged but do not fire the alert channels. |
 | Type | String |
-| Default Value | "WARN0067,WARN0066" |  
+| Default | `"ERR00027,ERR00042,ERR00087,ERR00002,WARN0023,WARN0100,WARN0115,WARN0116,WARN0139,WARN0140,WARN0141"` |
+| Example | `"ERR00027,ERR00042,WARN0100"` |
 
+##### `monitoring-ignore-errors`
 
-##### `alert-script` (2.0)
-
-| Item | Value |
-| ---- | ----- |
-| Description | Full path to an alerting script. |
+| | |
+|---|---|
+| Description | Comma-separated list of error or warning codes to suppress entirely. Matching codes are never logged and never trigger alerts. Use this to silence known false positives. |
 | Type | String |
-| Default Value | "" |  
+| Default | `""` |
+| Example | `"WARN0067,WARN0066"` |
 
-The following arguments are passed to the script
+---
 
-- [x] Server URL
-- [x] Server previous state
-- [x] Server current state
+## Alert Blackout Window
 
-### Email Configuration
+Alerts can be suppressed on a schedule — useful for planned maintenance windows or known noisy periods (e.g. nightly batch jobs).
 
-An email can be send via postfix using the following parameters:
+##### `scheduler-alert-disable`
 
-##### `mail-from` (0.7)
-
-| Item | Value |
-| ---- | ----- |
-| Description | Alert email sender, a valid postfix user should be used. |
-| Type | String |
-| Example | "user@hostname" |  
-
-##### `mail-smtp-addr` (0.7)
-
-| Item | Value |
-| ---- | ----- |
-| Description | Alert email SMTP server in host:[port] format. |
-| Type | String |
-| Example | "localhost:25" |  
-
-##### `mail-smtp-user` (2.1)
-
-| Item | Value |
-| ---- | ----- |
-| Description | Auth SMTP User |
-| Type | String |
-| Default | "" |  
-
-##### `mail-smtp-password` (2.1)
-
-| Item | Value |
-| ---- | ----- |
-| Description | Auth SMTP password |
-| Type | String |
-| Default | "" |  
-
-##### `mail-to` (0.7)
-
-| Item | Value |
-| ---- | ----- |
-| Description | Single email to send the alert. |
-| Type | String |
-| Example | "alert@signal18.io" |  
-
-
->__Important Note__ No secure mail server is supported .
-
-### Alerting from slack
-
->__ Slack reporting is common to all clusters
-
-##### `alert-slack-url` (2.1)
-
-| Item | Value |
-| ---- | ----- |
-| Description | Slack webhook URL to alert. |
-| Type | String |
-| Default Value | "" |  
-
-##### `alert-slack-channel` (2.1)
-
-| Item | Value |
-| ---- | ----- |
-| Description |Slack channel to alert. |
-| Type | String |
-| Default Value | "#support" |  
-
-
-##### `alert-slack-user` (2.1)
-
-| Item | Value |
-| ---- | ----- |
-| Description |Slack user for alert. |
-| Type | String |
-| Default Value | "" |  
-
-
-### Alerting from logs
-
-The logs can be send to syslog services via
-
-##### `log-syslog` (0.7)
-
-| Item | Value |
-| ---- | ----- |
-| Description | Duplicate messages to syslog. |
+| | |
+|---|---|
+| Description | Enable the scheduled alert blackout. When `true`, replication-manager silences all alert channels during the window defined by `scheduler-alert-disable-cron` and `scheduler-alert-disable-time`. Can also be toggled at runtime from the GUI. |
 | Type | Boolean |
-| Default Value | false |  
+| Default | `false` |
 
+##### `scheduler-alert-disable-cron`
 
-User can lookup in logs for tag type=state to trigger some custom alerting.
+| | |
+|---|---|
+| Description | Cron expression (6 fields: second minute hour day month weekday) that defines when the alert blackout window starts. |
+| Type | String |
+| Default | `"0 0 0 * * 0-4"` (midnight, Monday–Friday) |
+| Example | `"0 30 22 * * *"` (22:30 every day) |
 
-We can improve log facilities to send messages to various log analyze systems, contact signal18.io for NRE.
+##### `scheduler-alert-disable-time`
 
+| | |
+|---|---|
+| Description | Duration of the alert blackout window in seconds. |
+| Type | Integer |
+| Default | `3600` (1 hour) |
 
-### External status monitoring
+---
 
-The API provide some useful endpoint to check for status
+## External Script
 
-Checking for monitoring daemon status can be done via URL     
-http://replicaion-manager-host:3000/api/status
-```
- {"alive": "running"}
- {"alive": "starting"}
-```
+An external script is called on every state change for every monitored server, regardless of `monitoring-alert-trigger`. It receives the affected server information as arguments.
 
-http://replicaion-manager-host:3000/api/clusters/{clusterName}/status
+##### `alert-script`
 
-```
-{"alive": "running"}
-{"alive": "errors"}
-```
-http://replicaion-manager-host:3000/api/clusters/{clusterName}/topology/alerts
+| | |
+|---|---|
+| Description | Full path to a script to execute when a server state changes. The script is called with three positional arguments: server URL, previous state, current state. |
+| Type | String |
+| Default | `""` (disabled) |
+| Example | `"/opt/scripts/repman-alert.sh"` |
 
-### Client call checking status  
-
-replication-manager-cli status  
-```
-running
-```
-replication-manager-cli status  --cluster=cluster_haproxy_masterslave
-```
-errors
-```
-
-replication-manager-cli status  --cluster=cluster_haproxy_masterslave --with-errors
-```
-{
-	"errors": [
-		{
-			"number": "ERR00021",
-			"desc": "All cluster db servers down",
-			"from": "TOPO"
-		},
-		{
-			"number": "ERR00010",
-			"desc": "Could not find a slave in topology",
-			"from": "TOPO"
-		},
-		{
-			"number": "ERR00012",
-			"desc": "Could not find a master in topology",
-			"from": "TOPO"
-		}
-	],
-	"warnings": [
-		{
-			"number": "INF00001",
-			"desc": "Server 127.0.0.1:3310 is down",
-			"from": "TOPO"
-		}
-	]
-}
+```bash
+#!/bin/bash
+# Arguments: $1=server_url  $2=previous_state  $3=current_state
+echo "$(date) $1 changed from $2 to $3" >> /var/log/repman-alerts.log
 ```
 
-replication-manager-cli bootstrap  --cluster=cluster_haproxy_masterslave
+---
+
+## Email
+
+Email alerts require a reachable SMTP server. The mail alert fires for all state transitions.
+
+##### `mail-from`
+
+| | |
+|---|---|
+| Description | Sender address for alert emails. Must be a valid user on the configured SMTP server. |
+| Type | String |
+| Default | `"mrm@localhost"` |
+
+##### `mail-to`
+
+| | |
+|---|---|
+| Description | Comma-separated list of recipient addresses. Leave empty to disable email alerting. |
+| Type | String |
+| Default | `""` |
+| Example | `"ops@example.com,dba@example.com"` |
+
+##### `mail-smtp-addr`
+
+| | |
+|---|---|
+| Description | SMTP server address in `host:port` format. |
+| Type | String |
+| Default | `"localhost:25"` |
+| Example | `"smtp.example.com:587"` |
+
+##### `mail-smtp-user`
+
+| | |
+|---|---|
+| Description | SMTP authentication username. Leave empty for unauthenticated relay. |
+| Type | String |
+| Default | `""` |
+
+##### `mail-smtp-password`
+
+| | |
+|---|---|
+| Description | SMTP authentication password. |
+| Type | String |
+| Default | `""` |
+
+##### `mail-smtp-tls-skip-verify`
+
+| | |
+|---|---|
+| Description | Connect to SMTP with TLS but skip certificate verification. |
+| Type | Boolean |
+| Default | `false` |
+
+##### `mail-max-pool`
+
+| | |
+|---|---|
+| Description | Maximum number of persistent SMTP connections to keep open. `0` disables connection pooling (a new connection is opened for each alert). |
+| Type | Integer |
+| Default | `0` |
+
+##### `mail-timeout`
+
+| | |
+|---|---|
+| Description | Timeout in seconds when waiting for an SMTP connection from the pool. `0` means no timeout. |
+| Type | Integer |
+| Default | `5` |
+
+---
+
+## Slack
+
+Slack alerts use an incoming webhook URL. Slack alerting is global to the replication-manager instance — all clusters share the same webhook.
+
+##### `alert-slack-url`
+
+| | |
+|---|---|
+| Description | Slack incoming webhook URL. Leave empty to disable Slack alerting. |
+| Type | String |
+| Default | `""` |
+| Example | See Slack → App Management → Incoming Webhooks for your workspace URL |
+
+##### `alert-slack-channel`
+
+| | |
+|---|---|
+| Description | Slack channel to post alerts to. |
+| Type | String |
+| Default | `"#support"` |
+
+##### `alert-slack-user`
+
+| | |
+|---|---|
+| Description | Display name for the Slack bot posting the alert. |
+| Type | String |
+| Default | `""` |
+
+---
+
+## Pushover
+
+Pushover delivers mobile push notifications to iOS and Android via the [Pushover](https://pushover.net) service.
+
+##### `alert-pushover-app-token`
+
+| | |
+|---|---|
+| Description | Pushover application token (created at pushover.net). Leave empty to disable Pushover alerting. |
+| Type | String |
+| Default | `""` |
+
+##### `alert-pushover-user-token`
+
+| | |
+|---|---|
+| Description | Pushover user or group key — identifies who receives the notification. |
+| Type | String |
+| Default | `""` |
+
+---
+
+## Microsoft Teams
+
+Teams alerts are sent via an incoming webhook. Alerting can be filtered to specific severity levels.
+
+##### `alert-teams-url`
+
+| | |
+|---|---|
+| Description | Microsoft Teams incoming webhook URL. Leave empty to disable Teams alerting. |
+| Type | String |
+| Default | `""` |
+
+##### `alert-teams-proxy-url`
+
+| | |
+|---|---|
+| Description | HTTP proxy URL to use when calling the Teams webhook (for environments where outbound HTTP requires a proxy). |
+| Type | String |
+| Default | `""` |
+
+##### `alert-teams-state`
+
+| | |
+|---|---|
+| Description | Comma-separated list of severity prefixes to forward to Teams. Only state changes whose code starts with one of these prefixes are sent. Leave empty to send all triggered alerts. |
+| Type | String |
+| Default | `""` |
+| Example | `"ERR"` (errors only) · `"ERR,WARN"` (errors and warnings) · `"ERR,WARN,INFO"` (all) |
+
+---
+
+## Syslog
+
+##### `log-syslog`
+
+| | |
+|---|---|
+| Description | Mirror all log output to the local UDP syslog port in addition to the normal log file. Allows log aggregation systems (Graylog, Splunk, ELK) to receive replication-manager events via syslog. |
+| Type | Boolean |
+| Default | `false` |
+
+---
+
+## Cloud18 Integration
+
+When the instance is registered with the Signal18 SSO, alert notifications can also be forwarded to the Signal18 Mattermost instance. These settings are global (not per-cluster).
+
+##### `cloud18-alert`
+
+| | |
+|---|---|
+| Description | Enable forwarding of alerts to the Cloud18 Slack/Mattermost channel. |
+| Type | Boolean |
+| Default | `true` |
+
+##### `cloud18-alert-slack-channel`
+
+| | |
+|---|---|
+| Description | Mattermost channel name to post Cloud18 alerts to. |
+| Type | String |
+| Default | `"signal18_alert"` |
+
+##### `cloud18-alert-slack-url`
+
+| | |
+|---|---|
+| Description | Webhook URL for the Cloud18 Mattermost instance. |
+| Type | String |
+| Default | `"https://meet.signal18.io/hooks/…"` |
+
+##### `cloud18-alert-slack-user`
+
+| | |
+|---|---|
+| Description | Display name for the Cloud18 alert bot. |
+| Type | String |
+| Default | `"repman"` |
+
+---
+
+## Checking Alert Status via API
+
+The following endpoints allow external monitoring systems to poll cluster health:
+
 ```
-Can't found topology after bootstrap
+GET /api/status
+# {"alive": "running"} or {"alive": "starting"}
+
+GET /api/clusters/{clusterName}/status
+# {"alive": "running"} or {"alive": "errors"}
+
+GET /api/clusters/{clusterName}/topology/alerts
+# Returns the current active alert list
 ```
 
-The cluster is not provisioned  launch it manually or via the replication-manager-tst or replication-manager-pro release
+Via CLI:
 
-replication-manager-cli bootstrap  --cluster=cluster_haproxy_masterslave --with-provisioning
-```
-Provisioning done
-```
-replication-manager-cli status  --cluster=cluster_haproxy_masterslave
-```
-running
+```bash
+replication-manager-cli status
+# running
+
+replication-manager-cli status --cluster=my-cluster
+# running  or  errors
+
+replication-manager-cli status --cluster=my-cluster --with-errors
+# JSON object listing all active errors and warnings
 ```

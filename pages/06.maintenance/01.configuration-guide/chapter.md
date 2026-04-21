@@ -1,5 +1,5 @@
 ---
-title: Maintenance Configuration Guide
+title: Configuration Guide
 taxonomy:
     category: docs
 ---
