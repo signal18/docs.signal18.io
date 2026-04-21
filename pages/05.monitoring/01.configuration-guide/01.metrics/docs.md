@@ -8,6 +8,20 @@ taxonomy:
 
 **replication-manager 2.1** expose Prometheus metrics for all servers under clusters
 
+> **No extra ports required:** The embedded Graphite render API is proxied through the replication-manager HTTPS API. External tools and dashboards can query metrics directly over the existing HTTPS connection — there is no need to expose any of the Graphite carbon ports (`graphite-carbon-api-port`, `graphite-carbon-server-port`, etc.) to the network.
+>
+> The render endpoint follows the standard Graphite render API:
+> ```
+> GET /graphite/render?format=raw&target={graphite-target}&from={unix-timestamp}&until={unix-timestamp}
+> ```
+>
+> Example — fetch the InnoDB transaction lock latch wait across all servers:
+> ```
+> https://repman-host/graphite/render?format=raw&target=alias(sumSeries(mysql.*.mysql_global_status_wait_synch_rwlock_innodb_trx_rseg_latch),'')&from=1776757548&until=1776764748
+> ```
+>
+> This is the same endpoint used internally by the workload and log plugins to load their rolling metric history for spike detection.
+
 ##### `graphite-embedded` (1.1)
 
 | Item          | Value |
