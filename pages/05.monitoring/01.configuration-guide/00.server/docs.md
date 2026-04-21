@@ -31,6 +31,14 @@ taxonomy:
 | Type | int |
 | Example | 1 to 7 |
 
+##### `log-syslog` (2.0)
+
+| Item | Value |
+| ---- | ----- |
+| Description | Mirror all log output to the local UDP syslog port in addition to the normal log file. Allows log aggregation systems (Graylog, Splunk, ELK) to receive replication-manager events via syslog. |
+| Type | Boolean |
+| Default | `false` |
+
 ##### `log-rotate-max-age` (2.1)
 
 | Item          | Value |
