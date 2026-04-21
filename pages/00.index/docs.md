@@ -146,15 +146,15 @@ taxonomy:
     - 12.3. [Troubleshoot Crashes](/howto/toubleshoot-crashes)
 
 13. **Change Logs**
-    - 13.1. [1.0 Features](/change-logs/Features10)
-    - 13.2. [1.1 Features](/change-logs/Features11)
+    - 13.1. [1.0 Features](/change-logs/features10)
+    - 13.2. [1.1 Features](/change-logs/features11)
     - 13.3. [2.0 Features](/change-logs/features20)
     - 13.4. [2.1 Features](/change-logs/features21)
     - 13.5. [2.2 Features](/change-logs/features22)
     - 13.6. [2.3 Features](/change-logs/feature23)
     - 13.7. [3.0 Features](/change-logs/features30)
     - 13.8. [3.1 Features](/change-logs/features31)
-    - 13.9. [Roadmap](/change-logs/Roadmap)
+    - 13.9. [Roadmap](/change-logs/roadmap)
 
 14. **FAQ**
     - [Frequently Asked Questions](/faq)
