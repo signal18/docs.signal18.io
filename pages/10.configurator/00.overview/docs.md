@@ -250,6 +250,29 @@ On **bootstrap**, the entire `/var/lib/mysql` is removed and the `.system` tree 
 
 On **start**, the `.system` tree is copied with `cp -rpn` which means **no file is ever overwritten**. InnoDB undo and redo logs, replication relay logs, and log files already present on disk are left completely intact. Only missing directories and files from the archive skeleton are created.
 
+### nosplitpath — Flat Datadir Layout
+
+By default all `.system` sub-paths are used. If your environment cannot accommodate a `.system` hidden directory inside the datadir — for example because your backup tooling, snapshot strategy, or storage layout requires a flat datadir — add the `nosplitpath` tag:
+
+```toml
+prov-db-tags = "...,nosplitpath"
+```
+
+With `nosplitpath` set, all paths that normally point into `.system/` are moved to the root datadir or a dedicated location:
+
+| Path | Default (without `nosplitpath`) | With `nosplitpath` |
+|---|---|---|
+| Error log | `{datadir}/.system/logs/error.log` | `{datadir}/error.log` |
+| Slow query log | `{datadir}/.system/logs/slow-query.log` | `{datadir}/slow-query.log` |
+| Audit log | `{datadir}/.system/logs/server_audit.log` | `{datadir}/server_audit.log` |
+| SQL error log | `{datadir}/.system/logs/sql_errors.log` | `{datadir}/sql_errors.log` |
+| Replication relay logs | `{datadir}/.system/repl/` | `{datadir}/` |
+| Maintenance job dir | `{datadir}/.system/jobs/` | `/var/lib/replication-manager-jobs/` |
+
+InnoDB undo and redo log directories follow the same pattern — the generated `.cnf` points them into `{datadir}` rather than `{datadir}/.system/innodb/undo` and `{datadir}/.system/innodb/redo`.
+
+When the `nosplitpath` tag is added or removed at runtime, replication-manager detects that the live `innodb_undo_directory` value no longer matches the expected configuration and sets a **config path cookie** to trigger config regeneration and a scheduled restart — the same mechanism used for any other path variable change. No manual restart scheduling is needed.
+
 ---
 
 ## Regenerating Config

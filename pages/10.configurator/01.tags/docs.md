@@ -141,6 +141,7 @@ prov-db-tags = "innodb,noquerycache,threadpool,slow,pfs,semisync,row,ssl,docker,
 | `linux` | Use Linux-specific startup and socket paths |
 | `rpm` | Use RPM-style paths (`/etc/my.cnf.d/`, Red Hat layout) |
 | `package` | Use Debian/Ubuntu package layout |
+| `nosplitpath` | Flatten all `.system` sub-paths back into the root datadir. Logs, replication relay files, and InnoDB undo/redo directories are placed directly in `{datadir}` instead of `{datadir}/.system/…`. The maintenance job directory moves to `/var/lib/replication-manager-jobs`. Use this when backup tooling, snapshots, or storage layout cannot accommodate a hidden `.system` subdirectory inside the datadir. Adding or removing this tag at runtime triggers automatic config regeneration and a scheduled restart. |
 
 ---
 
