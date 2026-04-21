@@ -73,7 +73,14 @@ taxonomy:
       - 4.5.2. [Failover](/architecture/configuration-guide/failover)
       - 4.5.3. [Switchover](/architecture/configuration-guide/switchover)
       - 4.5.4. [Replication](/architecture/configuration-guide/replication)
-      - 4.5.5. [Routing](/architecture/configuration-guide/routing)
+      - 4.5.5. **Routing**
+         - [HAProxy](/architecture/configuration-guide/routing/haproxy)
+         - [ProxySQL](/architecture/configuration-guide/routing/proxysql)
+         - [MaxScale](/architecture/configuration-guide/routing/maxscale)
+         - [Sharding](/architecture/configuration-guide/routing/sharding)
+         - [Consul](/architecture/configuration-guide/routing/consul)
+         - [External](/architecture/configuration-guide/routing/external)
+         - [External Checks](/architecture/configuration-guide/routing/external-checks)
       - 4.5.6. [Checks & Enforce](/architecture/configuration-guide/checks-enforce)
    - 4.6. [Troubleshooting](/architecture/troubleshooting)
 
@@ -108,7 +115,10 @@ taxonomy:
 9. **Provisioning**
    - 9.1. [Overview](/provisioning/overview)
    - 9.2. **Orchestrators**
-      - 9.2.1. [OpenSVC](/provisioning/orchestrators/opensvc)
+      - 9.2.1. **OpenSVC**
+         - [Collector API](/provisioning/orchestrators/opensvc/opensvc-collector-api)
+         - [Cluster API](/provisioning/orchestrators/opensvc/opensvc-cluster-api)
+         - [Advanced Config](/provisioning/orchestrators/opensvc/opensvc-advanced-config)
       - 9.2.2. [SlapOS](/provisioning/orchestrators/slapos)
       - 9.2.3. [Kubernetes](/provisioning/orchestrators/kubernetes)
       - 9.2.4. [Local](/provisioning/orchestrators/local)
