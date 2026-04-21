@@ -4,9 +4,9 @@ taxonomy:
     category: docs
 ---
 
-## Process User and Privilege Drop
+## 1. Process User and Privilege Drop
 
-### `--user`
+### 1.1 `--user`
 
 | | |
 |---|---|
@@ -17,7 +17,7 @@ taxonomy:
 
 replication-manager supports a **privilege-drop model**: it starts as `root` to bind the HTTPS API port (which may be 443 or another low-numbered port), then immediately drops to a less-privileged OS user once the listeners are accepting connections.
 
-#### Drop sequence
+#### 1.1.1 Drop sequence
 
 ```
 1. Start as root
@@ -32,7 +32,7 @@ replication-manager supports a **privilege-drop model**: it starts as `root` to 
 
 Steps 5–6 use `syscall.Setuid` / `syscall.Setgid`, which are **irreversible** on Linux — the process cannot regain root privileges after this point.
 
-#### File ownership requirements
+#### 1.1.2 File ownership requirements
 
 Before starting, the target user must own (or have write access to) the key directories:
 
@@ -50,7 +50,7 @@ chmod 600 /etc/replication-manager/.replication-manager.key
 
 replication-manager will automatically `chown` the working directory (`monitoring-datadir`) to the target user before dropping, so files written during the root phase (encryption keys, initial config) are accessible afterwards. If any writable config sub-directories are not accessible under the new user, they are transparently remapped to paths under the target user's home directory (`~/.config/replication-manager/`).
 
-#### systemd unit example
+#### 1.1.3 systemd unit example
 
 ```ini
 [Unit]
@@ -78,7 +78,7 @@ ExecStart=/usr/bin/replication-manager monitor --config /etc/replication-manager
 
 In this case the `--user` flag is ignored (only root can call `setuid`).
 
-#### Docker rootless alternative
+#### 1.1.4 Docker rootless alternative
 
 The official Docker images provide rootless variants that run as `repman` (UID/GID 10001) from the start, removing the need for any privilege drop:
 
@@ -91,7 +91,7 @@ docker run -u repman \
 
 ---
 
-## Configuration File Security
+## 2. Configuration File Security
 
 **replication-manager** provides password obfuscating security by implementing AES encryption.
 
@@ -110,7 +110,9 @@ user = "root:50711adb2ef2a959577edbda5cbe3d2ace844e750b20629a9bcb"
 
 When an encryption key is detected at `replication-manager monitor` start, the encrypted passwords will be automatically decrypted by the application. There is no further configuration change required.
 
-## API Security Configuration
+---
+
+## 3. API Security Configuration
 
 **replications-manager-cli** clients and API use JWT TLS protocol over https.
 
@@ -160,7 +162,9 @@ openssl req -new -x509 -sha256 -key server.key -out server.crt -days 3650
 
 In addition at startup replication-manager monitor will generate in memory extra self signed RSA certificate to ensure token encryption exchange for JWT   
 
-## Database Security Configuration
+---
+
+## 4. Database Security Configuration
 
 ##### `db-servers-tls-ca-cert` (2.0)
 
@@ -208,7 +212,9 @@ ssl-cert=server-cert.pem
 ssl-key=server-key.pem
 ```
 
-## Vault Security Configuration
+---
+
+## 5. Vault Security Configuration
 
 **replication-manager** provides password obfuscating security by using Vault services.
 
@@ -274,7 +280,7 @@ Vault can be used to store keys in a secret on a Vault server, the config_store_
 | Type          | string |
 | Default Value | "config_store_v2" |
 
-### Config_store_v2 
+### 5.1 Config_store_v2
 
 In this case, the secret path to the remote secret must be specified in the parameters `db-server-credential` flag for the database credential and `replication-credential` flag for the replication-manager credential as `user:password`. The key of your secret, which is store at your secret path, has to be `db-server-credential` for your database credentials and `replication-credential` for the replication credential.
 
@@ -311,13 +317,13 @@ In this case, we store database server credential and replication credential at 
 
 Be carefull to create the necessary policies to acces for your secret Vault path, you can find documentation [here](https://developer.hashicorp.com/vault/tutorials/getting-started/getting-started-policies)
 
-### Database_engine
+### 5.2 Database_engine
 
- Vault also allow to perform automatic password rotations with a management service of database credential. It allow to create a vault user that will performs password rotations on the specified database(s) at the desired regular time interval.
- First, you have to create a database role in which you will specify the connection url of your database, the username and password which allows Vault to access the database, the allowed role for the database and a SQL statement that will perform the rotation password. [Here](https://developer.hashicorp.com/vault/docs/secrets/databases), the documentation to create a database role.
- Then, you have to create a static-role, with this [documentation](https://developer.hashicorp.com/vault/docs/secrets/databases). A static-role is define by a username, a password and a rotation period.
+Vault also allow to perform automatic password rotations with a management service of database credential. It allow to create a vault user that will performs password rotations on the specified database(s) at the desired regular time interval.
+First, you have to create a database role in which you will specify the connection url of your database, the username and password which allows Vault to access the database, the allowed role for the database and a SQL statement that will perform the rotation password. [Here](https://developer.hashicorp.com/vault/docs/secrets/databases), the documentation to create a database role.
+Then, you have to create a static-role, with this [documentation](https://developer.hashicorp.com/vault/docs/secrets/databases). A static-role is define by a username, a password and a rotation period.
 
- Exemple of a database and static-role configuration :
+Exemple of a database and static-role configuration :
 
 ```
 #Database configuration
@@ -347,10 +353,9 @@ vault write database/static-roles/repman-replication \
     rotation_period=600
 ```
 
- Once these roles are set up, Vault will perform automatic password rotations for all roles defined in the database role configuration.
- To allow the repman to access the created roles, you have to specify the secret path to access the roles must be specified in the parameters `db-server-credential` flag for the database credential role and `replication-credential` flag for the replication-manager credential role.
+Once these roles are set up, Vault will perform automatic password rotations for all roles defined in the database role configuration.
+To allow the repman to access the created roles, you have to specify the secret path to access the roles must be specified in the parameters `db-server-credential` flag for the database credential role and `replication-credential` flag for the replication-manager credential role.
 
- 
 Exemple of configuration for two static-role store at "database/static-creds/repman-monitor" and "database/static-creds/repman-replication" secret Vault path.
 
 ```
@@ -361,8 +366,7 @@ replication-credential = "database/static-creds/repman-replication"
 
 ```
 
- ## Rotation of Database Credentials
- 
- So far, replication-manager is taking care of the monitoring and the replication credentials. When an authentication error state is trigger, replication-manager will presume that the password has been rotated and will fetch Vault secret path again.
- Also, we provide a password rotation service which can be accessible from the replication-manager interface or with an api call. This features is available in both Vault mode. In the config_store_v2 mode, replication-manager will generate a new password and update it in the vault secret and the databases. In the database_engine mode, replication-manager will send a resquest of rotation password to vault services, which will generate all the rotation password in the databases.
+### 5.3 Rotation of Database Credentials
 
+So far, replication-manager is taking care of the monitoring and the replication credentials. When an authentication error state is trigger, replication-manager will presume that the password has been rotated and will fetch Vault secret path again.
+Also, we provide a password rotation service which can be accessible from the replication-manager interface or with an api call. This features is available in both Vault mode. In the config_store_v2 mode, replication-manager will generate a new password and update it in the vault secret and the databases. In the database_engine mode, replication-manager will send a resquest of rotation password to vault services, which will generate all the rotation password in the databases.
