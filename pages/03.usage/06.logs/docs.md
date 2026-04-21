@@ -4,15 +4,15 @@ taxonomy:
     category: docs
 ---
 
-## 1. Logs
+## 3.7.1 Logs
 
 replication-manager uses a multi-tier logging system built on [Logrus](https://github.com/sirupsen/logrus). Every message is written simultaneously to one or more destinations: a rotating log file, journald (via stdout), the web interface, and optionally syslog or alert channels such as Slack.
 
 ---
 
-## 2. Log Files Written
+## 3.7.2 Log Files Written
 
-### 2.1 Main Log
+### 3.7.2.1 Main Log
 
 Set by `log-file`. All cluster monitoring, failover, switchover, and API activity is written here.
 
@@ -20,7 +20,7 @@ Set by `log-file`. All cluster monitoring, failover, switchover, and API activit
 log-file = "/var/log/replication-manager.log"
 ```
 
-### 2.2 Derived Logs
+### 3.7.2.2 Derived Logs
 
 When `log-file` is set, three specialised logs are created automatically beside it by appending a suffix to the base name:
 
@@ -40,7 +40,7 @@ Example: if `log-file = /var/log/replication-manager.log` then:
 /var/log/replication-manager-maintenance.log
 ```
 
-### 2.3 Per-Cluster SQL Logs
+### 3.7.2.3 Per-Cluster SQL Logs
 
 Two SQL logs are written per cluster under the monitoring data directory:
 
@@ -51,7 +51,7 @@ Two SQL logs are written per cluster under the monitoring data directory:
 
 The default `monitoring-datadir` is `/var/lib/replication-manager`.
 
-### 2.4 Panic Log
+### 3.7.2.4 Panic Log
 
 If replication-manager panics, a JSON-formatted stacktrace is written to:
 
@@ -59,7 +59,7 @@ If replication-manager panics, a JSON-formatted stacktrace is written to:
 {monitoring-datadir}/panic.log
 ```
 
-### 2.5 Carbon / Graphite API Log
+### 3.7.2.5 Carbon / Graphite API Log
 
 When the embedded Graphite backend is enabled:
 
@@ -69,7 +69,7 @@ When the embedded Graphite backend is enabled:
 
 ---
 
-## 3. Log Levels
+## 3.7.3 Log Levels
 
 Log verbosity is controlled with integers. A lower number means fewer, more severe messages; a higher number means more verbose output.
 
@@ -88,7 +88,7 @@ log-level = 3
 
 ---
 
-## 4. Per-Module Log Levels
+## 3.7.4 Per-Module Log Levels
 
 Every subsystem has its own level key. Set any module to `4` (DEBUG) when diagnosing a specific area without flooding the rest of the log.
 
@@ -142,7 +142,7 @@ log-level-plugin         = 2      # Plugin verbosity
 
 ---
 
-## 5. Log Message Format
+## 3.7.5 Log Message Format
 
 Each log line carries a timestamp, cluster name, module tag, level, and message:
 
@@ -205,7 +205,7 @@ Each log line carries a timestamp, cluster name, module tag, level, and message:
 
 ---
 
-## 6. Log Rotation
+## 3.7.6 Log Rotation
 
 Rotation is handled by [lumberjack](https://github.com/natefinch/lumberjack). All file-based logs (main, security, workload, maintenance, SQL) rotate automatically.
 
@@ -219,7 +219,7 @@ Rotated files are gzip-compressed automatically. A daily forced rotation also ru
 
 ---
 
-## 7. Syslog
+## 3.7.7 Syslog
 
 To forward all log entries to the local syslog daemon (rsyslog, syslog-ng, etc.):
 
@@ -231,9 +231,9 @@ replication-manager connects to `localhost:514` over UDP at `LOG_INFO` severity.
 
 ---
 
-## 8. Viewing Logs on a Modern Linux System
+## 3.7.8 Viewing Logs on a Modern Linux System
 
-### 8.1 journalctl — follow in real time
+### 3.7.8.1 journalctl — follow in real time
 
 ```bash
 # Follow the main service journal
@@ -243,7 +243,7 @@ journalctl -u replication-manager -f
 journalctl -u replication-manager -n 100 -f
 ```
 
-### 8.2 journalctl — query by time
+### 3.7.8.2 journalctl — query by time
 
 ```bash
 # Last hour
@@ -256,7 +256,7 @@ journalctl -u replication-manager --since "2024-06-01 00:00" --until "2024-06-01
 journalctl -u replication-manager -b
 ```
 
-### 8.3 journalctl — filter by priority
+### 3.7.8.3 journalctl — filter by priority
 
 journald maps Logrus levels to syslog priorities automatically when replication-manager logs to stdout:
 
@@ -271,7 +271,7 @@ journalctl -u replication-manager -p warning
 journalctl -u replication-manager -p debug
 ```
 
-### 8.4 journalctl — output formats
+### 3.7.8.4 journalctl — output formats
 
 ```bash
 # JSON output — pipe to jq
@@ -284,7 +284,7 @@ journalctl -u replication-manager -o short-precise
 journalctl -u replication-manager --since today > /tmp/repman-today.log
 ```
 
-### 8.5 journalctl — search inside messages
+### 3.7.8.5 journalctl — search inside messages
 
 ```bash
 # Find all failover events
@@ -300,7 +300,7 @@ journalctl -u replication-manager -g "STATE"
 journalctl -u replication-manager -g "ERR00076"
 ```
 
-### 8.6 Tailing the log file directly
+### 3.7.8.6 Tailing the log file directly
 
 If `log-file` is configured:
 
@@ -324,7 +324,7 @@ tail -f /var/log/replication-manager.log | grep 'ERR0'
 tail -f /var/log/replication-manager.log | grep 'STATE'
 ```
 
-### 8.7 Searching historical logs
+### 3.7.8.7 Searching historical logs
 
 ```bash
 # All ERR codes in the last 7 days of rotated logs
@@ -339,7 +339,7 @@ zgrep -h 'failover' /var/log/replication-manager.log* | sort -k1,2
 
 ---
 
-## 9. Accessing Logs via the REST API
+## 3.7.9 Accessing Logs via the REST API
 
 In-memory log buffers (last ~200 entries per cluster) are available through the API without reading the log files:
 
@@ -359,7 +359,7 @@ curl -sk -u admin:repman \
 
 ---
 
-## 10. Temporarily Increasing Verbosity
+## 3.7.10 Temporarily Increasing Verbosity
 
 Bump a specific module to DEBUG without restarting — set the level via the API or edit the config and reload:
 
@@ -379,7 +379,7 @@ After diagnosing, drop the levels back to their defaults to reduce log volume.
 
 ---
 
-## 11. Diagnostic Quick Reference
+## 3.7.11 Diagnostic Quick Reference
 
 | Goal | Command |
 |---|---|

@@ -4,13 +4,13 @@ taxonomy:
     category: docs
 ---
 
-## 1. High Availability
+## 4.1.1 High Availability
 
 replication-manager provides continuous, automated high availability for MariaDB and MySQL clusters. It monitors replication topology on every tick, enforces a target topology, and takes corrective action — switchover or failover — only when it is safe to do so. Every decision passes through the same monitoring loop that detected the problem, so no action is ever taken on incomplete or ambiguous information.
 
 ---
 
-## 2. Topology Discovery
+## 4.1.2 Topology Discovery
 
 On every monitoring loop replication-manager connects to all configured servers and reconstructs the full replication graph: which server is the current primary, which are replicas, what GTID positions they hold, whether replication threads are running, and how far each replica lags behind.
 
@@ -20,7 +20,7 @@ The **default target topology is primary/replica** (also called master/slave). O
 
 ---
 
-## 3. False Positive Protection
+## 4.1.3 False Positive Protection
 
 Alongside topology discovery, every monitoring loop runs a series of false-positive checks before concluding that a primary is truly unreachable:
 
@@ -33,7 +33,7 @@ Only when all applicable checks agree that the primary is genuinely lost will re
 
 ---
 
-## 4. Default Mode — Alert, Don't Act
+## 4.1.4 Default Mode — Alert, Don't Act
 
 By default replication-manager operates in **manual mode**: when a failure is detected and all false-positive checks confirm the primary is genuinely lost, an alert is sent to all configured channels and the cluster is held in a degraded-but-safe state. **No automatic failover is triggered.** This gives the supervision team time to assess the situation, check for external causes (network partition, storage failure, planned maintenance), and decide whether to promote a replica or wait for the primary to recover.
 
@@ -53,7 +53,7 @@ In automatic mode replication-manager still applies all false-positive and topol
 
 ---
 
-## 5. Switchover — Planned Handoff
+## 4.1.5 Switchover — Planned Handoff
 
 A **switchover** is a controlled primary promotion performed while the current primary is still reachable and healthy. It is the correct operation for planned maintenance, host migrations, software upgrades, and load rebalancing.
 
@@ -69,7 +69,7 @@ Because the old primary is still alive, there is no data loss and the operation 
 
 ---
 
-## 6. Failover — Automatic Recovery
+## 4.1.6 Failover — Automatic Recovery
 
 A **failover** is an emergency promotion triggered when the primary can no longer be reached and all false-positive checks have been exhausted. It is the operation that keeps the cluster writable when a primary host has crashed, lost power, or become permanently partitioned.
 
@@ -85,7 +85,7 @@ Because the old primary was not available to flush transactions, a small amount 
 
 ---
 
-## 7. Rejoin — Reintroducing an Old Primary
+## 4.1.7 Rejoin — Reintroducing an Old Primary
 
 After a failover the old primary eventually comes back online. **Rejoin** is the process of safely reintroducing that server as a replica of the new primary.
 
@@ -99,7 +99,7 @@ The rejoin method is configurable per cluster based on acceptable data risk and 
 
 ---
 
-## 8. Reseeding — Adding a New Server
+## 4.1.8 Reseeding — Adding a New Server
 
 **Reseeding** is the process of provisioning a brand-new server and bringing it into the cluster as a replica. Unlike rejoin (which handles a server that was previously a member), reseeding starts from scratch:
 
@@ -112,7 +112,7 @@ replication-manager automates reseeding using the configured backup tools (mydum
 
 ---
 
-## 9. Summary
+## 4.1.9 Summary
 
 | Operation | Trigger | Primary state | Data loss risk |
 |---|---|---|---|

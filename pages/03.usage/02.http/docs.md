@@ -4,7 +4,7 @@ taxonomy:
     category: docs
 ---
 
-## 1. Web Interface
+## 3.3.1 Web Interface
 
 Once **replication-manager** is started in monitor mode, it provides an internal HTTP server to oversee your clusters.
 
@@ -29,7 +29,7 @@ Some login protection using http-auth = true is deprecate. We advice not to used
 
 
 
-### 1.1 Sample nginx configuration providing secure access to the dashboard
+### 3.3.1.1 Sample nginx configuration providing secure access to the dashboard
 
 ```
 server {

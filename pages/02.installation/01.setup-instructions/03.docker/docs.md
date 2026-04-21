@@ -4,13 +4,13 @@ taxonomy:
     category: docs
 ---
 
-## 1. Install from Docker
+## 2.1.6.1 Install from Docker
 
 Official Signal18 container images are available on [Docker Hub](https://hub.docker.com/r/signal18/replication-manager/). Images bundle all external dependencies so no separate tool installation is required on the host.
 
 ---
 
-## 2. Image Tags
+## 2.1.6.2 Image Tags
 
 | Tag | Flavor | Description |
 |---|---|---|
@@ -23,7 +23,7 @@ Rootless variants (run as non-root user `repman`, UID/GID 10001:10001) are avail
 
 ---
 
-## 3. What is Included
+## 2.1.6.3 What is Included
 
 **Standard image (`3.1`)** — minimal:
 - `replication-manager-osc` binary
@@ -49,15 +49,15 @@ Rootless variants (run as non-root user `repman`, UID/GID 10001:10001) are avail
 
 ---
 
-## 4. Quick Start
+## 2.1.6.4 Quick Start
 
-### 4.1 Step 1 — Create directory structure
+### 2.1.6.4.1 Step 1 — Create directory structure
 
 ```bash
 mkdir -p ~/repman/etc/cluster.d ~/repman/data ~/repman/config
 ```
 
-### 4.2 Step 2 — Download configuration templates
+### 2.1.6.4.2 Step 2 — Download configuration templates
 
 ```bash
 # Global configuration
@@ -69,7 +69,7 @@ curl -o ~/repman/etc/cluster.d/cluster1.toml.sample \
   https://raw.githubusercontent.com/signal18/replication-manager/refs/heads/3.1/etc/cluster.d/cluster1.toml.sample
 ```
 
-### 4.3 Step 3 — Configure your first cluster
+### 2.1.6.4.3 Step 3 — Configure your first cluster
 
 Edit `~/repman/etc/cluster.d/cluster1.toml.sample`:
 
@@ -89,7 +89,7 @@ Rename the file to match the cluster name:
 mv ~/repman/etc/cluster.d/cluster1.toml.sample ~/repman/etc/cluster.d/my-cluster.toml
 ```
 
-### 4.4 Step 4 — Start the container
+### 2.1.6.4.4 Step 4 — Start the container
 
 ```bash
 docker run \
@@ -105,7 +105,7 @@ docker run \
 
 > The third volume mount (`/root/.config/replication-manager`) is required in v3.x to persist dynamic configuration changes made via the API or GUI. Without it, changes are lost on container restart.
 
-### 4.5 Volume Mounts
+### 2.1.6.4.5 Volume Mounts
 
 | Host path | Container path | Contents |
 |---|---|---|
@@ -113,7 +113,7 @@ docker run \
 | `~/repman/data` | `/var/lib/replication-manager` | Runtime data, metrics, backups |
 | `~/repman/config` | `/root/.config/replication-manager` | Dynamic config (v3+ required) |
 
-### 4.6 Exposed Ports
+### 2.1.6.4.6 Exposed Ports
 
 | Port | Protocol | Description |
 |---|---|---|
@@ -123,7 +123,7 @@ docker run \
 
 ---
 
-## 5. Rootless Images
+## 2.1.6.5 Rootless Images
 
 Rootless images run as the `repman` user (UID/GID 10001:10001). Before starting a rootless container, set ownership of the mounted directories:
 
@@ -146,7 +146,7 @@ docker run \
 
 ---
 
-## 6. Development Container
+## 2.1.6.6 Development Container
 
 The `dev` image includes Go 1.24 and build tooling. Use it to build replication-manager from source inside a container:
 
@@ -165,7 +165,7 @@ docker run \
 
 ---
 
-## 7. Logs
+## 2.1.6.7 Logs
 
 Container logs are written to `/var/log/replication-manager.log` inside the container. To follow them:
 

@@ -10,39 +10,39 @@ taxonomy:
 
 A staging cluster is a child cluster of a production cluster containing 3 nodes, one replica is detached from replication and proxies track the the status of the standalone node to enable dev team to test on production data  
 
-## 1. Staging config important setup :
+## 4.4.12.1 Staging config important setup :
 
 ```
-## 2. To be change when proxy tracking state is enable
+## 4.4.12.2 To be change when proxy tracking state is enable
 haproxy = false
 
-## 3. Specify an other domain for staging
+## 4.4.12.3 Specify an other domain for staging
 prov-db-domain = "3"
 
-## 4.  Specify an other source of replication for the staging cluster
+## 4.4.12.4  Specify an other source of replication for the staging cluster
 replication-source-name = "staging"
 
-## 5. Point the production cluster to enable mutti-tiers cluster master prod to master staging extra replication source
+## 4.4.12.5 Point the production cluster to enable mutti-tiers cluster master prod to master staging extra replication source
 replication-multisource-head-cluster="prod-cluster"
 
-## 6. Proxy Upgrade script
+## 4.4.12.6 Proxy Upgrade script
 db-servers-state-change-script = "/data/repman/script/database_state_change.sh"
 
-## 7. To enable ssh to database and proxy hosts, use ssh-keygen ssh-copy-id for first deployment
+## 4.4.12.7 To enable ssh to database and proxy hosts, use ssh-keygen ssh-copy-id for first deployment
 onpremise-ssh = true
 onpremise-ssh-credential = "root:"
 onpremise-ssh-private-key = "/root/.ssh/id_rsa_preprod"
 scheduler-jobs-ssh = true
 
-## 8.  To automate logical backup  
+## 4.4.12.8  To automate logical backup  
 monitoring-scheduler = true
 ```
 
-## 9. Lesson learns:  
+## 4.4.12.9 Lesson learns:  
 - Production and staging monitoring and replication users should have same name same password so that 2 similar users does not get different password in staging after an initial restore from production  
 - Mydumper dist version test your restore
 
-## 10. Todo :
+## 4.4.12.10 Todo :
 - New cluster variable --topology-staging bool  
 - New cluster variable --topology-staging-refresh-script
 - New cluster variable --topology-staging-post-detach-script ( obfuscation data do whatever have to be done in db)  
@@ -187,7 +187,7 @@ fi
 
 Today we can customize status change script to trigger some dedicated proxy  config  reload   bu need native proxy integration
 
-## 11. To be removed after integration
+## 4.4.12.11 To be removed after integration
 database_state_change.sh
 ```
 #!/bin/bash
@@ -200,6 +200,6 @@ if [ "$4" = "StandAlone" ]; then
         ssh root@staging-proxy "systemctl reload haproxy"
 fi
 ```
-## 12. Todo
+## 4.4.12.12 Todo
 - New cluster variables  haproxy more variables  haproxy-staging-port, haproxy-staging-bind,  haproxy-staging-backend 
 - New cluster variable  proxysql-write-track-state="master|standalone" ,  proxysql-read-track-state="slave|standalone"      

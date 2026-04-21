@@ -4,13 +4,13 @@ taxonomy:
     category: docs
 ---
 
-## 1. Configuration Guide
+## 10.4.1 Configuration Guide
 
 All configurator settings are per-cluster (set under the `[cluster-name]` section or in `[DEFAULT]`).
 
 ---
 
-## 2. Database Resource Settings
+## 10.4.2 Database Resource Settings
 
 These settings describe the hardware allocated to each database service. The configurator uses them to size buffer pools, log files, thread counts, and IOPS capacity automatically.
 
@@ -73,7 +73,7 @@ These settings describe the hardware allocated to each database service. The con
 
 ---
 
-## 3. Tag Settings
+## 10.4.3 Tag Settings
 
 ##### `prov-db-tags`
 
@@ -94,7 +94,7 @@ These settings describe the hardware allocated to each database service. The con
 
 ---
 
-## 4. Config Preservation
+## 10.4.4 Config Preservation
 
 ##### `prov-db-config-preserve`
 
@@ -115,7 +115,7 @@ These settings describe the hardware allocated to each database service. The con
 
 ---
 
-## 5. Compliance Module Override
+## 10.4.5 Compliance Module Override
 
 ##### `prov-db-compliance`
 
@@ -136,7 +136,7 @@ These settings describe the hardware allocated to each database service. The con
 
 ---
 
-## 6. Replication and Domain
+## 10.4.6 Replication and Domain
 
 ##### `prov-db-expire-log-days`
 
@@ -164,7 +164,7 @@ These settings describe the hardware allocated to each database service. The con
 
 ---
 
-## 7. Binary Distribution
+## 10.4.7 Binary Distribution
 
 ##### `prov-db-binary-in-tarball`
 
@@ -184,7 +184,7 @@ These settings describe the hardware allocated to each database service. The con
 
 ---
 
-## 8. Start Behavior
+## 10.4.8 Start Behavior
 
 ##### `prov-db-start-fetch-config`
 
@@ -196,7 +196,7 @@ These settings describe the hardware allocated to each database service. The con
 
 ---
 
-## 9. Bootstrap Scripts
+## 10.4.9 Bootstrap Scripts
 
 ##### `prov-db-bootstrap-script`
 
@@ -216,7 +216,7 @@ These settings describe the hardware allocated to each database service. The con
 
 ---
 
-## 10. Security
+## 10.4.10 Security
 
 ##### `api-credentials-secure-config`
 
@@ -228,7 +228,7 @@ These settings describe the hardware allocated to each database service. The con
 
 ---
 
-## 11. Proxy Resources
+## 10.4.11 Proxy Resources
 
 ##### `prov-proxy-memory`
 

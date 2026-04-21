@@ -6,7 +6,7 @@ taxonomy:
 
 **replication-manager** can monitor long-running queries and sleeping transactions using the processlist. This feature captures the longest queries or transactions across all monitored database servers and makes them available for analysis.
 
-## 1. Basic Processlist Monitoring
+## 5.2.3.1 Basic Processlist Monitoring
 
 ##### `monitoring-processlist` (2.0)
 
@@ -38,7 +38,7 @@ Limiting the processlist size reduces monitoring bandwidth and overhead while st
 
 Using INFORMATION_SCHEMA allows **replication-manager** to join with INNODB_TRX tables to retrieve transaction information. This is required for transaction monitoring features.
 
-## 2. Transaction Monitoring
+## 5.2.3.2 Transaction Monitoring
 
 ##### `monitoring-processlist-transactions` (3.1)
 
@@ -79,7 +79,7 @@ The processlist will be sorted by transaction duration rather than query duratio
 
 When enabled, all connections are shown including those with Command='Sleep'. When combined with `monitoring-processlist-transactions`, this shows sleeping transactions that may be holding locks.
 
-## 3. Query Monitoring
+## 5.2.3.3 Query Monitoring
 
 For monitoring slow queries specifically, see the long query monitoring parameters:
 
@@ -88,7 +88,7 @@ For monitoring slow queries specifically, see the long query monitoring paramete
 - `monitoring-long-query-with-process`: Use processlist to capture slow queries
 - `monitoring-long-query-with-table`: Use slow_log table to capture slow queries
 
-## 4. Usage Example
+## 5.2.3.4 Usage Example
 
 To monitor sleeping transactions that may be causing blocking:
 
@@ -105,7 +105,7 @@ This configuration will:
 - Join with INNODB_TRX to get detailed transaction metrics
 - Sort by transaction duration to highlight long-running transactions
 
-## 5. API Access
+## 5.2.3.5 API Access
 
 Transaction processlist data is available via the REST API at:
 
@@ -115,7 +115,7 @@ GET /api/clusters/{cluster}/servers/{server}/processlist
 
 The web UI displays this information in the server detail view under "Processlist" tab.
 
-## 6. Performance Considerations
+## 5.2.3.6 Performance Considerations
 
 Querying INFORMATION_SCHEMA.PROCESSLIST and INNODB_TRX tables has minimal overhead but can be noticeable on servers with thousands of connections. Adjust `monitoring-processlist-limit` to control the impact.
 

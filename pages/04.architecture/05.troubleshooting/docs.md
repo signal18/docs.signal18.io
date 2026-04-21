@@ -4,13 +4,13 @@ taxonomy:
     category: docs
 ---
 
-## 1. Troubleshooting High Availability
+## 4.6.1 Troubleshooting High Availability
 
 This page lists every file and API endpoint replication-manager writes or exposes during normal operation, failovers, and crashes — and explains how to read them when something goes wrong.
 
 ---
 
-## 2. Data Directory Layout
+## 4.6.2 Data Directory Layout
 
 All runtime state is stored under `monitoring-datadir` (default `/var/lib/replication-manager`). Each cluster gets its own sub-directory named after the cluster section in the config file.
 
@@ -38,9 +38,9 @@ All runtime state is stored under `monitoring-datadir` (default `/var/lib/replic
 
 ---
 
-## 3. Key Files Explained
+## 4.6.3 Key Files Explained
 
-### 3.1 `clusterstate.json`
+### 4.6.3.1 `clusterstate.json`
 
 Written on every monitoring tick. Contains the complete cluster snapshot including:
 - Current primary and all replicas with their status, GTID positions, and lag
@@ -56,7 +56,7 @@ cat /var/lib/replication-manager/mycluster/clusterstate.json | jq '.crashes'
 cat /var/lib/replication-manager/mycluster/sla.json | jq .
 ```
 
-### 3.2 `failover.YYYYMMDDHHMMSS.json`
+### 4.6.3.2 `failover.YYYYMMDDHHMMSS.json`
 
 One file is written per failover or switchover event, named with a timestamp. Contains:
 - Old primary URL and elected new primary URL
@@ -75,7 +75,7 @@ ls -t /var/lib/replication-manager/mycluster/failover.*.json | head -1 | xargs c
 
 The number of retained failover files is controlled by `failover-log-file-keep` (default: 5).
 
-### 3.3 `sql_error.log` and `sql_general.log`
+### 4.6.3.3 `sql_error.log` and `sql_general.log`
 
 - `sql_error.log` — every SQL error returned when replication-manager queries the database (connection failures, permission errors, invalid queries)
 - `sql_general.log` — every SQL statement replication-manager executes against the cluster (useful to audit what the daemon does at each step of a failover or rejoin)
@@ -88,7 +88,7 @@ tail -f /var/lib/replication-manager/mycluster/sql_error.log
 grep "2024-06-01 03:" /var/lib/replication-manager/mycluster/sql_general.log
 ```
 
-### 3.4 `panic.log`
+### 4.6.3.4 `panic.log`
 
 If replication-manager itself crashes, a JSON-formatted stacktrace is written here. Send this file to Signal18 support when reporting a daemon crash.
 
@@ -98,7 +98,7 @@ cat /var/lib/replication-manager/panic.log | jq .
 
 ---
 
-## 4. Log Files
+## 4.6.4 Log Files
 
 See the [Logs](../../usage/logs) reference for the full list of log files and journalctl commands. For HA troubleshooting the most relevant are:
 
@@ -122,7 +122,7 @@ tail -f /var/log/replication-manager-maintenance.log
 
 ---
 
-## 5. REST API Endpoints
+## 4.6.5 REST API Endpoints
 
 All in-memory state is also accessible over the API without reading files:
 
@@ -149,7 +149,7 @@ curl -sk -u admin:repman https://localhost:10005/api/clusters/mycluster/topology
 
 ---
 
-## 6. Increasing Verbosity for an Investigation
+## 4.6.6 Increasing Verbosity for an Investigation
 
 To get more detail without restarting the daemon, bump the relevant module log levels via config reload or API:
 
@@ -171,7 +171,7 @@ tail -f /var/log/replication-manager.log | grep -E 'DEBUG|topology|rejoin|failov
 
 ---
 
-## 7. Common First Steps
+## 4.6.7 Common First Steps
 
 | Symptom | Where to look |
 |---|---|

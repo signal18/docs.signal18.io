@@ -4,7 +4,7 @@ taxonomy:
     category: docs
 ---
 
-## 1. Orchestrators (Pro)
+## 2.1.10.1 Orchestrators (Pro)
 
 > **Requires:** `replication-manager-pro` flavor
 
@@ -28,11 +28,11 @@ prov-orchestrator = "opensvc"   # opensvc | kube | slapos | onpremise | local
 
 ---
 
-## 2. OpenSVC
+## 2.1.10.2 OpenSVC
 
 [OpenSVC](https://www.opensvc.com/) is a service orchestration cluster that manages Docker/Podman micro-services across a pool of agents. replication-manager uses the OpenSVC API to push service definitions and trigger provisioning.
 
-### 2.1 Install the OpenSVC Agent
+### 2.1.10.2.1 Install the OpenSVC Agent
 
 On each database host, install the OpenSVC agent:
 
@@ -56,11 +56,11 @@ om daemon join --node <first-node-ip>
 
 Full OpenSVC documentation: [docs.opensvc.com](https://docs.opensvc.com/)
 
-### 2.2 Configure replication-manager for OpenSVC
+### 2.1.10.2.2 Configure replication-manager for OpenSVC
 
 replication-manager can use either the **Cluster API** (recommended, direct agent HTTP2 API) or the legacy **Collector API** (Signal18 SaaS or on-premise collector).
 
-#### 2.2.1 Cluster API (recommended)
+#### 2.1.10.2.2.1 Cluster API (recommended)
 
 Point replication-manager at any OpenSVC cluster node:
 
@@ -70,7 +70,7 @@ opensvc-cluster-host        = "opensvc-node1:1215"
 opensvc-cluster-admin-user  = "root@localhost.localdomain:opensvc"
 ```
 
-#### 2.2.2 Collector API (legacy)
+#### 2.1.10.2.2.2 Collector API (legacy)
 
 ```toml
 prov-orchestrator    = "opensvc"
@@ -80,23 +80,23 @@ opensvc-admin-user   = "root@mycompany.com:secret"
 
 The Signal18 SaaS collector (`ci.signal18.io:9443`) can be used for evaluation — contact Signal18 to obtain your `account.yaml` and place it in the `share/opensvc/` directory of replication-manager-pro.
 
-### 2.3 OpenSVC Video Walkthrough
+### 2.1.10.2.3 OpenSVC Video Walkthrough
 
 [plugin:youtube](https://www.youtube.com/watch?v=3eYlxZo8rRc)
 
 ---
 
-## 3. Kubernetes
+## 2.1.10.3 Kubernetes
 
 replication-manager can deploy database services into a Kubernetes cluster using a standard kubeconfig file.
 
-### 3.1 Prerequisites
+### 2.1.10.3.1 Prerequisites
 
 - A running Kubernetes cluster (1.20+)
 - `kubectl` configured and working on the replication-manager host
 - Sufficient RBAC permissions to create namespaces, deployments, services, and PersistentVolumeClaims
 
-### 3.2 Configure replication-manager for Kubernetes
+### 2.1.10.3.2 Configure replication-manager for Kubernetes
 
 ```toml
 prov-orchestrator = "kube"
@@ -112,11 +112,11 @@ chmod 600 /etc/replication-manager/kube/config
 
 ---
 
-## 4. SlapOS
+## 2.1.10.4 SlapOS
 
 [SlapOS](https://slapos.nexedi.com/) is a distributed service mesh used in the Nexedi ecosystem. replication-manager-pro can deploy database instances as SlapOS services.
 
-### 4.1 Configure replication-manager for SlapOS
+### 2.1.10.4.1 Configure replication-manager for SlapOS
 
 ```toml
 prov-orchestrator = "slapos"
@@ -126,17 +126,17 @@ Contact Signal18 for SlapOS deployment templates specific to your environment.
 
 ---
 
-## 5. On-Premise SSH
+## 2.1.10.5 On-Premise SSH
 
 The `onpremise` mode bootstraps database configuration and services on existing hosts via SSH — no orchestrator agent required. replication-manager connects as a sudoer user and deploys configuration files, starts/stops services using the host's init system.
 
-### 5.1 Prerequisites
+### 2.1.10.5.1 Prerequisites
 
 - SSH access from the replication-manager host to each database host
 - A user with passwordless sudo on the database hosts
 - MariaDB or MySQL server packages already installed on the database hosts
 
-### 5.2 Configure SSH access
+### 2.1.10.5.2 Configure SSH access
 
 ```toml
 prov-orchestrator         = "onpremise"
@@ -149,11 +149,11 @@ replication-manager uses its own SSH private key (`~/.ssh/id_rsa` by default). A
 
 ---
 
-## 6. Local (Testing Only)
+## 2.1.10.6 Local (Testing Only)
 
 The `local` orchestrator boots MariaDB or MySQL processes directly on the same host as replication-manager. It is intended for local regression testing and benchmarking — not for production use.
 
-### 6.1 Prerequisites
+### 2.1.10.6.1 Prerequisites
 
 - MariaDB or MySQL server binaries installed locally
 - HAProxy and/or ProxySQL if proxy testing is needed
@@ -168,6 +168,6 @@ proxysql-binary-path    = "/usr/bin/proxysql"
 
 ---
 
-## 7. Next Steps
+## 2.1.10.7 Next Steps
 
 After installing and configuring the orchestrator, proceed to [Provisioning Configuration](/configuration/provisioning) to define service templates and bootstrap your first managed cluster.

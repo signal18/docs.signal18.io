@@ -3,7 +3,7 @@ title: Archiving
 taxonomy:
     category: docs
 ---
-### 0.1 Archiving Backups
+### 6.2.2.2.0.1 Archiving Backups
 
 ##### `backup-restic` (2.1)                                            
 
@@ -125,7 +125,7 @@ When enabled, restic archives to S3/Minio using the configured `backup-restic-re
 
 Controls how long **replication-manager** will wait for restic backup, restore, and maintenance operations to complete before timing out.
 
-## 1. Disk Space Management
+## 6.2.2.2.1 Disk Space Management
 
 ##### `backup-restic-purge-oldest-on-disk-space` (3.1)
 
@@ -180,9 +180,9 @@ When disk usage exceeds this percentage, **replication-manager** will:
 - Trigger automatic purge if `backup-restic-purge-oldest-on-disk-space` is enabled
 - Generate critical alerts
 
-## 2. Configuration Examples
+## 6.2.2.2.2 Configuration Examples
 
-### 2.1 Local Repository Configuration
+### 6.2.2.2.2.1 Local Repository Configuration
 
 ```toml
 backup-restic = true
@@ -196,7 +196,7 @@ backup-disk-threshold-crit = 90
 
 This configuration stores backups locally in per-cluster directories and automatically purges old backups when disk usage exceeds 90%.
 
-### 2.2 S3/Minio Configuration
+### 6.2.2.2.2.2 S3/Minio Configuration
 
 ```toml
 backup-restic = true
@@ -210,7 +210,7 @@ backup-restic-timeout = 7200
 
 This configuration archives backups to S3 with a 2-hour timeout for operations.
 
-### 2.3 Retention Policy
+### 6.2.2.2.2.3 Retention Policy
 
 ```toml
 backup-keep-hourly = 24
@@ -227,7 +227,7 @@ This retention policy keeps:
 - Last 12 monthly backups
 - Last 3 yearly backups
 
-## 3. Restic Task Management
+## 6.2.2.2.3 Restic Task Management
 
 **replication-manager 3.1** includes task queue management for restic operations. Long-running backup operations are tracked and can be:
 
@@ -237,7 +237,7 @@ This retention policy keeps:
 
 Task status is visible in the web UI under server details.
 
-## 4. Automatic Cleanup Workflow
+## 6.2.2.2.4 Automatic Cleanup Workflow
 
 When `backup-restic-purge-oldest-on-disk-space` is enabled:
 
@@ -251,7 +251,7 @@ When `backup-restic-purge-oldest-on-disk-space` is enabled:
 3. Process repeats until disk usage drops below critical threshold
 4. Normal backup operations resume
 
-## 5. Performance Considerations
+## 6.2.2.2.5 Performance Considerations
 
 - Restic operations are I/O intensive, especially `prune` and `check`
 - Set `backup-restic-timeout` appropriately for repository size

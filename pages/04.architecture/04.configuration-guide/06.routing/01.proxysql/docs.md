@@ -4,7 +4,7 @@ taxonomy:
     category: docs
 ---
 
-### 0.1 ProxySQL Configuration
+### 4.5.5.2.0.1 ProxySQL Configuration
 
 ##### `proxysql` (2.0)
 

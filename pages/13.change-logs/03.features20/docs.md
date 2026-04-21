@@ -4,7 +4,7 @@ taxonomy:
     category: docs
 ---
 
-### 2.0 Features
+### 14.3.0.1 Features
 
 * CORE: Client/Server architecture with JWT API
 * CORE: Docker provision via OpenSVC  

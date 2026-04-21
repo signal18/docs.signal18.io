@@ -7,7 +7,7 @@ taxonomy:
 
 This guide covers migrating from **replication-manager** 2.x to 3.x. Version 3.0 introduced significant changes to configuration management, file locations, and default behaviors. Version 3.1 builds on these changes with additional features.
 
-## 1. Pre-Migration Checklist
+## 2.6.1 Pre-Migration Checklist
 
 Before upgrading:
 
@@ -18,9 +18,9 @@ Before upgrading:
 - [ ] Verify database versions are supported (MariaDB 10.x+, MySQL 5.7+, Percona 5.7+)
 - [ ] Plan maintenance window for upgrade and testing
 
-## 2. Major Changes in 3.x
+## 2.6.2 Major Changes in 3.x
 
-### 2.1 Configuration File Location Changes
+### 2.6.2.1 Configuration File Location Changes
 
 **Version 3.0** introduced a new configuration storage model:
 
@@ -49,7 +49,7 @@ Before upgrading:
 - Review file ownership (runs as `replication-manager` user by default)
 - Update backup scripts to include `~/.config/replication-manager/`
 
-### 2.2 Docker Volume Mapping Changes
+### 2.6.2.2 Docker Volume Mapping Changes
 
 **Old (2.x):**
 ```bash
@@ -66,11 +66,11 @@ docker run -v/home/repman/etc:/etc/replication-manager:rw \
 
 Add the third volume mount for dynamic configuration persistence.
 
-## 3. Deprecated Parameters
+## 2.6.3 Deprecated Parameters
 
 **replication-manager** 3.x includes automatic detection of deprecated configuration parameters and will log warnings (WARN0159, WARN0160) when found.
 
-### 3.1 Parameter Renames
+### 2.6.3.1 Parameter Renames
 
 The following parameters were renamed. **replication-manager** supports both old and new names, but you should migrate to the new names:
 
@@ -103,7 +103,7 @@ The following parameters were renamed. **replication-manager** supports both old
 | `working-directory` | `monitoring-datadir` | Working data directory |
 | `interactive` | `failover-mode` | Failover mode setting |
 
-### 3.2 Migration Script for Deprecated Parameters
+### 2.6.3.2 Migration Script for Deprecated Parameters
 
 Use this bash script to update your configuration files:
 
@@ -153,7 +153,7 @@ echo "Configuration migrated. Backup saved to $CONFIG_FILE.backup-$(date +%Y%m%d
 echo "Review changes and test before deploying to production"
 ```
 
-## 4. Default Value Changes
+## 2.6.4 Default Value Changes
 
 Several parameters have new default values in 3.x:
 
@@ -170,9 +170,9 @@ Several parameters have new default values in 3.x:
 - Review monitoring overhead if performance schema monitoring causes issues
 - Verify disk space management aligns with your backup strategy
 
-## 5. New Features Requiring Configuration
+## 2.6.5 New Features Requiring Configuration
 
-### 1. Active-Passive Topology (3.1)
+### 2.6.5.1 Active-Passive Topology (3.1)
 
 If you want monitoring without automatic failover:
 
@@ -182,7 +182,7 @@ replication-active-passive = true
 
 See [Active-Passive Topology documentation](/architecture/topologies/active-passive).
 
-### 2. Enhanced Backup Management (3.1)
+### 2.6.5.2 Enhanced Backup Management (3.1)
 
 Configure disk space management for restic backups:
 
@@ -194,7 +194,7 @@ backup-disk-threshold-crit = 95
 backup-restic-timeout = 3600
 ```
 
-### 3. Transaction Monitoring (3.1)
+### 2.6.5.3 Transaction Monitoring (3.1)
 
 Enable sleeping transaction detection:
 
@@ -204,7 +204,7 @@ monitoring-processlist-transactions = true
 monitoring-processlist-information-schema = true
 ```
 
-### 4. Per-Module Log Levels (3.1)
+### 2.6.5.4 Per-Module Log Levels (3.1)
 
 Fine-grained logging control:
 
@@ -215,9 +215,9 @@ log-level-proxy = 1              # Less verbose for proxies
 log-level-heartbeat = 4          # Debug heartbeat issues
 ```
 
-## 6. Breaking Changes
+## 2.6.6 Breaking Changes
 
-### 6.1 API Changes
+### 2.6.6.1 API Changes
 
 **Endpoint modifications in 3.x:**
 
@@ -230,7 +230,7 @@ log-level-heartbeat = 4          # Debug heartbeat issues
 - Update API client libraries if available
 - Review custom scripts using REST API
 
-### 6.2 SSL/TLS Mode Changes
+### 2.6.6.2 SSL/TLS Mode Changes
 
 MySQL 8.4 compatibility required adjustments to SSL mode handling:
 
@@ -238,7 +238,7 @@ MySQL 8.4 compatibility required adjustments to SSL mode handling:
 - Ensure SSL certificates are properly configured
 - Test SSL connections after upgrade
 
-### 6.3 Backup Tool Changes
+### 2.6.6.3 Backup Tool Changes
 
 Default paths for backup tools changed:
 
@@ -262,9 +262,9 @@ backup-myloader-path = ""  # Auto-detect from PATH
 - Update `backup-*-path` parameters if using non-standard locations
 - Verify backup tools are in PATH or specify full paths
 
-## 7. Migration Procedure
+## 2.6.7 Migration Procedure
 
-### 7.1 Step 1: Prepare Environment
+### 2.6.7.1 Step 1: Prepare Environment
 
 ```bash
 # Stop replication-manager 2.x
@@ -278,7 +278,7 @@ tar czf /tmp/repman-2x-data-$(date +%Y%m%d).tar.gz /var/lib/replication-manager/
 replication-manager-cli status --cluster=all > /tmp/repman-2x-status.txt
 ```
 
-### 7.2 Step 2: Update Configuration Files
+### 2.6.7.2 Step 2: Update Configuration Files
 
 ```bash
 # Run migration script on each config file
@@ -292,7 +292,7 @@ done
 # Add new 3.x parameters as needed
 ```
 
-### 7.3 Step 3: Install replication-manager 3.x
+### 2.6.7.3 Step 3: Install replication-manager 3.x
 
 **Repository installation:**
 
@@ -314,7 +314,7 @@ yum update replication-manager
 docker pull signal18/replication-manager:3.1
 ```
 
-### 7.4 Step 4: Verify Configuration
+### 2.6.7.4 Step 4: Verify Configuration
 
 ```bash
 # Test configuration syntax
@@ -324,7 +324,7 @@ replication-manager-cli test --cluster=all
 journalctl -u replication-manager | grep -i "WARN0159\|WARN0160"
 ```
 
-### 7.5 Step 5: Start and Validate
+### 2.6.7.5 Step 5: Start and Validate
 
 ```bash
 # Start replication-manager 3.x
@@ -343,7 +343,7 @@ replication-manager-cli api /api/clusters
 # replication-manager-cli switchover --cluster=test_cluster
 ```
 
-### 7.6 Step 6: Monitor for Issues
+### 2.6.7.6 Step 6: Monitor for Issues
 
 ```bash
 # Watch logs for warnings
@@ -360,9 +360,9 @@ iostat -x 1
 # Trigger manual backup via API or CLI
 ```
 
-## 8. Post-Migration Tasks
+## 2.6.8 Post-Migration Tasks
 
-### 8.1 Update Backup Scripts
+### 2.6.8.1 Update Backup Scripts
 
 If backing up configuration:
 
@@ -379,19 +379,19 @@ tar czf /backup/repman-data-$(date +%Y%m%d).tar.gz \
     /var/lib/replication-manager/
 ```
 
-### 8.2 Update Monitoring
+### 2.6.8.2 Update Monitoring
 
 - Grafana dashboards may need updates for new metric names
 - Alert rules may need adjustment for new warning codes
 - Prometheus exporters should work without changes
 
-### 8.3 Documentation Updates
+### 2.6.8.3 Documentation Updates
 
 - Update internal documentation with new parameter names
 - Document new 3.x features being used
 - Update runbooks with new CLI commands and API endpoints
 
-## 9. Rollback Procedure
+## 2.6.9 Rollback Procedure
 
 If issues occur, rollback to 2.x:
 
@@ -417,9 +417,9 @@ tar xzf /tmp/repman-2x-data-*.tar.gz -C /
 systemctl start replication-manager
 ```
 
-## 10. Troubleshooting
+## 2.6.10 Troubleshooting
 
-### 10.1 Configuration Not Loading
+### 2.6.10.1 Configuration Not Loading
 
 **Symptom:** Clusters not discovered after upgrade
 
@@ -433,7 +433,7 @@ chown -R replication-manager:replication-manager /root/.config/replication-manag
 replication-manager-cli test --cluster=all
 ```
 
-### 10.2 Deprecated Parameter Warnings
+### 2.6.10.2 Deprecated Parameter Warnings
 
 **Symptom:** WARN0159 or WARN0160 in logs
 
@@ -442,7 +442,7 @@ replication-manager-cli test --cluster=all
 - Check `/root/.config/replication-manager/clusters.d/` for old parameter names
 - Review and update manually if script missed any
 
-### 10.3 Performance Schema Overhead
+### 2.6.10.3 Performance Schema Overhead
 
 **Symptom:** Increased database load after upgrade
 
@@ -454,7 +454,7 @@ monitoring-performance-schema-latch = false
 monitoring-performance-schema-memory = false
 ```
 
-### 10.4 Docker Container Not Persisting Config
+### 2.6.10.4 Docker Container Not Persisting Config
 
 **Symptom:** Configuration changes lost on restart
 
@@ -467,7 +467,7 @@ docker run -v/home/repman/etc:/etc/replication-manager:rw \
            signal18/replication-manager:3.1
 ```
 
-### 10.5 Backup Tools Not Found
+### 2.6.10.5 Backup Tools Not Found
 
 **Symptom:** Backup jobs failing with "command not found"
 
@@ -479,7 +479,7 @@ backup-myloader-path = "/usr/local/bin/myloader"
 backup-restic-binary-path = "/usr/bin/restic"
 ```
 
-## 11. Getting Help
+## 2.6.11 Getting Help
 
 If you encounter issues during migration:
 
@@ -489,28 +489,28 @@ If you encounter issues during migration:
 - Report issues: https://github.com/signal18/replication-manager/issues
 - Community support: Signal18 Slack/Discord channels
 
-## 12. Version-Specific Notes
+## 2.6.12 Version-Specific Notes
 
-### 12.1 Migrating from 2.0 to 3.x
+### 2.6.12.1 Migrating from 2.0 to 3.x
 
 - Largest configuration changes
 - Requires most careful planning
 - Test thoroughly before production
 
-### 12.2 Migrating from 2.1/2.2 to 3.x
+### 2.6.12.2 Migrating from 2.1/2.2 to 3.x
 
 - Fewer breaking changes
 - Most parameter renames still apply
 - Configuration location change is primary concern
 
-### 12.3 Migrating from 2.3 to 3.x
+### 2.6.12.3 Migrating from 2.3 to 3.x
 
 - Minimal breaking changes
 - Configuration location change
 - Some default value changes
 - Docker volume mapping addition
 
-### 12.4 Upgrading from 3.0 to 3.1
+### 2.6.12.4 Upgrading from 3.0 to 3.1
 
 - No breaking changes
 - New features added

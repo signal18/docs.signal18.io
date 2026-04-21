@@ -4,13 +4,13 @@ taxonomy:
     category: docs
 ---
 
-## 1. First Login
+## 2.5.1 First Login
 
 After starting replication-manager for the first time, access the web GUI at `https://<host>:10005` (or `https://localhost:10005` during local setup).
 
 ---
 
-## 2. Local Users
+## 2.5.2 Local Users
 
 replication-manager ships with two built-in local accounts:
 
@@ -35,7 +35,7 @@ replication-manager monitor --api-credentials "admin:repman,dba:repman"
 
 ---
 
-## 3. Changing Passwords
+## 2.5.3 Changing Passwords
 
 Passwords can be changed from the **Settings → Users** panel in the GUI, or by updating `api-credentials` in the cluster TOML file and reloading.
 
@@ -43,7 +43,7 @@ Each entry in `api-credentials` follows the format `username:password`. Multiple
 
 ---
 
-## 4. Default Password Warning — WARN0108
+## 2.5.4 Default Password Warning — WARN0108
 
 replication-manager continuously monitors whether the built-in accounts still use their default passwords. When either `admin` or `dba` retains the password `repman`, the cluster enters state:
 
@@ -58,7 +58,7 @@ The check is performed by `CheckDefaultUser()` on every monitoring tick — no r
 
 ---
 
-## 5. SSO Login via gitlab.signal18.io
+## 2.5.5 SSO Login via gitlab.signal18.io
 
 Once your instance is [registered](../registration), users can log in using their **gitlab.signal18.io** identity instead of a local password. SSO login does not require a local `api-credentials` entry — authentication is handled by the Signal18 GitLab OAuth flow.
 
@@ -72,7 +72,7 @@ The role and grants assigned to an SSO user are managed entirely through the rep
 
 ---
 
-## 6. Summary
+## 2.5.6 Summary
 
 | Step | Action |
 |---|---|

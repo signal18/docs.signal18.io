@@ -4,7 +4,7 @@ taxonomy:
     category: docs
 ---
 
-## 1. Plugin Architecture
+## 12.1.1 Plugin Architecture
 
 > **Available since:** replication-manager **v3.1.24**
 
@@ -24,7 +24,7 @@ Plugins are organised in three tiers:
 
 ---
 
-## 2. Lifecycle — External Plugins
+## 12.1.2 Lifecycle — External Plugins
 
 ```
 Monitor tick (every monitoring-ticker seconds)
@@ -48,11 +48,11 @@ Plugins are **stateless** and **ephemeral**: a new process is spawned for every 
 
 ---
 
-## 3. Wire Protocol — JSON stdin/stdout
+## 12.1.3 Wire Protocol — JSON stdin/stdout
 
 All plugins share the types defined in `cluster/logplugin/plugins/wire/wire.go`.
 
-### 3.1 Request
+### 12.1.3.1 Request
 
 One JSON object written to the plugin's stdin before it starts reading:
 
@@ -78,7 +78,7 @@ One JSON object written to the plugin's stdin before it starts reading:
 | `password_empty` | bool | `true` when `authentication_string` is empty |
 | `account_locked` | bool | `true` when `ACCOUNT LOCKED` |
 
-### 3.2 Response
+### 12.1.3.2 Response
 
 One JSON object written to stdout before the process exits:
 
@@ -105,7 +105,7 @@ One JSON object written to stdout before the process exits:
 
 ---
 
-## 4. Plugin Configuration
+## 12.1.4 Plugin Configuration
 
 Each plugin receives its configuration through two mechanisms, in priority order:
 
@@ -137,13 +137,13 @@ threshold := wire.CfgFloat(req.Config, "sleep-ratio-threshold",
 
 ---
 
-## 5. Plugin Discovery and Loading
+## 12.1.5 Plugin Discovery and Loading
 
 External plugins are placed in the cluster's plugins directory. At startup and on reload replication-manager scans the directory and registers every executable file whose name matches a known plugin prefix via `LoadPluginsFromDir`.
 
 Built-in plugins are registered in `logplugin.GlobalRegistry`. External plugins are registered in the per-cluster `cluster.pluginRegistry`. The `/api/clusters/{name}/plugins` endpoint returns the combined list from the per-cluster registry.
 
-### 5.1 Plugin Signing
+### 12.1.5.1 Plugin Signing
 
 When `plugin-signing-public-key` is configured, replication-manager verifies every external plugin binary against an Ed25519 signature stored in a `.sig` sidecar file under `<share>/plugins/` before executing it. Plugins that fail verification are rejected and logged as errors — they are never executed.
 
@@ -165,7 +165,7 @@ replication-manager plugin-sign --binary share/plugins/plugin-connection-storm \
 
 ---
 
-## 6. Security Considerations
+## 12.1.6 Security Considerations
 
 - **Process isolation:** each plugin runs as a child process of replication-manager with the same OS user. No elevated privileges are granted.
 - **No network access required:** plugins operate entirely on the JSON snapshot passed via stdin; they do not need database credentials.
@@ -175,7 +175,7 @@ replication-manager plugin-sign --binary share/plugins/plugin-connection-storm \
 
 ---
 
-## 7. Global Plugin Settings
+## 12.1.7 Global Plugin Settings
 
 | Config key | Default | Description |
 |---|---|---|

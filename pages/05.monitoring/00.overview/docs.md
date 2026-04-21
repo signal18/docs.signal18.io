@@ -4,15 +4,15 @@ taxonomy:
     category: docs
 ---
 
-## 1. Monitoring Overview
+## 5.1.1 Monitoring Overview
 
 replication-manager runs a continuous monitoring loop that tracks every server in every managed cluster. On each tick (default every 2 seconds, controlled by `monitoring-ticker`) it connects to each database and proxy server, reads state, and updates an in-memory topology model that drives the GUI, API, alerting, and failover decisions.
 
 ---
 
-## 2. What the Monitor Tracks
+## 5.1.2 What the Monitor Tracks
 
-### 2.1 Replication topology
+### 5.1.2.1 Replication topology
 
 - Server role (primary / replica / candidate / down)
 - GTID positions and replication lag
@@ -21,7 +21,7 @@ replication-manager runs a continuous monitoring loop that tracks every server i
 - Relay log position and relay log size
 - Replication domain IDs (multi-source)
 
-### 2.2 Server health
+### 5.1.2.2 Server health
 
 - Global status variables (connections, InnoDB metrics, query cache, etc.)
 - Global variables (for config drift detection)
@@ -29,25 +29,25 @@ replication-manager runs a continuous monitoring loop that tracks every server i
 - Error log events
 - Schema changes (DDL detection — requires `monitoring-schema-change`)
 
-### 2.3 Workload
+### 5.1.2.3 Workload
 
 - Active processlist (up to 50 longest-running queries — `monitoring-processlist`)
 - Performance Schema digest statistics (`monitoring-performance-schema`)
 - Query routing rules consolidated from all proxies (`monitoring-query-rules`)
 
-### 2.4 Proxies
+### 5.1.2.4 Proxies
 
 - ProxySQL, HAProxy, and MaxScale connection counts and routing state
 - Backend server weights and online/offline transitions
 
-### 2.5 Metrics
+### 5.1.2.5 Metrics
 
 - All collected counters are pushed to the embedded Graphite database and exposed as Prometheus metrics
 - See [Metrics](../01.configuration-guide/01.metrics) for Graphite and Prometheus configuration
 
 ---
 
-## 3. Monitoring Loop
+## 5.1.3 Monitoring Loop
 
 ```
 Every monitoring-ticker seconds:
@@ -64,13 +64,13 @@ When `monitoring-capture` is enabled, replication-manager automatically saves a 
 
 ---
 
-## 4. Accessing Monitoring Data
+## 5.1.4 Accessing Monitoring Data
 
-### 4.1 GUI
+### 5.1.4.1 GUI
 
 The web dashboard shows the live topology, server state, processlist, and alerts. The React dashboard is served at the replication-manager API address (default port 10001).
 
-### 4.2 REST API
+### 5.1.4.2 REST API
 
 ```
 GET /api/clusters/{clusterName}/topology/servers
@@ -80,7 +80,7 @@ GET /api/clusters/{clusterName}/topology/alerts
 GET /api/clusters/{clusterName}/topology/logs
 ```
 
-### 4.3 Prometheus
+### 5.1.4.3 Prometheus
 
 ```
 GET /api/prometheus
@@ -88,7 +88,7 @@ GET /api/prometheus
 
 Returns all collected metrics in Prometheus text exposition format. Point your Prometheus scraper at this endpoint.
 
-### 4.4 CLI
+### 5.1.4.4 CLI
 
 ```bash
 replication-manager-cli status --cluster=my-cluster
@@ -97,7 +97,7 @@ replication-manager-cli status --cluster=my-cluster --with-errors
 
 ---
 
-## 5. Configuration
+## 5.1.5 Configuration
 
 | Area | Where documented |
 |---|---|

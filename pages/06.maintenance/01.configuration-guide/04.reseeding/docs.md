@@ -26,7 +26,7 @@ Reseeding endpoint API get 3 methods:
 | physicalbackup | Last xtrabackup or mariadb-backup backup |
 
 
-## 1. Donor and joiner cron script
+## 6.2.4.1 Donor and joiner cron script
 
 In **replication-manager-pro** we push the donor script in services compliance but if you are using   **replication-manager-osc** you can customize similar script in crontab schedule every minutes.
 

@@ -4,7 +4,7 @@ taxonomy:
     category: docs
 ---
 
-## 1. Install from Repository
+## 2.1.4.1 Install from Repository
 
 Signal18 provides signed package repositories for Debian/Ubuntu and CentOS/RHEL. Package installations deploy binaries, configuration templates, and static assets to standard system paths.
 
@@ -12,9 +12,9 @@ Signal18 provides signed package repositories for Debian/Ubuntu and CentOS/RHEL.
 
 ---
 
-## 2. CentOS / RHEL
+## 2.1.4.2 CentOS / RHEL
 
-### 2.1 Configure the repository
+### 2.1.4.2.1 Configure the repository
 
 ```bash
 cat > /etc/yum.repos.d/signal18.repo <<'EOF'
@@ -26,7 +26,7 @@ enabled=1
 EOF
 ```
 
-### 2.2 Install
+### 2.1.4.2.2 Install
 
 ```bash
 yum install replication-manager-osc
@@ -34,7 +34,7 @@ yum install replication-manager-osc
 
 Replace `replication-manager-osc` with your chosen flavor (`replication-manager-pro`, `replication-manager-arb`).
 
-### 2.3 Upgrading from 2.x (epoch conflict)
+### 2.1.4.2.3 Upgrading from 2.x (epoch conflict)
 
 If you encounter this error when upgrading from 2.x:
 
@@ -60,9 +60,9 @@ This is caused by an epoch removed in 3.x packages. Resolve it as follows:
 
 ---
 
-## 3. Debian / Ubuntu
+## 2.1.4.3 Debian / Ubuntu
 
-### 3.1 Configure the repository and install
+### 2.1.4.3.1 Configure the repository and install
 
 ```bash
 # Set version
@@ -85,7 +85,7 @@ Replace `replication-manager-osc` with your chosen flavor (`replication-manager-
 
 ---
 
-## 4. Post-Installation
+## 2.1.4.4 Post-Installation
 
 After package installation:
 

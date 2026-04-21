@@ -4,7 +4,7 @@ taxonomy:
     category: docs
 ---
 
-### 0.1 Monitor Unprotected Endpoints
+### 3.4.3.0.1 Monitor Unprotected Endpoints
 
 /api/login
 
@@ -54,7 +54,7 @@ Return Code 200 if server id is a master
 /clusters/{clusterName}/servers/{serverHost}/{serverPort}/is-slave
 Return Code 200 if server id is a slave    
 
-### 0.2 API Protected Endpoints
+### 3.4.3.0.2 API Protected Endpoints
 
 /api/monitor
 
@@ -380,9 +380,9 @@ OUPUT:
 
 ```
 
-## 1. Cluster Protected Endpoint
+## 3.4.3.1 Cluster Protected Endpoint
 
-### 1.1 2.0
+### 3.4.3.1.1 2.0
 
 /api/clusters/{clusterName}
 
@@ -475,13 +475,13 @@ List agents services resources
 
 /api/clusters/{clusterName}/settings/switch/{parmaterName}
 
-## 2. 2.1
+## 3.4.3.2 2.1
 
 /api/clusters/{clusterName}/actions/master-physical-backup
 
-## 3. Database Server Protected Endpoint
+## 3.4.3.3 Database Server Protected Endpoint
 
-### 3.1 2.0
+### 3.4.3.3.1 2.0
 
 /api/clusters/{clusterName}/servers/{serverName}/actions/start
 
@@ -495,7 +495,7 @@ List agents services resources
 
 /api/clusters/{clusterName}/servers/{serverName}/actions/provision
 
-### 3.2 2.1
+### 3.4.3.3.2 2.1
 
 /api/clusters/{clusterName}/servers/{serverName}/actions/optimize
 
@@ -564,7 +564,7 @@ Post an event into replication_manager_schema.jobs for cron processing
 /api/clusters/{clusterName}/servers/{serverName}/service-opensvc
 
 
-## 4. Proxy Protected Endpoint
+## 3.4.3.4 Proxy Protected Endpoint
 
 /api/clusters/{clusterName}/proxies/{proxyName}/actions/unprovision
 

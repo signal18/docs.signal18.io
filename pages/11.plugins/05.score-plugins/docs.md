@@ -4,7 +4,7 @@ taxonomy:
     category: docs
 ---
 
-## 1. Score Plugins
+## 12.5.1 Score Plugins
 
 Score plugins compute **binary pass/fail security checks** from the server snapshot. They emit `ScoreCheck` entries (not findings) that feed the **SecurityScore** gauge visible in the cluster dashboard. A passing check contributes positively to the score; a failing check deducts points.
 
@@ -14,7 +14,7 @@ Score plugins are external binaries with no configurable parameters — their ca
 
 ---
 
-## 2. plugin-score-ssl
+## 12.5.2 plugin-score-ssl
 
 **Binary:** `plugin-score-ssl`  
 **Source:** `cluster/logplugin/plugins/plugin-score-ssl/main.go`
@@ -30,7 +30,7 @@ Checks whether TLS/SSL is enabled and properly configured on the server.
 
 ---
 
-## 3. plugin-score-encryption
+## 12.5.3 plugin-score-encryption
 
 **Binary:** `plugin-score-encryption`  
 **Source:** `cluster/logplugin/plugins/plugin-score-encryption/main.go`
@@ -50,7 +50,7 @@ Evaluates at-rest encryption status for tables, binary logs, and temporary files
 
 ---
 
-## 4. plugin-score-auth
+## 12.5.4 plugin-score-auth
 
 **Binary:** `plugin-score-auth`  
 **Source:** `cluster/logplugin/plugins/plugin-score-auth/main.go`
@@ -66,7 +66,7 @@ Checks whether strong password validation is enforced on the server.
 
 ---
 
-## 5. plugin-score-network
+## 12.5.5 plugin-score-network
 
 **Binary:** `plugin-score-network`  
 **Source:** `cluster/logplugin/plugins/plugin-score-network/main.go`
@@ -82,7 +82,7 @@ Checks network security configuration.
 
 ---
 
-## 6. plugin-score-proxy
+## 12.5.6 plugin-score-proxy
 
 **Binary:** `plugin-score-proxy`  
 **Source:** `cluster/logplugin/plugins/plugin-score-proxy/main.go`
@@ -97,7 +97,7 @@ Checks whether the cluster is using a traffic routing proxy for HA and read/writ
 
 ---
 
-## 7. plugin-score-passwords
+## 12.5.7 plugin-score-passwords
 
 **Binary:** `plugin-score-passwords`  
 **Source:** `cluster/logplugin/plugins/plugin-score-passwords/main.go`
@@ -113,7 +113,7 @@ Checks for the presence of no-password and weak-auth accounts.
 
 ---
 
-## 8. plugin-score-lts
+## 12.5.8 plugin-score-lts
 
 **Binary:** `plugin-score-lts`  
 **Source:** `cluster/logplugin/plugins/plugin-score-lts/main.go`
@@ -128,7 +128,7 @@ Checks whether the server is running a Long Term Support (LTS) release of MariaD
 
 ---
 
-## 9. plugin-score-audit
+## 12.5.9 plugin-score-audit
 
 **Binary:** `plugin-score-audit`  
 **Source:** `cluster/logplugin/plugins/plugin-score-audit/main.go`
@@ -143,7 +143,7 @@ Checks whether the MariaDB audit plugin is active.
 
 ---
 
-## 10. SecurityScore Dashboard
+## 12.5.10 SecurityScore Dashboard
 
 The SecurityScore is a percentage computed from all `ScoreCheck` results across all enabled score plugins:
 

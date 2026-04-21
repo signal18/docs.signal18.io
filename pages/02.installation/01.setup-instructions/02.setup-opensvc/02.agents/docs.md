@@ -5,7 +5,7 @@ taxonomy:
 ---
 
 
-## 1. Setup OpenSVC Cluster Agents
+## 2.1.5.1.1 Setup OpenSVC Cluster Agents
 
 Install the agents on the nodes of your provisioning cluster.
 
@@ -60,7 +60,7 @@ sudo systemctl restart sshd
 You can verify that the agent is discovered by going to the web interface of replication-manager and check the agents tab.
 
 
-### 1.1 Using Overlay Networking
+### 2.1.5.1.1.1 Using Overlay Networking
 
 Centos & Rehdat requires EPEL
 
@@ -141,7 +141,7 @@ Setup the DNS as a docker service on each agent
 svcmgr create -s odns  --config http://www.opensvc.com/init/static/templates/odns.conf --provision
 ```
 
-### 1.2 Upgrade agent version
+### 2.1.5.1.1.2 Upgrade agent version
 
 ```
 nodemgr set --kw node.repopkg=https://repo.opensvc.com

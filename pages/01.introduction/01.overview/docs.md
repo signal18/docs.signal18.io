@@ -3,7 +3,7 @@ title: Overview
 taxonomy:
     category: docs
 ---
-## 1. Goals
+## 1.1.1 Goals
 
 **replication-manager** is an open source database cluster orchestrator that embeds best practices for configuration, deployment, HA operations, maintenance, monitoring, and troubleshooting for MySQL, MariaDB, and Percona. The design hides database clustering complexity while maintaining simplicity similar to Amazon RDS.
 
@@ -11,7 +11,7 @@ taxonomy:
 
 **replication-manager** delivers multi-cluster sharding and routing solutions to address scalability and high availability challenges.
 
-## 2. History
+## 1.1.2 History
 
 **replication-manager** was initially written to close the gap between Galera Cluster and MySQL Master HA. While Galera Cluster addresses many clustering needs, it has limitations around performance and cluster-wide locking. **replication-manager** leverages newer MySQL and MariaDB features including Global Transaction ID, Semi-Synchronous replication, and binary log flashback to provide high availability and node switchover with minimal performance impact.
 
@@ -23,7 +23,7 @@ Integration support includes:
 - **SlapOS**: Open source hyperconverged and edge computing infrastructure where the API checks and performs actions on database infrastructure components      
 
 
-## 3. HA Workflow
+## 1.1.3 HA Workflow
 
 To perform switchover on leader replicas while preserving data consistency, **replication-manager** uses an improved workflow similar to common MySQL failover tools such as MHA:
 
@@ -44,7 +44,7 @@ To perform switchover on leader replicas while preserving data consistency, **re
 - [x] Switch other slaves and old master to replicate from the new master
 - [x] Set slave read-only
 
-## 4. Traffic Routing
+## 1.1.4 Traffic Routing
 
 **replication-manager** is commonly used as an arbitrator with a routing layer that directs write database traffic to a single leader database node.
 

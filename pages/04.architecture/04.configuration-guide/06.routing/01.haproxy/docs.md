@@ -4,7 +4,7 @@ taxonomy:
     category: docs
 ---
 
-### 0.1 HaProxy Configuration
+### 4.5.5.1.0.1 HaProxy Configuration
 
 We advice usage of HAProxy >=1.7 previously replication-manager can not get correct statistics
 
@@ -84,7 +84,7 @@ dataplanapi: TODO: a sidecar process that runs next to HAProxy and provides API 
 | Type | Integer |
 | Default Value | 1988 |  
 
-#### 0.1.1 Local mode
+#### 4.5.5.1.0.1.1 Local mode
 
 ##### `haproxy-binary-path` (0.7)
 
@@ -101,7 +101,7 @@ In local mode **replication-manager**, need HaProxy to be install and on the sam
 
 **replication-manager** re-generate the HaProxy configuration file when the topology change and instruct HaProxy to reload this configuration during failover and switchover.
 
-#### 0.1.2 Remote mode using external checks
+#### 4.5.5.1.0.1.2 Remote mode using external checks
 
 HaProxy can call replication **replication-manage(2.0)** [http handlers](/configuration/routing-traffic/check-http-handler) via the check-external feature to check that a backend is a valid Master or valid Slave  
 
@@ -218,7 +218,7 @@ exit 1
 
 
 
-#### 0.1.3 Runtime API
+#### 4.5.5.1.0.1.3 Runtime API
 
 HAProxy Runtime API  provides very powerful dynamic configuration capabilities with no service reloads or restarts https://www.haproxy.com/fr/blog/dynamic-configuration-haproxy-runtime-api/
 

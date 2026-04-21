@@ -4,7 +4,7 @@ taxonomy:
     category: docs
 ---
 
-## 1. Security Plugins
+## 12.4.1 Security Plugins
 
 > **Tier:** Community — requires a free registered instance at gitlab.signal18.io
 
@@ -14,7 +14,7 @@ Security findings are routed to `security.log`, separate from the main HA log.
 
 ---
 
-## 2. plugin-security-no-password-user
+## 12.4.2 plugin-security-no-password-user
 
 **Binary:** `plugin-security-no-password-user`  
 **Finding:** `SEC0100`  
@@ -40,7 +40,7 @@ An account with no password and no socket auth can be logged into from any host 
 
 ---
 
-## 3. plugin-security-weak-auth
+## 12.4.3 plugin-security-weak-auth
 
 **Binary:** `plugin-security-weak-auth`  
 **Finding:** `SEC0101`  
@@ -67,7 +67,7 @@ Accounts with an empty plugin string fall back to the server default (often `mys
 
 ---
 
-## 4. plugin-security-local-infile
+## 12.4.4 plugin-security-local-infile
 
 **Binary:** `plugin-security-local-infile`  
 **Finding:** `SEC0102`  
@@ -83,14 +83,14 @@ With `local_infile` enabled a malicious or compromised server can instruct a cli
 
 ---
 
-## 5. plugin-security-hardening
+## 12.4.5 plugin-security-hardening
 
 **Binary:** `plugin-security-hardening`  
 **Source:** `cluster/logplugin/plugins/plugin-security-hardening/main.go`
 
 Evaluates a set of CIS MySQL/MariaDB Benchmark hardening controls. Raises findings for:
 
-### 5.1 SEC0103 — require_secure_transport=OFF
+### 12.4.5.1 SEC0103 — require_secure_transport=OFF
 
 Plaintext (non-TLS) client connections are permitted.
 
@@ -100,7 +100,7 @@ Plaintext (non-TLS) client connections are permitted.
 
 ---
 
-### 5.2 SEC0104 — general_log=ON
+### 12.4.5.2 SEC0104 — general_log=ON
 
 All SQL statements, including those containing plaintext passwords, are written to the general query log.
 
@@ -110,7 +110,7 @@ All SQL statements, including those containing plaintext passwords, are written 
 
 ---
 
-### 5.3 SEC0105 — secure_file_priv=''
+### 12.4.5.3 SEC0105 — secure_file_priv=''
 
 The server can read or write any filesystem path via `LOAD DATA` / `SELECT INTO OUTFILE`.
 
@@ -120,7 +120,7 @@ The server can read or write any filesystem path via `LOAD DATA` / `SELECT INTO 
 
 ---
 
-### 5.4 SEC0106 — skip_name_resolve=OFF
+### 12.4.5.4 SEC0106 — skip_name_resolve=OFF
 
 DNS lookups are enabled for connecting clients; hostname spoofing is possible.
 
@@ -130,7 +130,7 @@ DNS lookups are enabled for connecting clients; hostname spoofing is possible.
 
 ---
 
-### 5.5 SEC0107 — Anonymous user account
+### 12.4.5.5 SEC0107 — Anonymous user account
 
 An anonymous (`user=''`) account exists; anyone can connect without a username.
 
@@ -140,7 +140,7 @@ An anonymous (`user=''`) account exists; anyone can connect without a username.
 
 ---
 
-### 5.6 SEC0108 — Wildcard-host privileged user
+### 12.4.5.6 SEC0108 — Wildcard-host privileged user
 
 An account uses host `%` and holds elevated privilege (SUPER, ADMIN, ALL, or similar).
 
@@ -152,7 +152,7 @@ Accounts listed in `wildcard-priv-ignored-users` and accounts using socket-based
 
 ---
 
-### 5.7 SEC0109 / SEC0110 / SEC0111 — At-rest encryption (via plugin-score-encryption)
+### 12.4.5.7 SEC0109 / SEC0110 / SEC0111 — At-rest encryption (via plugin-score-encryption)
 
 | Code | Variable | Condition |
 |------|----------|-----------|
@@ -166,7 +166,7 @@ Accounts listed in `wildcard-priv-ignored-users` and accounts using socket-based
 
 ---
 
-### 5.8 SEC0112 — Audit logging not active
+### 12.4.5.8 SEC0112 — Audit logging not active
 
 The `server_audit` plugin is not loaded or `server_audit_logging = OFF`.
 
@@ -174,7 +174,7 @@ The `server_audit` plugin is not loaded or `server_audit_logging = OFF`.
 
 ---
 
-### 5.9 SEC0113 / SEC0114 / SEC0115 — Password validation plugins *(MariaDB only)*
+### 12.4.5.9 SEC0113 / SEC0114 / SEC0115 — Password validation plugins *(MariaDB only)*
 
 | Code | Plugin | Variable |
 |------|--------|----------|
@@ -190,7 +190,7 @@ SEC0115 requires MariaDB **10.7+** — servers below this version are skipped au
 
 ---
 
-### 5.10 SEC0118 — Hostname grants with skip_name_resolve=ON
+### 12.4.5.10 SEC0118 — Hostname grants with skip_name_resolve=ON
 
 When `skip_name_resolve = ON`, MySQL/MariaDB never resolves DNS hostnames. Any account whose `Host` column contains a hostname (not an IP, not `%`, not `localhost`) will silently fail every connection attempt — the grant is effectively dead.
 
@@ -208,9 +208,9 @@ When `skip_name_resolve = ON`, MySQL/MariaDB never resolves DNS hostnames. Any a
 
 ---
 
-## 6. Remediation Engine
+## 12.4.6 Remediation Engine
 
-### 6.1 Remediation Plan
+### 12.4.6.1 Remediation Plan
 
 ```
 GET /api/clusters/{clusterName}/security/remediation-plan
@@ -262,7 +262,7 @@ Returns a JSON document listing every open security finding with its available f
 
 ---
 
-### 6.2 Apply a Fix
+### 12.4.6.2 Apply a Fix
 
 ```
 POST /api/clusters/{clusterName}/security/fix-state/{errKey}
@@ -286,7 +286,7 @@ No request body required. Returns `{"status":"ok"}` on success.
 
 ---
 
-### 6.3 Compliance Tags
+### 12.4.6.3 Compliance Tags
 
 Replication-manager's remediation engine works through the **compliance module tag mechanism**: safe and moderate fixes deploy or remove a `.cnf` fragment on all servers rather than executing raw SQL directly. This ensures the fix survives server restarts.
 
@@ -323,7 +323,7 @@ If no runtime SQL line is present, the variables are read-only and a **restart c
 
 ---
 
-## 7. SEC Code Reference
+## 12.4.7 SEC Code Reference
 
 | Code | Plugin | Condition | Auto-fixable | Risk |
 |---|---|---|---|---|
@@ -347,7 +347,7 @@ If no runtime SQL line is present, the variables are read-only and a **restart c
 
 ---
 
-## 8. Security Considerations
+## 12.4.8 Security Considerations
 
 - **Account operations (SEC0100, SEC0107)** use `ACCOUNT LOCK` and `DROP USER IF EXISTS` — executed directly via the server connection pool, not through the compliance module. `ACCOUNT LOCK` is reversible.
 - **Encryption fixes (SEC0109/0110/0111)** require a pre-configured key file at the path specified in `with_sec_keyfileencrypt`. Applying the tag without a valid key file will cause the server to fail to start after the rolling restart.

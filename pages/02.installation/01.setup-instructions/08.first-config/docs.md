@@ -5,13 +5,13 @@ taxonomy:
     category: docs
 ---
 
-## 1. First Config
+## 2.1.13.1 First Config
 
 replication-manager uses a TOML configuration file. The default file is `config.toml`, searched in the locations described in [What Was Installed](../what-was-installed). The file is split into a mandatory `[Default]` section and one or more named cluster sections.
 
 ---
 
-## 2. Config File Structure
+## 2.1.13.2 Config File Structure
 
 ```toml
 [Default]
@@ -35,7 +35,7 @@ A single `[Default]` section with no separate cluster section is valid for singl
 
 ---
 
-## 3. Using the Include Directory
+## 2.1.13.3 Using the Include Directory
 
 For multi-cluster setups, split configuration across individual files:
 
@@ -65,7 +65,7 @@ All `*.toml` files in the include directory are merged with the main config at s
 
 ---
 
-## 4. Dynamic Configuration
+## 2.1.13.4 Dynamic Configuration
 
 When `monitoring-save-config = true` is set in `[Default]`, changes made via the API or GUI are persisted to the **active configuration directory**:
 
@@ -77,7 +77,7 @@ This directory is separate from `/etc/replication-manager/` so that the template
 
 ---
 
-## 5. Sample Configuration Files
+## 2.1.13.5 Sample Configuration Files
 
 Package installations include ready-to-use samples:
 
@@ -98,7 +98,7 @@ cp /usr/local/replication-manager/etc/config.toml.sample.masterslave-haproxy \
 
 ---
 
-## 6. Minimal Working Config (copy-paste start)
+## 2.1.13.6 Minimal Working Config (copy-paste start)
 
 ```toml
 [Default]
@@ -120,7 +120,7 @@ Change `api-credentials` before first start to avoid the [WARN0108 default passw
 
 ---
 
-## 7. Starting replication-manager
+## 2.1.13.7 Starting replication-manager
 
 ```bash
 # Package / systemd

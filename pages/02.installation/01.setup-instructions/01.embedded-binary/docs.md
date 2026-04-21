@@ -4,13 +4,13 @@ taxonomy:
     category: docs
 ---
 
-## 1. Install from Embedded Binary
+## 2.1.2.1 Install from Embedded Binary
 
 The embedded binary (`replication-manager`) includes the full React dashboard and all static assets compiled into a single executable. No package manager, no asset directory, no system paths required.
 
 ---
 
-## 2. One-Command Install
+## 2.1.2.2 One-Command Install
 
 Install the latest release with a single command:
 
@@ -44,7 +44,7 @@ curl -fsSL https://signal18.io/get-repman | REPMAN_INSTALL_CLI=true bash
 curl -fsSL https://signal18.io/get-repman | REPMAN_INSTALL_DIR=/opt/repman bash
 ```
 
-### 2.1 Environment Variables
+### 2.1.2.2.1 Environment Variables
 
 | Variable | Default | Description |
 |---|---|---|
@@ -53,7 +53,7 @@ curl -fsSL https://signal18.io/get-repman | REPMAN_INSTALL_DIR=/opt/repman bash
 | `REPMAN_INSTALL_CLI` | `false` | Also install `replication-manager-cli` |
 | `REPMAN_SKIP_VERIFY` | `false` | Skip post-installation verification |
 
-### 2.2 Supported Platforms
+### 2.1.2.2.2 Supported Platforms
 
 | OS | Architectures |
 |---|---|
@@ -62,11 +62,11 @@ curl -fsSL https://signal18.io/get-repman | REPMAN_INSTALL_DIR=/opt/repman bash
 
 ---
 
-## 3. Manual Download from GitHub Releases
+## 2.1.2.3 Manual Download from GitHub Releases
 
 All release artifacts are available at [github.com/signal18/replication-manager/releases](https://github.com/signal18/replication-manager/releases).
 
-### 3.1 Embedded binary (recommended for portable use)
+### 2.1.2.3.1 Embedded binary (recommended for portable use)
 
 ```
 replication-manager-{version}.{arch}
@@ -83,7 +83,7 @@ chmod +x replication-manager-${VERSION}.${ARCH}
 sudo mv replication-manager-${VERSION}.${ARCH} /usr/local/bin/replication-manager
 ```
 
-### 3.2 Tarball (basedir variant)
+### 2.1.2.3.2 Tarball (basedir variant)
 
 Tarballs include the binary plus the `share/` asset directory. Use these when you want a versioned directory layout under `/usr/local/`:
 
@@ -101,7 +101,7 @@ sudo systemctl daemon-reload
 sudo systemctl enable --now replication-manager
 ```
 
-### 3.3 Release Artifact Naming
+### 2.1.2.3.3 Release Artifact Naming
 
 | Artifact | Description |
 |---|---|
@@ -116,6 +116,6 @@ Replace `{flavor}` with: `osc`, `tst`, `pro`, or `arb`
 
 ---
 
-## 4. Development Builds
+## 2.1.2.4 Development Builds
 
 Nightly builds from the `develop` branch are available on the [Continuous Integration Server](http://ci.signal18.io/mrm/builds/tags/).

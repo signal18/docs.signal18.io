@@ -3,7 +3,7 @@ title: S3
 taxonomy:
     category: docs
 ---
-### 0.1 Streaming Backups
+### 6.2.2.3.0.1 Streaming Backups
 
 **replication-manager 2.1** can fuse mount the entire backup directory to an S3 bucket  
 

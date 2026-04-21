@@ -4,9 +4,9 @@ published: false
 taxonomy:
     category: docs
 ---
-## 1. Extra Dependencies
+## 2.1.3.1 Extra Dependencies
 
-#### 1.0.1 Version requirements
+#### 2.1.3.1.0.1 Version requirements
 
 **replication-manager** is a self-contained binary, no extra system libraries are needed at the operating system level.
 
@@ -17,7 +17,7 @@ It is advised to use GTID for replication and following database versions:
 
 Internet Explorer Web browser is reported as not functioning with the web gui.
 
-#### 1.0.2  Extra Dependencies
+#### 2.1.3.1.0.2  Extra Dependencies
 
 If you plan to use **prov-orchestrator = "local" or prov-orchestrator = "onpremise"** for automatic bootstrap of a local cluster and run some tests, Minimal MariaDB Server 10.2 packages need to be installed.
 

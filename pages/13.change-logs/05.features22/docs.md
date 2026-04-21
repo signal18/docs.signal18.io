@@ -4,7 +4,7 @@ taxonomy:
     category: docs
 ---
 
-### 2.2 Features
+### 14.5.0.1 Features
 
 * CORE: Multi Domain Parent Cluster
 * CORE: Proxy to use interface

@@ -4,7 +4,7 @@ taxonomy:
     category: docs
 ---
 
-## 1. API Client Usage
+## 3.4.1.1 API Client Usage
 
 The rest API is using JWT TLS and is served by default on port 10005 by the replication-manager monitor/
 
@@ -64,6 +64,6 @@ TOKEN=$(wget  -qO- --no-check-certificate --post-data '{"username":"admin","pass
 wget -qO- --no-check-certificate --header 'Accept: application/json' --header "Authorization: Bearer ${TOKEN}"  https://127.0.0.1:10005/api/clusters
 ```
 
-## 2. API documentation
+## 3.4.1.2 API documentation
 [Can be browsed online](https://dbaas-fr-2.signal18.io/api-docs/index.html)
 Or by installing the product and point to http://127.0.0.1:10001/api-docs

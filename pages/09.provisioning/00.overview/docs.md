@@ -4,7 +4,7 @@ taxonomy:
     category: docs
 ---
 
-## 1. Provisioning
+## 9.1.1 Provisioning
 
 replication-manager-pro can provision and manage the complete lifecycle of database and proxy infrastructure — creating service definitions, deploying containerised or bare-metal instances, bootstrapping replication topology, and tearing everything down — across five orchestration backends.
 
@@ -12,7 +12,7 @@ replication-manager-pro can provision and manage the complete lifecycle of datab
 
 ---
 
-## 2. Orchestration Backends
+## 9.1.2 Orchestration Backends
 
 | Orchestrator | `prov-orchestrator` | Description |
 |---|---|---|
@@ -24,9 +24,9 @@ replication-manager-pro can provision and manage the complete lifecycle of datab
 
 ---
 
-## 3. What Can Be Provisioned
+## 9.1.3 What Can Be Provisioned
 
-### 3.1 Database Services
+### 9.1.3.1 Database Services
 
 - **Containers**: MariaDB, MySQL, Percona — any Docker/Podman image
 - **Resources**: CPU cores, memory, shared memory, tmpfs
@@ -36,7 +36,7 @@ replication-manager-pro can provision and manage the complete lifecycle of datab
 - **Bootstrap**: replication topology, initial data load (SQL/CSV), benchmark table setup
 - **Config**: dynamic config application, binary log settings, max connections, expire-logs-days
 
-### 3.2 Proxy Services
+### 9.1.3.2 Proxy Services
 
 All proxy types share resource (memory, CPU, disk) and network configuration:
 
@@ -49,13 +49,13 @@ All proxy types share resource (memory, CPU, disk) and network configuration:
 | **MySQL Router** | Lightweight routing for InnoDB Cluster |
 | **Sphinx** | Full-text search engine as a service |
 
-### 3.3 Service Plans
+### 9.1.3.3 Service Plans
 
 Pre-defined plans set the number of database nodes and resource tiers in a single setting (`prov-service-plan`). Plans are registered in a central registry and can be switched dynamically, triggering automatic cluster resize.
 
 ---
 
-## 4. Bootstrap Workflow
+## 9.1.4 Bootstrap Workflow
 
 When you provision a cluster, replication-manager executes in order:
 
@@ -70,6 +70,6 @@ Serialised provisioning mode (`prov-db-service-plan-batch`) controls whether ser
 
 ---
 
-## 5. Configuration Guide
+## 9.1.5 Configuration Guide
 
 See the sub-sections for detailed configuration of the [Software Configurator](configurator), [Orchestrators](orchestrators), and [Service Plans](serviceplan).

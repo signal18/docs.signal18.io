@@ -3,7 +3,7 @@ title: Switchover Workflow
 taxonomy:
     category: docs
 ---
-### 0.1 Switchover Workflow
+### 4.2.0.1 Switchover Workflow
 
 **replication-manager** is starting up with checks to disable potentially dangerous switchover cases. It looks for some excessively long WRITE queries, excessively long transactions and cancel the switchover in such case. Switchover also follows the state machine blocking states so that malfunctioning replication or wrong topology also will not enable switchover.  
 
@@ -20,6 +20,6 @@ extra_max_connections = 10
 
 To better protect consistency it is strongly advised to disable **SUPER** privilege on users that perform writes, such as the MaxScale user used with Read-Write split module is instructed to monitor the replication lag via writing in the leader, privileges should be lower as described in Maxscale configuration settings.
 
-### 0.2 Switchover Events Graph
+### 4.2.0.2 Switchover Events Graph
 
 ![switchover](/images/switchover.png)

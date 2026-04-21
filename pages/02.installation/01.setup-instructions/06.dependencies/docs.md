@@ -4,7 +4,7 @@ taxonomy:
     category: docs
 ---
 
-## 1. Install Dependencies
+## 2.1.11.1 Install Dependencies
 
 replication-manager is a self-contained binary — no system libraries are required at the OS level. However, several external tools are needed to enable specific features such as backup, proxy management, load testing, and terminal sessions.
 
@@ -12,7 +12,7 @@ replication-manager **auto-detects** all external tools at startup by searching 
 
 ---
 
-## 2. Supported Database Versions
+## 2.1.11.2 Supported Database Versions
 
 | Database | Minimum version | Notes |
 |---|---|---|
@@ -24,9 +24,9 @@ GTID-based replication is strongly recommended for reliable failover. Non-GTID t
 
 ---
 
-## 3. External Tools
+## 2.1.11.3 External Tools
 
-### 3.1 Auto-Detected Tool Matrix
+### 2.1.11.3.1 Auto-Detected Tool Matrix
 
 | Tool | Feature | Auto-detect order | Config key to override |
 |---|---|---|---|
@@ -46,7 +46,7 @@ GTID-based replication is strongly recommended for reliable failover. Non-GTID t
 
 **Embedded fallback:** For `mariadb`/`mysql`, `mariadb-dump`/`mysqldump`, `mariadb-binlog`/`mysqlbinlog`, `mydumper`, `myloader`, and `gotty-client`, replication-manager includes compiled-in versions under `<share>/<arch>/<os>/`. These are used automatically when no system binary is found — no installation required for basic operation.
 
-### 3.2 Version Monitoring
+### 2.1.11.3.2 Version Monitoring
 
 replication-manager actively tracks tool versions at runtime. On every monitoring cycle it runs `--version` on each configured tool and logs any version change as `discovered` or `changed`. If a tool is missing or its version cannot be parsed, the corresponding `WARN` state is raised:
 
@@ -63,9 +63,9 @@ These warnings appear in the cluster dashboard and clear automatically when the 
 
 ---
 
-## 4. Per-Feature Dependencies
+## 2.1.11.4 Per-Feature Dependencies
 
-### 4.1 Logical Backups
+### 2.1.11.4.1 Logical Backups
 
 ```bash
 # MariaDB client tools (provides mariadb, mariadb-dump, mariadb-binlog)
@@ -76,7 +76,7 @@ yum install MariaDB-client          # RHEL/CentOS
 apt-get install mysql-client
 ```
 
-### 4.2 Fast Parallel Backups (MyDumper)
+### 2.1.11.4.2 Fast Parallel Backups (MyDumper)
 
 ```bash
 # Debian/Ubuntu — from MariaDB repository or GitHub releases
@@ -85,7 +85,7 @@ apt-get install mydumper
 # Or download from https://github.com/mydumper/mydumper/releases
 ```
 
-### 4.3 Snapshot Backups (Restic)
+### 2.1.11.4.3 Snapshot Backups (Restic)
 
 ```bash
 apt-get install restic      # Debian/Ubuntu
@@ -102,7 +102,7 @@ backup-restic-repository    = "/var/lib/replication-manager/backup/restic"
 backup-restic-password      = "your-repo-password"
 ```
 
-### 4.4 HAProxy
+### 2.1.11.4.4 HAProxy
 
 ```bash
 apt-get install haproxy     # Debian/Ubuntu
@@ -113,7 +113,7 @@ yum install haproxy         # RHEL/CentOS
 haproxy-binary-path = "/usr/sbin/haproxy"
 ```
 
-### 4.5 ProxySQL
+### 2.1.11.4.5 ProxySQL
 
 Download from [github.com/sysown/proxysql/releases](https://github.com/sysown/proxysql/releases):
 
@@ -127,7 +127,7 @@ dpkg -i proxysql_2.7.3-debian12_amd64.deb
 proxysql-binary-path = "/usr/bin/proxysql"
 ```
 
-### 4.6 Sysbench (Benchmarking)
+### 2.1.11.4.6 Sysbench (Benchmarking)
 
 ```bash
 apt-get install sysbench    # Debian/Ubuntu
@@ -138,13 +138,13 @@ yum install sysbench        # RHEL/CentOS
 sysbench-binary-path = "/usr/bin/sysbench"
 ```
 
-### 4.7 Restic FUSE Mount (Backup Browsing)
+### 2.1.11.4.7 Restic FUSE Mount (Backup Browsing)
 
 ```bash
 apt-get install fuse        # provides fusermount / fusermount3
 ```
 
-### 4.8 Remote Scripting (On-Premise Orchestrator)
+### 2.1.11.4.8 Remote Scripting (On-Premise Orchestrator)
 
 ```bash
 apt-get install openssh-client
@@ -152,7 +152,7 @@ apt-get install openssh-client
 
 ---
 
-## 5. Docker Image Reference
+## 2.1.11.5 Docker Image Reference
 
 The **pro** Docker image (`signal18/replication-manager:3.1-pro`) bundles all of the above. Use it as a reference for what a fully-equipped deployment looks like:
 
@@ -173,7 +173,7 @@ The **standard** image (`signal18/replication-manager:3.1`) installs none of the
 
 ---
 
-## 6. Overriding Detected Paths
+## 2.1.11.6 Overriding Detected Paths
 
 If a tool is installed in a non-standard location, or you want to pin a specific version, set the path explicitly in the cluster TOML:
 

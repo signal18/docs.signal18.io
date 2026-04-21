@@ -5,21 +5,21 @@ taxonomy:
     category: docs
 ---
 
-## 1. CMD Client Usage
+## 3.5.1 CMD Client Usage
 
-#### 1.0.1 Command line switchover
+#### 3.5.1.0.1 Command line switchover
 
 Trigger replication-manager client to perform a switchover
 
 `replication-manager-cli switchover --cluster=test_cluster`
 
-#### 1.0.2 Command line failover
+#### 3.5.1.0.2 Command line failover
 
 Trigger replication-manager in non-interactive to perform a failover ,
 
 `replication-manager-cli failover --cluster="test_cluster"`
 
-#### 1.0.3 Command line replication bootstrap
+#### 3.5.1.0.3 Command line replication bootstrap
 
 With some already existing database nodes but no replication setup in place, replication-manager enables you to initialize the replication on various topologies:
 * master-slave
@@ -30,11 +30,11 @@ With some already existing database nodes but no replication setup in place, rep
 
 `replication-manager-cli --cluster="cluster_test_3_nodes" bootstrap --clean-all --topology="multi-tier-slave"`
 
-#### 1.0.4 Command line cluster status
+#### 3.5.1.0.4 Command line cluster status
 
 `replication-manager-cli --cluster="cluster_test_3_nodes" status`
 
-#### 1.0.5 Command line database in maintenance
+#### 3.5.1.0.5 Command line database in maintenance
 
 `replication-manager-cli server --id=9624235790336213315 --maintenance`
 

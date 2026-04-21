@@ -4,15 +4,15 @@ taxonomy:
     category: docs
 ---
 
-## 1. Developing Plugins
+## 12.6.1 Developing Plugins
 
 External plugins are standalone Go binaries that follow a simple JSON stdin/stdout contract. No special framework is required — only the `wire` package from the replication-manager module.
 
 ---
 
-## 2. Quick Start
+## 12.6.2 Quick Start
 
-### 1. Create the plugin directory
+### 12.6.2.1 Create the plugin directory
 
 ```
 cluster/logplugin/plugins/plugin-<category>-<name>/
@@ -21,7 +21,7 @@ cluster/logplugin/plugins/plugin-<category>-<name>/
 
 Category conventions: `workload`, `security`, `score`, `binlog`.
 
-### 2. Write the plugin
+### 12.6.2.2 Write the plugin
 
 ```go
 package main
@@ -62,14 +62,14 @@ func main() {
 }
 ```
 
-### 3. Build the plugin
+### 12.6.2.3 Build the plugin
 
 ```bash
 cd cluster/logplugin/plugins/plugin-<category>-<name>
 go build -o ../../../../share/plugins/plugin-<category>-<name> .
 ```
 
-### 4. Sign the plugin (if signature verification is enabled)
+### 12.6.2.4 Sign the plugin (if signature verification is enabled)
 
 ```bash
 replication-manager plugin-sign \
@@ -80,9 +80,9 @@ replication-manager plugin-sign \
 
 ---
 
-## 3. Wire Protocol Reference
+## 12.6.3 Wire Protocol Reference
 
-### 3.1 wire.Request
+### 12.6.3.1 wire.Request
 
 ```go
 type Request struct {
@@ -100,7 +100,7 @@ type Request struct {
 
 `ServerVariables` keys are always **lowercase** (e.g. `require_secure_transport`, not `REQUIRE_SECURE_TRANSPORT`). Boolean values may be `"ON"` / `"OFF"` or `"1"` / `"0"` depending on the MariaDB/MySQL version — always test both.
 
-### 3.2 wire.DBUser
+### 12.6.3.2 wire.DBUser
 
 ```go
 type DBUser struct {
@@ -112,7 +112,7 @@ type DBUser struct {
 }
 ```
 
-### 3.3 wire.Finding
+### 12.6.3.3 wire.Finding
 
 ```go
 type Finding struct {
@@ -130,7 +130,7 @@ type Finding struct {
 | `"ERROR"` | Main HA log |
 | `"SECURITY"` | Dedicated `security.log` + SecurityStateMachine |
 
-### 3.4 wire.ScoreCheck
+### 12.6.3.4 wire.ScoreCheck
 
 ```go
 type ScoreCheck struct {
@@ -140,7 +140,7 @@ type ScoreCheck struct {
 }
 ```
 
-### 3.5 wire.Response
+### 12.6.3.5 wire.Response
 
 ```go
 type Response struct {
@@ -151,7 +151,7 @@ type Response struct {
 
 ---
 
-## 4. Configuration Helpers
+## 12.6.4 Configuration Helpers
 
 The `wire` package provides helpers to read configuration from the request `Config` map with typed conversion and an environment variable fallback.
 
@@ -189,7 +189,7 @@ Where `<PLUGIN_NAME_UPPER>` is the plugin name without the `plugin-` prefix, wit
 
 ---
 
-## 5. Error Code Assignment
+## 12.6.5 Error Code Assignment
 
 Assign error codes from the appropriate range:
 
@@ -203,7 +203,7 @@ Check existing codes in the current plugins to avoid collisions.
 
 ---
 
-## 6. Registering GUI Configuration
+## 12.6.6 Registering GUI Configuration
 
 To expose plugin configuration in the replication-manager GUI, add the plugin to `pluginKnownKeys()` in `share/dashboard_react/src/Pages/Settings/PluginsSettings.jsx`:
 
@@ -221,7 +221,7 @@ Also add entries in `pluginKeyType()`, `pluginKeyRange()`, `pluginKeyLabel()`, `
 
 ---
 
-## 7. Adding an Automated Remediation
+## 12.6.7 Adding an Automated Remediation
 
 If the finding has a fix via a compliance module tag, add an entry to `secTagMap` in `cluster/cluster_sec_fix.go`:
 
@@ -237,7 +237,7 @@ If the fix requires a server restart, add `go cluster.RollingRestart()` after th
 
 ---
 
-## 8. Testing a Plugin Locally
+## 12.6.8 Testing a Plugin Locally
 
 The simplest way to test a plugin is to pipe a sample JSON request into it:
 
@@ -260,7 +260,7 @@ For integration testing, enable the plugin in a development cluster, set `log-le
 
 ---
 
-## 9. Checklist
+## 12.6.9 Checklist
 
 - [ ] Plugin binary placed in `share/plugins/`
 - [ ] Signature file created if signing is enabled

@@ -3,7 +3,7 @@ title: Replication
 taxonomy:
     category: docs
 ---
-## 1. Replication Configuration
+## 4.5.4.1 Replication Configuration
 
 **replication-manager**  to failover will be in charge of rebuilding the replication, following section explore how to proceed with it.
 
@@ -33,9 +33,9 @@ taxonomy:
 | Default Value | 10 |   
 
 
-## 2. Topology Configuration
+## 4.5.4.2 Topology Configuration
 
-### 2.1 Master Slaves Configuration
+### 4.5.4.2.1 Master Slaves Configuration
 
 **replication-manager**  supports 2-node master slave setup, it is advice to use at least 3 nodes cluster to get the cluster tolerant to losing or stopping a slave.  
 
@@ -50,7 +50,7 @@ By default **replication-manager** assume a flat topology but can enable multi-t
 | Type | boolean |
 | Default Value | false |   
 
-## 3. Multi Tier Slaves Configuration
+## 4.5.4.3 Multi Tier Slaves Configuration
 
 ##### `replication-multi-tier-slave` (2.0), `multi-tier-slave` (1.0)
 
@@ -64,7 +64,7 @@ By default **replication-manager** assume a flat topology but can enable multi-t
 
 **replication-manager** does not manage yet the relay crash to replace it with a slave
 
-## 4. Multi Master Configuration
+## 4.5.4.4 Multi Master Configuration
 
 **replication-manager**  supports 2-node multi-master topology detection. It is required to declare it the configuration configuration
 
@@ -103,7 +103,7 @@ passwd=mypwd
 detect_stale_master=true
 ```
 
-## 5. Multi Source or Channel Configuration
+## 4.5.4.5 Multi Source or Channel Configuration
 
 **replication-manager**  support monitoring of a specific replication channel, those feature are experimental and should be tested because they are not covered by QA
 
@@ -115,7 +115,7 @@ detect_stale_master=true
 | Type | string |
 | Default Value | "" |  
 
-## 6. Multi Master Ring Configuration
+## 4.5.4.6 Multi Master Ring Configuration
 
 ##### `replication-multi-master-ring (2.0)`
 
@@ -127,7 +127,7 @@ detect_stale_master=true
 
 [Read more](/architecture/topologies/multi-master-ring)
 
-## 7. Multi Master Galera Configuration
+## 4.5.4.7 Multi Master Galera Configuration
 
 ##### `replication-multi-master-wsrep (2.0)`
 

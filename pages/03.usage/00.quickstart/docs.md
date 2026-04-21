@@ -4,7 +4,7 @@ taxonomy:
     category: docs
 ---
 
-## 1. Start & Stop Monitoring
+## 3.1.1 Start & Stop Monitoring
 
 ![clientserver](/images/clientserver.png)
 
@@ -12,7 +12,7 @@ replication-manager runs as a daemon that continuously monitors your clusters. I
 
 ---
 
-## 2. Start
+## 3.1.2 Start
 
 **systemd (package install):**
 
@@ -40,7 +40,7 @@ replication-manager monitor --config /etc/replication-manager/config.toml --http
 
 ---
 
-## 3. Stop
+## 3.1.3 Stop
 
 ```bash
 systemctl stop replication-manager
@@ -48,7 +48,7 @@ systemctl stop replication-manager
 
 ---
 
-## 4. Check Status
+## 3.1.4 Check Status
 
 **Service status:**
 
@@ -90,6 +90,6 @@ Open `https://<host>:10005` in a browser — the dashboard shows live cluster st
 
 ---
 
-## 5. Logs
+## 3.1.5 Logs
 
 See [Logs](../logs) for a full reference — log files written, per-module verbosity settings, rotation, and how to query logs via journalctl and the REST API.

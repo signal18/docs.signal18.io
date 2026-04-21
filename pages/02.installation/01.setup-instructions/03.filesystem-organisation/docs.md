@@ -5,7 +5,7 @@ taxonomy:
     category: docs
 ---
 
-### 0.1 Packages hierarchy
+### 2.1.7.0.1 Packages hierarchy
 
 Packages installation will deploy a set of directories and files
 
@@ -30,7 +30,7 @@ Packages installation will deploy a set of directories and files
 Logs can be found in `/var/log/replication-manager.log`.
 
 
-#### 0.1.1  Archive (tar.gz) hierarchy
+#### 2.1.7.0.1.1  Archive (tar.gz) hierarchy
 
 * `/usr/local/replication-manager/etc`
   Default and example conf file

@@ -4,7 +4,7 @@ taxonomy:
     category: docs
 ---
 
-### 1.0 Features
+### 14.1.0.1 Features
 
 * CORE: Master slave
 * CORE: Multi Master 2 nodes

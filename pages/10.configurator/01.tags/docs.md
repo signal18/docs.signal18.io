@@ -4,7 +4,7 @@ taxonomy:
     category: docs
 ---
 
-## 1. Database Tags
+## 10.2.1 Database Tags
 
 Tags are set via `prov-db-tags` (comma-separated). Each tag activates a matching ruleset in the compliance module, which contributes one or more `.cnf` fragments to the generated configuration. Tags can also be added at runtime through the GUI or API without a cluster restart.
 
@@ -12,7 +12,7 @@ Tags are set via `prov-db-tags` (comma-separated). Each tag activates a matching
 prov-db-tags = "innodb,noquerycache,threadpool,slow,pfs,semisync,row,ssl,docker,linux"
 ```
 
-### 1.1 Storage Engines
+### 10.2.1.1 Storage Engines
 
 | Tag | Effect |
 |---|---|
@@ -29,7 +29,7 @@ prov-db-tags = "innodb,noquerycache,threadpool,slow,pfs,semisync,row,ssl,docker,
 | `archive` | Install ARCHIVE engine plugin |
 | `wsrep` | Configure Galera Cluster (wsrep) settings |
 
-### 1.2 Disk and I/O
+### 10.2.1.2 Disk and I/O
 
 | Tag | Effect |
 |---|---|
@@ -44,7 +44,7 @@ prov-db-tags = "innodb,noquerycache,threadpool,slow,pfs,semisync,row,ssl,docker,
 | `compresstable` | Enable InnoDB page compression by default |
 | `compressbinlog` | Enable binary log compression (`log_bin_compress=ON`) |
 
-### 1.3 Logging
+### 10.2.1.3 Logging
 
 | Tag | Effect |
 |---|---|
@@ -58,7 +58,7 @@ prov-db-tags = "innodb,noquerycache,threadpool,slow,pfs,semisync,row,ssl,docker,
 | `logtotable` | Route log output to `mysql.general_log` / `mysql.slow_log` tables |
 | `diskmonitor` | Enable disk usage monitoring |
 
-### 1.4 Network and Threads
+### 10.2.1.4 Network and Threads
 
 | Tag | Effect |
 |---|---|
@@ -67,7 +67,7 @@ prov-db-tags = "innodb,noquerycache,threadpool,slow,pfs,semisync,row,ssl,docker,
 | `resolvdns` | Enable DNS hostname resolution (`skip_name_resolve=OFF`) |
 | `proxyprotocol` | Enable PROXY protocol support |
 
-### 1.5 Replication
+### 10.2.1.5 Replication
 
 | Tag | Effect |
 |---|---|
@@ -83,7 +83,7 @@ prov-db-tags = "innodb,noquerycache,threadpool,slow,pfs,semisync,row,ssl,docker,
 | `lossyconv` | Allow lossy type conversions on replicas |
 | `readonly` | Set server to read-only mode |
 
-### 1.6 Security
+### 10.2.1.6 Security
 
 | Tag | Effect |
 |---|---|
@@ -93,7 +93,7 @@ prov-db-tags = "innodb,noquerycache,threadpool,slow,pfs,semisync,row,ssl,docker,
 | `encryptfile` | Enable file-at-rest encryption |
 | `localinfile` | Enable `LOCAL INFILE` (disabled by default for security) |
 
-### 1.7 Optimizer
+### 10.2.1.7 Optimizer
 
 | Tag | Effect |
 |---|---|
@@ -124,7 +124,7 @@ prov-db-tags = "innodb,noquerycache,threadpool,slow,pfs,semisync,row,ssl,docker,
 | `nosemijoincache` | Disable `SEMI_JOIN_WITH_CACHE` |
 | `notableelimination` | Disable `TABLE_ELIMINATION` |
 
-### 1.8 Character Set
+### 10.2.1.8 Character Set
 
 | Tag | Effect |
 |---|---|
@@ -133,7 +133,7 @@ prov-db-tags = "innodb,noquerycache,threadpool,slow,pfs,semisync,row,ssl,docker,
 | `utf8ci` | Set `character_set_server=utf8`, case-insensitive collation |
 | `utf8cs` | Set `character_set_server=utf8`, case-sensitive collation |
 
-### 1.9 Platform / Orchestrator
+### 10.2.1.9 Platform / Orchestrator
 
 | Tag | Effect |
 |---|---|
@@ -145,7 +145,7 @@ prov-db-tags = "innodb,noquerycache,threadpool,slow,pfs,semisync,row,ssl,docker,
 
 ---
 
-## 2. Proxy Tags
+## 10.2.2 Proxy Tags
 
 Proxy tags are set via `prov-proxy-tags`. Available tags for ProxySQL, HAProxy, and MaxScale:
 
@@ -158,7 +158,7 @@ Proxy tags are set via `prov-proxy-tags`. Available tags for ProxySQL, HAProxy, 
 
 ---
 
-## 3. Compliance Module
+## 10.2.3 Compliance Module
 
 Tags are matched against the embedded compliance module (`share/opensvc/moduleset_mariadb.svc.mrm.db.json`). Each tag corresponds to a **filterset** (fset) in the module. A filterset groups one or more rulesets that each contribute:
 

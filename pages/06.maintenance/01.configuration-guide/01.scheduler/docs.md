@@ -3,7 +3,7 @@ title: Scheduler
 taxonomy:
     category: docs
 ---
-## 1. Scheduler
+## 6.2.1.1 Scheduler
 
 ##### `monitoring-scheduler` (2.1)
 
@@ -15,7 +15,7 @@ taxonomy:
 
 
 
-## 2. CRON Expression Format
+## 6.2.1.2 CRON Expression Format
 
 A cron expression represents a set of times, using 6 space-separated fields.
 
@@ -50,7 +50,7 @@ Question mark ( ? )
 
 Question mark may be used instead of '*' for leaving either day-of-month or day-of-week blank.
 
-## 3. CRON jobs configuration
+## 6.2.1.3 CRON jobs configuration
 
 ##### `scheduler-db-servers-logical-backup` (2.1)
 
