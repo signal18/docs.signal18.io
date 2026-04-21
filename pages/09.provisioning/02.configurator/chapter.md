@@ -1,5 +1,5 @@
 ---
-title: Database Configurator
+title: Software Configurator
 taxonomy:
     category: docs
 ---

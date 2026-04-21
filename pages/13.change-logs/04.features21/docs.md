@@ -4,7 +4,7 @@ taxonomy:
     category: docs
 ---
 
-### 14.4.0.1 Features
+### 13.4.0.1 Features
 
 * CORE: Dynamic config cluster store default config in $datadir/cluster.d
 * CORE: IPV6 support [IPV6host]:port

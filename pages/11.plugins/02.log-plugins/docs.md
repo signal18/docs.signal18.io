@@ -4,7 +4,7 @@ taxonomy:
     category: docs
 ---
 
-## 12.2.1 Built-in Log Plugins
+## 11.2.1 Built-in Log Plugins
 
 The four built-in plugins run **in-process** — they are Go functions registered in `logplugin.GlobalRegistry`, not external binaries. They share the same evaluation loop as external plugins but execute without spawning a subprocess.
 
@@ -12,7 +12,7 @@ Built-in plugins use **Graphite-backed spike detection**: a rolling baseline is 
 
 ---
 
-## 12.2.2 errorlog
+## 11.2.2 errorlog
 
 **Source:** `cluster/logplugin/errorlog.go`
 
@@ -47,7 +47,7 @@ spike-sigma = 3
 
 ---
 
-## 12.2.3 sqlerrorlog
+## 11.2.3 sqlerrorlog
 
 **Source:** `cluster/logplugin/sqlerrorlog.go`
 
@@ -62,7 +62,7 @@ Analyses the SQL error log (the log of SQL statements that returned errors) for 
 
 ---
 
-## 12.2.4 slowlog
+## 11.2.4 slowlog
 
 **Source:** `cluster/logplugin/slowlog.go`
 
@@ -79,7 +79,7 @@ Analyses the slow query log for spikes in slow query count and latency. A sudden
 
 ---
 
-## 12.2.5 auditlog
+## 11.2.5 auditlog
 
 **Source:** `cluster/logplugin/auditlog.go`
 
@@ -97,7 +97,7 @@ Analyses the MariaDB audit log for activity drift. Instead of simple spike detec
 
 ---
 
-## 12.2.6 Spike Detection Algorithm
+## 11.2.6 Spike Detection Algorithm
 
 All four built-in plugins share the same underlying algorithm implemented in `cluster/logplugin/spike.go`:
 

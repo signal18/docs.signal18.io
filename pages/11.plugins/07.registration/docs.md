@@ -5,7 +5,7 @@ taxonomy:
     category: docs
 ---
 
-## 12.7.1 Instance Registration
+## 11.7.1 Instance Registration
 
 Community and Enterprise plugins require your replication-manager instance to be **registered** with the Signal18 SSO at [gitlab.signal18.io](https://gitlab.signal18.io).
 
@@ -19,15 +19,15 @@ Registration is free. It takes less than two minutes and unlocks:
 
 ---
 
-## 12.7.2 What Registration Provides
+## 11.7.2 What Registration Provides
 
-### 12.7.2.1 Community Plugin Access
+### 11.7.2.1 Community Plugin Access
 
 Once registered, replication-manager downloads the community plugin manifest on startup and keeps the plugin library up to date automatically. No manual binary management is required.
 
 ---
 
-### 12.7.2.2 Configuration Backup and Restore
+### 11.7.2.2 Configuration Backup and Restore
 
 Every cluster configuration managed by your replication-manager instance is continuously pushed to a GitLab repository in your SSO namespace. This provides:
 
@@ -35,7 +35,7 @@ Every cluster configuration managed by your replication-manager instance is cont
 - **Config restore** — on a fresh host, replication-manager clones the entire working directory from GitLab and reconstructs all cluster definitions automatically
 - **Disaster recovery** — if the replication-manager host is lost, the entire cluster topology, routing configuration, and provisioning settings can be recovered from GitLab without manual reconstruction
 
-#### 12.7.2.2.1 Starting fresh from GitLab
+#### 11.7.2.2.1 Starting fresh from GitLab
 
 There is no separate restore command. To restore on a new host, start `replication-manager monitor` with `--monitoring-restore-config-on-start` alongside the `cloud18` flags that identify your registered namespace:
 
@@ -64,11 +64,11 @@ Configuration files stored in GitLab contain no plaintext secrets — all sensit
 
 ---
 
-### 12.7.2.3 Cluster Role Sharing with External Users
+### 11.7.2.3 Cluster Role Sharing with External Users
 
 Registered instances can share cluster access with other registered SSO users — Signal18 partners, support engineers, or trusted operators. Access is managed entirely through the **replication-manager API and GUI**, not through GitLab group membership. The SSO identity from gitlab.signal18.io is used only for authentication; all role and grant decisions are made and stored by replication-manager itself.
 
-#### 12.7.2.3.1 Roles
+#### 11.7.2.3.1 Roles
 
 replication-manager defines the following built-in roles. Each role carries a default set of fine-grained grants:
 
@@ -81,7 +81,7 @@ replication-manager defines the following built-in roles. Each role carries a de
 | `sponsor` | Marketplace subscriber consuming the cluster | DB operations, show, proxy, grant, `extrole`, sales-unsubscribe, and app access |
 | `visitor` | Read-only observer | Show grants only |
 
-#### 12.7.2.3.2 Grant categories
+#### 11.7.2.3.2 Grant categories
 
 Grants are grouped by resource type. Each role receives a subset:
 
@@ -94,7 +94,7 @@ Grants are grouped by resource type. Each role receives a subset:
 | `grant-` | `grant-show`, `grant-add`, `grant-drop`, `grant-modify` | User and ACL management |
 | `show` | `db-show-variables`, `db-show-status`, `db-show-schema` | Read-only visibility |
 
-#### 12.7.2.3.3 External partner lifecycle
+#### 11.7.2.3.3 External partner lifecycle
 
 External users (partners consuming or operating a cluster via the Cloud18 marketplace) go through a managed lifecycle controlled from the replication-manager GUI:
 
@@ -106,7 +106,7 @@ Register  →  pending  →  quote  →  active  →  unsubscribed
 
 The cluster owner approves or rejects each step. An external partner in `pending` state has no operational grants until explicitly accepted. Cancelling at any stage revokes the partner's grants immediately.
 
-#### 12.7.2.3.4 ACL storage
+#### 11.7.2.3.4 ACL storage
 
 User roles and grants are stored in the cluster configuration under `api-credentials-acl-allow-external`. Each entry follows the format:
 
@@ -118,7 +118,7 @@ Changes made through the GUI or API are persisted to the cluster TOML file (and 
 
 ---
 
-### 12.7.2.4 Direct Chat with Signal18 and Partners
+### 11.7.2.4 Direct Chat with Signal18 and Partners
 
 replication-manager integrates a **Chat** tab in the GUI that connects you to the Signal18 team and marketplace partners. The chat is powered by **Mattermost** and hosted at:
 
@@ -142,7 +142,7 @@ Conversation history is retained across sessions and accessible from all three c
 
 ---
 
-### 12.7.2.5 Cloud18 Marketplace Participation
+### 11.7.2.5 Cloud18 Marketplace Participation
 
 Registration makes your instance a participant in the **Cloud18 marketplace** — a community of Signal18 partners, customers, and operators sharing database infrastructure.
 
@@ -154,7 +154,7 @@ Registration makes your instance a participant in the **Cloud18 marketplace** �
 
 ---
 
-## 12.7.3 GitLab Object Mapping
+## 11.7.3 GitLab Object Mapping
 
 Each registered instance is assigned a unique namespace in GitLab. The mapping is:
 
@@ -165,7 +165,7 @@ Config    →  Git repository    versioned TOML files inside the project
 Team      →  Group members     GitLab group membership with role assignments
 ```
 
-### 12.7.3.1 Subdomain and Namespace
+### 11.7.3.1 Subdomain and Namespace
 
 When you register, you choose (or are assigned) a **subdomain** that uniquely identifies your instance:
 
@@ -181,7 +181,7 @@ gitlab.signal18.io/<subdomain>
 
 The subdomain is **unique per registered instance** — no two instances share the same namespace. It is used as the routing key for plugin manifest delivery, configuration sync, and marketplace identity.
 
-### 12.7.3.2 Cluster Projects
+### 11.7.3.2 Cluster Projects
 
 Each cluster managed by your replication-manager instance appears as a separate GitLab project inside your group:
 
@@ -202,7 +202,7 @@ The project repository contains:
 
 ---
 
-## 12.7.4 Secret Storage
+## 11.7.4 Secret Storage
 
 Sensitive values — database passwords, replication credentials, backup encryption keys — are **never stored in plaintext** in GitLab.
 
@@ -226,7 +226,7 @@ To inspect exactly what is stored in GitLab for any cluster, browse the cluster 
 
 ---
 
-## 12.7.5 Team Management
+## 11.7.5 Team Management
 
 You have **full control** over who can access your instance and its clusters through the GitLab group interface.
 
@@ -250,7 +250,7 @@ A user added at the project level can access only that cluster; they cannot see 
 
 ---
 
-## 12.7.6 Registering Your Instance
+## 11.7.6 Registering Your Instance
 
 ```bash
 # 1. Create an account at gitlab.signal18.io if you don't have one
@@ -269,7 +269,7 @@ After registration, restart replication-manager. Community plugins are downloade
 
 ---
 
-## 12.7.7 Configuration Reference
+## 11.7.7 Configuration Reference
 
 | Key | Default | Description |
 |---|---|---|

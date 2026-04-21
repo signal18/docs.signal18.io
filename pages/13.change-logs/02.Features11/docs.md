@@ -4,7 +4,7 @@ taxonomy:
     category: docs
 ---
 
-### 14.2.0.1 Features
+### 13.2.0.1 Features
 
 * CORE: Multi cluster
 * CORE: Multi proxies

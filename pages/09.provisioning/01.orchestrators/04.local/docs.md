@@ -61,7 +61,7 @@ taxonomy:
 Some actions during bootstrap are run via command line mysql client    
 
 
-## 9.3.4.1 Sample MariaDB from source deployed in /usr/local
+## 9.2.4.1 Sample MariaDB from source deployed in /usr/local
 
 
 prov-orchestrator = "local"

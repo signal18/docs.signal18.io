@@ -4,15 +4,15 @@ taxonomy:
     category: docs
 ---
 
-## 10.1.1 Database Configurator
+## 9.3.1.1 Software Configurator
 
-The **Database Configurator** is replication-manager's built-in rules engine for generating, delivering, and tracking database and proxy configuration files. It translates a set of cluster **tags** and **hardware resource settings** into ready-to-use `my.cnf` files, directory structures, and bootstrap scripts — packaged as a `config.tar.gz` archive that an init container or SSH script can unpack directly into the service file system.
+The **Software Configurator** is replication-manager's built-in rules engine for generating, delivering, and tracking database and proxy configuration files. It translates a set of cluster **tags** and **hardware resource settings** into ready-to-use `my.cnf` files, directory structures, and bootstrap scripts — packaged as a `config.tar.gz` archive that an init container or SSH script can unpack directly into the service file system.
 
 The configurator runs on every cluster. It is the sole source of truth for the configuration files deployed to each monitored database server.
 
 ---
 
-## 10.1.2 How It Works
+## 9.3.1.2 How It Works
 
 ```
 prov-db-tags  +  prov-db-memory / disk / iops / cores
@@ -41,7 +41,7 @@ Each time tags or resource settings change, replication-manager regenerates all 
 
 ---
 
-## 10.1.3 Config Discovery
+## 9.3.1.3 Config Discovery
 
 When a cluster is first connected — or when you request it explicitly — replication-manager reads the **live database variables and installed plugins** and automatically derives the matching tags. This means you can point replication-manager at an existing, hand-tuned MariaDB server and have it reconstruct the tag set that describes that configuration.
 
@@ -97,9 +97,9 @@ Discovery also reads memory values directly from the running server (`INNODB_BUF
 
 ---
 
-## 10.1.4 Config Delivery
+## 9.3.1.4 Config Delivery
 
-### 10.1.4.1 Container mode (pro / OpenSVC / Kubernetes)
+### 9.3.1.4.1 Container mode (pro / OpenSVC / Kubernetes)
 
 The generated archive is served at:
 
@@ -129,11 +129,11 @@ initContainers:
   - 'wget -qO- http://replication-manager:10001/api/clusters/my-cluster/servers/db1/3306/config | tar xzf - -C /data'
 ```
 
-### 10.1.4.2 SSH mode (osc / onpremise)
+### 9.3.1.4.2 SSH mode (osc / onpremise)
 
 replication-manager regenerates the archive locally and can push it to database hosts over SSH. The config is unpacked into the server's data directory, and the `dbjobs_new` script is placed in `{datadir}/init/init/dbjobs_new`.
 
-### 10.1.4.3 Secure download
+### 9.3.1.4.3 Secure download
 
 By default the config endpoint requires no credentials so init containers can bootstrap without pre-provisioned tokens. To require JWT authentication (protects embedded passwords):
 
@@ -153,11 +153,11 @@ A pre-built bootstrap script that handles this flow is served at:
 
 ---
 
-## 10.1.5 Starting the Database
+## 9.3.1.5 Starting the Database
 
 The configurator provides two distinct scripts for on-premise (SSH) operation — **bootstrap** and **start** — with different behavior around config fetching and data directory initialization.
 
-### 10.1.5.1 Bootstrap vs Start
+### 9.3.1.5.1 Bootstrap vs Start
 
 | Script | When to use | Config fetch | Data directory |
 |---|---|---|---|
@@ -175,7 +175,7 @@ Scripts are served by replication-manager at:
 
 Both scripts receive all credentials and addressing via injected environment variables (`REPLICATION_MANAGER_URL`, `REPLICATION_MANAGER_USER`, `REPLICATION_MANAGER_PASSWORD`, `REPLICATION_MANAGER_CLUSTER_NAME`, `REPLICATION_MANAGER_HOST_NAME`, `REPLICATION_MANAGER_HOST_PORT`). See [Environment Variables](../../06.maintenance/00.overview#environment-variables-injected-by-replication-manager) in the Maintenance chapter.
 
-### 10.1.5.2 Conditional Config Fetch on Start
+### 9.3.1.5.2 Conditional Config Fetch on Start
 
 The `start` script does **not** unconditionally re-fetch the config archive. Before downloading anything it checks:
 
@@ -188,7 +188,7 @@ GET /api/clusters/{clusterName}/servers/{host}/{port}/need-config-fetch
 
 This matters in normal restarts: if nothing changed on the replication-manager side since the last start, the server just starts immediately using its local config — no network round-trip to fetch the archive.
 
-### 10.1.5.3 Controlling Config Fetch
+### 9.3.1.5.3 Controlling Config Fetch
 
 The `need-config-fetch` response is controlled by a per-server cookie that replication-manager manages. The cookie state is driven by:
 
@@ -207,7 +207,7 @@ prov-db-start-fetch-config = false
 
 Use `false` when you are managing config files externally (e.g., configuration management tools, manual tuning) and do not want replication-manager to overwrite them on restart.
 
-### 10.1.5.4 Preserving an Existing my.cnf
+### 9.3.1.5.4 Preserving an Existing my.cnf
 
 When the `start` or `bootstrap` script copies new `.cnf` files from the archive, it applies a **non-destructive rule for `my.cnf`**:
 
@@ -220,7 +220,7 @@ To override this and force the Signal18 config to win regardless:
 export REPLICATION_MANAGER_FORCE_CONFIG=true
 ```
 
-### 10.1.5.5 The `.system` Directory
+### 9.3.1.5.5 The `.system` Directory
 
 The archive always contains a `data/.system/` skeleton. This directory holds all files that must live inside the MySQL datadir but are **not** user data:
 
@@ -250,7 +250,7 @@ On **bootstrap**, the entire `/var/lib/mysql` is removed and the `.system` tree 
 
 On **start**, the `.system` tree is copied with `cp -rpn` which means **no file is ever overwritten**. InnoDB undo and redo logs, replication relay logs, and log files already present on disk are left completely intact. Only missing directories and files from the archive skeleton are created.
 
-### 10.1.5.6 nosplitpath — Flat Datadir Layout
+### 9.3.1.5.6 nosplitpath — Flat Datadir Layout
 
 By default all `.system` sub-paths are used. If your environment cannot accommodate a `.system` hidden directory inside the datadir — for example because your backup tooling, snapshot strategy, or storage layout requires a flat datadir — add the `nosplitpath` tag:
 
@@ -275,7 +275,7 @@ When the `nosplitpath` tag is added or removed at runtime, replication-manager d
 
 ---
 
-## 10.1.6 Regenerating Config
+## 9.3.1.6 Regenerating Config
 
 To force immediate regeneration of all config archives for a cluster (without waiting for the next monitoring tick):
 
@@ -287,7 +287,7 @@ replication-manager re-evaluates tags and resource settings, writes new `init/` 
 
 ---
 
-## 10.1.7 Filesystem Layout
+## 9.3.1.7 Filesystem Layout
 
 Inside the replication-manager working directory:
 

@@ -109,54 +109,52 @@ taxonomy:
 
 9. **Provisioning**
    - 9.1. [Overview](/provisioning/overview)
-   - 9.2. [Software Configurator](/provisioning/configurator)
-   - 9.3. **Orchestrators**
-      - 9.3.1. [OpenSVC](/provisioning/orchestrators/opensvc)
-      - 9.3.2. [SlapOS](/provisioning/orchestrators/slapos)
-      - 9.3.3. [Kubernetes](/provisioning/orchestrators/kubernetes)
-      - 9.3.4. [Local](/provisioning/orchestrators/local)
-      - 9.3.5. [Scripts](/provisioning/orchestrators/scripts)
-      - 9.3.6. [OnPremise](/provisioning/orchestrators/onpremise)
+   - 9.2. **Orchestrators**
+      - 9.2.1. [OpenSVC](/provisioning/orchestrators/opensvc)
+      - 9.2.2. [SlapOS](/provisioning/orchestrators/slapos)
+      - 9.2.3. [Kubernetes](/provisioning/orchestrators/kubernetes)
+      - 9.2.4. [Local](/provisioning/orchestrators/local)
+      - 9.2.5. [Scripts](/provisioning/orchestrators/scripts)
+      - 9.2.6. [OnPremise](/provisioning/orchestrators/onpremise)
+   - 9.3. **Software Configurator**
+      - 9.3.1. [Overview](/provisioning/configurator/overview)
+      - 9.3.2. [Tag Reference](/provisioning/configurator/tags)
+      - 9.3.3. [Config Tracking](/provisioning/configurator/config-tracking)
+      - 9.3.4. [Configuration Guide](/provisioning/configurator/configuration-guide)
    - 9.4. [Service Plan](/provisioning/serviceplan)
 
-10. **Database Configurator**
-    - 10.1. [Overview](/configurator/overview)
-    - 10.2. [Tag Reference](/configurator/tags)
-    - 10.3. [Config Tracking](/configurator/config-tracking)
-    - 10.4. [Configuration Guide](/configurator/configuration-guide)
+10. **Contribute**
+    - 10.1. [Build](/contribute/build)
+    - 10.2. [Testing](/contribute/testing)
+    - 10.3. [Report Bugs](/contribute/bugs)
+    - 10.4. [Profiling](/contribute/profiling)
 
-11. **Contribute**
-    - 11.1. [Build](/contribute/build)
-    - 11.2. [Testing](/contribute/testing)
-    - 11.3. [Report Bugs](/contribute/bugs)
-    - 11.4. [Profiling](/contribute/profiling)
+11. **Plugins**
+    - 11.1. [Plugin Architecture](/plugins/architecture)
+    - 11.2. [Built-in Log Plugins](/plugins/log-plugins)
+    - 11.3. [Workload Plugins](/plugins/workload-plugins)
+    - 11.4. [Security Plugins](/plugins/security-plugins)
+    - 11.5. [Score Plugins](/plugins/score-plugins)
+    - 11.6. [Developing Plugins](/plugins/developer)
+    - 11.7. [Instance Registration & SSO](/plugins/registration)
 
-12. **Plugins**
-    - 12.1. [Plugin Architecture](/plugins/architecture)
-    - 12.2. [Built-in Log Plugins](/plugins/log-plugins)
-    - 12.3. [Workload Plugins](/plugins/workload-plugins)
-    - 12.4. [Security Plugins](/plugins/security-plugins)
-    - 12.5. [Score Plugins](/plugins/score-plugins)
-    - 12.6. [Developing Plugins](/plugins/developer)
-    - 12.7. [Instance Registration & SSO](/plugins/registration)
+12. **HOWTO**
+    - 12.1. [Replication Best Practices](/howto/replication-best-practice)
+    - 12.2. [Enforce Best Practices](/howto/enforce-best-practice)
+    - 12.3. [Troubleshoot Crashes](/howto/toubleshoot-crashes)
 
-13. **HOWTO**
-    - 13.1. [Replication Best Practices](/howto/replication-best-practice)
-    - 13.2. [Enforce Best Practices](/howto/enforce-best-practice)
-    - 13.3. [Troubleshoot Crashes](/howto/toubleshoot-crashes)
+13. **Change Logs**
+    - 13.1. [1.0 Features](/change-logs/Features10)
+    - 13.2. [1.1 Features](/change-logs/Features11)
+    - 13.3. [2.0 Features](/change-logs/features20)
+    - 13.4. [2.1 Features](/change-logs/features21)
+    - 13.5. [2.2 Features](/change-logs/features22)
+    - 13.6. [2.3 Features](/change-logs/feature23)
+    - 13.7. [3.0 Features](/change-logs/features30)
+    - 13.8. [3.1 Features](/change-logs/features31)
+    - 13.9. [Roadmap](/change-logs/Roadmap)
 
-14. **Change Logs**
-    - 14.1. [1.0 Features](/change-logs/Features10)
-    - 14.2. [1.1 Features](/change-logs/Features11)
-    - 14.3. [2.0 Features](/change-logs/features20)
-    - 14.4. [2.1 Features](/change-logs/features21)
-    - 14.5. [2.2 Features](/change-logs/features22)
-    - 14.6. [2.3 Features](/change-logs/feature23)
-    - 14.7. [3.0 Features](/change-logs/features30)
-    - 14.8. [3.1 Features](/change-logs/features31)
-    - 14.9. [Roadmap](/change-logs/Roadmap)
-
-15. **FAQ**
+14. **FAQ**
     - [Frequently Asked Questions](/FAQ)
 
 ---

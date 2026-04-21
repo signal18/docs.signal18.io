@@ -4,7 +4,7 @@ taxonomy:
     category: docs
 ---
 
-### 14.6.0.1 Features
+### 13.6.0.1 Features
 
 * CORE: MySQL Group Replication
 * HTTP: V2 API V2 GRPC swagger /help

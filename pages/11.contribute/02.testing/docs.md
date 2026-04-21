@@ -4,7 +4,7 @@ taxonomy:
     category: docs
 ---
 
-### 11.2.0.1 Non-regression tests
+### 10.2.0.1 Non-regression tests
 
 **replication-manager** can play some predefined scenarios in a non-regression testing framework
 The tests can be called via the command line client.
@@ -46,7 +46,7 @@ replication-manager-tst --config=etc/config.toml.sample.tst.masterslave-haproxy 
 
 Some tests are requiring sysbench and haproxy, please refer to the Configuration Dependencies section to proceed further.
 
-#### 11.2.0.1.1 Command line print all tests
+#### 10.2.0.1.1 Command line print all tests
 
 ```
 ./replication-manager-cli --config=/etc/replication-manager/mrm.cnf --config-group=cluster_test_2_nodes --show-tests=true test

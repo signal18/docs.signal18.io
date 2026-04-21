@@ -5,7 +5,7 @@ taxonomy:
 ---
 
 
-## 9.3.1.3.1 Disks
+## 9.2.1.3.1 Disks
 
 ##### `prov-db-disk-fs` (1.1)
 
@@ -55,7 +55,7 @@ pool: define the pool name
 loopback: define  the path to create the loopback file
 directory: define the path to create the service_name directory
 
-## 9.3.1.3.2 network
+## 9.2.1.3.2 network
 
 Network please check availability of the ip before using them , also some opensvc deployemetn can manage range of dhcp ip and DNS entries   
 
