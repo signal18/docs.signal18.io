@@ -4,172 +4,192 @@ taxonomy:
     category: docs
 ---
 
-## 2.7.1 Instance Registration & SSO
+## 2.5.1 Overview
 
-Community and Enterprise plugins require your replication-manager instance to be **registered** with the Signal18 SSO at [gitlab.signal18.io](https://gitlab.signal18.io).
+Registering your replication-manager instance with the Signal18 DBAaS platform links it to a **GitLab identity** at [gitlab.signal18.io](https://gitlab.signal18.io). Registration is required to use:
 
-Registration is free. It takes less than two minutes and unlocks:
-
+- **Config backup and restore** — all cluster configurations versioned in a private GitLab repository, recoverable on any new instance in one command
 - **Community plugins** — the full library of workload, security, and score plugins, kept up to date automatically
-- **Config backup & restore** — all cluster configurations versioned in GitLab, recoverable on any new replication-manager instance in one command
 - **Cluster role sharing** — grant scoped access to any cluster to other registered SSO users without sharing credentials or VPN
-- **Direct chat** — a built-in chat panel in the replication-manager GUI for real-time conversation with the Signal18 team and marketplace partners
-- **Cloud18 marketplace** — consume clusters provided by other participants or publish your own; become an active Signal18 partner or customer
+- **Cloud18 marketplace** — consume clusters provided by other participants or publish your own
 
 ---
 
-## 2.7.2 Registering Your Instance
+## 2.5.2 Concepts — Domain, Subdomain, Zone
+
+Every registered instance is identified by three slugs that together form a unique cluster slot:
+
+| Field | Role | Example |
+|---|---|---|
+| `domain` | Organisation or company namespace — maps to a **GitLab group** | `mycompany` |
+| `subdomain` | Datacenter or environment label | `ovh` |
+| `zone` | Cluster zone identifier | `fr-1` |
+
+The three fields are combined as `domain.subdomain.zone` (the **URI**) when calling the API.
+
+Inside GitLab the following objects are created:
+
+| Object | Path |
+|---|---|
+| GitLab group | `gitlab.signal18.io/mycompany/` |
+| Main config repository | `gitlab.signal18.io/mycompany/mycompany-ovh-fr-1.git` |
+| Peer distribution repository | `gitlab.signal18.io/mycompany/mycompany-ovh-fr-1-pull.git` |
+
+`subdomain.zone` must be unique within the same `domain`. `domain.subdomain.zone` is globally unique across all registered instances.
+
+---
+
+## 2.5.3 Registering via the API
+
+Registration is performed by the **admin user** through the replication-manager REST API:
 
 ```bash
-# 1. Create an account at gitlab.signal18.io if you don't have one
+# Obtain an admin token first
+TOKEN=$(curl -s -X POST https://repman-host:10005/api/login \
+  -H "Content-Type: application/json" \
+  -d '{"username":"admin","password":"repman"}' | jq -r .token)
 
-# 2. Register the instance and obtain your SSO token
-replication-manager instance-register \
-    --gitlab-token <your-gitlab-personal-access-token> \
-    --subdomain <your-chosen-subdomain>
-
-# 3. replication-manager writes the issued token automatically to:
-#   monitoring-instance-token = "eyJ..."
+# Register the instance
+curl -X POST https://repman-host:10005/api/register \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "email":    "admin@mycompany.com",
+    "password": "gitlab_password",
+    "uri":      "mycompany.ovh.fr-1"
+  }'
 ```
 
-After registration, restart replication-manager. Community plugins are downloaded on the first startup and updated automatically on subsequent reloads.
+**Request fields:**
+
+| Field | Required | Description |
+|---|---|---|
+| `email` | Yes | Email address for the new GitLab account |
+| `password` | Yes | Password for the new GitLab account (min 8 chars) |
+| `uri` | Yes | `domain.subdomain.zone` — all lowercase, alphanumeric and hyphens |
+
+**Responses:**
+
+| HTTP | Meaning |
+|---|---|
+| `201 Created` | Registration and connect succeeded — instance is live |
+| `201 Created` + `connect_error` field | GitLab account and projects created but the connect step failed — see [2.5.4](#2-5-4-what-happens-on-success) |
+| `400 Bad Request` | Invalid input (missing field, bad URI format, weak password) |
+| `401 Unauthorized` | No valid JWT provided |
+| `403 Forbidden` | Authenticated user is not `admin` |
+| `409 Conflict` | Email or zone already registered |
+| `502 Bad Gateway` | CRM API unreachable |
 
 ---
 
-## 2.7.3 Community Plugin Access
+## 2.5.4 What Happens on Success
 
-Once registered, replication-manager downloads the community plugin manifest on startup and keeps the plugin library up to date automatically. No manual binary management is required.
+When the CRM API returns `201`, replication-manager automatically runs the **connect flow** without requiring a restart:
 
-See [Plugins](../../../plugins) for the full plugin reference — architecture, workload plugins, security plugins, score plugins, and how to write your own.
+1. Sets `cloud18-domain`, `cloud18-sub-domain`, `cloud18-sub-domain-zone` from the URI
+2. Stores the GitLab credentials (`cloud18-gitlab-user`, `cloud18-gitlab-password`)
+3. Authenticates to `gitlab.signal18.io` with basic auth and obtains an OAuth token
+4. Creates a **personal access token** named `domain-subdomain-zone` in GitLab
+5. Idempotently creates the main and pull Git projects under the domain group
+6. Sets `git-url` and `git-url-pull` in the running configuration
+7. Clones the config repository into the working directory (if `monitoring-restore-config-on-start` is set)
+
+After this, replication-manager continuously pushes configuration changes to GitLab on every tick — no restart required.
+
+If step 3–7 fail (e.g. GitLab is temporarily unreachable), the response still returns `201` but includes a `connect_error` field. In that case trigger connect manually by setting `cloud18=true` in global settings once GitLab is reachable.
 
 ---
 
-## 2.7.4 Configuration Backup and Restore
+## 2.5.5 Registering via the CLI
 
-Every cluster configuration is continuously pushed to a GitLab repository in your SSO namespace:
+```bash
+replication-manager-cli register \
+  --host repman-host \
+  --port 10005 \
+  --user admin \
+  --email admin@mycompany.com \
+  --uri mycompany.ovh.fr-1
+```
 
-- **Full audit history** — every configuration change is a Git commit with author, timestamp, and diff
-- **Config restore** — on a fresh host, replication-manager clones the entire working directory from GitLab and reconstructs all cluster definitions automatically
-- **Disaster recovery** — topology, routing configuration, and provisioning settings all recovered from GitLab
+The CLI prompts for the GitLab account password interactively (hidden input), then calls `POST /api/register` on the running replication-manager server. The server handles all GitLab communication — the CLI only needs access to the replication-manager API port.
 
-#### 2.7.4.0.1 Starting fresh from GitLab
+---
+
+## 2.5.6 Starting Fresh from GitLab (Restore)
+
+To bootstrap a new replication-manager host from an existing GitLab config repository:
+
+```toml
+# config.toml
+cloud18                          = true
+cloud18-domain                   = "mycompany"
+cloud18-sub-domain               = "ovh"
+cloud18-sub-domain-zone          = "fr-1"
+cloud18-gitlab-user              = "admin@mycompany.com"
+cloud18-gitlab-password          = "gitlab_password"
+monitoring-restore-config-on-start = true
+```
+
+Or as command-line flags:
 
 ```bash
 replication-manager monitor \
   --cloud18 \
   --monitoring-restore-config-on-start \
-  --cloud18-domain          <your-organisation> \
-  --cloud18-sub-domain      <your-instance-subdomain> \
-  --cloud18-sub-domain-zone <your-geo-zone> \
-  --cloud18-gitlab-user     <your-gitlab-user> \
-  --cloud18-gitlab-password <your-gitlab-password>
+  --cloud18-domain          mycompany \
+  --cloud18-sub-domain      ovh \
+  --cloud18-sub-domain-zone fr-1 \
+  --cloud18-gitlab-user     admin@mycompany.com \
+  --cloud18-gitlab-password gitlab_password
 ```
 
-When `--monitoring-restore-config-on-start` is set, replication-manager:
+When `monitoring-restore-config-on-start` is set, replication-manager:
 
-1. Authenticates to gitlab.signal18.io and obtains a personal access token
-2. Clones `gitlab.signal18.io/<domain>/<subdomain>-<zone>.git` into the working directory — replacing any existing local config
-3. Clones the read-only pull mirror `<subdomain>-<zone>-pull.git` into `<working-dir>/.pull`
+1. Authenticates to `gitlab.signal18.io` and obtains a personal access token
+2. Clones `gitlab.signal18.io/mycompany/mycompany-ovh-fr-1.git` into the working directory — replacing any existing local config
+3. Clones the pull mirror `mycompany-ovh-fr-1-pull.git` into `<working-dir>/.pull`
 4. Clears the flag so the restore does not repeat on the next restart
 5. Reads `cloud18.toml` and reconstructs all cluster definitions
 
-Configuration files stored in GitLab contain no plaintext secrets — all sensitive values are stored in AES-encrypted form. The encryption key is generated locally and **never leaves the host**.
+---
+
+## 2.5.7 Configuration Reference
+
+| Parameter | Default | Scope | Description |
+|---|---|---|---|
+| `cloud18` | `false` | server | Enable GitLab config sync and SSO integration |
+| `cloud18-domain` | `""` | server | Organisation namespace (maps to GitLab group) |
+| `cloud18-sub-domain` | `""` | server | Datacenter or environment label |
+| `cloud18-sub-domain-zone` | `""` | server | Geo-zone identifier |
+| `cloud18-gitlab-user` | `""` | server | GitLab username or email used to authenticate |
+| `cloud18-gitlab-password` | `""` | server | GitLab password (stored AES-encrypted) |
+| `cloud18-crm-api-url` | `https://api.crm.ovh-fr-2.signal18.cloud18.io` | server | CRM API base URL called by `POST /api/register` |
+| `monitoring-restore-config-on-start` | `false` | server | Clone config from GitLab on startup and wipe local working directory |
 
 ---
 
-## 2.7.5 Cluster Role Sharing with External Users
+## 2.5.8 GitLab Object Mapping
 
-Registered instances can share cluster access with other registered SSO users — Signal18 partners, support engineers, or trusted operators. Access is managed entirely through the **replication-manager API and GUI**.
-
-### 2.7.5.1 Roles
-
-| Role | Who it is for | Default grant scope |
-|---|---|---|
-| `sysops` | Local infrastructure operator (owner) | All grants — full access |
-| `dbops` | Local database operator | DB operations — no provisioning, no global settings |
-| `extsysops` | External SysOps partner (Cloud18) | Same as `sysops` minus sales and global settings |
-| `extdbops` | External DBOps partner (Cloud18) | DB, show, proxy, grant operations |
-| `sponsor` | Marketplace subscriber | DB operations, show, proxy, grant, app access |
-| `visitor` | Read-only observer | Show grants only |
-
-### 2.7.5.2 External Partner Lifecycle
-
-```
-Register  →  pending  →  quote  →  active  →  unsubscribed
-              (waiting     (price     (full       (access
-               approval)   proposed)  access)     revoked)
-```
-
----
-
-## 2.7.6 Direct Chat with Signal18 and Partners
-
-replication-manager integrates a **Chat** tab in the GUI powered by **Mattermost** at [meet.signal18.io](https://meet.signal18.io). All three connection methods use your gitlab.signal18.io SSO identity — no separate Mattermost account needed:
-
-- **replication-manager GUI** — the Chat tab authenticates automatically via your active GitLab SSO session
-- **Browser** — go to [meet.signal18.io](https://meet.signal18.io) and click **Sign in with GitLab**
-- **Desktop / mobile client** — add `https://meet.signal18.io` as a server in the [Mattermost app](https://mattermost.com/download/) and sign in with GitLab OAuth
-
-| Channel | Who you reach |
+| replication-manager concept | GitLab object |
 |---|---|
-| **Support** | Signal18 engineering and support team |
-| **Community** | Other registered replication-manager operators |
-| **Partners** | Marketplace partners you are connected to |
+| Organisation (`domain`) | GitLab group `gitlab.signal18.io/<domain>/` |
+| Instance slot (`subdomain-zone`) | GitLab project `<domain>-<subdomain>-<zone>` under the group |
+| Peer distribution | GitLab project `<domain>-<subdomain>-<zone>-pull` under the group |
+| Config history | Commits in the main project repository |
+| Team access | GitLab group and project membership with role assignments |
 
 ---
 
-## 2.7.7 GitLab Object Mapping
+## 2.5.9 Secret Storage
 
-Each registered instance is assigned a unique namespace:
-
-```
-Instance  →  GitLab Group      gitlab.signal18.io/<subdomain>/
-Cluster   →  GitLab Project    gitlab.signal18.io/<subdomain>/<cluster-name>/
-Config    →  Git repository    versioned TOML files inside the project
-Team      →  Group members     GitLab group membership with role assignments
-```
-
-Your subdomain maps one-to-one to your GitLab group and is the routing key for plugin delivery, configuration sync, and marketplace identity.
-
----
-
-## 2.7.8 Secret Storage
-
-All secrets (passwords, encryption keys) are **AES-encrypted** at the replication-manager host before being written to GitLab. The encryption key is generated locally (`replication-manager keygen`) and never leaves the host.
+All secrets (passwords, encryption keys) are **AES-encrypted** at the replication-manager host before being written to GitLab. The encryption key is generated locally and never leaves the host.
 
 ```
 replication-manager host
-    └─ AES encryption key (local, never synced)
+    └─ AES encryption key  (local only — never synced)
            │
            ▼
-     encrypted secret → GitLab repository (ciphertext only)
+     encrypted value  →  GitLab repository  (ciphertext only)
 ```
 
----
-
-## 2.7.9 Team Management
-
-To manage who can access your instance and its clusters:
-
-1. Go to `gitlab.signal18.io/<subdomain>` — your instance group
-2. Open **Manage → Members**
-3. Add, remove, or change the role of any member
-
-Changes take effect on the next replication-manager authentication sync — no restart required.
-
-To share a **single cluster** without instance-wide access, manage membership at the project level:
-
-```
-gitlab.signal18.io/<subdomain>/<cluster-name>/ → Manage → Members
-```
-
----
-
-## 2.7.10 Configuration Reference
-
-| Key | Default | Description |
-|---|---|---|
-| `monitoring-instance-token` | `""` | JWT issued at registration — identifies this instance to the Signal18 SSO |
-| `plugin-registry-url` | `https://registry.signal18.io` | Community plugin manifest endpoint |
-| `plugin-auto-update` | `true` | Automatically download updated community plugins on reload |
-| `gitlab-url` | `https://gitlab.signal18.io` | GitLab instance used for config sync and team management |
+See [Security — Configuration Guide](/security/configuration-guide) for key generation and rotation.
