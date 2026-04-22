@@ -273,7 +273,15 @@ After registration, restart replication-manager. Community plugins are downloade
 
 | Key | Default | Description |
 |---|---|---|
-| `monitoring-instance-token` | `""` | JWT issued at registration — identifies this instance to the Signal18 SSO |
-| `plugin-registry-url` | `https://registry.signal18.io` | Community plugin manifest endpoint |
-| `plugin-auto-update` | `true` | Automatically download updated community plugins on reload |
-| `gitlab-url` | `https://gitlab.signal18.io` | GitLab instance used for config sync and team management |
+| `cloud18` | `false` | Enable GitLab config sync and SSO integration — required to use community plugins |
+| `cloud18-domain` | `""` | Organisation namespace (maps to GitLab group) |
+| `cloud18-sub-domain` | `""` | Datacenter or environment label |
+| `cloud18-sub-domain-zone` | `""` | Geo-zone identifier |
+| `cloud18-gitlab-user` | `""` | GitLab username or email used to authenticate |
+| `cloud18-gitlab-password` | `""` | GitLab password (stored AES-encrypted) |
+| `monitoring-plugins` | `false` | Enable the plugin monitoring subsystem |
+| `plugin-signing-public-key` | `""` | Public key used to verify plugin signatures — set automatically by the backoffice on registration |
+| `log-plugin` | `false` | Enable per-plugin logging |
+| `log-level-plugin` | `0` | Verbosity level for plugin log output |
+
+For the full Cloud18/registration config reference see [2.5.7 Configuration Reference](/installation/registration#2-5-7-configuration-reference).
