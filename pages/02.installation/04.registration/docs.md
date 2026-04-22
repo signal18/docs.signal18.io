@@ -42,7 +42,9 @@ Inside GitLab the following objects are created:
 
 ## 2.5.3 Registering via the API
 
-Registration is performed by the **admin user** through the replication-manager REST API:
+Registration is a **two-step** process. The admin user calls both endpoints in sequence.
+
+### Step 1 — Create the GitLab account
 
 ```bash
 # Obtain an admin token first
@@ -50,7 +52,7 @@ TOKEN=$(curl -s -X POST https://repman-host:10005/api/login \
   -H "Content-Type: application/json" \
   -d '{"username":"admin","password":"repman"}' | jq -r .token)
 
-# Register the instance
+# Step 1: create the GitLab account — GitLab sends a confirmation email
 curl -X POST https://repman-host:10005/api/register \
   -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
@@ -61,31 +63,63 @@ curl -X POST https://repman-host:10005/api/register \
   }'
 ```
 
-**Request fields:**
+This creates a GitLab account at [gitlab.signal18.io](https://gitlab.signal18.io) and triggers GitLab's own email confirmation. **No external mailer is needed** — GitLab handles all email delivery through its built-in SMTP.
+
+**Step 1 request fields:**
 
 | Field | Required | Description |
 |---|---|---|
-| `email` | Yes | Email address for the new GitLab account |
+| `email` | Yes | Email address — used as the GitLab username |
 | `password` | Yes | Password for the new GitLab account (min 8 chars) |
 | `uri` | Yes | `domain.subdomain.zone` — all lowercase, alphanumeric and hyphens |
 
-**Responses:**
+**Step 1 responses:**
 
 | HTTP | Meaning |
 |---|---|
-| `201 Created` | Registration and connect succeeded — instance is live |
-| `201 Created` + `connect_error` field | GitLab account and projects created but the connect step failed — see [2.5.4](#2-5-4-what-happens-on-success) |
+| `202 Accepted` | GitLab account created — confirmation email sent by GitLab |
 | `400 Bad Request` | Invalid input (missing field, bad URI format, weak password) |
 | `401 Unauthorized` | No valid JWT provided |
 | `403 Forbidden` | Authenticated user is not `admin` |
-| `409 Conflict` | Email or zone already registered |
+| `409 Conflict` | Email already confirmed or zone already registered |
+| `502 Bad Gateway` | CRM API unreachable |
+
+### Step 2 — Confirm email and complete registration
+
+Click the confirmation link in the GitLab email, then call:
+
+```bash
+# Step 2: confirm email and create group + projects
+curl -X POST https://repman-host:10005/api/register/confirm \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "email":    "admin@mycompany.com",
+    "password": "gitlab_password",
+    "uri":      "mycompany.ovh.fr-1"
+  }'
+```
+
+The CRM verifies that the GitLab account is confirmed (`confirmed_at` is set), then creates the domain group and both Git projects. On success, replication-manager automatically runs the connect flow — no restart required.
+
+**Step 2 responses:**
+
+| HTTP | Meaning |
+|---|---|
+| `201 Created` | Registration complete — Cloud18 connect flow ran successfully |
+| `201 Created` + `connect_error` field | Projects created but connect failed — see [2.5.4](#2-5-4-what-happens-on-success) |
+| `400 Bad Request` | Email not yet confirmed — click the GitLab confirmation link first |
+| `401 Unauthorized` | No valid JWT provided |
+| `403 Forbidden` | Authenticated user is not `admin` |
+| `404 Not Found` | GitLab account not found — complete step 1 first |
+| `409 Conflict` | Zone already registered |
 | `502 Bad Gateway` | CRM API unreachable |
 
 ---
 
 ## 2.5.4 What Happens on Success
 
-When the CRM API returns `201`, replication-manager automatically runs the **connect flow** without requiring a restart:
+When the CRM API returns `201` on the confirm step, replication-manager automatically runs the **connect flow** without requiring a restart:
 
 1. Sets `cloud18-domain`, `cloud18-sub-domain`, `cloud18-sub-domain-zone` from the URI
 2. Stores the GitLab credentials (`cloud18-gitlab-user`, `cloud18-gitlab-password`)
@@ -101,18 +135,14 @@ If step 3–7 fail (e.g. GitLab is temporarily unreachable), the response still 
 
 ---
 
-## 2.5.5 Registering via the CLI
+## 2.5.5 Registering via the GUI
 
-```bash
-replication-manager-cli register \
-  --host repman-host \
-  --port 10005 \
-  --user admin \
-  --email admin@mycompany.com \
-  --uri mycompany.ovh.fr-1
-```
+Open **Global Settings → Cloud18** in the replication-manager dashboard. Click **Register** to open the two-step wizard:
 
-The CLI prompts for the GitLab account password interactively (hidden input), then calls `POST /api/register` on the running replication-manager server. The server handles all GitLab communication — the CLI only needs access to the replication-manager API port.
+1. **Step 1** — fill in email, GitLab password, domain, subdomain, and zone, then click **Send Confirmation Email**. GitLab sends a confirmation link to the provided address.
+2. **Step 2** — click the link in the GitLab email to confirm your account, then return to the dashboard and click **Complete Registration**. The server verifies the confirmation and creates the group and projects automatically.
+
+The Register button is disabled while Cloud18 is already connected. Disconnect first to re-register.
 
 ---
 
