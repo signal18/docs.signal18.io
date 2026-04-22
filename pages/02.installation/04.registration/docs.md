@@ -12,6 +12,7 @@ Registering your replication-manager instance with the Signal18 DBAaS platform l
 - **Community plugins** — the full library of workload, security, and score plugins, kept up to date automatically
 - **Cluster role sharing** — grant scoped access to any cluster to other registered SSO users without sharing credentials or VPN
 - **Cloud18 marketplace** — consume clusters provided by other participants or publish your own
+- **Direct chat** — real-time messaging with the Signal18 team and partners
 
 ---
 
