@@ -63,7 +63,13 @@ See [HTTPS Bastion and Terminal](https-bastion) for configuration, role mapping,
 
 ---
 
-## 7.1.4 Database Compliance
+## 7.1.4 Network Traffic
+
+All network flows required for a replication-manager deployment — internal cluster traffic and outbound connections to Signal18 cloud services (CRM, GitLab, Meet) — are documented in [Network Traffic](network-traffic). The page cross-references the inbound port requirements in [Network Ports](/installation/network-ports) and provides a firewall rule summary for egress-filtered environments.
+
+---
+
+## 7.1.5 Database Compliance
 
 replication-manager includes a continuous compliance engine that audits every managed database server against **CIS MySQL/MariaDB Benchmark** controls. Findings are raised as typed `SEC01xx` codes, surfaced in the GUI, logged to `security.log`, and — where possible — fixed automatically at runtime or via a rolling restart, without manual DBA intervention.
 
@@ -73,7 +79,7 @@ See [Database Compliance](database-compliance) for the full control list, remedi
 
 ---
 
-## 7.1.5 Supply Chain and Regulatory Compliance
+## 7.1.6 Supply Chain and Regulatory Compliance
 
 A **CycloneDX SBOM** (Software Bill of Materials) is published with every release, listing all 279 Go module dependencies with versions, PURLs, and hashes. Operators can feed the SBOM into standard vulnerability scanners (Grype, Trivy, OSV-Scanner) or SCA platforms (Dependency-Track, Snyk).
 
@@ -81,6 +87,6 @@ Signal18 publishes the SBOM and maintains a vulnerability disclosure process as 
 
 ---
 
-## 7.1.6 Configuration Guide
+## 7.1.7 Configuration Guide
 
 See [Configuration Guide](configuration-guide) for all TLS, Vault, encryption, and ACL configuration keys.
