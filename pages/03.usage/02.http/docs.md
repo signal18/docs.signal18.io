@@ -117,3 +117,68 @@ server {
 ```
 
 > This pattern predates the JWT-based authentication introduced in replication-manager 2.1. The built-in JWT login at `https://<host>:10005` is now preferred for direct access. Basic-auth nginx proxying is still valid when you need an additional authentication layer in front of the HTTP server.
+
+---
+
+## 3.3.6 Auto-Login (Trusted Networks)
+
+For internal or air-gapped deployments where a login form adds no value, replication-manager can issue a JWT token automatically when the browser opens the dashboard.
+
+When `api-autologin = true`, a public endpoint `GET /api/autologin` is activated. The dashboard login page calls this endpoint on load and, if it returns a token, skips the login form entirely and redirects to the main view.
+
+**Configuration:**
+
+```toml
+# replication-manager.toml
+api-autologin      = true
+api-autologin-user = "admin"   # optional — admin is the default
+```
+
+Or as command-line flags:
+
+```bash
+replication-manager monitor --api-autologin --api-autologin-user admin
+```
+
+**How it works:**
+
+1. The browser opens the dashboard and the login page loads
+2. The login page calls `GET /api/autologin` (no credentials required)
+3. The server validates that `api-autologin-user` exists in `api-credentials`, then mints a JWT token for that user
+4. The token is stored in the browser's `localStorage` and the dashboard opens immediately
+
+If `api-autologin = false` (the default) the endpoint returns `404` and the login form is displayed normally.
+
+> **Security note:** The `/api/autologin` endpoint returns a valid admin token to anyone who can reach it. Only enable this on networks where access to port `10005` is already restricted (private LAN, VPN, firewall rule). Do not enable on a publicly reachable host.
+
+---
+
+## 3.3.7 Read-Only Dashboard (`/dashboard`)
+
+For a public or shared display — a wall screen, NOC board, or a link shared with non-admin users — replication-manager exposes a dedicated `/dashboard` URL that automatically logs the visitor in as a read-only user.
+
+Unlike `api-autologin`, the dashboard endpoint is always active as soon as `api-dashboard-user` is set. No separate enable flag is required. The user must exist in `api-credentials` and its ACL should be restricted to read-only operations.
+
+**Step 1 — Define a read-only user**
+
+Add a viewer account to `api-credentials` and restrict its ACL to `show` only:
+
+```toml
+api-credentials         = "admin:repman,dba:repman,viewer:viewerpassword"
+api-credentials-acl-allow = "admin:cluster db proxy prov global grant show sale extrole terminal,dba:cluster proxy db,viewer:show"
+api-dashboard-user      = "viewer"
+```
+
+**Step 2 — Access the dashboard**
+
+Navigate to `http://<host>:10005/dashboard` (or the equivalent HTTPS URL). The login page is skipped — the browser receives a JWT for the `viewer` account and opens the main dashboard view.
+
+The `viewer` user can monitor cluster state, read server metrics, and browse logs, but cannot perform any write operations (switchover, failover, configuration changes, provisioning).
+
+**Configuration reference:**
+
+| Parameter | Default | Description |
+|-----------|---------|-------------|
+| `api-dashboard-user` | `""` | Username to use for `/dashboard` auto-login. Empty = endpoint disabled (returns 404). |
+
+> **Security note:** `GET /api/dashboard-token` returns a token to any visitor without credentials. Set the `viewer` user's ACL to the minimum required (e.g. `show` only). The endpoint is disabled when `api-dashboard-user` is empty — remove or clear the key to turn it off.
