@@ -63,7 +63,17 @@ See [HTTPS Bastion and Terminal](https-bastion) for configuration, role mapping,
 
 ---
 
-## 7.1.4 Supply Chain and Regulatory Compliance
+## 7.1.4 Database Compliance
+
+replication-manager includes a continuous compliance engine that audits every managed database server against **CIS MySQL/MariaDB Benchmark** controls. Findings are raised as typed `SEC01xx` codes, surfaced in the GUI, logged to `security.log`, and — where possible — fixed automatically at runtime or via a rolling restart, without manual DBA intervention.
+
+The engine is powered by **security plugins** distributed through the Signal18 registry. Plugins are available on all plans, including Free. A registered instance (`cloud18 = true`, `monitoring-plugins = true`) downloads and updates the plugin library automatically.
+
+See [Database Compliance](database-compliance) for the full control list, remediation API, plugin installation, and plan comparison.
+
+---
+
+## 7.1.5 Supply Chain and Regulatory Compliance
 
 A **CycloneDX SBOM** (Software Bill of Materials) is published with every release, listing all 279 Go module dependencies with versions, PURLs, and hashes. Operators can feed the SBOM into standard vulnerability scanners (Grype, Trivy, OSV-Scanner) or SCA platforms (Dependency-Track, Snyk).
 
@@ -71,6 +81,6 @@ Signal18 publishes the SBOM and maintains a vulnerability disclosure process as 
 
 ---
 
-## 7.1.5 Configuration Guide
+## 7.1.6 Configuration Guide
 
 See [Configuration Guide](configuration-guide) for all TLS, Vault, encryption, and ACL configuration keys.
