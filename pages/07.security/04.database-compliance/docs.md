@@ -122,7 +122,7 @@ All security plugins are available on **every plan including Free**. The plan af
 
 > **Alert forwarding** — Support, Support+Services, and Partner plans forward cluster ALERT/ALERTOK events (including compliance findings at alert level) to the Signal18 operations team automatically. Free plan findings are surfaced locally only.
 
-To change your plan: **Global Settings → Cloud18 → Marketplace** in the GUI, or see [Subscription Plans](/installation/registration#2-5-6-subscription-plans).
+To change your plan: **Global Settings → Register → Marketplace** in the GUI, or see [Subscription Plans](/installation/registration#2-5-6-subscription-plans).
 
 ---
 

@@ -200,7 +200,7 @@ Every registered instance starts on the **Free** plan. Plans are per URI — a u
 | Support + Services | `support-services` | Adds 12 days per year of DBA services on top of Support. |
 | Partner | `partner` | Market Place partner — expose clusters for sale or consume partner-provided clusters. |
 
-Plans can be changed at any time from **Global Settings → Cloud18 → Marketplace** in the GUI, or via the API:
+Plans can be changed at any time from **Global Settings → Register → Marketplace** in the GUI, or via the API:
 
 ```bash
 TOKEN=$(curl -s -X POST https://repman-host:10005/api/login \
@@ -224,7 +224,7 @@ curl -s -X POST https://repman-host:10005/api/register/subscription \
 
 ## 2.5.7 Registering via the GUI
 
-Open **Global Settings → Cloud18** in the replication-manager dashboard. Click **Register** to open the two-step wizard:
+Open **Global Settings → Register** in the replication-manager dashboard. Click **Register** to open the two-step wizard:
 
 1. **Step 1** — fill in email, GitLab password, domain, subdomain, and zone, then click **Send Confirmation Email**. GitLab sends a confirmation link to the provided address.
 2. **Step 2** — click the link in the GitLab email to confirm your account, then return to the dashboard and click **Complete Registration**. The server verifies the confirmation and creates the group and projects automatically.
