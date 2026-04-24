@@ -135,7 +135,94 @@ If step 3–7 fail (e.g. GitLab is temporarily unreachable), the response still 
 
 ---
 
-## 2.5.5 Registering via the GUI
+## 2.5.5 Registering via the CLI
+
+The `replication-manager-cli register` command drives the same two-step flow from the terminal. It prompts for the GitLab password interactively (hidden input) so the password never appears in shell history.
+
+### Default mode — register and wait
+
+```bash
+replication-manager-cli register \
+  --host  repman-host \
+  --port  10005 \
+  --user  admin \
+  --email admin@mycompany.com \
+  --uri   mycompany.ovh.fr-1
+```
+
+```
+GitLab password for admin@mycompany.com: ••••••••
+GitLab account requested for admin@mycompany.com.
+A confirmation email will be sent by GitLab. Please click the link to confirm.
+Waiting for confirmation (up to 5 minutes) …
+Registration complete. Cloud18 is now active for mycompany.ovh.fr-1.
+```
+
+The CLI polls `GET /api/register/status` every 10 seconds for up to 5 minutes while you click the GitLab confirmation link. Once confirmed it exits with a success message.
+
+### Manual confirm mode
+
+If the background poller already ran (or you want explicit control), pass `--confirm` after clicking the link:
+
+```bash
+replication-manager-cli register \
+  --host  repman-host \
+  --port  10005 \
+  --user  admin \
+  --email admin@mycompany.com \
+  --uri   mycompany.ovh.fr-1 \
+  --confirm
+```
+
+This calls `POST /api/register/confirm` once and exits immediately with the result.
+
+### Flags
+
+| Flag | Required | Description |
+|---|---|---|
+| `--email` | Yes | Email address for the GitLab account |
+| `--uri` | Yes | Registration URI in `domain.subdomain.zone` format |
+| `--confirm` | No | Skip polling — call confirm endpoint directly (use after clicking the email link) |
+| `--host` | Yes | replication-manager server hostname or IP |
+| `--port` | No | API port (default `10005`) |
+| `--user` | No | API user (default `admin`) |
+
+---
+
+## 2.5.6 Subscription Plans
+
+Every registered instance starts on the **Free** plan. Plans are per URI — a user with several repman instances can put each on a different tier.
+
+| Plan | Value | Description |
+|---|---|---|
+| Free | `free` | Default. Community plugins included. No alert forwarding to Signal18. |
+| Support | `support` | Bug fixes, developer sponsorship, feature requests, enterprise plugins. |
+| Support + Services | `support-services` | Adds 12 days per year of DBA services on top of Support. |
+| Partner | `partner` | Market Place partner — expose clusters for sale or consume partner-provided clusters. |
+
+Plans can be changed at any time from **Global Settings → Cloud18 → Marketplace** in the GUI, or via the API:
+
+```bash
+TOKEN=$(curl -s -X POST https://repman-host:10005/api/login \
+  -H "Content-Type: application/json" \
+  -d '{"username":"admin","password":"repman"}' | jq -r .token)
+
+# Get the current plan for your instance
+curl -s "https://repman-host:10005/api/register/subscription?uri=mycompany.ovh.fr-1" \
+  -H "Authorization: Bearer $TOKEN"
+
+# Change to the Support plan
+curl -s -X POST https://repman-host:10005/api/register/subscription \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"uri":"mycompany.ovh.fr-1","plan":"support"}'
+```
+
+> **Alert forwarding** — only non-free instances forward cluster ALERT/ALERTOK notifications to the Signal18 operations team. Free instances monitor locally only.
+
+---
+
+## 2.5.7 Registering via the GUI
 
 Open **Global Settings → Cloud18** in the replication-manager dashboard. Click **Register** to open the two-step wizard:
 
@@ -146,7 +233,7 @@ The Register button is disabled while Cloud18 is already connected. Disconnect f
 
 ---
 
-## 2.5.6 Starting Fresh from GitLab (Restore)
+## 2.5.8 Starting Fresh from GitLab (Restore)
 
 To bootstrap a new replication-manager host from an existing GitLab config repository:
 
@@ -184,7 +271,7 @@ When `monitoring-restore-config-on-start` is set, replication-manager:
 
 ---
 
-## 2.5.7 Configuration Reference
+## 2.5.9 Configuration Reference
 
 | Parameter | Default | Scope | Description |
 |---|---|---|---|
@@ -199,7 +286,7 @@ When `monitoring-restore-config-on-start` is set, replication-manager:
 
 ---
 
-## 2.5.8 GitLab Object Mapping
+## 2.5.10 GitLab Object Mapping
 
 | replication-manager concept | GitLab object |
 |---|---|
@@ -211,7 +298,7 @@ When `monitoring-restore-config-on-start` is set, replication-manager:
 
 ---
 
-## 2.5.9 Secret Storage
+## 2.5.11 Secret Storage
 
 All secrets (passwords, encryption keys) are **AES-encrypted** at the replication-manager host before being written to GitLab. The encryption key is generated locally and never leaves the host.
 
