@@ -6,7 +6,67 @@ taxonomy:
 
 ## 2.5.1 First Login
 
-After starting replication-manager for the first time, access the web GUI at `https://<host>:10005` (or `https://localhost:10005` during local setup).
+replication-manager exposes **two HTTP listeners** that serve the dashboard and REST API. The one you use depends on your deployment topology:
+
+| Listener | Default port | Protocol | Bind | Use case |
+|----------|-------------|----------|------|----------|
+| **API server** (`api-port`) | `10005` | HTTP or HTTPS | `0.0.0.0` | Direct browser and CLI access. Switches to HTTPS automatically when `monitoring-ssl-cert` is set. |
+| **HTTP server** (`http-port`) | `10001` | HTTP only | `localhost` | Reverse-proxy deployments — TLS is terminated at the proxy (nginx, HAProxy, Traefik). Serves the full dashboard and API over plain HTTP on a local interface. |
+
+### Which URL to open
+
+| Deployment | URL |
+|------------|-----|
+| Default (no certificate) | `http://<host>:10005` |
+| With TLS certificate | `https://<host>:10005` |
+| Behind a reverse proxy | `https://<proxy-host>/` → proxy forwards to `http://localhost:10001` |
+
+### API server modes
+
+When `api-https-bind = true` the API server enforces HTTPS — protected endpoints (`/api/monitor`, Swagger, cluster operations, alerts) are **not** served on the HTTP server (port 10001). Only unauthenticated endpoints (health, proxy checks, login) remain available on port 10001 in that mode.
+
+| `monitoring-ssl-cert` | `api-https-bind` | Port 10005 protocol | Port 10001 protected endpoints |
+|-----------------------|-----------------|---------------------|-------------------------------|
+| Not set (default) | `false` (default) | HTTP | Yes — full API |
+| Set | `false` | HTTPS | Yes — full API |
+| Set | `true` | HTTPS only | No — unauthenticated only |
+
+### Binding configuration
+
+| Parameter | Default | Description |
+|-----------|---------|-------------|
+| `api-port` | `10005` | Port for the API server (HTTP or HTTPS) |
+| `api-bind` | `0.0.0.0` | IP address the API server binds to |
+| `monitoring-ssl-cert` | `""` | Path to TLS certificate — activates HTTPS on port 10005 when set |
+| `monitoring-ssl-key` | `""` | Path to TLS private key |
+| `api-https-bind` | `false` | When `true`, drops protected endpoints from the HTTP server |
+| `http-port` | `10001` | Port for the plain-HTTP server (reverse-proxy use) |
+| `http-bind-address` | `localhost` | IP the plain-HTTP server binds to (loopback by default — not exposed externally) |
+
+**Reverse-proxy example (nginx):**
+
+```nginx
+server {
+    listen 443 ssl;
+    server_name repman.example.com;
+
+    ssl_certificate     /etc/ssl/repman.crt;
+    ssl_certificate_key /etc/ssl/repman.key;
+
+    location / {
+        proxy_pass http://127.0.0.1:10001;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+    }
+}
+```
+
+```toml
+# replication-manager.toml
+http-bind-address = "127.0.0.1"
+http-port         = "10001"
+api-https-bind    = true   # keep protected endpoints off the plain-HTTP port
+```
 
 ---
 
