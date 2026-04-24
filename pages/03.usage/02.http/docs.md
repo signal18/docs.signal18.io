@@ -182,3 +182,41 @@ The `viewer` user can monitor cluster state, read server metrics, and browse log
 | `api-dashboard-user` | `""` | Username to use for `/dashboard` auto-login. Empty = endpoint disabled (returns 404). |
 
 > **Security note:** `GET /api/dashboard-token` returns a token to any visitor without credentials. Set the `viewer` user's ACL to the minimum required (e.g. `show` only). The endpoint is disabled when `api-dashboard-user` is empty — remove or clear the key to turn it off.
+
+---
+
+## 3.3.8 Cluster Slideshow (`/dashboard` → `/slideshow`)
+
+When `api-dashboard-user` is configured, opening `/dashboard` does not land on a static cluster view — it redirects to `/slideshow`, a full-screen NOC-style presentation that loops through every managed cluster automatically.
+
+### What it shows
+
+For each cluster the slideshow displays two slides in sequence:
+
+| Slide | Content |
+|-------|---------|
+| **Dashboard** | Cluster detail, HA state, database servers, proxies, application servers, workload, logs |
+| **Maintenance** | Backup list, Restic snapshots, current backup task progress, job queue, job logs |
+
+After cycling through all clusters it loops back to the first one.
+
+### Timing and progress
+
+Each slide is shown for **30 seconds**. A thin blue progress bar across the top of the page tracks time remaining on the current slide. The header shows the cluster name, the current view (Dashboard / Maintenance), and a cluster counter ("Cluster 2 of 5").
+
+Underlying cluster data is refreshed in the background every `refresh_interval` seconds (default 4 s) so the information stays current throughout the display.
+
+### Access control
+
+The slideshow uses the same `viewer` JWT issued by `/api/dashboard-token`. Action buttons that require write grants (switchover, failover, configuration changes, provisioning, backup triggers) are hidden because the `viewer` ACL does not include those grants — the page is safe to display on a shared or public screen.
+
+### Configuration summary
+
+```toml
+# replication-manager.toml
+api-credentials           = "admin:repman,dba:repman,viewer:viewerpassword"
+api-credentials-acl-allow = "admin:cluster db proxy prov global grant show sale extrole terminal,dba:cluster proxy db,viewer:show"
+api-dashboard-user        = "viewer"
+```
+
+Open `http://<host>:10005/dashboard` in any browser — no login, no interaction required. The slideshow starts immediately and runs indefinitely.
