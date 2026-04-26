@@ -165,7 +165,7 @@ Add a viewer account to `api-credentials` and restrict its ACL to `show` only:
 
 ```toml
 api-credentials         = "admin:repman,dba:repman,viewer:viewerpassword"
-api-credentials-acl-allow = "admin:cluster db proxy prov global grant show sale extrole terminal,dba:cluster proxy db,viewer:show"
+api-credentials-acl-allow = "admin:cluster db proxy prov global grant show sale extrole terminal,dba:cluster proxy db,viewer:show cluster-show-backups cluster-show-routes cluster-show-certificates cluster-show-graphs cluster-show-agents"
 api-dashboard-user      = "viewer"
 ```
 
@@ -173,7 +173,33 @@ api-dashboard-user      = "viewer"
 
 Navigate to `http://<host>:10005/dashboard` (or the equivalent HTTPS URL). The login page is skipped — the browser receives a JWT for the `viewer` account and opens the main dashboard view.
 
-The `viewer` user can monitor cluster state, read server metrics, and browse logs, but cannot perform any write operations (switchover, failover, configuration changes, provisioning).
+The `viewer` user can monitor cluster state, browse logs, view backups, routes, certificates, graphs, and agents — but cannot perform any write operations (switchover, failover, configuration changes, provisioning).
+
+**Viewer grant breakdown:**
+
+| Grant | What it unlocks |
+|---|---|
+| `show` | Basic dashboard access (topology, server list, cluster alerts) |
+| `cluster-show-backups` | Backup list and Restic snapshots tab |
+| `cluster-show-routes` | Query rules tab |
+| `cluster-show-certificates` | Certificates tab |
+| `cluster-show-graphs` | Graphite graphs tab |
+| `cluster-show-agents` | Agents tab |
+| `global-admin-show` | Global logs, host metrics, and alerts accordion (**see security note below**) |
+
+> **Security warning — `global-admin-show`:** This grant exposes server-level information including host CPU/memory/disk metrics, replication-manager version, database versions, and proxy versions. An attacker with access to this data gains version fingerprinting that can be used to identify exploitable CVEs. Only assign `global-admin-show` to viewer accounts on **trusted internal networks**. For public dashboards or untrusted viewers, omit this grant — the cluster-level view (`show` + `cluster-show-*`) does not expose host or tool version details.
+
+**Minimal viewer (public/untrusted):**
+
+```toml
+api-credentials-acl-allow = "...,viewer:show cluster-show-backups cluster-show-routes cluster-show-certificates cluster-show-graphs cluster-show-agents"
+```
+
+**Full viewer (internal/trusted):**
+
+```toml
+api-credentials-acl-allow = "...,viewer:show cluster-show-backups cluster-show-routes cluster-show-certificates cluster-show-graphs cluster-show-agents global-admin-show"
+```
 
 **Configuration reference:**
 
@@ -215,7 +241,7 @@ The slideshow uses the same `viewer` JWT issued by `/api/dashboard-token`. Actio
 ```toml
 # replication-manager.toml
 api-credentials           = "admin:repman,dba:repman,viewer:viewerpassword"
-api-credentials-acl-allow = "admin:cluster db proxy prov global grant show sale extrole terminal,dba:cluster proxy db,viewer:show"
+api-credentials-acl-allow = "admin:cluster db proxy prov global grant show sale extrole terminal,dba:cluster proxy db,viewer:show cluster-show-backups cluster-show-routes cluster-show-certificates cluster-show-graphs cluster-show-agents"
 api-dashboard-user        = "viewer"
 ```
 
