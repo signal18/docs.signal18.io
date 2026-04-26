@@ -93,6 +93,26 @@ Compute binary pass/fail checks that feed the **SecurityScore** gauge in the clu
 | `plugin-score-lts` | Running a supported LTS version |
 | `plugin-score-proxy` | Proxy layer present |
 
+### 2.7.1.3.4 Enterprise Advisory Plugins
+
+Enterprise advisory plugins are **built-in** (bundled in the binary) and run on every instance. They match the running database and tool versions against a CVE/bug advisory database. On **paid plans** (Support, Partner) the advisory database is refreshed daily by the Signal18 back office. On the **free plan** the embedded default is used and a persistent security alert warns that advisories are frozen.
+
+| Plugin | Finds |
+|---|---|
+| `enterprise-security` | All known MariaDB/MySQL CVEs from NVD + GitHub security issues (ENT0001+) |
+| `enterprise-replication` | Replication bugs: MDEV-20821 (parallel replication crash), MDEV-28310 (silent data corruption), MDEV-19577 (auto-increment gaps) + NVD replication CVEs (RPL0001+) |
+| `enterprise-workload` | CRITICAL/HIGH severity crash, deadlock, optimizer regression, and memory leak bugs not covered by the other two plugins (WRK0001+) |
+
+Findings **auto-resolve** when the server or tool is upgraded past the fix version. No configuration needed — the advisory JSON is managed by the back office and pushed via the git pull repository to eligible instances.
+
+**Free plan alerts:**
+
+| Error | Message |
+|---|---|
+| ENTERR001 | Enterprise security advisories are not refreshed on the free plan |
+| RPLERR001 | Enterprise replication advisories are not refreshed on the free plan |
+| WRKERR001 | Enterprise workload advisories are not refreshed on the free plan |
+
 ---
 
 ## 2.7.1.4 Full Plugin Reference
