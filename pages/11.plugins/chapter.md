@@ -5,7 +5,7 @@ taxonomy:
 ---
 ### Chapter 10
 
-# Log Plugins
+# Plugins
 
 > **Available since:** replication-manager **v3.1.24**
 
