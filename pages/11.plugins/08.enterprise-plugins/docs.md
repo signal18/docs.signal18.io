@@ -8,7 +8,11 @@ taxonomy:
 
 > **Available since:** replication-manager **v3.1.24**
 
-Enterprise advisory plugins are **built-in** — they are compiled into the repman binary and run on every instance without requiring external binaries. They match the running database and tool versions against a curated advisory database to surface known CVEs, replication bugs, and crash/performance issues.
+Enterprise plugins are **built-in** — compiled into the repman binary and running on every instance. Some plugins surface known CVEs, replication bugs, and crash/performance issues by matching the running database and tool versions against a curated advisory database. Others keep the database and proxy configuration compliance up to date.
+
+On **paid plans** (Support, Partner), the Signal18 back office pushes frequent updates to advisory databases, configuration compliance, and documentation — all without requiring a new replication-manager release. Supported users receive the latest CVE advisories, MDEV bug tracking, configuration best practices, and variable documentation as soon as the back office publishes them.
+
+On the **free plan**, these plugins still run using the version embedded in the binary at build time. The embedded data is refreshed periodically with each new replication-manager release, but between releases the coverage is frozen.
 
 ---
 
