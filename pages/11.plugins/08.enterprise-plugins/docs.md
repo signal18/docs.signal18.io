@@ -1,10 +1,10 @@
 ---
-title: Enterprise Advisory Plugins
+title: Enterprise Plugins
 taxonomy:
     category: docs
 ---
 
-## 10.8 Enterprise Advisory Plugins
+## 10.8 Enterprise Plugins
 
 > **Available since:** replication-manager **v3.1.24**
 
@@ -142,7 +142,86 @@ enabled = true
 
 ---
 
-## 10.8.7 Advisory JSON Format
+## 10.8.7 Enterprise Compliance Refresh
+
+> **Available since:** replication-manager **v3.1.25**
+
+The Signal18 back office maintains and updates the database and proxy configuration compliance modulesets. On paid plans, updated compliance is pushed to registered instances automatically — no restart required.
+
+The `enterprise-compliance` plugin detects when a new compliance version is available and manages the approval workflow.
+
+### How it works
+
+1. The back office publishes updated compliance modulesets to registered instances every 30 minutes
+2. replication-manager detects the new files on its next sync cycle (~5 min)
+3. The compliance CRC32 is compared against the last accepted version
+4. If different, **WARN0168** is raised on the cluster
+5. Depending on `prov-trust-compliance-changes`:
+   - **`true`** (default): auto-accepted immediately, WARN0168 clears
+   - **`false`**: WARN0168 stays open until the operator approves via the API
+
+The same mechanism detects compliance changes from **binary upgrades**: on restart, the previously accepted compliance is loaded from disk. If the new build ships a different compliance module, WARN0168 fires.
+
+### Configuration
+
+```toml
+# Default: auto-accept compliance changes (backward compatible)
+prov-trust-compliance-changes = true
+
+# Require manual approval before compliance changes take effect
+prov-trust-compliance-changes = false
+```
+
+### Cluster state: WARN0168
+
+When a compliance change is detected (BO push or binary upgrade):
+
+```
+WARN0168: New compliance moduleset available from back office
+  (DB CRC: 1a2b3c4d → 5e6f7a8b, Proxy CRC: 9c0d1e2f → 3a4b5c6d).
+  Accept the update via Settings to apply.
+```
+
+In trust mode (default), this warning fires and auto-clears in the same monitoring tick. In approval mode, it persists until the user accepts.
+
+### Accepting a compliance update
+
+```bash
+# Via CLI
+curl -X POST -H "Authorization: Bearer <token>" \
+  https://<host>:10005/api/clusters/<cluster>/settings/actions/accept-compliance
+```
+
+**Required grant:** `db-config-accept-compliance` or `proxy-config-accept-compliance`
+
+Both grants are included in the `db` and `proxy` ACL shorthands, so admin users with `admin:cluster db proxy ...` can accept without additional configuration.
+
+### Persisted compliance
+
+The accepted compliance modules are saved as full JSON files in the cluster working directory:
+
+- `{WorkingDir}/{cluster}/accepted_compliance_db.json`
+- `{WorkingDir}/{cluster}/accepted_compliance_proxy.json`
+
+On restart, these are loaded **instead of the embedded modules** to preserve the accepted version across binary upgrades. On first run (no files on disk), the embedded modules are used as the initial baseline.
+
+### Security log findings
+
+| Error key | Condition |
+|---|---|
+| `ENTCOMP001` | Compliance moduleset refreshed (CRC changed) |
+| `ENTCOMPERR001` | Free plan — no compliance files pushed by back office |
+
+### Grants
+
+| Grant | Shorthand | Purpose |
+|---|---|---|
+| `db-config-accept-compliance` | Part of `db` | Accept DB compliance update |
+| `proxy-config-accept-compliance` | Part of `proxy` | Accept Proxy compliance update |
+
+---
+
+## 10.8.8 Advisory JSON Format
 
 All three plugins use the same JSON schema. The file is stored at `{ShareDir}/plugins/data/enterprise-{type}-issues.json`.
 
