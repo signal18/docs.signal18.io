@@ -188,21 +188,24 @@ The `enterprise-compliance` plugin detects when a new compliance version is avai
 2. replication-manager detects the new files on its next sync cycle (~5 min)
 3. The compliance CRC32 is compared against the last accepted version
 4. If different, **WARN0168** is raised on the cluster
-5. Depending on `prov-trust-compliance-changes`:
-   - **`true`** (default): auto-accepted immediately, WARN0168 clears
-   - **`false`**: WARN0168 stays open until the operator approves via the API
+5. Depending on `prov-auto-update-compliance`:
+   - **`true`** (default): auto-updated immediately, WARN0168 clears. Your preserved variables are never overwritten — they always take priority over compliance defaults.
+   - **`false`**: WARN0168 stays open. The operator can review the changes in the Configurator page (Review Changes button) and accept when ready.
 
 The same mechanism detects compliance changes from **binary upgrades**: on restart, the previously accepted compliance is loaded from disk. If the new build ships a different compliance module, WARN0168 fires.
 
 ### Configuration
 
 ```toml
-# Default: auto-accept compliance changes (backward compatible)
-prov-trust-compliance-changes = true
+# Default: auto-update compliance best practices (backward compatible)
+# Preserved variables are never overwritten.
+prov-auto-update-compliance = true
 
-# Require manual approval before compliance changes take effect
-prov-trust-compliance-changes = false
+# Require manual review before compliance best practices are updated
+prov-auto-update-compliance = false
 ```
+
+The setting is available as a toggle in **Database Configurator → Auto-Update Compliance**.
 
 ### Cluster state: WARN0168
 
