@@ -66,6 +66,26 @@ The `state` column tracks the task lifecycle:
 | Rolling reprov | `scheduler-rolling-reprov` | Re-provision services on a rolling basis (pro) |
 | SSH job runner | `scheduler-jobs-ssh` | Trigger the dbjobs script via SSH (osc) |
 
+### 6.1.3.1 Logical vs Remote Execution
+
+Not all jobs run the same way. Some are executed **logically** by replication-manager itself (via SQL connections or local binaries on the repman host), while others require a **remote script** (`dbjobs_new`) running on the database host because they need local filesystem access.
+
+| Task | Execution | How | Why |
+|---|---|---|---|
+| Logical backup (mysqldump/mydumper) | Logical | repman executes the dump binary locally, connects to DB over TCP | SQL-based dump, no filesystem access needed |
+| Physical backup (mariabackup/xtrabackup) | Remote | dbjobs script runs backup tool on DB host, streams via socat | Requires local access to InnoDB data files |
+| Physical restore (reseed) | Remote | dbjobs script receives stream, unpacks and prepares backup locally | Requires local access to data directory |
+| Optimize | Remote | dbjobs script runs `mysqlcheck -o` on DB host | Batched via local client binary with `--skip-write-binlog` |
+| Analyze | Logical | repman sends `ANALYZE TABLE` SQL via connection | Pure SQL command, no local access needed |
+| Log collection (errorlog/slowquery/auditlog) | Remote | dbjobs script reads log files and sends via TCP or API | Log files are local to the DB host |
+| Log table rotate | Logical | repman sends `TRUNCATE TABLE` SQL on master | Pure SQL command |
+| Rolling restart | Remote | dbjobs script runs `systemctl restart` on DB host | Requires OS-level daemon control |
+| Rolling reprovision | Logical | repman coordinates re-provisioning via orchestrator | Orchestration-level operation |
+| Schema monitoring | Logical | repman queries `information_schema.TABLES` | Pure SQL reads |
+| Checksum | Logical | repman sends `CHECKSUM TABLE` SQL via connection | Pure SQL command |
+
+> **Rule of thumb:** if the task needs access to the database host's filesystem (data files, log files) or system services (systemctl), it runs remotely via the dbjobs script. If it only needs a SQL connection, it runs logically from replication-manager.
+
 Each task has a matching `-cron` key for its schedule, e.g.:
 
 ```toml
