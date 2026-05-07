@@ -84,7 +84,7 @@ scheduler-db-servers-optimize-cron        = "0 0 3 * * 0"    # Sundays at 03:00
 
 ## 6.1.4 How the dbjobs Script Is Delivered
 
-The script that runs on each database node is a bash script named `dbjobs_new`. How it gets there depends on the orchestration mode:
+The script that runs on each database node is a bash script named `dbjobs_new`. Its source lives in the replication-manager repository under the configurator's compliance init directory at `share/dashboard/static/configurator/init/dbjobs_new`. How it gets to the database nodes depends on the orchestration mode:
 
 ### 6.1.4.1 replication-manager-pro (container mode)
 
