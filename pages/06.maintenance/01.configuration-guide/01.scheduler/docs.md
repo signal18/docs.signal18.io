@@ -11,7 +11,9 @@ taxonomy:
 | ---- | ----- |
 | Description | "Enable task scheduler" |
 | Type | boolean |
-| Default Value | true |
+| Default Value | false |
+
+> **Note:** The scheduler is disabled by default. On a fresh install, no maintenance jobs (backups, optimize, analyze, schema monitoring, etc.) will run until `monitoring-scheduler` is explicitly set to `true` in the configuration. The individual cron toggles (e.g. `scheduler-db-servers-logical-backup`) only take effect when the global scheduler is enabled.
 
 ## 6.2.1.2 CRON Expression Format
 
