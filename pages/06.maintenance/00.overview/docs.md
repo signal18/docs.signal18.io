@@ -161,3 +161,84 @@ scheduler-db-servers-sender-ports = "4000,4001,4002"  # port pool; one per concu
 ```
 
 > If `scheduler-db-servers-sender-ports` is not set, replication-manager picks any available port on the host. In firewalled environments, setting an explicit port pool allows precise firewall rules.
+
+---
+
+## 6.1.7 How Job Execution Logs Are Pushed via the API
+
+In addition to streaming bulk data (backups) over TCP/socat, the dbjobs script reports execution logs back to replication-manager through encrypted REST API calls. This mechanism is used for error logs, slow query logs, optimize output, and all other job status reporting.
+
+### 6.1.7.1 Authentication
+
+Before sending any log data, the script authenticates with replication-manager:
+
+1. The script calls `POST /api/clusters/{clusterName}/servers/{host}/{port}/secret-login` with the database server password encrypted using AES-256-CBC
+2. replication-manager validates the credentials and returns a JWT token
+3. All subsequent API calls include this token for authorization
+
+### 6.1.7.2 Log Push Flow
+
+Job execution logs are sent in real time while the job is running:
+
+![dbjobslogpush](/images/dbjobslogpush.png)
+
+1. **Job starts** — the script creates a run lock and begins executing the task (e.g. `mariabackup`, `mysqldump`, `OPTIMIZE TABLE`)
+2. **Output is written to a local log file** — job stdout/stderr is redirected to `{log_dir}/{job}.out`
+3. **A background log processor reads the output** — `process_log_file()` runs in parallel with the job, tailing the output file from a checkpoint
+4. **Lines are batched and encrypted** — log lines are collected in batches (default: 5 lines per call), packaged as JSON, and encrypted with AES-256-CBC using the database server password as the key
+5. **Batches are POSTed to the API** — `POST /api/clusters/{clusterName}/servers/{host}/{port}/write-log/{task}` receives each encrypted batch
+6. **replication-manager decrypts and processes** — the server decrypts the payload, parses log entries, extracts metadata (backup positions, GTIDs, error codes), and writes to the module-based logging system
+7. **Checkpoint is saved** — the script records how far it read in the log file, so if the script restarts it resumes from the last position
+
+### 6.1.7.3 Encryption
+
+All log data is encrypted in transit using AES-256-CBC:
+
+- **Key**: SHA-256 hash of the database server password
+- **IV**: MD5 hash of the database server password
+- **Padding**: PKCS7
+- **Encoding**: Base64
+
+The encrypted payload is wrapped in a JSON envelope: `{"data":"<base64_encrypted_content>"}`.
+
+### 6.1.7.4 Log Level Filtering
+
+To avoid unnecessary network traffic, the script checks whether a given log level should be sent before transmitting:
+
+1. The script calls `GET /api/clusters/{clusterName}/jobs-log-level/{task}/{level}`
+2. replication-manager responds with `"true"` or `"false"`
+3. Only logs matching enabled levels (INFO, ERROR, WARN, DEBUG) are transmitted
+
+### 6.1.7.5 Task Need Check
+
+Before executing a task, the script asks replication-manager whether the task is actually needed:
+
+- `GET /api/clusters/{clusterName}/servers/{host}/{port}/needs/{taskname}`
+- Returns `"true"` if the task should run, `"false"` otherwise
+
+This allows replication-manager to skip tasks that are not relevant (e.g. an optimize that was already completed, or a backup that is not configured for this server).
+
+### 6.1.7.6 API Endpoints Summary
+
+| Endpoint | Method | Purpose |
+|---|---|---|
+| `/api/clusters/{cluster}/servers/{host}/{port}/secret-login` | POST | Authenticate and obtain JWT token |
+| `/api/clusters/{cluster}/servers/{host}/{port}/write-log/{task}` | POST | Push encrypted job execution logs |
+| `/api/clusters/{cluster}/servers/{host}/{port}/needs/{taskname}` | GET | Check if a task should run on this server |
+| `/api/clusters/{cluster}/jobs-log-level/{task}/{level}` | GET | Check if a log level is enabled for a task |
+| `/api/clusters/{cluster}/servers/{host}/{port}/actions/receive-jobs-check` | GET | Open TCP receiver port for script update |
+
+### 6.1.7.7 Retry and Resilience
+
+The script includes retry logic for API calls:
+
+- Each API call is retried up to 3 times with a 2-second delay between attempts
+- Failures are logged locally to `{log_dir}/api_calls.log`
+- The checkpoint system ensures no log lines are lost if the script is interrupted — it resumes from the last successfully sent position
+
+### 6.1.7.8 Configuration
+
+```toml
+## Log batch size — number of log lines sent per API call (default: 5)
+scheduler-db-servers-log-batch-size = 5
+```
