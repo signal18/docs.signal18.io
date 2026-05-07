@@ -84,7 +84,7 @@ scheduler-db-servers-optimize-cron        = "0 0 3 * * 0"    # Sundays at 03:00
 
 ## 6.1.4 How the dbjobs Script Is Delivered
 
-The script that runs on each database node is a bash script named `dbjobs_new`. Its source lives in the replication-manager repository under the configurator's compliance init directory at `share/dashboard/static/configurator/init/dbjobs_new`. How it gets to the database nodes depends on the orchestration mode:
+The script that runs on each database node is a bash script named `dbjobs_new`. Its source lives in the replication-manager repository under the configurator's compliance init directory at `share/dashboard/static/configurator/init/dbjobs_new`. This script can be replaced with a custom script using the `onpremise-ssh-db-job-script` configuration key (see below). How it gets to the database nodes depends on the orchestration mode:
 
 ### 6.1.4.1 replication-manager-pro (container mode)
 
@@ -109,7 +109,7 @@ onpremise-ssh-credential = "deploy"           # user; key auth used if no passwo
 onpremise-ssh-private-key = "/home/repman/.ssh/id_rsa"
 ```
 
-To use a custom script instead of the generated one:
+To use a custom script instead of the built-in one, point `onpremise-ssh-db-job-script` to your own script. The custom script will receive the same environment variables (see section 6.1.5) and should follow the same job table protocol to mark tasks as processing/done:
 
 ```toml
 onpremise-ssh-db-job-script = "/opt/custom/dbjobs.sh"
