@@ -180,8 +180,6 @@ Before sending any log data, the script authenticates with replication-manager:
 
 Job execution logs are sent in real time while the job is running:
 
-![dbjobslogpush](/images/dbjobslogpush.png)
-
 1. **Job starts** — the script creates a run lock and begins executing the task (e.g. `mariabackup`, `mysqldump`, `OPTIMIZE TABLE`)
 2. **Output is written to a local log file** — job stdout/stderr is redirected to `{log_dir}/{job}.out`
 3. **A background log processor reads the output** — `process_log_file()` runs in parallel with the job, tailing the output file from a checkpoint
