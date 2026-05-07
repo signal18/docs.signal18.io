@@ -161,6 +161,8 @@ scheduler-db-servers-sender-ports = "4000,4001,4002"  # port pool; one per concu
 ```
 
 > If `scheduler-db-servers-sender-ports` is not set, replication-manager picks any available port on the host. In firewalled environments, setting an explicit port pool allows precise firewall rules.
+>
+> **Important:** When replication-manager runs as an unprivileged user (non-root), do not use ports below 1024 as they are reserved and require root privileges to bind. Use ports in the range **1024–65535**, avoiding ports already used by replication-manager itself (default: 10001 for HTTP, 10002 for Graphite Carbon, 10005 for the REST API). For example: `4000,4001,4002`.
 
 ---
 
