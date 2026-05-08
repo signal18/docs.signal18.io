@@ -47,7 +47,92 @@ The REST API authenticates all requests against a configurable credential list (
 - `api-credentials-acl-allow` / `api-credentials-acl-allow-external`
 - `api-credentials-acl-discard` / `api-credentials-acl-discard-external`
 
-### 7.1.2.7 Provisioning TLS
+### 7.1.2.7 ACL Grants Reference
+
+Grants control what actions a user can perform. They are assigned via `api-credentials-acl-allow` (space-separated list). Shorthand prefixes expand to all grants in the group (e.g. `db` grants all `db-*` grants).
+
+#### Database Grants (`db`)
+
+| Grant | Description |
+|---|---|
+| `db-start` | Start a database server |
+| `db-stop` | Stop a database server |
+| `db-kill` | Kill database connections |
+| `db-optimize` | Run OPTIMIZE TABLE |
+| `db-analyse` | Run ANALYZE TABLE |
+| `db-replication` | Manage replication (start/stop slave, change master) |
+| `db-backup` | Trigger backups (logical, physical, log collection) |
+| `db-restore` | Trigger restores and reseeds |
+| `db-readonly` | Toggle read-only mode |
+| `db-logs` | View database logs |
+| `db-show-variables` | View server variables |
+| `db-show-status` | View server status |
+| `db-show-schema` | View schema and table information |
+| `db-show-process` | View processlist |
+| `db-show-logs` | View log files |
+| `db-capture` | Toggle slow query capture |
+| `db-maintenance` | Set/clear maintenance mode, jobs upgrade |
+| `db-config-create` | Create database configuration |
+| `db-config-ressource` | Manage database resources |
+| `db-config-flag` | Modify database configuration flags |
+| `db-config-get` | Read database configuration |
+| `db-config-accept-compliance` | Accept compliance changes |
+| `db-jobs` | Job dispatch API (task discovery, state reporting, log push, script upgrade). Auto-granted to the `system` service account used by the dbjobs script |
+
+#### Cluster Grants (`cluster`)
+
+| Grant | Description |
+|---|---|
+| `cluster-create` | Create a cluster |
+| `cluster-delete` | Delete a cluster |
+| `cluster-failover` | Trigger failover |
+| `cluster-switchover` | Trigger switchover |
+| `cluster-rolling` | Rolling restart/reprovision |
+| `cluster-settings` | Modify cluster settings |
+| `cluster-grant` | Manage cluster user grants |
+| `cluster-process` | SSH job execution |
+| `cluster-checksum` | Run table checksums |
+| `cluster-bench` | Run benchmarks |
+| `cluster-show-backups` | View backup list |
+| `cluster-show-jobs` | View job status |
+| `cluster-show-agents` | View orchestrator agents |
+
+#### Proxy Grants (`proxy`)
+
+| Grant | Description |
+|---|---|
+| `proxy-start` | Start a proxy |
+| `proxy-stop` | Stop a proxy |
+| `proxy-config-create` | Create proxy configuration |
+| `proxy-config-get` | Read proxy configuration |
+| `proxy-config-flag` | Modify proxy configuration flags |
+
+#### Provisioning Grants (`prov`)
+
+| Grant | Description |
+|---|---|
+| `prov-db-provision` | Provision database servers |
+| `prov-db-unprovision` | Unprovision database servers |
+| `prov-proxy-provision` | Provision proxies |
+| `prov-proxy-unprovision` | Unprovision proxies |
+| `prov-cluster-provision` | Provision full cluster |
+| `prov-cluster-unprovision` | Unprovision full cluster |
+| `prov-settings` | Modify provisioning settings |
+
+#### Global Grants (`global`)
+
+| Grant | Description |
+|---|---|
+| `global-settings` | Modify global settings |
+| `global-grant` | Manage global user grants |
+| `global-admin-show` | View global dashboard (logs, metrics, alerts) |
+| `global-admin-config` | Modify global monitoring configuration |
+
+#### Service Account: `system`
+
+The `system` user is auto-created by the `secret-login` endpoint when the dbjobs script authenticates. It receives grants `"db proxy"`, giving it all `db-*` and `proxy-*` grants via prefix matching. No manual configuration is needed.
+
+### 7.1.2.8 Provisioning TLS
 
 TLS certificates for the provisioning orchestration layer (OpenSVC, Kubernetes) are configured separately from the monitoring API (`prov-tls-server-ca`, `prov-tls-server-cert`, `prov-tls-server-key`).
 
