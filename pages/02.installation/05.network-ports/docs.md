@@ -173,7 +173,7 @@ When `cloud18 = true`, replication-manager needs outbound HTTPS access to Signal
 |---|---|---|---|
 | `gitlab.signal18.io` | `188.114.96.2`, `188.114.97.2` | `443` | Registration, SSO, config sync, plugin distribution |
 | `api.crm.ovh-fr-2.signal18.cloud18.io` | `37.187.220.1` | `443` | Registration, subscription management |
-| `meet.signal18.io` | `5.196.34.157` | `443` | Alert forwarding (non-free plans only) |
+| `meet.signal18.io` | `5.196.34.157` | `443` | Community chat and alert forwarding (requires registration) |
 | `s3.signal18.io` | `188.114.96.2`, `188.114.97.2` | `443` | Restic S3 archiving (if enabled) |
 
 > **Cloudflare IPs:** `gitlab.signal18.io` and `s3.signal18.io` are behind Cloudflare. Their IP addresses may change. Prefer FQDN-based firewall rules when possible, or allow the Cloudflare IP ranges from https://www.cloudflare.com/ips/.

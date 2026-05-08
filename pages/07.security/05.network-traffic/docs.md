@@ -86,12 +86,12 @@ Cluster alerts are forwarded to the Signal18 operations team via an incoming web
 
 | Destination | Port | Protocol | When |
 |------------|------|----------|------|
-| `meet.signal18.io` | `443` | HTTPS | ALERT and ALERTOK log-level events (non-free plans only) |
+| `meet.signal18.io` | `443` | HTTPS | Community chat and alert forwarding (requires registration) |
 
-Alert forwarding is gated:
+Community chat is available to all registered instances (including free plan). Alert forwarding to the Signal18 operations team is gated by plan:
 
-- **Free plan** — no outbound alert traffic to `meet.signal18.io`
-- **Support, Support+Services, Partner** — ALERT/ALERTOK events POST to `https://meet.signal18.io/hooks/…`
+- **Free plan** — community chat access, no automated alert forwarding
+- **Support, Support+Services, Partner** — community chat + ALERT/ALERTOK events POST to `https://meet.signal18.io/hooks/…`
 
 The webhook URL is configurable via `cloud18-alert-slack-url`. Alert forwarding can be disabled entirely with `cloud18-alert = false`.
 
@@ -105,7 +105,7 @@ If your repman host runs behind an egress firewall or proxy, allow the following
 |-----------------|----------------|------|----------|-------------|
 | `gitlab.signal18.io` | `188.114.96.2`, `188.114.97.2` (Cloudflare) | `443` | HTTPS | SSO, config sync, plugin distribution |
 | `api.crm.ovh-fr-2.signal18.cloud18.io` | `37.187.220.1` | `443` | HTTPS | Registration, subscription management |
-| `meet.signal18.io` | `5.196.34.157` | `443` | HTTPS | Alert forwarding (non-free plans only) |
+| `meet.signal18.io` | `5.196.34.157` | `443` | HTTPS | Community chat and alert forwarding (requires registration) |
 | `s3.signal18.io` | `188.114.96.2`, `188.114.97.2` (Cloudflare) | `443` | HTTPS | Restic backup archiving to S3 (if `backup-restic-aws = true`) |
 
 No inbound ports need to be opened on the repman host for Cloud18 to function. All communication is initiated outbound by replication-manager.
@@ -120,5 +120,5 @@ All Signal18 cloud service FQDNs must be resolvable from the repman host. If the
 
 - `gitlab.signal18.io` — required for registration, SSO, config sync, plugin updates
 - `api.crm.ovh-fr-2.signal18.cloud18.io` — required for registration and subscription management
-- `meet.signal18.io` — required for alert forwarding (non-free plans only)
+- `meet.signal18.io` — community chat and alert forwarding (requires registration)
 - `s3.signal18.io` — required for Restic S3 archiving (only if `backup-restic-aws = true`)
