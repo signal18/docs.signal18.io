@@ -141,7 +141,15 @@ Examples: `16MiB`, `1G`. Set to `0` to disable sharding.
 
 #### How Splitdump Works
 
-When `backup-mysqldump-splitdump` is enabled, replication-manager pipes the mysqldump output through a built-in **splitdump** processor that splits the single SQL stream into per-table files organized by schema:
+The problem with mysqldump is that it produces a single monolithic SQL file that can only be restored sequentially through one mysql client — this makes restore very slow on large databases.
+
+**splitdump** solves this by taking a **regular mysqldump** output and splitting it into per-table files organized by schema, in a layout compatible with **myloader**. This means:
+
+- **Backup uses standard mysqldump** — no special tools needed on the database host, no version mismatch risk, proven and trusted backup format
+- **Restore is parallelized** — replication-manager restores the split files using multiple concurrent mysql client sessions, similar to how myloader restores mydumper output
+- **The output is myloader-compatible** — you can also restore it manually with myloader if needed
+
+When `backup-mysqldump-splitdump` is enabled, replication-manager pipes the mysqldump output through the built-in **splitdump** processor:
 
 ```
 backups/<cluster>/<host_port>/splitdump/
