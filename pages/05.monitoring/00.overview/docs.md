@@ -35,18 +35,24 @@ replication-manager runs a continuous monitoring loop that tracks every server i
 - **Checksum repair** — divergent chunks can be repaired from the GUI or API, re-syncing affected rows via the primary using row-based replication. See [Repairing Divergent Tables](/maintenance/configuration-guide/schema-data-checks#6-2-3-3-repairing-divergent-tables)
 - **Schema graph** — table relationships visualized via foreign keys, name matches, and workload query co-occurrence. See [Shards and Schema Graph](/maintenance/configuration-guide/schema-data-checks#6-2-3-4-gui-shards-and-schema-graph)
 
-### 5.1.2.4 Workload
+### 5.1.2.4 Security and compliance
+
+- **Security plugins** — continuous auditing of database configuration, user accounts, and activity logs for CIS Benchmark controls (SEC01xx). Findings feed the remediation engine with auto-fix capabilities. See [Database Compliance](/security/database-compliance)
+- **User and privilege monitoring** — detects no-password accounts, weak authentication plugins, wildcard-host grants, anonymous users, and privilege escalation events
+- **Enterprise advisory plugins** — match running database/tool versions against CVE and bug advisory databases (security, replication, workload). See [Plugins Overview](/installation/registration/plugins)
+
+### 5.1.2.5 Workload
 
 - Active processlist (up to 50 longest-running queries — `monitoring-processlist`)
 - Performance Schema digest statistics (`monitoring-performance-schema`)
 - Query routing rules consolidated from all proxies (`monitoring-query-rules`)
 
-### 5.1.2.5 Proxies
+### 5.1.2.6 Proxies
 
 - ProxySQL, HAProxy, and MaxScale connection counts and routing state
 - Backend server weights and online/offline transitions
 
-### 5.1.2.6 Metrics
+### 5.1.2.7 Metrics
 
 - All collected counters are pushed to the embedded Graphite database and exposed as Prometheus metrics
 - See [Metrics](../01.configuration-guide/01.metrics) for Graphite and Prometheus configuration
