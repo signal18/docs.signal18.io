@@ -27,20 +27,26 @@ replication-manager runs a continuous monitoring loop that tracks every server i
 - Global variables (for config drift detection)
 - InnoDB engine status
 - Error log events
-- Schema changes (DDL detection — requires `monitoring-schema-change`)
 
-### 5.1.2.3 Workload
+### 5.1.2.3 Schema and data consistency
+
+- **Schema monitoring** — detects structural drift between primary and replicas: missing/added tables, column type changes, collation changes, index differences. A CRC64 fingerprint is computed per table and compared across all nodes. Runs on a daily scheduler by default. See [Schema and Data Checks](/maintenance/configuration-guide/schema-data-checks#6-2-3-1-schema-monitoring)
+- **Data checksumming** — detects row-level divergence between primary and replicas using chunk-based CRC32 checksums with GTID-aware replica convergence. Divergent replicas are flagged and can be excluded from failover election. See [Data Checksumming](/maintenance/configuration-guide/schema-data-checks#6-2-3-2-data-checksumming)
+- **Checksum repair** — divergent chunks can be repaired from the GUI or API, re-syncing affected rows via the primary using row-based replication. See [Repairing Divergent Tables](/maintenance/configuration-guide/schema-data-checks#6-2-3-3-repairing-divergent-tables)
+- **Schema graph** — table relationships visualized via foreign keys, name matches, and workload query co-occurrence. See [Shards and Schema Graph](/maintenance/configuration-guide/schema-data-checks#6-2-3-4-gui-shards-and-schema-graph)
+
+### 5.1.2.4 Workload
 
 - Active processlist (up to 50 longest-running queries — `monitoring-processlist`)
 - Performance Schema digest statistics (`monitoring-performance-schema`)
 - Query routing rules consolidated from all proxies (`monitoring-query-rules`)
 
-### 5.1.2.4 Proxies
+### 5.1.2.5 Proxies
 
 - ProxySQL, HAProxy, and MaxScale connection counts and routing state
 - Backend server weights and online/offline transitions
 
-### 5.1.2.5 Metrics
+### 5.1.2.6 Metrics
 
 - All collected counters are pushed to the embedded Graphite database and exposed as Prometheus metrics
 - See [Metrics](../01.configuration-guide/01.metrics) for Graphite and Prometheus configuration
@@ -107,4 +113,5 @@ replication-manager-cli status --cluster=my-cluster --with-errors
 | Performance Schema | [Performance Schema](../01.configuration-guide/03.performance-schema) |
 | Multi-cluster topology | [Clustering](../01.configuration-guide/04.clustering) |
 | Log files and debug tools | [Logs and Troubleshooting](../02.logs-troubleshooting) |
+| Schema monitoring and data checksumming | [Schema and Data Checks](../../06.maintenance/01.configuration-guide/03.schema-data-checks) |
 | Alert channels and triggers | [Alerting](../../08.alerting) |
