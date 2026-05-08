@@ -102,8 +102,24 @@ Enterprise advisory plugins are **built-in** (bundled in the binary) and run on 
 | `enterprise-security` | All known MariaDB/MySQL CVEs from NVD + GitHub security issues (ENT0001+) |
 | `enterprise-replication` | Replication bugs: MDEV-20821 (parallel replication crash), MDEV-28310 (silent data corruption), MDEV-19577 (auto-increment gaps) + NVD replication CVEs (RPL0001+) |
 | `enterprise-workload` | CRITICAL/HIGH severity crash, deadlock, optimizer regression, and memory leak bugs not covered by the other two plugins (WRK0001+) |
+| `enterprise-compliance` | Detects when new compliance modulesets are available from the back office (ENTCOMP001). Raises WARN0168 so the operator can review and accept the update via the GUI or API before the configurator is reloaded |
 
-Findings **auto-resolve** when the server or tool is upgraded past the fix version. No configuration needed — the advisory JSON is managed by the back office and pushed via the git pull repository to eligible instances.
+Findings for advisory plugins **auto-resolve** when the server or tool is upgraded past the fix version. No configuration needed — the advisory JSON is managed by the back office and pushed via the git pull repository to eligible instances.
+
+The compliance plugin works differently: it does **not** auto-reload. When new compliance modulesets arrive (via BO push or binary upgrade), the plugin raises a finding and WARN0168. The operator must explicitly accept the update via the **ComplianceDiffModal** in the GUI or the `accept-compliance` API. This approval workflow prevents unexpected configuration changes on production databases.
+
+```
+New compliance available → WARN0168 raised
+    → Operator clicks "Review" in GUI → ComplianceDiffModal shows added/removed/modified tags
+    → Operator clicks "Accept" → configurator reloads, WARN0168 clears
+```
+
+Auto-accept can be enabled with:
+```toml
+prov-auto-update-compliance = true
+```
+
+When auto-accept is enabled, new compliance updates are applied automatically without operator review.
 
 **Free plan alerts:**
 
@@ -112,6 +128,7 @@ Findings **auto-resolve** when the server or tool is upgraded past the fix versi
 | ENTERR001 | Enterprise security advisories are not refreshed on the free plan |
 | RPLERR001 | Enterprise replication advisories are not refreshed on the free plan |
 | WRKERR001 | Enterprise workload advisories are not refreshed on the free plan |
+| ENTCOMPERR001 | Compliance modulesets are not refreshed on the free plan — configurator uses the version shipped with the build |
 
 ---
 
