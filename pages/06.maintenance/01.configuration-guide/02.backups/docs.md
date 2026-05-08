@@ -8,6 +8,46 @@ taxonomy:
 
 replication-manager supports logical and physical backups with optional compression, streaming to S3, and long-term archiving via Restic.
 
+### 6.2.2.0 Feature Comparison
+
+replication-manager orchestrates backup tools and adds features that standalone tools don't provide: scheduling, REST API, replication-aware restore, parallel compression, S3 archiving, and automatic reseed on failure.
+
+| Feature | mariadb-dump / mysqldump | mydumper / myloader | mariadb-backup / xtrabackup | replication-manager |
+|---|:---:|:---:|:---:|:---:|
+| **Backup** | | | | |
+| Non-blocking consistent backup | &#10004; | &#10004; | &#10004; | &#10004; |
+| No copy of disk corruption | &#10004; | &#10004; | &#10008; | &#10004; |
+| Multi-threaded backup | &#10008; | &#10004; | &#10008; | &#10004; |
+| Multi-threaded compression | &#10008; | &#10008; | &#10008; | &#10004; |
+| Partial backup (per-table) | &#10004; | &#10004; | &#10004; | &#10004; |
+| Backup scheduler | &#10008; | &#10008; | &#10008; | &#10004; |
+| REST API | &#10008; | &#10008; | &#10008; | &#10004; |
+| Custom backup/restore scripts | &#10008; | &#10008; | &#10008; | &#10004; |
+| Backup binlogs | &#10008; | &#10008; | &#10008; | &#10004; |
+| Backup encrypted at rest | &#10008; | &#10008; | &#10008; | &#10004; |
+| Parallel compression (pgzip) | &#10008; | &#10008; | &#10008; | &#10004; |
+| Check local disk size before backup | &#10008; | &#10008; | &#10008; | &#10004; |
+| Backup database config | &#10008; | &#10008; | &#10008; | &#10008; |
+| Config change history | &#10008; | &#10008; | &#10008; | &#10008; |
+| **Restore** | | | | |
+| Multi-threaded reload | &#10008;* | &#10004; | &#10008; | &#10004; |
+| Partial reload (per-table) | &#10008; | &#10004; | &#10004; | &#10004; |
+| Replication-aware reload (GTID) | &#10008; | &#10008; | &#10008; | &#10004; |
+| Reload without server restart | &#10004; | &#10004; | &#10008; | &#10004; |
+| Reload on rejoin after failure | &#10008; | &#10008; | &#10008; | &#10004; |
+| Reload for seeding new replicas | &#10008; | &#10008; | &#10008; | &#10004; |
+| **Archiving** | | | | |
+| Backup history | &#10008; | &#10008; | &#10008; | &#10004; |
+| Incremental backup history | &#10008; | &#10008; | &#10004; | &#10004; |
+| Purge policy (keep last/daily/weekly) | &#10008; | &#10008; | &#10008; | &#10004; |
+| Disk limit for backup history | &#10008; | &#10008; | &#10008; | &#10004; |
+| Stream backup to S3 | &#10008; | &#10008; | &#10008; | &#10004; |
+| Restore from S3 | &#10008; | &#10008; | &#10008; | &#10004; |
+| Stream backup to SFTP | &#10008; | &#10008; | &#10008; | &#10004; |
+| Restore from SFTP | &#10008; | &#10008; | &#10008; | &#10004; |
+
+> \* replication-manager adds multi-threaded reload to mysqldump via its built-in **splitdump** feature: mysqldump output is split into per-table files during backup, then restored in parallel using multiple mysql client sessions.
+
 Backups are stored under:
 ```
 <data_directory>/backups/<cluster_name>/<server_name>_<server_port>/
@@ -90,6 +130,57 @@ It is recommended to install a mysqldump version matching your database server v
 | Default Value | "1G" |
 
 Examples: `16MiB`, `1G`. Set to `0` to disable sharding.
+
+##### `backup-splitdump-create-databases` (3.0)
+
+| Item | Value |
+| ---- | ----- |
+| Description | Auto-create databases before splitdump restore |
+| Type | boolean |
+| Default Value | true |
+
+#### How Splitdump Works
+
+When `backup-mysqldump-splitdump` is enabled, replication-manager pipes the mysqldump output through a built-in **splitdump** processor that splits the single SQL stream into per-table files organized by schema:
+
+```
+backups/<cluster>/<host_port>/splitdump/
+├── metadata.json           # GTID position, binlog file/pos, source info
+├── schema/
+│   ├── mydb-schema.sql     # CREATE TABLE statements
+│   └── otherdb-schema.sql
+├── data/
+│   ├── mydb.users.sql      # INSERT data per table
+│   ├── mydb.orders.sql
+│   └── otherdb.items.sql
+└── post/
+    ├── mydb-post.sql        # Triggers, routines, events
+    └── otherdb-post.sql
+```
+
+Files are sharded at `backup-splitdump-file-size` boundaries (default 1G) to keep individual files manageable.
+
+#### Parallel Restore
+
+During reseed, replication-manager detects splitdump directories and restores them using **parallel mysql client sessions** instead of piping a single stream:
+
+1. **Schema phase** — `CREATE DATABASE` + schema SQL files are restored sequentially
+2. **Data phase** — data files are restored in parallel using `backup-logical-load-threads` concurrent mysql clients. Tables within the same schema are grouped to avoid lock contention
+3. **Post phase** — triggers, routines, and events are restored sequentially
+
+Each restore session:
+- Sets `sql_log_bin=0` to avoid binlog pollution during reseed
+- Applies GTID position from `metadata.json` after restore completes
+- Handles DEFINER clause incompatibilities (configurable via `backup-restore-definer-strict`)
+
+This is significantly faster than piping a single mysqldump stream through one mysql client, especially for large databases with many tables.
+
+```toml
+## Enable splitdump backup + parallel restore with 4 threads
+backup-mysqldump-splitdump = true
+backup-splitdump-file-size = "1G"
+backup-logical-load-threads = 4
+```
 
 ##### `backup-split-mysql-user` (2.1)
 
