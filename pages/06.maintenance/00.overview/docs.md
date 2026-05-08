@@ -301,6 +301,7 @@ In API mode, replication-manager sets cookie files (trigger signals) instead of 
 This mode:
 - Does **not** require the `replication_manager_schema.jobs` table (it is automatically dropped when switching to API mode)
 - **Zero SQL for the job mechanism** — task discovery, authentication, state reporting, and log push all go through the REST API. No SQL query is issued for job dispatch, which means the mechanism works even when the database is unreachable (e.g. discovering and executing a `start` task to bring the database back up)
+- **Crash log delivery** — in SQL mode, if the database crashes, the dbjobs script cannot poll the jobs table to discover pending log collection tasks, so the error logs explaining the crash are never sent to replication-manager. In API mode, task discovery goes through the REST API, so log collection can still be triggered and the crash logs are delivered even when the database is down
 - Reduces SQL overhead on the database servers — no jobs table polling on every dbjobs cycle
 - The `replication_manager_schema` database is still created silently for checksum and benchmark features
 
