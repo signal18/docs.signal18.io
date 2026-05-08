@@ -5,8 +5,16 @@ taxonomy:
 ---
 | Support Status  | Test Case |  
 | ----------------|-----------|
-| Alpha      | 35 |       
+| Stable      | 35 |       
 
-**replication-manager** supports MariaDB multi domain GTID, the product can switchover and failover on topology where each database node have a different domain id.
+**replication-manager** supports multi-domain GTID for both **MariaDB** and **MySQL**. The product can switchover and failover on topologies where each database node has a different domain ID (MariaDB) or uses multiple GTID sources (MySQL).
 
-Writing on slaves is strongly not advice, it can be done but with caution to disable binary login on such WRITES.
+### MariaDB Multi-Domain GTID
+
+MariaDB assigns a unique `gtid_domain_id` per node. replication-manager tracks all domain IDs and correctly handles failover and switchover across domains, ensuring GTID consistency.
+
+### MySQL Multi-Source GTID
+
+MySQL uses `server_uuid`-based GTID sets. replication-manager supports topologies where multiple sources contribute GTID transactions, including multi-source replication setups.
+
+> **Note:** Writing on replicas is strongly discouraged. If writes on replicas are necessary, disable binary logging for those writes (`SET sql_log_bin=0`) to avoid GTID conflicts during failover.
