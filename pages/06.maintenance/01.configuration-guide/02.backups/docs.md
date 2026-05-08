@@ -147,6 +147,7 @@ The problem with mysqldump is that it produces a single monolithic SQL file that
 
 - **Backup uses standard mysqldump** — no special tools needed on the database host, no version mismatch risk, proven and trusted backup format
 - **Restore is parallelized** — replication-manager restores the split files using multiple concurrent mysql client sessions, similar to how myloader restores mydumper output
+- **Partial restore is possible** — since each table is a separate file, you can restore individual tables or schemas without replaying the entire dump. A regular monolithic mysqldump does not allow partial restore
 - **The output is myloader-compatible** — you can also restore it manually with myloader if needed
 
 When `backup-mysqldump-splitdump` is enabled, replication-manager pipes the mysqldump output through the built-in **splitdump** processor:
