@@ -190,13 +190,22 @@ scheduler-db-servers-sender-ports = "4000,4001,4002"  # port pool; one per concu
 
 In addition to streaming bulk data (backups) over TCP/socat, the dbjobs script reports execution logs back to replication-manager through encrypted REST API calls. This mechanism is used for error logs, slow query logs, optimize output, and all other job status reporting.
 
-### 6.1.7.1 Authentication
+### 6.1.7.1 Authentication and Authorization
 
-Before sending any log data, the script authenticates with replication-manager:
+The dbjobs script authenticates with replication-manager using the database server password:
 
 1. The script calls `POST /api/clusters/{clusterName}/servers/{host}/{port}/secret-login` with the database server password encrypted using AES-256-CBC
-2. replication-manager validates the credentials and returns a JWT token
-3. All subsequent API calls include this token for authorization
+2. replication-manager validates the password against the known server credential
+3. A **`system`** API user is created (or reused) with grants **`db proxy`**
+4. A JWT token is returned — all subsequent API calls include it as `Authorization: Bearer`
+
+The `system` user receives all `db-*` grants via prefix matching, including:
+- `db-jobs` — required for all job dispatch endpoints (task discovery, state reporting, log push, script upgrade)
+- `db-backup`, `db-restore`, `db-logs`, `db-maintenance` — for backup and maintenance operations
+
+No manual user configuration is needed — the `system` service account is auto-provisioned on first `secret-login` call.
+
+> **ACL grant: `db-jobs`** — Controls access to all job dispatch API endpoints. Granted automatically to the `system` user. Can be assigned to custom service accounts via the user management API if needed.
 
 ### 6.1.7.2 Log Push Flow
 
@@ -363,6 +372,6 @@ Job results are persisted to `serverstate.json` alongside other server metadata 
 | Log encryption | AES-256-CBC (key = SHA256 of DB password) | Same |
 | Data streaming | socat TCP (port from jobs table row) | socat TCP (port from `receive-task` API) |
 
-The `system` user created by `secret-login` receives grants `"db proxy"`, which includes `db-jobs` via prefix matching. No additional user configuration is needed.
+The `system` user created by `secret-login` receives grants `"db proxy"`, which includes all `db-*` grants (including `db-jobs`) via prefix matching. No additional user configuration is needed — see [Authentication and Authorization](#6-1-7-1-authentication-and-authorization) for details.
 
-> **Note:** The `secret-login` endpoint itself is unauthenticated — it is the login mechanism. It validates the caller by requiring them to prove knowledge of the database server password (encrypted with AES-256-CBC). All other job endpoints require the JWT token obtained from `secret-login`.
+> **Note:** The `secret-login` endpoint itself is unauthenticated — it is the login mechanism. It validates the caller by requiring them to prove knowledge of the database server password (encrypted with AES-256-CBC). All other job endpoints require the JWT token with the `db-jobs` ACL grant.
