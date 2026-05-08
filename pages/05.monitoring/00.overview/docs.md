@@ -40,7 +40,7 @@ replication-manager runs a continuous monitoring loop that tracks every server i
 - **Security plugins** — continuous auditing of database configuration, user accounts, and activity logs for CIS Benchmark controls (SEC01xx). Findings feed the remediation engine with auto-fix capabilities. See [Database Compliance](/security/database-compliance)
 - **User and privilege monitoring** — detects no-password accounts, weak authentication plugins, wildcard-host grants, anonymous users, and privilege escalation events
 - **Enterprise advisory plugins** — match running database/tool versions against CVE and bug advisory databases (security, replication, workload). See [Plugins Overview](/installation/registration/plugins)
-- **Tools version tracking** — monitors versions of client tools (mysqldump, mydumper, myloader, mariabackup, xtrabackup, restic, mysql client) and detects version mismatches between tools and database servers
+- **Tools version tracking** — monitors versions of client tools (mysqldump, mydumper, myloader, mariabackup, xtrabackup, restic, mysql client, sysbench) and detects version mismatches between tools and database servers
 
 ### 5.1.2.5 Workload
 
