@@ -107,7 +107,6 @@ If your repman host runs behind an egress firewall or proxy, allow the following
 | `api.crm.ovh-fr-2.signal18.cloud18.io` | `37.187.220.1` | `443` | HTTPS | Registration, subscription management |
 | `meet.signal18.io` | `5.196.34.157` | `443` | HTTPS | Alert forwarding (non-free plans only) |
 | `s3.signal18.io` | `188.114.96.2`, `188.114.97.2` (Cloudflare) | `443` | HTTPS | Restic backup archiving to S3 (if `backup-restic-aws = true`) |
-| `collector.signal18.io` | `51.68.2.60` | `443` | HTTPS | OpenSVC compliance moduleset download (pro mode) |
 
 No inbound ports need to be opened on the repman host for Cloud18 to function. All communication is initiated outbound by replication-manager.
 
@@ -123,4 +122,3 @@ All Signal18 cloud service FQDNs must be resolvable from the repman host. If the
 - `api.crm.ovh-fr-2.signal18.cloud18.io` — required for registration and subscription management
 - `meet.signal18.io` — required for alert forwarding (non-free plans only)
 - `s3.signal18.io` — required for Restic S3 archiving (only if `backup-restic-aws = true`)
-- `collector.signal18.io` — required for OpenSVC compliance downloads (pro mode only)
