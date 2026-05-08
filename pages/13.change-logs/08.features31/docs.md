@@ -68,6 +68,20 @@ taxonomy:
 
 * **Enhanced Scheduler System**: Comprehensive task scheduling with cron support for database maintenance, backups, and administrative operations
 
+* **Dual-Mode Job Dispatch (sql/api)**: New `scheduler-jobs-mode` configuration. In `api` mode, tasks are dispatched via REST API cookies instead of polling the SQL jobs table, removing the need for the `replication_manager_schema.jobs` table on database hosts. The dbjobs script authenticates via JWT and checks task availability through the replication-manager API. Default mode remains `sql` for full backward compatibility. [See documentation](/maintenance/overview#6-1-8-job-dispatch-modes-since-3-x)
+
+* **Configurable Task Execution Mode**: New `scheduler-jobs-exec-remote` parameter allows forcing specific tasks to run remotely via the dbjobs script instead of locally in replication-manager. Useful for tasks like `mysqldump` where the client binary version must match the database server version. [See documentation](/maintenance/overview#6-1-8-5-task-execution-mode)
+
+* **Embedded dbjobs Script**: The dbjobs maintenance script is now embedded directly in the replication-manager binary via `go:embed`, bypassing the 65535-byte truncation limit of the OpenSVC compliance moduleset database column. Existing deployments receive the full script automatically via the built-in script auto-upgrade mechanism.
+
+* **Job API Security**: Job dispatch API endpoints now require the `db-jobs` ACL grant and JWT authentication. The `system` service account created by `secret-login` receives this grant automatically as part of the `db` grant group.
+
+* **Schema Monitoring Default**: Default cron for schema monitoring changed from once-a-year (`0 0 1 1 * *`) to daily at 2 AM (`0 0 2 * * *`). On startup, if no cached table metadata exists, a one-time schema scan is triggered automatically.
+
+* **Optimize Cron Fix**: Default optimize cron fixed from `0 0 3 1 * 5` (1st of month AND Friday — rare) to `0 0 3 1 * *` (1st of every month at 3 AM).
+
+* **Metadata Lock Avoidance**: The jobs table creation now checks `information_schema` before issuing DDL, avoiding unnecessary `CREATE DATABASE IF NOT EXISTS` and `CREATE TABLE IF NOT EXISTS` statements that could hold metadata locks during backups.
+
 * **Rolling Restart/Reprovision**: Schedule automatic rolling restarts and reprovisioning operations
 
 * **SLA Rotation**: Automated SLA metric rotation via scheduler

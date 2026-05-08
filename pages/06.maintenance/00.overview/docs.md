@@ -262,3 +262,107 @@ The script includes retry logic for API calls:
 ## Log batch size — number of log lines sent per API call (default: 5)
 scheduler-db-servers-log-batch-size = 5
 ```
+
+---
+
+## 6.1.8 Job Dispatch Modes (since 3.x)
+
+replication-manager supports two modes for dispatching maintenance tasks to database hosts. The mode is controlled by `scheduler-jobs-mode`.
+
+### 6.1.8.1 SQL Mode (default)
+
+```toml
+scheduler-jobs-mode = "sql"
+```
+
+The traditional mode. replication-manager inserts task rows into the `replication_manager_schema.jobs` table on each database server. The dbjobs script polls this table, picks up pending tasks, executes them, and updates the row with the result.
+
+This mode requires:
+- A working SQL connection to the database
+- The `replication_manager_schema` database and `jobs` table (created automatically)
+
+### 6.1.8.2 API Mode
+
+```toml
+scheduler-jobs-mode = "api"
+```
+
+In API mode, replication-manager sets cookie files (trigger signals) instead of inserting SQL rows. The dbjobs script discovers pending tasks by calling the replication-manager REST API, executes them, and reports completion back via the API.
+
+This mode:
+- Does **not** require the `replication_manager_schema.jobs` table (it is automatically dropped when switching to API mode)
+- Reduces SQL overhead on the database servers
+- Works even when the database is unreachable (the script checks the API, not the database, for task discovery)
+- The `replication_manager_schema` database is still created for checksum and benchmark features
+
+### 6.1.8.3 API Endpoints
+
+All job API endpoints require the `db-jobs` ACL grant. The dbjobs script authenticates via `secret-login` to obtain a JWT token, then passes it as `Authorization: Bearer` on every call.
+
+| Endpoint | Method | When called | Purpose |
+|---|---|---|---|
+| `/api/clusters/{cluster}/servers/{host}/{port}/secret-login` | POST | Script startup | Authenticate with encrypted DB password, obtain JWT token |
+| `/api/clusters/{cluster}/servers/{host}/{port}/needs/{task}` | POST | Before each task | Check if a task is pending (consumes cookie). Returns `true` or `false` |
+| `/api/clusters/{cluster}/servers/{host}/{port}/actions/receive-task/{task}` | POST | After `needs` returns true | Open a TCP receiver for tasks that stream data (backups, logs). Returns `RECEIVER_PORT=<port>` |
+| `/api/clusters/{cluster}/servers/{host}/{port}/actions/job-state/{task}/{state}` | POST | During/after task | Report task state: `processing`, `done`, `error`, `waiting` |
+| `/api/clusters/{cluster}/servers/{host}/{port}/write-log/{task}` | POST | During task | Push encrypted execution log lines |
+| `/api/clusters/{cluster}/jobs-log-level/{task}/{level}` | POST | Before sending logs | Check if a log level (INFO/ERROR/WARN/DEBUG) is enabled |
+| `/api/clusters/{cluster}/servers/{host}/{port}/actions/receive-jobs-check` | POST | Script version check | Open receiver for script checksum comparison |
+| `/api/clusters/{cluster}/servers/{host}/{port}/actions/send-jobs-upgrade` | POST | Script upgrade | Request new script version from replication-manager |
+
+### 6.1.8.4 API Mode Task Lifecycle
+
+```
+1. Scheduler fires
+   └── replication-manager sets a cookie file (@cookie_wait*)
+       └── WARN state set (e.g. WARN0073 for backup pending)
+
+2. dbjobs script runs (via SSH cron or container entrypoint)
+   ├── POST secret-login → obtains JWT token
+   ├── POST needs/{task} → API checks cookie, returns true, deletes cookie
+   ├── POST actions/receive-task/{task} → opens TCP receiver (for streaming tasks)
+   ├── POST actions/job-state/{task}/processing → repman updates in-memory state
+   ├── Script executes the task (backup, optimize, etc.)
+   ├── POST write-log/{task} → push execution logs
+   ├── POST actions/job-state/{task}/done → repman closes WARN state
+   └── Next monitoring tick: WARN not re-set → state machine closes it
+```
+
+### 6.1.8.5 Task Execution Mode
+
+Some tasks can run either locally (by replication-manager) or remotely (by the dbjobs script). Use `scheduler-jobs-exec-remote` to control which tasks are dispatched to the dbjobs script.
+
+| Task | Default | Can override |
+|---|---|---|
+| Physical backup (xtrabackup/mariabackup) | Remote | No — requires filesystem access |
+| Reseed / Flashback (physical) | Remote | No — requires filesystem access |
+| Log collection (errorlog/slowquery/auditlog) | Remote | No — reads local log files |
+| ZFS snapback | Remote | No — requires ZFS commands |
+| Optimize | Remote | Yes — can run as SQL from repman |
+| Logical backup (mysqldump/mydumper) | Local | Yes — can run on DB host to avoid version mismatch |
+| Stop / Start / Restart | Remote | Yes — orchestrator API (OpenSVC/K8S) or SQL SHUTDOWN handles it locally |
+
+```toml
+## Force mysqldump and optimize to run remotely via dbjobs
+scheduler-jobs-exec-remote = "mysqldump,optimize"
+```
+
+When a task is forced remote, the dbjobs script runs the command on the database host using the local client binaries. This avoids client/server version mismatch issues (e.g. mysqldump version must match the server version).
+
+### 6.1.8.6 Job State Persistence
+
+Job results are persisted to `serverstate.json` alongside other server metadata (variables, table dictionary, etc.). After a replication-manager restart, the maintenance tab shows full job history immediately — no need to wait for the next SQL refresh or API callback.
+
+### 6.1.8.7 Security
+
+| Layer | SQL mode | API mode |
+|---|---|---|
+| Task dispatch | SQL INSERT (requires DB credentials) | Cookie file on repman host (local filesystem) |
+| Script authentication | `secret-login` → JWT token | Same |
+| Endpoint protection | `SecretLoginCheck` (DB password) | JWT `validateTokenMiddleware` + `db-jobs` ACL grant |
+| Log encryption | AES-256-CBC (key = SHA256 of DB password) | Same |
+| Data streaming | socat TCP (port from jobs table row) | socat TCP (port from `receive-task` API) |
+
+The `system` user created by `secret-login` receives grants `"db proxy"`, which includes `db-jobs` via prefix matching. No additional user configuration is needed.
+
+> **Note:** The `secret-login` endpoint itself is unauthenticated — it is the login mechanism. It validates the caller by requiring them to prove knowledge of the database server password (encrypted with AES-256-CBC). All other job endpoints require the JWT token obtained from `secret-login`.
