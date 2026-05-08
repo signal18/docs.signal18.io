@@ -13,8 +13,8 @@ taxonomy:
 
 MariaDB assigns a unique `gtid_domain_id` per node. replication-manager tracks all domain IDs and correctly handles failover and switchover across domains, ensuring GTID consistency.
 
-### MySQL Multi-Source GTID
+### MySQL GTID Tags (8.4+)
 
-MySQL uses `server_uuid`-based GTID sets. replication-manager supports topologies where multiple sources contribute GTID transactions, including multi-source replication setups.
+MySQL 8.4 introduced **GTID tags** — a label added to the GTID format (`uuid:tag:number`) that allows grouping transactions by origin, similar to MariaDB's `gtid_domain_id`. replication-manager supports GTID-tagged topologies and correctly handles failover and switchover when multiple tags are present.
 
 > **Note:** Writing on replicas is strongly discouraged. If writes on replicas are necessary, disable binary logging for those writes (`SET sql_log_bin=0`) to avoid GTID conflicts during failover.
