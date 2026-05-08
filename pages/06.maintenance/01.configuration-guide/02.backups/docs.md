@@ -149,6 +149,7 @@ The problem with mysqldump is that it produces a single monolithic SQL file that
 - **Restore is parallelized** — replication-manager restores the split files using multiple concurrent mysql client sessions, similar to how myloader restores mydumper output
 - **Partial restore is possible** — since each table is a separate file, you can restore individual tables or schemas without replaying the entire dump. A regular monolithic mysqldump does not allow partial restore
 - **Cross-version restore** — since the output is standard SQL, it can be used to migrate between database versions (e.g. MariaDB 10.6 → 10.11, MySQL 5.7 → 8.0). Physical backups (xtrabackup/mariabackup) are tied to the exact server version and cannot cross versions
+- **Staging-safe restore** — when refreshing a staging environment from production, you can restore only data schemas and skip the `mysql` user table, preserving staging-specific users, grants, and passwords. A monolithic mysqldump with `--all-databases` would overwrite staging credentials with production ones. Use `backup-split-mysql-user` to separate user data during backup, and `backup-restore-mysql-user = false` to skip it during restore
 - **The output is myloader-compatible** — you can also restore it manually with myloader if needed
 
 When `backup-mysqldump-splitdump` is enabled, replication-manager pipes the mysqldump output through the built-in **splitdump** processor:
