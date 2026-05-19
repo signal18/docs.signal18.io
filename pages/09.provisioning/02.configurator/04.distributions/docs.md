@@ -173,7 +173,7 @@ For each server (slaves first, then switchover, then old master):
 
 1. **Maintenance on** — remove from proxy backends
 2. **Wait for binlog backup** — if a backup is in progress, wait for completion
-3. **Stop** — graceful shutdown
+3. **Clean stop** — `SET GLOBAL innodb_fast_shutdown = 0` via SQL, then orchestrator stop (see [Shutdown Behavior](#9-3-5-4-6-shutdown-behavior-during-upgrades))
 4. **Wait failed** — confirm server is down
 5. **Upgrade** — orchestrator-specific:
    - *OpenSVC*: update service config (`image_pull_policy=always`), start (pulls new image), wait sync, then clean config and restart
@@ -181,6 +181,8 @@ For each server (slaves first, then switchover, then old master):
 6. **Wait sync** — wait for replication to catch up with master
 7. **Maintenance off** — re-add to proxy backends
 8. **Switchover** — promote a slave, then repeat for the demoted master
+
+**Important**: The rolling upgrade never stops a running master. The master is always switchovered first (step 8), becoming a slave before it is stopped and upgraded. This ensures zero downtime for writes.
 
 ### 9.3.5.4.4 On-Premise Upgrade Scripts
 
@@ -210,7 +212,46 @@ Each script performs these steps:
 9. **Run `mariadb-upgrade`** — upgrades system tables for the new version
 10. **Update repman CLI** — downloads new `replication-manager-cli` if version changed
 
-### 9.3.5.4.5 Version Source
+### 9.3.5.4.6 Shutdown Behavior During Upgrades
+
+Upgrade stops use `StopDatabaseServiceClean`, which differs from a normal stop:
+
+| Step | Slave | Master (direct upgrade) |
+|---|---|---|
+| 1. `SET GLOBAL innodb_fast_shutdown = 0` | Yes | Yes |
+| 2. `SHUTDOWN WAIT FOR ALL SLAVES` (SQL) | No | Yes (MariaDB 10.4+) |
+| 3. Orchestrator stop | Yes | Yes |
+
+**`innodb_fast_shutdown = 0`** forces InnoDB to perform a full purge and change buffer merge before the process exits. This ensures the InnoDB data files are in a clean state compatible with the new MariaDB version — required when the redo log format changes across major versions.
+
+**`SHUTDOWN WAIT FOR ALL SLAVES`** is only issued when upgrading a master directly (not via rolling upgrade — rolling upgrade always switchovers before stopping). It ensures all connected replicas have received and acknowledged all pending binlog events before the master shuts down. Without this, replicas could miss transactions if the master is upgraded and restarted before they catch up.
+
+**Orchestrator stop** always follows the SQL commands. This is critical for container deployments:
+
+- On **OpenSVC/K8S**: the orchestrator stop shuts down **all containers** in the service (both `container#db` and `container#jobs`). When the service is started again, both containers pull the new image. If only the database process is killed via SQL `SHUTDOWN`, `container#jobs` (which runs the dbjobs maintenance script) stays on the old MariaDB image. This causes the config diff to be computed against the old version's `mariadbd --print-defaults` output, producing incorrect results.
+- On **on-premise**: the orchestrator stop is equivalent to `systemctl stop mariadb`, which sends SIGTERM to the MariaDB process. Since `innodb_fast_shutdown` was already set to 0, the process performs a full purge during the SIGTERM shutdown.
+
+**OpenSVC instance state**: before every V3 start or restart, replication-manager clears the instance monitor state via the per-node instance API (`POST /api/node/name/{node}/instance/path/{ns}/{kind}/{name}/clear`). This prevents 409 "failover object is warn state" errors from a previous failed operation blocking the new start request.
+
+### 9.3.5.4.7 Direct Server Upgrade vs Rolling Upgrade
+
+There are two ways to upgrade a server:
+
+| Method | Scope | Safety |
+|---|---|---|
+| **Rolling upgrade** (cluster action) | All servers, automated | Safe — maintenance mode, switchover, sync checks |
+| **Direct upgrade** (server menu) | Single server | Manual — user must ensure replication is healthy |
+
+**Rolling upgrade** (`POST /api/clusters/{name}/actions/rolling/upgrade`) follows the full sequence described in [Rolling Upgrade Sequence](#9-3-5-4-3-rolling-upgrade-sequence). The master is never stopped directly — it is switchovered first.
+
+**Direct upgrade** (from the server context menu) upgrades a single server. If the target is a master, replication-manager issues `SHUTDOWN WAIT FOR ALL SLAVES` before stopping to protect replica consistency. However, the user is responsible for:
+- Ensuring replicas are healthy before upgrading the master
+- Handling any replication lag after the master restarts
+- Upgrading the remaining servers separately
+
+For production environments, always prefer rolling upgrade over direct server upgrade.
+
+### 9.3.5.4.9 Version Source
 
 The target version for all deployment methods comes from `prov-db-docker-img`:
 
