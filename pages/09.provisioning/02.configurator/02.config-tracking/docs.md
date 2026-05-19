@@ -142,55 +142,85 @@ This ensures config files remain valid across version upgrades without requiring
 
 ---
 
-## 9.3.3.4 Cluster-Wide Preserved Variables
+## 9.3.3.4 Preserved Variables — Three Levels
 
-In addition to per-server preserved files, you can define **cluster-wide** variables that must be preserved across all servers. These are stored in:
+Preserved variables can be defined at three levels. When they conflict, higher priority wins:
 
+| Priority | Level | Where stored | How to manage |
+|---|---|---|---|
+| 1 (highest) | Per-server | `{datadir}/{cluster}/{host_port}/01_preserved.cnf` | Variables tab → Preserve button on a specific server |
+| 2 | Cluster-wide | `{working-dir}/{cluster-name}/preserved_variables.cnf` | Settings → Preserved Variables Editor, or API |
+| 3 (lowest) | Legacy config | `prov-db-config-preserve-vars` in TOML | Settings → Preserved Configs tab (deprecated) |
+
+### 9.3.3.4.1 Per-Server Preserved Variables (Priority 1)
+
+Set from the **Variables tab** in the ClusterDB page. When you click "Preserve" on a variable for a specific server, the value is written to that server's `01_preserved.cnf`. This overrides any cluster-wide setting for the same variable on this server.
+
+API:
 ```
-{working-dir}/{cluster-name}/preserved_variables.cnf
+POST /api/clusters/{cluster}/servers/{server}/variables-preserve?variableName=max_connections
+POST /api/clusters/{cluster}/servers/{server}/variables-accept?variableName=max_connections
+POST /api/clusters/{cluster}/servers/{server}/variables-clear?variableName=max_connections
 ```
 
-This file is readable and writable via the API:
+### 9.3.3.4.2 Cluster-Wide Preserved Variables (Priority 2)
 
-```
-GET  /api/clusters/{clusterName}/preserved-vars-cnf
-POST /api/clusters/{clusterName}/preserved-vars-cnf
-```
+Stored in `preserved_variables.cnf` in the cluster's working directory. These apply to **all servers** in the cluster unless a server has its own per-server override or is explicitly excluded.
 
-The file format is a my.cnf-style `[mysqld]` section, with optional per-server exclusions:
+The file format is a `[mysqld]` section with optional per-server exclusions:
 
 ```ini
 [mysqld]
-# Variables preserved cluster-wide during config regeneration
+# Preserved across all servers
+max_connections = 500
+innodb_buffer_pool_size = 4G
 
-# This variable will be preserved on all servers
-MAX_CONNECTIONS = 500
-
-# This variable will be preserved on all servers EXCEPT the listed ones
-# INNODB_BUFFER_POOL_SIZE = 4096 # exclude: server1,server2
+# Exclude specific servers from this variable
+# max_connections.exclude = db1234567890,db9876543210
 ```
 
-Changes written via the POST endpoint are applied immediately without a restart — replication-manager reloads preserved variables automatically.
+Managed via:
+- **GUI**: Settings → Preserved Variables Editor
+- **API**: `GET /POST /api/clusters/{cluster}/settings/preserved-variables-cnf`
+
+Changes are applied immediately — replication-manager reloads preserved variables without restart.
+
+### 9.3.3.4.3 Legacy Config Key (Priority 3 — deprecated)
+
+```toml
+prov-db-config-preserve-vars = "innodb_data_home_dir=/var/lib/mysql;max_connections=1000"
+```
+
+Semicolon-separated list in the TOML config. Still functional but deprecated. On first boot, if `preserved_variables.cnf` doesn't exist yet and this key is set, replication-manager **automatically migrates** the values to `preserved_variables.cnf`. Variable names are normalized (lowercase, hyphens to underscores, `loose_` prefix stripped) during migration.
+
+After migration, the `preserved_variables.cnf` takes priority and the legacy key can be removed from the TOML.
+
+### 9.3.3.4.4 How Preserved Variables Are Applied
+
+On every config refresh cycle:
+
+1. **Load per-server** `01_preserved.cnf` → mark variables as `PreservedSource: "server-specific"` (Priority 1)
+2. **Load cluster-wide** `preserved_variables.cnf` → apply only to variables NOT already set by per-server (Priority 2). Check server exclusions.
+3. **Load legacy** `prov-db-config-preserve-vars` → apply only to variables NOT already set by either of the above (Priority 3)
+4. **Write delta** `02_delta.cnf` → all remaining differences (not preserved, not accepted, not dropped)
 
 ---
 
 ## 9.3.3.5 Configuration Keys
 
-Two config flags control preserved variable behavior during config tar.gz generation:
-
 ##### `prov-db-config-preserve`
 
 | | |
 |---|---|
-| Description | Copy the preserved variables into the generated `config.tar.gz`. When `true` (default), `01_preserved.cnf`, `02_delta.cnf`, and `03_agreed.cnf` are included in `custom.d/` inside the archive so the next init-container launch picks them up. Set to `false` to get a clean config from tags only. |
+| Description | Include the three override files (`01_preserved.cnf`, `02_delta.cnf`, `03_agreed.cnf`) in the generated `config.tar.gz` under `custom.d/`. When `false`, the config tarball only contains tag-generated fragments — a clean config with no overrides. |
 | Type | Boolean |
 | Default | `true` |
 
-##### `prov-db-config-preserve-vars`
+##### `prov-db-config-preserve-vars` (deprecated)
 
 | | |
 |---|---|
-| Description | Semicolon-separated list of variable names (or `name=value` pairs) to add to `01_preserved.cnf` at every regeneration. Use this to hard-code values that must survive any config update. Example: `innodb_data_home_dir=/var/lib/mysql;max_connections=1000` |
+| Description | Semicolon-separated list of variable names (or `name=value` pairs) to preserve. **Deprecated** — use `preserved_variables.cnf` instead. Values are auto-migrated to `preserved_variables.cnf` on first boot if the file doesn't exist yet. |
 | Type | String |
 | Default | `""` |
 
@@ -200,9 +230,11 @@ Two config flags control preserved variable behavior during config tar.gz genera
 
 replication-manager detects when the deployed config changes on disk (checksum comparison). When a change is detected:
 
-1. Preserved variables are reloaded from `preserved_variables.cnf`
-2. The delta file (`02_delta.cnf`) is recalculated for the affected server
-3. A log entry is written at INFO level
+1. A config refresh cookie is set for the affected server
+2. The dbjobs script re-runs `mariadbd --print-defaults` for both dummy and current configs
+3. Preserved variables are reloaded from all three levels
+4. The delta file (`02_delta.cnf`) is recalculated
+5. A log entry is written at INFO level
 
 This happens within the normal monitoring loop interval (`monitoring-ticker`), so config drift is detected quickly without polling overhead.
 
