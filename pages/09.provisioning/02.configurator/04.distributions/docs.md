@@ -173,7 +173,7 @@ For each server (slaves first, then switchover, then old master):
 
 1. **Maintenance on** — remove from proxy backends
 2. **Wait for binlog backup** — if a backup is in progress, wait for completion
-3. **Clean stop** — `SET GLOBAL innodb_fast_shutdown = 0` via SQL, then orchestrator stop (see [Shutdown Behavior](#9-3-5-4-6-shutdown-behavior-during-upgrades))
+3. **Clean stop** — `SET GLOBAL innodb_fast_shutdown = 0` via SQL, then orchestrator stop (see [Shutdown Behavior](#9355-shutdown-behavior-during-upgrades))
 4. **Wait failed** — confirm server is down
 5. **Upgrade** — orchestrator-specific:
    - *OpenSVC*: update service config (`image_pull_policy=always`), start (pulls new image), wait sync, then clean config and restart
@@ -212,7 +212,7 @@ Each script performs these steps:
 9. **Run `mariadb-upgrade`** — upgrades system tables for the new version
 10. **Update repman CLI** — downloads new `replication-manager-cli` if version changed
 
-### 9.3.5.4.6 Shutdown Behavior During Upgrades
+### 9.3.5.4.5 Shutdown Behavior During Upgrades
 
 Upgrade stops use `StopDatabaseServiceClean`, which differs from a normal stop:
 
@@ -233,7 +233,7 @@ Upgrade stops use `StopDatabaseServiceClean`, which differs from a normal stop:
 
 **OpenSVC instance state**: before every V3 start or restart, replication-manager clears the instance monitor state via the per-node instance API (`POST /api/node/name/{node}/instance/path/{ns}/{kind}/{name}/clear`). This prevents 409 "failover object is warn state" errors from a previous failed operation blocking the new start request.
 
-### 9.3.5.4.7 Direct Server Upgrade vs Rolling Upgrade
+### 9.3.5.4.6 Direct Server Upgrade vs Rolling Upgrade
 
 There are two ways to upgrade a server:
 
@@ -242,7 +242,7 @@ There are two ways to upgrade a server:
 | **Rolling upgrade** (cluster action) | All servers, automated | Safe — maintenance mode, switchover, sync checks |
 | **Direct upgrade** (server menu) | Single server | Manual — user must ensure replication is healthy |
 
-**Rolling upgrade** (`POST /api/clusters/{name}/actions/rolling/upgrade`) follows the full sequence described in [Rolling Upgrade Sequence](#9-3-5-4-3-rolling-upgrade-sequence). The master is never stopped directly — it is switchovered first.
+**Rolling upgrade** (`POST /api/clusters/{name}/actions/rolling/upgrade`) follows the full sequence described in [Rolling Upgrade Sequence](#9343-rolling-upgrade-sequence). The master is never stopped directly — it is switchovered first.
 
 **Direct upgrade** (from the server context menu) upgrades a single server. If the target is a master, replication-manager issues `SHUTDOWN WAIT FOR ALL SLAVES` before stopping to protect replica consistency. However, the user is responsible for:
 - Ensuring replicas are healthy before upgrading the master
@@ -251,7 +251,7 @@ There are two ways to upgrade a server:
 
 For production environments, always prefer rolling upgrade over direct server upgrade.
 
-### 9.3.5.4.9 Version Source
+### 9.3.5.4.7 Version Source
 
 The target version for all deployment methods comes from `prov-db-docker-img`:
 

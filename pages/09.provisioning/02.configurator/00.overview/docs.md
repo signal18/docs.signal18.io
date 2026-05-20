@@ -173,7 +173,7 @@ Scripts are served by replication-manager at:
 /static/configurator/onpremise/package/linux/mariadb/start
 ```
 
-Both scripts receive all credentials and addressing via injected environment variables (`REPLICATION_MANAGER_URL`, `REPLICATION_MANAGER_USER`, `REPLICATION_MANAGER_PASSWORD`, `REPLICATION_MANAGER_CLUSTER_NAME`, `REPLICATION_MANAGER_HOST_NAME`, `REPLICATION_MANAGER_HOST_PORT`). See [Environment Variables](../../06.maintenance/00.overview#environment-variables-injected-by-replication-manager) in the Maintenance chapter.
+Both scripts receive all credentials and addressing via injected environment variables (`REPLICATION_MANAGER_URL`, `REPLICATION_MANAGER_USER`, `REPLICATION_MANAGER_PASSWORD`, `REPLICATION_MANAGER_CLUSTER_NAME`, `REPLICATION_MANAGER_HOST_NAME`, `REPLICATION_MANAGER_HOST_PORT`). See [Environment Variables](../../../06.maintenance/00.overview#615-environment-variables-injected-by-replication-manager) in the Maintenance chapter.
 
 ### 9.3.1.5.2 Conditional Config Fetch on Start
 
