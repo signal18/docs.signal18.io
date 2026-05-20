@@ -11,11 +11,11 @@ The current stable version is **3.1**. Check [GitHub Releases](https://github.co
 
 | Section | Description |
 |---|---|
-| [Overview](setup-instructions/overview) | Binary flavors (osc, pro, arb) and distribution types |
-| [Embedded Binary](setup-instructions/embedded-binary) | One-command install, no package manager required |
-| [Repository](setup-instructions/repository) | RPM and DEB packages via Signal18 apt/yum repo |
-| [Docker](setup-instructions/docker) | Official container images with all dependencies bundled |
-| [Source](setup-instructions/source) | Build from Go source for custom flavors |
-| [Orchestrators](setup-instructions/orchestrators) | Install OpenSVC, Kubernetes, and SlapOS for Pro provisioning |
-| [What Was Installed](setup-instructions/what-was-installed) | Files and directories created by each install method |
-| [Install Dependencies](setup-instructions/dependencies) | External tools — auto-detected, with optional path overrides |
+| [Overview](overview) | Binary flavors (osc, pro, arb) and distribution types |
+| [Embedded Binary](embedded-binary) | One-command install, no package manager required |
+| [Repository](repository) | RPM and DEB packages via Signal18 apt/yum repo |
+| [Docker](docker) | Official container images with all dependencies bundled |
+| [Source](source) | Build from Go source for custom flavors |
+| [Orchestrators](orchestrators) | Install OpenSVC, Kubernetes, and SlapOS for Pro provisioning |
+| [What Was Installed](what-was-installed) | Files and directories created by each install method |
+| [Install Dependencies](dependencies) | External tools — auto-detected, with optional path overrides |
