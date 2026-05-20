@@ -283,3 +283,25 @@ This ensures a single configuration change triggers the upgrade across all deplo
 | Description | Docker image for database containers. Also used as the version source for on-premise upgrades (the version portion is parsed from the tag, e.g. `mariadb:11.8` → `11.8`). |
 | Type | String |
 | Default | `mariadb:latest` |
+
+##### `opensvc-use-orchestrated-start`
+
+| | |
+|---|---|
+| Description | Controls how replication-manager starts OpenSVC V3 database services. When `false` (default), uses instance-level start (`om start --local`) which bypasses the orchestrator's global monitor state check — this works reliably even when the service is in warn state after a failed operation. When `true`, uses orchestrated abort + restart for HA-safe recovery that respects failover volume coordination. |
+| Type | Boolean |
+| Default | `false` |
+
+**Background**: When an OpenSVC HA service fails to start (bad config, image pull failure), the service enters **warn state**. The orchestrator then refuses new orchestrated start requests with HTTP 409. The `clear` command does not remove the resource-level warning — only `abort` (which also cancels pending orchestrations) followed by an orchestrated `restart` (atomic stop+start) recovers the service.
+
+The instance-level start (`om start --local`) bypasses this orchestration gate entirely, which is simpler and more reliable but does not coordinate failover volumes across nodes. For services using shared/failover storage, enable `opensvc-use-orchestrated-start` to use the HA-safe abort+restart path.
+
+| Mode | How it works | Pros | Cons |
+|---|---|---|---|
+| `false` (default) | `StartInstanceV3` on the server's agent node | Always works, no 409 | Does not coordinate failover volumes |
+| `true` | `AbortServiceV3` → `RestartServiceV3` | HA-safe, respects failover placement | Depends on orchestrator health |
+
+```toml
+# Enable orchestrated start for HA services with shared volumes
+opensvc-use-orchestrated-start = true
+```
