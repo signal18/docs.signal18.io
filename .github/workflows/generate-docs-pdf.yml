@@ -62,7 +62,7 @@ jobs:
       - name: Strip Grav frontmatter and build combined Markdown
         run: |
           python3 << 'PYEOF'
-          import re
+          import os, re
 
           with open('/tmp/doc_files.txt') as f:
               files = [line.strip() for line in f if line.strip()]
@@ -87,6 +87,13 @@ jobs:
                   content = f.read()
               # Strip YAML frontmatter
               content = re.sub(r'^---\n.*?\n---\n', '', content, count=1, flags=re.DOTALL)
+              # Resolve absolute image paths (/images/foo.png → pages/images/foo.png)
+              content = re.sub(r'!\[([^\]]*)\]\(/images/', r'![\1](pages/images/', content)
+              # Resolve relative image paths for co-located images
+              doc_dir = os.path.dirname(path)
+              content = re.sub(r'!\[([^\]]*)\]\((?!http|/|pages/)([^)]+)\)',
+                             lambda m: f'![{m.group(1)}]({os.path.join(doc_dir, m.group(2))})',
+                             content)
               content = content.strip()
               if content:
                   combined.append(content)
