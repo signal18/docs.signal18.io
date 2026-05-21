@@ -79,58 +79,53 @@ taxonomy:
       - 4.5.6. [Checks & Enforce](/architecture/configuration-guide/checks-enforce)
    - 4.6. [Troubleshooting](/architecture/troubleshooting)
 
-5. **Monitoring**
-   - 5.1. [Overview](/monitoring/overview)
-   - 5.2. **Monitoring Configuration Guide**
-      - 5.2.1. [Daemon Monitoring](/monitoring/configuration-guide/server)
-      - 5.2.2. [Metrics Monitoring](/monitoring/configuration-guide/metrics)
-      - 5.2.3. [Processlist & Transaction Monitoring](/monitoring/configuration-guide/processlist-monitoring)
-      - 5.2.4. [Performance Schema Monitoring](/monitoring/configuration-guide/performance-schema)
-      - 5.2.5. [Multi node monitoring](/monitoring/configuration-guide/clustering)
-   - 5.3. [Logs and Troubleshooting](/monitoring/logs-troubleshooting)
+6. **Monitoring**
+   - 6.1. [Overview](/monitoring/overview)
+   - 6.2. **Monitoring Configuration Guide**
+      - 6.2.1. [Daemon Monitoring](/monitoring/configuration-guide/server)
+      - 6.2.2. [Metrics Monitoring](/monitoring/configuration-guide/metrics)
+      - 6.2.3. [Processlist & Transaction Monitoring](/monitoring/configuration-guide/processlist-monitoring)
+      - 6.2.4. [Performance Schema Monitoring](/monitoring/configuration-guide/performance-schema)
+      - 6.2.5. [Multi node monitoring](/monitoring/configuration-guide/clustering)
+   - 6.3. [Logs and Troubleshooting](/monitoring/logs-troubleshooting)
 
-6. **Maintenance**
-   - 6.1. [Overview](/maintenance/overview)
-   - 6.2. **Configuration Guide**
-      - 6.2.1. [Scheduler](/maintenance/configuration-guide/scheduler)
-      - 6.2.2. [Backups](/maintenance/configuration-guide/backups)
-      - 6.2.3. [Schema & Data Checks](/maintenance/configuration-guide/schema-data-checks)
-      - 6.2.4. [Reseeding](/maintenance/configuration-guide/reseeding)
+7. **Maintenance**
+   - 7.1. [Overview](/maintenance/overview)
+   - 7.2. **Configuration Guide**
+      - 7.2.1. [Scheduler](/maintenance/configuration-guide/scheduler)
+      - 7.2.2. [Backups](/maintenance/configuration-guide/backups)
+      - 7.2.3. [Schema & Data Checks](/maintenance/configuration-guide/schema-data-checks)
+      - 7.2.4. [Reseeding](/maintenance/configuration-guide/reseeding)
 
-7. **Security**
-   - 7.1. [Overview](/security/overview)
-   - 7.2. [Configuration Guide](/security/configuration-guide)
-   - 7.3. [SBOM and CRA Compliance](/security/sbom-cra)
-   - 7.4. [HTTPS Bastion and Terminal](/security/https-bastion)
+8. **Security**
+   - 8.1. [Overview](/security/overview)
+   - 8.2. [Configuration Guide](/security/configuration-guide)
+   - 8.3. [SBOM and CRA Compliance](/security/sbom-cra)
+   - 8.4. [HTTPS Bastion and Terminal](/security/https-bastion)
 
-8. **Alerting**
-   - 8.1. [Overview](/alerting/overview)
-   - 8.2. [Configuration Guide](/alerting/configuration-guide)
+9. **Alerting**
+   - 9.1. [Overview](/alerting/overview)
+   - 9.2. [Configuration Guide](/alerting/configuration-guide)
 
-9. **Provisioning**
-   - 9.1. [Overview](/provisioning/overview)
-   - 9.2. **Orchestrators**
-      - 9.2.1. **OpenSVC**
-         - [Collector API](/provisioning/orchestrators/opensvc/opensvc-collector-api)
-         - [Cluster API](/provisioning/orchestrators/opensvc/opensvc-cluster-api)
-         - [Advanced Config](/provisioning/orchestrators/opensvc/opensvc-advanced-config)
-      - 9.2.2. [SlapOS](/provisioning/orchestrators/slapos)
-      - 9.2.3. [Kubernetes](/provisioning/orchestrators/kubernetes)
-      - 9.2.4. [Local](/provisioning/orchestrators/local)
-      - 9.2.5. [Scripts](/provisioning/orchestrators/scripts)
-      - 9.2.6. [OnPremise](/provisioning/orchestrators/onpremise)
-   - 9.3. **Software Configurator**
-      - 9.3.1. [Overview](/provisioning/configurator/overview)
-      - 9.3.2. [Tag Reference](/provisioning/configurator/tags)
-      - 9.3.3. [Config Tracking](/provisioning/configurator/config-tracking)
-      - 9.3.4. [Configuration Guide](/provisioning/configurator/configuration-guide)
-   - 9.4. [Service Plan](/provisioning/serviceplan)
-
-10. **Contribute**
-    - 10.1. [Build](/contribute/build)
-    - 10.2. [Testing](/contribute/testing)
-    - 10.3. [Report Bugs](/contribute/bugs)
-    - 10.4. [Profiling](/contribute/profiling)
+10. **Provisioning**
+    - 10.1. [Overview](/provisioning/overview)
+    - 10.2. **Orchestrators**
+       - 10.2.1. **OpenSVC**
+          - [Collector API](/provisioning/orchestrators/opensvc/opensvc-collector-api)
+          - [Cluster API](/provisioning/orchestrators/opensvc/opensvc-cluster-api)
+          - [Advanced Config](/provisioning/orchestrators/opensvc/opensvc-advanced-config)
+       - 10.2.2. [SlapOS](/provisioning/orchestrators/slapos)
+       - 10.2.3. [Kubernetes](/provisioning/orchestrators/kubernetes)
+       - 10.2.4. [Local](/provisioning/orchestrators/local)
+       - 10.2.5. [Scripts](/provisioning/orchestrators/scripts)
+       - 10.2.6. [OnPremise](/provisioning/orchestrators/onpremise)
+    - 10.3. **Software Configurator**
+       - 10.3.1. [Overview](/provisioning/configurator/overview)
+       - 10.3.2. [Tag Reference](/provisioning/configurator/tags)
+       - 10.3.3. [Config Tracking](/provisioning/configurator/config-tracking)
+       - 10.3.4. [Configuration Guide](/provisioning/configurator/configuration-guide)
+       - 10.3.5. [Distributions & Rolling Upgrade](/provisioning/configurator/distributions)
+    - 10.4. [Service Plan](/provisioning/serviceplan)
 
 11. **Plugins**
     - 11.1. [Plugin Architecture](/plugins/architecture)
@@ -140,23 +135,29 @@ taxonomy:
     - 11.5. [Score Plugins](/plugins/score-plugins)
     - 11.6. [Developing Plugins](/plugins/developer)
 
-12. **HOWTO**
-    - 12.1. [Replication Best Practices](/howto/replication-best-practice)
-    - 12.2. [Enforce Best Practices](/howto/enforce-best-practice)
-    - 12.3. [Troubleshoot Crashes](/howto/toubleshoot-crashes)
+12. **Contribute**
+    - 12.1. [Build](/contribute/build)
+    - 12.2. [Testing](/contribute/testing)
+    - 12.3. [Report Bugs](/contribute/bugs)
+    - 12.4. [Profiling](/contribute/profiling)
 
-13. **Change Logs**
-    - 13.1. [1.0 Features](/change-logs/features10)
-    - 13.2. [1.1 Features](/change-logs/features11)
-    - 13.3. [2.0 Features](/change-logs/features20)
-    - 13.4. [2.1 Features](/change-logs/features21)
-    - 13.5. [2.2 Features](/change-logs/features22)
-    - 13.6. [2.3 Features](/change-logs/feature23)
-    - 13.7. [3.0 Features](/change-logs/features30)
-    - 13.8. [3.1 Features](/change-logs/features31)
-    - 13.9. [Roadmap](/change-logs/roadmap)
+13. **HOWTO**
+    - 13.1. [Replication Best Practices](/howto/replication-best-practice)
+    - 13.2. [Enforce Best Practices](/howto/enforce-best-practice)
+    - 13.3. [Troubleshoot Crashes](/howto/toubleshoot-crashes)
 
-14. **FAQ**
+14. **Change Logs**
+    - 14.1. [1.0 Features](/change-logs/features10)
+    - 14.2. [1.1 Features](/change-logs/features11)
+    - 14.3. [2.0 Features](/change-logs/features20)
+    - 14.4. [2.1 Features](/change-logs/features21)
+    - 14.5. [2.2 Features](/change-logs/features22)
+    - 14.6. [2.3 Features](/change-logs/feature23)
+    - 14.7. [3.0 Features](/change-logs/features30)
+    - 14.8. [3.1 Features](/change-logs/features31)
+    - 14.9. [Roadmap](/change-logs/roadmap)
+
+15. **FAQ**
     - [Frequently Asked Questions](/faq)
 
 ---
