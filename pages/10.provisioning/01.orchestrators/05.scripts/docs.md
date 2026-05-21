@@ -60,71 +60,41 @@ Served at `/static/configurator/onpremise/...`, selected by tags:
 
 ## 10.2.5.5 Provisioning Lifecycle Hook Scripts
 
-Called during provisioning lifecycle events. These are **user-defined** scripts — repman calls them after the corresponding orchestrator action completes. Configure via TOML:
+Called during provisioning lifecycle events. These are **user-defined** scripts — repman calls them after the corresponding orchestrator action completes.
 
-##### `prov-db-bootstrap-script`
+All database hooks receive the same arguments:
 
-| | |
+| Arg | Value |
 |---|---|
-| Description | Called after database provisioning completes |
-| Type | String |
-| Default | `""` |
+| `$1` | Server hostname |
+| `$2` | Server port |
+| `$3` | Database user |
+| `$4` | Database password |
+| `$5` | Cluster name |
 
-##### `prov-db-start-script`
-
-| | |
+| Config key | When called |
 |---|---|
-| Description | Called after database start |
-| Type | String |
-| Default | `""` |
+| `prov-db-bootstrap-script` | After database provisioning completes |
+| `prov-db-start-script` | After database start |
+| `prov-db-stop-script` | After database stop |
+| `prov-db-cleanup-script` | After database unprovision |
 
-##### `prov-db-stop-script`
+All proxy hooks receive the same arguments:
 
-| | |
+| Arg | Value |
 |---|---|
-| Description | Called after database stop |
-| Type | String |
-| Default | `""` |
+| `$1` | Proxy hostname |
+| `$2` | Proxy port |
+| `$3` | Proxy user |
+| `$4` | Proxy password |
+| `$5` | Cluster name |
 
-##### `prov-db-cleanup-script`
-
-| | |
+| Config key | When called |
 |---|---|
-| Description | Called after database unprovision |
-| Type | String |
-| Default | `""` |
-
-##### `prov-proxy-bootstrap-script`
-
-| | |
-|---|---|
-| Description | Called after proxy provisioning completes |
-| Type | String |
-| Default | `""` |
-
-##### `prov-proxy-start-script`
-
-| | |
-|---|---|
-| Description | Called after proxy start |
-| Type | String |
-| Default | `""` |
-
-##### `prov-proxy-stop-script`
-
-| | |
-|---|---|
-| Description | Called after proxy stop |
-| Type | String |
-| Default | `""` |
-
-##### `prov-proxy-cleanup-script`
-
-| | |
-|---|---|
-| Description | Called after proxy unprovision |
-| Type | String |
-| Default | `""` |
+| `prov-proxy-bootstrap-script` | After proxy provisioning completes |
+| `prov-proxy-start-script` | After proxy start |
+| `prov-proxy-stop-script` | After proxy stop |
+| `prov-proxy-cleanup-script` | After proxy unprovision |
 
 ---
 
@@ -176,58 +146,211 @@ These override the built-in provisioning scripts with custom paths. When set, th
 
 ## 10.2.5.7 Failover and Replication Hook Scripts
 
-| Config key | When called |
+##### `failover-pre-script`
+
+Called before failover starts.
+
+| Arg | Value |
 |---|---|
-| `failover-pre-script` | Before failover starts |
-| `failover-post-script` | After failover completes |
-| `autorejoin-script` | When a failed server rejoins the cluster |
-| `replication-error-script` | On replication error (broken replication, excessive lag) |
-| `arbitration-failed-master-script` | Arbitrator detects a failed master |
+| `$1` | Old master hostname |
+| `$2` | New master hostname |
+| `$3` | Old master port |
+| `$4` | New master port |
+| `$5` | Old master MaxScale server name |
+| `$6` | New master MaxScale server name |
+| `$7` | Failover type (`failover` or `switchover`) |
+
+##### `failover-post-script`
+
+Called after failover completes. Same arguments as `failover-pre-script`.
+
+##### `autorejoin-script`
+
+Called when a failed server rejoins the cluster.
+
+| Arg | Value |
+|---|---|
+| `$1` | Rejoining server hostname |
+| `$2` | Master hostname |
+| `$3` | Rejoining server port |
+| `$4` | Master port |
+
+##### `replication-error-script`
+
+Called on replication error (broken replication, excessive lag).
+
+| Arg | Value |
+|---|---|
+| `$1` | Server URL (`host:port`) |
+| `$2` | Previous server state |
+| `$3` | Current server state |
+
+##### `arbitration-failed-master-script`
+
+Called when the arbitrator detects a failed master.
+
+| Arg | Value |
+|---|---|
+| `$1` | Failed master hostname |
+| `$2` | Failed master port |
 
 ---
 
 ## 10.2.5.8 Monitoring Hook Scripts
 
-| Config key | When called | Default script |
-|---|---|---|
-| `monitoring-schema-change-script` | Schema change detected (DDL) | — |
-| `monitoring-long-query-script` | Long-running query detected | — |
-| `monitoring-open-state-script` | Warning or error state opened | `share/scripts/openstate.sh` |
-| `monitoring-close-state-script` | Warning or error state resolved | `share/scripts/closestate.sh` |
-| `db-servers-state-change-script` | Database server state changed (failover, switchover, crash) | `share/scripts/databasechangestate.sh` |
-| `proxy-servers-change-state-script` | Proxy server state changed | `share/scripts/proxychangestate.sh` |
+##### `monitoring-open-state-script`
+
+Called when a warning or error state is opened.
+
+| Arg | Value |
+|---|---|
+| `$1` | Cluster name |
+| `$2` | Server URL |
+| `$3` | Error key (e.g. `WARN0042`, `ERR00012`) |
+
+##### `monitoring-close-state-script`
+
+Called when a warning or error state is resolved. Same arguments as `monitoring-open-state-script`.
+
+##### `db-servers-state-change-script`
+
+Called when a database server changes state.
+
+| Arg | Value |
+|---|---|
+| `$1` | Cluster name |
+| `$2` | Server hostname |
+| `$3` | Server port |
+| `$4` | New state |
+| `$5` | Old state |
+
+##### `proxy-servers-change-state-script`
+
+Called when a proxy server changes state.
+
+| Arg | Value |
+|---|---|
+| `$1` | Cluster name |
+| `$2` | Proxy hostname |
+| `$3` | Proxy port |
+| `$4` | New state |
+| `$5` | Old state |
+| `$6` | Master state |
+
+##### `monitoring-schema-change-script`
+
+Registered in config but **not currently called** in the codebase. Reserved for future use.
+
+##### `monitoring-long-query-script`
+
+Registered in config but **not currently called** in the codebase. Reserved for future use.
 
 ---
 
-## 10.2.5.9 Backup Hook Scripts
+## 10.2.5.9 Alert and Backup Hook Scripts
 
-| Config key | When called | Default script |
-|---|---|---|
-| `alert-script` | Alert triggered (any channel) | `share/scripts/alert.sh` |
-| `backup-save-script` | Before backup starts | — |
-| `backup-load-script` | Before restore starts | — |
-| `backup-logical-post-script` | After logical backup completes | — |
-| `backup-physical-post-script` | After physical backup completes | `share/scripts/post_backup.sh` |
-| `binlog-copy-script` | Binlog archived to backup storage | `share/scripts/binlog_copy.sh` |
-| `binlog-rotation-script` | Binlog rotated on server | `share/scripts/binlog_rotation.sh` |
+##### `alert-script`
+
+Called when an alert is triggered.
+
+| Arg | Value |
+|---|---|
+| `$1` | Cluster name |
+| `$2` | Host that triggered the alert |
+| `$3` | Previous state |
+| `$4` | Current state |
+
+##### `backup-save-script`
+
+Called before a backup starts.
+
+| Arg | Value |
+|---|---|
+| `$1` | Server hostname |
+| `$2` | Master hostname |
+| `$3` | Server port |
+| `$4` | Master port |
+| `$5` | Database user |
+| `$6` | Database password |
+| `$7` | Cluster name |
+| `$8` | Destination file path |
+
+##### `backup-load-script`
+
+Called before a restore starts. Same arguments as `backup-save-script` (without `$8` destination).
+
+##### `backup-logical-post-script`
+
+Called after a logical backup completes.
+
+| Arg | Value |
+|---|---|
+| `$1` | Cluster name |
+| `$2` | Server hostname |
+| `$3` | Server port |
+| `$4` | Backup file path |
+
+##### `backup-physical-post-script`
+
+Called after a physical backup completes. Same arguments as `backup-logical-post-script`.
+
+##### `binlog-copy-script`
+
+Called when a binlog is archived to backup storage.
+
+| Arg | Value |
+|---|---|
+| `$1` | Cluster name |
+| `$2` | Server hostname |
+| `$3` | Server port |
+| `$4` | SSH port |
+| `$5` | Binary log directory |
+| `$6` | Backup destination directory |
+| `$7` | Binlog filename |
+
+##### `binlog-rotation-script`
+
+Called when a binlog is rotated on the server.
+
+| Arg | Value |
+|---|---|
+| `$1` | Cluster name |
+| `$2` | Server hostname |
+| `$3` | Server port |
+| `$4` | Current binary log file |
+| `$5` | Previous binary log file |
+| `$6` | Oldest binary log file |
 
 ---
 
 ## 10.2.5.10 Staging Scripts
 
-| Config key | When called | Default script |
-|---|---|---|
-| `topology-staging-refresh-script` | Staging cluster refresh from parent | `share/scripts/staging_refresh.sh` |
-| `topology-staging-post-detach-script` | After staging cluster detaches from parent | `share/scripts/topologystagingpostdetach.sh` |
+##### `topology-staging-refresh-script`
+
+Called when a staging cluster is refreshed from its parent. Receives no positional arguments — uses environment variables from `GetExecEnv()`.
+
+##### `topology-staging-post-detach-script`
+
+Called after a staging cluster detaches from its parent. Uses environment variables from `GetExecEnv()`.
+
+| Arg | Value |
+|---|---|
+| `$1` | Cluster name |
+| `$2` | Server hostname |
+| `$3` | Server port |
+| `$4` | New state |
+| `$5` | Old state |
+| `$6` | Database user |
+| `$7` | Database password |
 
 ---
 
 ## 10.2.5.11 Cloud and DNS Scripts
 
-| Config key | When called | Default script |
-|---|---|---|
-| `cloud18-domain-add-script` | DNS record creation for new instance | `share/scripts/prov_domain_add_script.sh` |
-| `cloud18-domain-drop-script` | DNS record removal on unprovision | `share/scripts/prov_domain_drop_script.sh` |
-| `cloud18-sales-subscription-script` | New subscription event | — |
-| `cloud18-sales-subscription-validate-script` | Subscription validation | — |
-| `cloud18-sales-unsubscribe-script` | Unsubscription event | — |
+| Config key | When called |
+|---|---|
+| `cloud18-domain-add-script` | DNS record creation for new instance |
+| `cloud18-domain-drop-script` | DNS record removal on unprovision |
+| `cloud18-sales-subscription-script` | New subscription event |
+| `cloud18-sales-subscription-validate-script` | Subscription validation |
+| `cloud18-sales-unsubscribe-script` | Unsubscription event |
