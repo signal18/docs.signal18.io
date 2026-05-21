@@ -315,3 +315,189 @@ See [Config Tracking](../02.config-tracking) for a full explanation of `01_prese
 See [Tags](../01.tags) for the complete tag reference.
 
 See [Configuration Guide](../03.configuration-guide) for all `prov-db-*` settings.
+
+---
+
+## 9.3.1.8 Script Reference
+
+replication-manager uses scripts for provisioning, maintenance, and event hooks. Scripts are either served via HTTP (provisioning scripts) or configured via TOML keys (hooks). All provisioning scripts receive environment variables from `GetSshEnv()` — see [Environment Variables](../04.distributions#9353-environment-variables-for-ssh-scripts) for the full list.
+
+### 9.3.1.8.1 On-Premise Database Provisioning Scripts
+
+Served at `/static/configurator/onpremise/...`, selected by tags (`rpm`, `package`, default=debian):
+
+| Script | Tags | Purpose | Custom override |
+|---|---|---|---|
+| `repository/debian/mariadb/bootstrap` | *(default)* | First-time provisioning: wipe datadir, install packages, init | — |
+| `repository/debian/mariadb/start` | *(default)* | Restart: conditional config fetch, start service | `onpremise-ssh-start-db-script` |
+| `repository/debian/mariadb/upgrade` | *(default)* | Version upgrade: update repo, pin version, install, mariadb-upgrade | `onpremise-ssh-upgrade-db-script` |
+| `repository/redhat/mariadb/bootstrap` | `rpm` | First-time provisioning (yum/dnf) | — |
+| `repository/redhat/mariadb/start` | `rpm` | Restart (yum/dnf) | `onpremise-ssh-start-db-script` |
+| `repository/redhat/mariadb/upgrade` | `rpm` | Version upgrade (yum/dnf) | `onpremise-ssh-upgrade-db-script` |
+| `package/linux/mariadb/bootstrap` | `package` | First-time provisioning (binary tarball) | — |
+| `package/linux/mariadb/start` | `package` | Restart (binary tarball) | `onpremise-ssh-start-db-script` |
+| `repository/debian/mysql/bootstrap` | *(MySQL)* | MySQL first-time provisioning (apt) | — |
+| `repository/debian/mysql/start` | *(MySQL)* | MySQL restart (apt) | — |
+
+### 9.3.1.8.2 Proxy Provisioning Scripts
+
+| Script | Tags | Purpose |
+|---|---|---|
+| `repository/debian/proxysql/bootstrap` | *(default)* | ProxySQL first-time provisioning (apt) |
+| `repository/debian/proxysql/start` | *(default)* | ProxySQL restart (apt) |
+| `repository/redhat/proxysql/bootstrap` | `rpm` | ProxySQL first-time provisioning (yum) |
+| `repository/redhat/proxysql/start` | `rpm` | ProxySQL restart (yum) |
+| `package/linux/proxysql/bootstrap` | `package` | ProxySQL first-time provisioning (tarball) |
+| `package/linux/proxysql/start` | `package` | ProxySQL restart (tarball) |
+
+Custom overrides: `onpremise-ssh-start-proxy-script`, `onpremise-ssh-stop-proxy-script`
+
+### 9.3.1.8.3 Container Scripts
+
+| Script | Purpose |
+|---|---|
+| `opensvc/bootstrap` | OpenSVC init container bootstrap |
+| `init/dbjobs_new` | Maintenance job dispatcher (embedded in config tarball) |
+| `bin/replication-manager-cli` | CLI binary, served to nodes, auto-upgraded on start |
+
+### 9.3.1.8.4 Provisioning Hook Scripts
+
+Called during provisioning lifecycle events. Configure via TOML or GUI:
+
+| Config key | When called | Default script |
+|---|---|---|
+| `prov-db-bootstrap-script` | After database provisioning | — |
+| `prov-db-start-script` | After database start | — |
+| `prov-db-stop-script` | After database stop | — |
+| `prov-db-cleanup-script` | After database unprovision | — |
+| `prov-proxy-bootstrap-script` | After proxy provisioning | — |
+| `prov-proxy-start-script` | After proxy start | — |
+| `prov-proxy-stop-script` | After proxy stop | — |
+| `prov-proxy-cleanup-script` | After proxy unprovision | — |
+
+### 9.3.1.8.5 Failover and Replication Hook Scripts
+
+| Config key | When called | Default script |
+|---|---|---|
+| `failover-pre-script` | Before failover starts | — |
+| `failover-post-script` | After failover completes | — |
+| `autorejoin-script` | When a failed server rejoins | — |
+| `replication-error-script` | On replication error (broken, lag) | — |
+| `arbitration-failed-master-script` | Arbitrator detects failed master | — |
+
+### 9.3.1.8.6 Monitoring Hook Scripts
+
+| Config key | When called | Default script |
+|---|---|---|
+| `monitoring-schema-change-script` | Schema change detected | — |
+| `monitoring-long-query-script` | Long query detected | — |
+| `monitoring-open-state-script` | Warning/error state opened | `share/scripts/openstate.sh` |
+| `monitoring-close-state-script` | Warning/error state resolved | `share/scripts/closestate.sh` |
+| `db-servers-state-change-script` | Database server state changed | `share/scripts/databasechangestate.sh` |
+| `proxy-servers-change-state-script` | Proxy server state changed | `share/scripts/proxychangestate.sh` |
+
+### 9.3.1.8.7 Backup Hook Scripts
+
+| Config key | When called | Default script |
+|---|---|---|
+| `alert-script` | Alert triggered | `share/scripts/alert.sh` |
+| `backup-save-script` | Before backup starts | — |
+| `backup-load-script` | Before restore starts | — |
+| `backup-logical-post-script` | After logical backup completes | — |
+| `backup-physical-post-script` | After physical backup completes | `share/scripts/post_backup.sh` |
+| `binlog-copy-script` | Binlog archived to backup | `share/scripts/binlog_copy.sh` |
+| `binlog-rotation-script` | Binlog rotated | `share/scripts/binlog_rotation.sh` |
+
+### 9.3.1.8.8 Staging and Cloud Scripts
+
+| Config key | When called | Default script |
+|---|---|---|
+| `topology-staging-refresh-script` | Staging cluster refresh | `share/scripts/staging_refresh.sh` |
+| `topology-staging-post-detach-script` | After staging detach | `share/scripts/topologystagingpostdetach.sh` |
+| `cloud18-domain-add-script` | DNS record for new instance | `share/scripts/prov_domain_add_script.sh` |
+| `cloud18-domain-drop-script` | DNS record removal | `share/scripts/prov_domain_drop_script.sh` |
+| `cloud18-sales-subscription-script` | New subscription | — |
+| `cloud18-sales-subscription-validate-script` | Validate subscription | — |
+| `cloud18-sales-unsubscribe-script` | Unsubscription | — |
+
+### 9.3.1.8.9 On-Premise SSH Script Overrides
+
+| Config key | Overrides | Purpose |
+|---|---|---|
+| `onpremise-ssh-start-db-script` | Default start script | Custom database start via SSH |
+| `onpremise-ssh-upgrade-db-script` | Default upgrade script | Custom database upgrade via SSH |
+| `onpremise-ssh-db-job-script` | Default dbjobs script | Custom maintenance jobs via SSH |
+| `onpremise-ssh-start-proxy-script` | Default proxy start script | Custom proxy start via SSH |
+| `onpremise-ssh-stop-proxy-script` | Default proxy stop script | Custom proxy stop via SSH |
+
+See [Distributions & Rolling Upgrade](../04.distributions) for environment variables, version pinning, and upgrade flow details.
+
+---
+
+## 9.3.1.8 Script Reference
+
+All scripts are served by replication-manager via HTTP and selected automatically based on orchestrator type and DB tags (`rpm`, `package`). Custom scripts can override any default via config settings.
+
+### 9.3.1.8.1 On-Premise Provisioning Scripts
+
+Served at `/static/configurator/onpremise/...`, selected by the configurator based on tags:
+
+| Script | Tag selection | Purpose | Custom override |
+|---|---|---|---|
+| `repository/debian/mariadb/bootstrap` | Default | First-time provisioning: wipe datadir, install, init | — |
+| `repository/debian/mariadb/start` | Default | Restart: conditional config fetch, start | `onpremise-ssh-start-db-script` |
+| `repository/debian/mariadb/upgrade` | Default | Version upgrade: update repo, pin version, install, mariadb-upgrade | `onpremise-ssh-upgrade-db-script` |
+| `repository/redhat/mariadb/bootstrap` | `rpm` | First-time provisioning (yum) | — |
+| `repository/redhat/mariadb/start` | `rpm` | Restart (yum) | `onpremise-ssh-start-db-script` |
+| `repository/redhat/mariadb/upgrade` | `rpm` | Version upgrade (yum/dnf) | `onpremise-ssh-upgrade-db-script` |
+| `package/linux/mariadb/bootstrap` | `package` | First-time provisioning (tarball) | — |
+| `package/linux/mariadb/start` | `package` | Restart (tarball) | `onpremise-ssh-start-db-script` |
+
+### 9.3.1.8.2 Proxy Provisioning Scripts
+
+| Script | Tag selection | Purpose |
+|---|---|---|
+| `repository/debian/proxysql/bootstrap` | Default | ProxySQL first-time provisioning (apt) |
+| `repository/debian/proxysql/start` | Default | ProxySQL restart (apt) |
+| `repository/redhat/proxysql/bootstrap` | `rpm` | ProxySQL first-time provisioning (yum) |
+| `repository/redhat/proxysql/start` | `rpm` | ProxySQL restart (yum) |
+| `package/linux/proxysql/bootstrap` | `package` | ProxySQL first-time provisioning (tarball) |
+| `package/linux/proxysql/start` | `package` | ProxySQL restart (tarball) |
+
+### 9.3.1.8.3 Container Bootstrap
+
+| Script | Purpose |
+|---|---|
+| `opensvc/bootstrap` | OpenSVC init container bootstrap |
+
+### 9.3.1.8.4 Maintenance Scripts
+
+Located in `share/scripts/`, these handle event-driven operations:
+
+| Script | Config key | Purpose |
+|---|---|---|
+| `dbjobs_new.sh` | *(embedded in config tarball)* | Maintenance job dispatcher: backups, log shipping, config refresh, jobs upgrade |
+| `dbjobs_launcher.sh` | — | Container entrypoint that runs dbjobs in a loop |
+| `dbjobs_launcher_with_sigterm.sh` | — | Same as above with SIGTERM handling for graceful shutdown |
+| `alert.sh` | `alert-script` | External alerting hook (called on state changes) |
+| `databasechangestate.sh` | `post-db-state-change-script` | Hook: database state changed (failover, switchover) |
+| `proxychangestate.sh` | `post-proxy-state-change-script` | Hook: proxy state changed |
+| `openstate.sh` | `post-state-open-script` | Hook: warning/error state opened |
+| `closestate.sh` | `post-state-close-script` | Hook: warning/error state resolved |
+| `post_backup.sh` | `post-backup-script` | Hook: backup completed |
+| `binlog_copy.sh` | `binlog-copy-script` | Hook: binlog archived to backup |
+| `binlog_copy_fail.sh` | `binlog-copy-script-fail` | Hook: binlog copy failed |
+| `binlog_rotation.sh` | `binlog-rotation-script` | Hook: binlog rotated |
+| `staging_refresh.sh` | — | Refresh staging cluster from parent |
+| `topologystagingpostdetach.sh` | — | Post-detach hook for staging topology |
+| `prov_domain_add_script.sh` | `cloud18-domain-add-script` | DNS: add domain record for new instance |
+| `prov_domain_drop_script.sh` | `cloud18-domain-drop-script` | DNS: remove domain record |
+| `aws_post_failover.sh` | — | AWS: update Route53 after failover |
+
+### 9.3.1.8.5 Embedded Binary
+
+| File | Purpose |
+|---|---|
+| `bin/replication-manager-cli` | CLI client, served to on-premise nodes and auto-upgraded on start |
+
+See [Distributions & Rolling Upgrade](../04.distributions) for environment variables and version pinning.
