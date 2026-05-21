@@ -171,3 +171,63 @@ These override the built-in provisioning scripts with custom paths. When set, th
 | Description | Custom proxy stop script |
 | Type | String |
 | Default | `""` (auto-select by tags) |
+
+---
+
+## 10.2.5.7 Failover and Replication Hook Scripts
+
+| Config key | When called |
+|---|---|
+| `failover-pre-script` | Before failover starts |
+| `failover-post-script` | After failover completes |
+| `autorejoin-script` | When a failed server rejoins the cluster |
+| `replication-error-script` | On replication error (broken replication, excessive lag) |
+| `arbitration-failed-master-script` | Arbitrator detects a failed master |
+
+---
+
+## 10.2.5.8 Monitoring Hook Scripts
+
+| Config key | When called | Default script |
+|---|---|---|
+| `monitoring-schema-change-script` | Schema change detected (DDL) | — |
+| `monitoring-long-query-script` | Long-running query detected | — |
+| `monitoring-open-state-script` | Warning or error state opened | `share/scripts/openstate.sh` |
+| `monitoring-close-state-script` | Warning or error state resolved | `share/scripts/closestate.sh` |
+| `db-servers-state-change-script` | Database server state changed (failover, switchover, crash) | `share/scripts/databasechangestate.sh` |
+| `proxy-servers-change-state-script` | Proxy server state changed | `share/scripts/proxychangestate.sh` |
+
+---
+
+## 10.2.5.9 Backup Hook Scripts
+
+| Config key | When called | Default script |
+|---|---|---|
+| `alert-script` | Alert triggered (any channel) | `share/scripts/alert.sh` |
+| `backup-save-script` | Before backup starts | — |
+| `backup-load-script` | Before restore starts | — |
+| `backup-logical-post-script` | After logical backup completes | — |
+| `backup-physical-post-script` | After physical backup completes | `share/scripts/post_backup.sh` |
+| `binlog-copy-script` | Binlog archived to backup storage | `share/scripts/binlog_copy.sh` |
+| `binlog-rotation-script` | Binlog rotated on server | `share/scripts/binlog_rotation.sh` |
+
+---
+
+## 10.2.5.10 Staging Scripts
+
+| Config key | When called | Default script |
+|---|---|---|
+| `topology-staging-refresh-script` | Staging cluster refresh from parent | `share/scripts/staging_refresh.sh` |
+| `topology-staging-post-detach-script` | After staging cluster detaches from parent | `share/scripts/topologystagingpostdetach.sh` |
+
+---
+
+## 10.2.5.11 Cloud and DNS Scripts
+
+| Config key | When called | Default script |
+|---|---|---|
+| `cloud18-domain-add-script` | DNS record creation for new instance | `share/scripts/prov_domain_add_script.sh` |
+| `cloud18-domain-drop-script` | DNS record removal on unprovision | `share/scripts/prov_domain_drop_script.sh` |
+| `cloud18-sales-subscription-script` | New subscription event | — |
+| `cloud18-sales-subscription-validate-script` | Subscription validation | — |
+| `cloud18-sales-unsubscribe-script` | Unsubscription event | — |
