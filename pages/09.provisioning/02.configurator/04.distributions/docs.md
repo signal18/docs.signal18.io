@@ -116,33 +116,49 @@ Changes take effect on the next configurator reload — no restart required.
 
 ## 9.3.5.3 Environment Variables for SSH Scripts
 
-When replication-manager executes SSH scripts (start, bootstrap, upgrade), it exports environment variables derived from the resolved distribution. Scripts use these instead of hardcoding URLs.
+When replication-manager executes SSH scripts (start, bootstrap, upgrade, dbjobs), it exports environment variables via `GetSshEnv()`. All values are single-quote-escaped to prevent injection from passwords containing special characters.
 
 ### 9.3.5.3.1 Standard Variables (all scripts)
 
-| Variable | Source | Example |
-|---|---|---|
-| `REPLICATION_MANAGER_USER` | Admin user | `admin` |
-| `REPLICATION_MANAGER_PASSWORD` | Admin password | `repman` |
-| `REPLICATION_MANAGER_URL` | API base URL | `https://repman:10005` |
-| `REPLICATION_MANAGER_CLUSTER_NAME` | Cluster name | `production` |
-| `REPLICATION_MANAGER_HOST_NAME` | Server hostname | `db1.example.com` |
-| `REPLICATION_MANAGER_HOST_PORT` | Server port | `3306` |
-| `REPLICATION_MANAGER_HOST_USER` | DB root user | `root` |
-| `REPLICATION_MANAGER_HOST_PASSWORD` | DB root password | *(encrypted)* |
-| `MYSQL_ROOT_PASSWORD` | Alias for HOST_PASSWORD | *(encrypted)* |
+Exported by `GetSshEnv()` and available to start, upgrade, and dbjobs scripts:
+
+| Variable | Source | Used by | Example |
+|---|---|---|---|
+| `REPLICATION_MANAGER_USER` | Admin API user | start, upgrade | `admin` |
+| `REPLICATION_MANAGER_PASSWORD` | Admin API password | start, upgrade | `repman` |
+| `REPLICATION_MANAGER_URL` | API base URL | start, upgrade, dbjobs | `https://repman:10005` |
+| `REPLICATION_MANAGER_URL_HOST` | API host (without port) | dbjobs | `repman` |
+| `REPLICATION_MANAGER_URL_PORT` | API port | dbjobs | `10005` |
+| `REPLICATION_MANAGER_CLUSTER_NAME` | Cluster name | start, upgrade, dbjobs | `production` |
+| `REPLICATION_MANAGER_HOST_NAME` | Server hostname | start, upgrade, dbjobs | `db1.example.com` |
+| `REPLICATION_MANAGER_HOST_PORT` | Server port | start, upgrade, dbjobs | `3306` |
+| `REPLICATION_MANAGER_HOST_USER` | DB root user | upgrade, dbjobs | `root` |
+| `REPLICATION_MANAGER_HOST_PASSWORD` | DB root password | upgrade | *(password)* |
+| `MYSQL_ROOT_PASSWORD` | Alias for HOST_PASSWORD | upgrade, dbjobs | *(password)* |
+| `REPLICATION_MANAGER_JOBS_MODE` | Job dispatch mode | dbjobs | `sql` or `api` |
 
 ### 9.3.5.3.2 Distribution Variables (upgrade scripts)
 
-| Variable | Source | Example |
-|---|---|---|
-| `REPLICATION_MANAGER_DB_DOCKER_IMG` | `prov-db-docker-img` config | `mariadb:11.8` |
-| `REPLICATION_MANAGER_DB_REPO_TYPE` | OS family `repo_type` | `apt` or `yum` |
-| `REPLICATION_MANAGER_DB_REPO_BASE_URL` | OS family `repo_base_url` | `https://mirror.mariadb.org/repo` |
-| `REPLICATION_MANAGER_DB_REPO_KEY_URL` | OS family `repo_key_url` | `https://mariadb.org/mariadb_release_signing_key.pgp` |
-| `REPLICATION_MANAGER_DB_DEPLOY_METHOD` | Deploy method `type` | `docker`, `tarball`, or `repository` |
+Exported conditionally when the corresponding config or `db_distributions.json` data is available:
 
-The **target MariaDB version** is parsed from `REPLICATION_MANAGER_DB_DOCKER_IMG` (e.g. `mariadb:11.8` → `11.8`). This is the same `prov-db-docker-img` setting used for Docker image selection, making it the single source of truth for the target version across all deployment methods.
+| Variable | Source | Used by | Example |
+|---|---|---|---|
+| `REPLICATION_MANAGER_DB_DOCKER_IMG` | `prov-db-docker-img` config | upgrade | `mariadb:11.8.6` |
+| `REPLICATION_MANAGER_DB_REPO_BASE_URL` | OS family from `db_distributions.json` | upgrade | `https://mirror.mariadb.org/repo` |
+| `REPLICATION_MANAGER_DB_REPO_KEY_URL` | OS family from `db_distributions.json` | upgrade | `https://mariadb.org/mariadb_release_signing_key.pgp` |
+| `REPLICATION_MANAGER_DB_REPO_TYPE` | OS family from `db_distributions.json` | *(reserved)* | `apt` or `yum` |
+| `REPLICATION_MANAGER_DB_DEPLOY_METHOD` | Deploy method from `db_distributions.json` | *(reserved)* | `docker`, `tarball`, or `repository` |
+
+The **target MariaDB version** is parsed from `REPLICATION_MANAGER_DB_DOCKER_IMG` (e.g. `mariadb:11.8.6` → `11.8.6`). This is the same `prov-db-docker-img` setting used for Docker image selection, making it the single source of truth for the target version across all deployment methods. When the version has a patch component (e.g. `11.8.6`), the upgrade scripts pin the package to that exact version.
+
+### 9.3.5.3.3 Caller-Provided Variables (not exported by GetSshEnv)
+
+These variables are NOT exported automatically — they must be set by the caller or the operating environment:
+
+| Variable | Purpose | Default |
+|---|---|---|
+| `REPLICATION_MANAGER_FORCE_CONFIG` | When `true`, overwrite user-edited `my.cnf` with Signal18-generated config | *(not set)* — preserves existing `my.cnf` |
+| `REPLICATION_MANAGER_WGET_OPTS` | Override wget certificate options (e.g. `--ca-certificate=/path/to/ca.pem`) | `--no-check-certificate` (self-signed cert support) |
 
 ---
 
