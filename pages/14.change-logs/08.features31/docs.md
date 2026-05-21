@@ -18,6 +18,18 @@ taxonomy:
 
 * **Per-Module Log Levels**: Configure log verbosity independently for each subsystem (backup, proxy, heartbeat, scheduler, etc.). 20+ new `log-level-*` parameters for fine-grained logging control
 
+* **Schema Change Script Hook**: The `monitoring-schema-change-script` config key is now wired into the monitoring loop. Called when a table is created, altered, or dropped with a column diff piped to stdin showing exactly what changed. [See documentation](/provisioning/orchestrators/scripts#monitoring-schema-change-script-31)
+
+* **Config Tracking Fixes**: Prevent empty `dummy.cnf` overwrite on repman shutdown that caused all variables to show as "Deprecated (loose)". Delta computation skipped when server is down. New GUI Config Files panel with Clear Delta button. [See documentation](/provisioning/configurator/config-tracking)
+
+* **On-Premise Rolling Upgrade**: New upgrade scripts for Debian and RHEL with version pinning from `prov-db-docker-img`. Two-axis `db_distributions.json` for OS family × deploy method, pushed by back office. `StopDatabaseServiceClean` with `innodb_fast_shutdown=0` for safe major version upgrades. [See documentation](/provisioning/configurator/distributions)
+
+* **OpenSVC Instance-Level Start/Stop**: Switch from orchestrated to per-node instance API to avoid 409 "warn state" errors. Optimistic clear before start. New `opensvc-use-orchestrated-start` flag for HA-safe abort+restart recovery. [See documentation](/provisioning/configurator/distributions#opensvc-use-orchestrated-start)
+
+* **Server Menu: Restart and Upgrade**: New "Restart Database" (generic stop+start for all orchestrators) and "Upgrade Database" (clean stop + upgrade script) entries in the server context menu.
+
+* **Docker Image Version Sort**: Version dropdown in the configurator now sorts by semantic version descending (newest first) instead of alphabetically.
+
 #### 13.8.0.1.2 Topology
 
 * **Active-Passive Topology**: New topology mode for monitoring single servers or multiple independent servers without replication management. Disables automatic failover while maintaining full monitoring capabilities. [See documentation](/architecture/topologies/active-passive)

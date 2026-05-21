@@ -237,9 +237,34 @@ Called when a proxy server changes state.
 | `$5` | Old state |
 | `$6` | Master state |
 
-##### `monitoring-schema-change-script`
+##### `monitoring-schema-change-script` (3.1)
 
-Registered in config but **not currently called** in the codebase. Reserved for future use.
+Called when a table schema change is detected during the monitoring loop. The column diff is piped to **stdin** in unified format.
+
+| Arg | Value |
+|---|---|
+| `$1` | Cluster name |
+| `$2` | Server URL |
+| `$3` | Schema name |
+| `$4` | Table name |
+| `$5` | Change type: `new`, `altered`, or `dropped` |
+
+**Stdin** receives a column diff:
+```
+--- mydb.users (before)
++++ mydb.users (after)
+- email varchar(50) NOT NULL
++ email varchar(255) NOT NULL
++ phone varchar(20) DEFAULT NULL
+```
+
+| Change type | Diff content |
+|---|---|
+| `new` | All columns as `+` additions |
+| `altered` | Before/after diff of changed, added, and dropped columns |
+| `dropped` | All columns as `-` removals |
+
+First-time cache population on startup does not trigger the script.
 
 ##### `monitoring-long-query-script`
 
