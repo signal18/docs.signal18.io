@@ -270,6 +270,29 @@ First-time cache population on startup does not trigger the script.
 
 Registered in config but **not currently called** in the codebase. Reserved for future use.
 
+##### `monitoring-variable-change-script` (3.1)
+
+Called when a server variable changes over time (temporal detection). Requires `monitoring-variable-change = true`. The variable diff is piped to **stdin**.
+
+This is distinct from `monitoring-variable-diff` which compares master vs slaves (spatial drift). This hook detects when someone runs `SET GLOBAL` on any server.
+
+| Arg | Value |
+|---|---|
+| `$1` | Cluster name |
+| `$2` | Server URL |
+
+**Stdin** receives a variable diff:
+```
+--- db1:3306 (before)
++++ db1:3306 (after)
+- max_connections = 500
++ max_connections = 1000
+- innodb_buffer_pool_size = 4G
++ innodb_buffer_pool_size = 8G
+```
+
+First monitoring cycle snapshots variables without diffing (no flood on startup). Runs on the 30-heartbeat cycle.
+
 ---
 
 ## 10.2.5.9 Alert and Backup Hook Scripts

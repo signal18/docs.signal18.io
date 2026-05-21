@@ -18,6 +18,20 @@ taxonomy:
 
 * **Per-Module Log Levels**: Configure log verbosity independently for each subsystem (backup, proxy, heartbeat, scheduler, etc.). 20+ new `log-level-*` parameters for fine-grained logging control
 
+* **Schema Change Script Hook**: New `monitoring-schema-change-script` called when a table is created, altered, or dropped. Receives a column diff on stdin showing exactly what changed. [See documentation](/provisioning/orchestrators/scripts#monitoring-schema-change-script-31)
+
+* **Variable Change Script Hook**: New `monitoring-variable-change` + `monitoring-variable-change-script` detects when a server variable changes over time (e.g. `SET GLOBAL`). Pipes a before/after diff to stdin. Distinct from `monitoring-variable-diff` which compares master vs slaves. [See documentation](/provisioning/orchestrators/scripts#monitoring-variable-change-script-31)
+
+* **Config Tracking Fixes**: Prevent empty `dummy.cnf` overwrite on repman shutdown. Delta computation skipped when server is down. New GUI Config Files panel with Clear Delta button.
+
+* **On-Premise Rolling Upgrade**: Upgrade scripts for Debian and RHEL with version pinning. Two-axis `db_distributions.json` for OS family × deploy method. [See documentation](/provisioning/configurator/distributions)
+
+* **OpenSVC Instance-Level Start/Stop**: Switch to per-node instance API to avoid 409 "warn state" errors. New `opensvc-use-orchestrated-start` flag for HA-safe abort+restart. [See documentation](/provisioning/configurator/distributions#opensvc-use-orchestrated-start)
+
+* **Server Menu: Restart and Upgrade**: New "Restart Database" and "Upgrade Database" entries in the server context menu.
+
+* **Docker Image Version Sort**: Version dropdown sorts by semantic version descending (newest first).
+
 * **Schema Change Script Hook**: The `monitoring-schema-change-script` config key is now wired into the monitoring loop. Called when a table is created, altered, or dropped with a column diff piped to stdin showing exactly what changed. [See documentation](/provisioning/orchestrators/scripts#monitoring-schema-change-script-31)
 
 * **Config Tracking Fixes**: Prevent empty `dummy.cnf` overwrite on repman shutdown that caused all variables to show as "Deprecated (loose)". Delta computation skipped when server is down. New GUI Config Files panel with Clear Delta button. [See documentation](/provisioning/configurator/config-tracking)
