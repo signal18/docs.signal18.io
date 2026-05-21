@@ -4,82 +4,170 @@ taxonomy:
     category: docs
 ---
 
+## 10.2.5.1 Overview
 
+replication-manager uses scripts at various stages of the provisioning lifecycle and for event-driven hooks. Scripts are either:
 
-In **replication-manager 2.2** provision can call some extra local scripts
+- **Built-in provisioning scripts** — served via HTTP, selected automatically by orchestrator type and DB tags (`rpm`, `package`, default=debian)
+- **Provisioning hook scripts** — user-defined, called at specific lifecycle events (bootstrap, start, stop, cleanup)
+- **On-premise SSH scripts** — custom overrides for the built-in provisioning scripts
 
-##### `prov-db-bootstrap-script` (2.2)
+All provisioning scripts receive environment variables from `GetSshEnv()` — see [Environment Variables](../../02.configurator/04.distributions#10353-environment-variables-for-ssh-scripts) for the full list.
 
-| Item | Value |
-| ---- | ----- |
-| Description | Path to database bootstrap script |
+---
+
+## 10.2.5.2 Built-In Database Provisioning Scripts
+
+Served at `/static/configurator/onpremise/...`, selected by tags:
+
+| Script | Tags | Purpose | Custom override |
+|---|---|---|---|
+| `repository/debian/mariadb/bootstrap` | *(default)* | First-time provisioning: wipe datadir, install packages, init | — |
+| `repository/debian/mariadb/start` | *(default)* | Restart: conditional config fetch, start service | `onpremise-ssh-start-db-script` |
+| `repository/debian/mariadb/upgrade` | *(default)* | Version upgrade: update repo, pin version, install, mariadb-upgrade | `onpremise-ssh-upgrade-db-script` |
+| `repository/redhat/mariadb/bootstrap` | `rpm` | First-time provisioning (yum/dnf) | — |
+| `repository/redhat/mariadb/start` | `rpm` | Restart (yum/dnf) | `onpremise-ssh-start-db-script` |
+| `repository/redhat/mariadb/upgrade` | `rpm` | Version upgrade (yum/dnf) | `onpremise-ssh-upgrade-db-script` |
+| `package/linux/mariadb/bootstrap` | `package` | First-time provisioning (binary tarball) | — |
+| `package/linux/mariadb/start` | `package` | Restart (binary tarball) | `onpremise-ssh-start-db-script` |
+| `repository/debian/mysql/bootstrap` | *(MySQL)* | MySQL first-time provisioning (apt) | — |
+| `repository/debian/mysql/start` | *(MySQL)* | MySQL restart (apt) | — |
+
+---
+
+## 10.2.5.3 Built-In Proxy Provisioning Scripts
+
+| Script | Tags | Purpose |
+|---|---|---|
+| `repository/debian/proxysql/bootstrap` | *(default)* | ProxySQL first-time provisioning (apt) |
+| `repository/debian/proxysql/start` | *(default)* | ProxySQL restart (apt) |
+| `repository/redhat/proxysql/bootstrap` | `rpm` | ProxySQL first-time provisioning (yum) |
+| `repository/redhat/proxysql/start` | `rpm` | ProxySQL restart (yum) |
+| `package/linux/proxysql/bootstrap` | `package` | ProxySQL first-time provisioning (tarball) |
+| `package/linux/proxysql/start` | `package` | ProxySQL restart (tarball) |
+
+---
+
+## 10.2.5.4 Container and Maintenance Scripts
+
+| Script | Purpose |
+|---|---|
+| `opensvc/bootstrap` | OpenSVC init container bootstrap |
+| `init/dbjobs_new` | Maintenance job dispatcher (embedded in config tarball). Handles backups, log shipping, config refresh, script upgrades. |
+| `bin/replication-manager-cli` | CLI binary, served to nodes, auto-upgraded on start |
+
+---
+
+## 10.2.5.5 Provisioning Lifecycle Hook Scripts
+
+Called during provisioning lifecycle events. These are **user-defined** scripts — repman calls them after the corresponding orchestrator action completes. Configure via TOML:
+
+##### `prov-db-bootstrap-script`
+
+| | |
+|---|---|
+| Description | Called after database provisioning completes |
 | Type | String |
-| Default | ""  |
-| Example | "/home/deploy/install_database_ubuntu_2004.sh" |
+| Default | `""` |
 
-##### `prov-proxy-bootstrap-script` (2.2)
+##### `prov-db-start-script`
 
-| Item | Value |
-| ---- | ----- |
-| Description | Path to proxy bootstrap script |
+| | |
+|---|---|
+| Description | Called after database start |
 | Type | String |
-| Default | ""  |
-| Example | "/home/deploy/install_proxy_ubuntu_2004.sh" |
+| Default | `""` |
 
+##### `prov-db-stop-script`
 
-##### `prov-db-cleanup-script` (2.2)
-
-| Item | Value |
-| ---- | ----- |
-| Description | Path to database cleanup script |
+| | |
+|---|---|
+| Description | Called after database stop |
 | Type | String |
-| Default | ""  |
-| Example | "/home/deploy/cleanup_database_ubuntu_2004.sh" |
+| Default | `""` |
 
+##### `prov-db-cleanup-script`
 
-##### `prov-proxy-cleanup-script` (2.2)
-
-| Item | Value |
-| ---- | ----- |
-| Description | Path to proxy cleanup script |
+| | |
+|---|---|
+| Description | Called after database unprovision |
 | Type | String |
-| Default | ""  |
-| Example | "/home/deploy/cleanup_proxy_ubuntu_2004.sh" |
+| Default | `""` |
 
+##### `prov-proxy-bootstrap-script`
 
-##### `prov-db-start-script` (2.2)
-
-| Item | Value |
-| ---- | ----- |
-| Description | Path to database start script |
+| | |
+|---|---|
+| Description | Called after proxy provisioning completes |
 | Type | String |
-| Default | ""  |
-| Example | "/home/deploy/start_database_ubuntu_2004.sh" |
+| Default | `""` |
 
+##### `prov-proxy-start-script`
 
-##### `prov-db-stop-script` (2.2)
-
-| Item | Value |
-| ---- | ----- |
-| Description | Path to database stop script |
+| | |
+|---|---|
+| Description | Called after proxy start |
 | Type | String |
-| Default | ""  |
-| Example | "/home/deploy/stop_database_ubuntu_2004.sh" |
+| Default | `""` |
 
-##### `prov-proxy-start-script` (2.2)
+##### `prov-proxy-stop-script`
 
-| Item | Value |
-| ---- | ----- |
-| Description | Path to proxy start script |
+| | |
+|---|---|
+| Description | Called after proxy stop |
 | Type | String |
-| Default | ""  |
-| Example | "/home/deploy/start_proxy_ubuntu_2004.sh" |
+| Default | `""` |
 
-##### `prov-proxy-stop-script` (2.2)
+##### `prov-proxy-cleanup-script`
 
-| Item | Value |
-| ---- | ----- |
-| Description | Path to proxy stop script |
+| | |
+|---|---|
+| Description | Called after proxy unprovision |
 | Type | String |
-| Default | ""  |
-| Example | "/home/deploy/stop_proxy_ubuntu_2004.sh" |
+| Default | `""` |
+
+---
+
+## 10.2.5.6 On-Premise SSH Script Overrides
+
+These override the built-in provisioning scripts with custom paths. When set, the configurator uses the custom script instead of the tag-selected default.
+
+##### `onpremise-ssh-start-db-script`
+
+| | |
+|---|---|
+| Description | Custom database start script (replaces built-in start) |
+| Type | String |
+| Default | `""` (auto-select by tags) |
+
+##### `onpremise-ssh-upgrade-db-script`
+
+| | |
+|---|---|
+| Description | Custom database upgrade script (replaces built-in upgrade) |
+| Type | String |
+| Default | `""` (auto-select by tags) |
+
+##### `onpremise-ssh-db-job-script`
+
+| | |
+|---|---|
+| Description | Custom maintenance jobs script (replaces built-in dbjobs) |
+| Type | String |
+| Default | `""` (auto-select) |
+
+##### `onpremise-ssh-start-proxy-script`
+
+| | |
+|---|---|
+| Description | Custom proxy start script |
+| Type | String |
+| Default | `""` (auto-select by tags) |
+
+##### `onpremise-ssh-stop-proxy-script`
+
+| | |
+|---|---|
+| Description | Custom proxy stop script |
+| Type | String |
+| Default | `""` (auto-select by tags) |
