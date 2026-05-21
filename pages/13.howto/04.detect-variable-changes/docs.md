@@ -162,3 +162,7 @@ The script receives a unified diff on stdin:
 Auto-changing variables (GTID positions, InnoDB adaptive, auto-sized at startup) are automatically excluded using `GLOBAL_VALUE_ORIGIN` on MariaDB 10.1+ and `performance_schema.variables_info` on MySQL 8.0+. Additional exclusions can be configured via `monitoring-variable-change-ignore`.
 
 The DDL change log viewer and variable change log viewer are available in the dashboard under their respective accordion panels.
+
+On MariaDB 10.1+, the ignore list is automatically enriched by querying `GLOBAL_VALUE_ORIGIN = 'AUTO'`. On MySQL 8.0+, `performance_schema.variables_info` is used instead. You can customize the static ignore list via `monitoring-variable-change-ignore` in the GUI settings.
+
+See the full implementation in [PR #1488](https://github.com/signal18/replication-manager/pull/1488) and the [Scripts Reference](/provisioning/orchestrators/scripts#monitoring-variable-change-script-31) for the script interface.
