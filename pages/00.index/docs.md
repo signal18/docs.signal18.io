@@ -145,6 +145,7 @@ taxonomy:
     - 13.1. [Replication Best Practices](/howto/replication-best-practice)
     - 13.2. [Enforce Best Practices](/howto/enforce-best-practice)
     - 13.3. [Troubleshoot Crashes](/howto/toubleshoot-crashes)
+    - 13.4. [Detect Runtime Variable Changes](/howto/detect-variable-changes)
 
 14. **Change Logs**
     - 14.1. [1.0 Features](/change-logs/features10)
@@ -158,7 +159,15 @@ taxonomy:
     - 14.9. [Roadmap](/change-logs/roadmap)
 
 15. **FAQ**
-    - [Frequently Asked Questions](/faq)
+    - 15.1. [Installation & Setup](/faq/installation-setup)
+    - 15.2. [Replication & Synchronization](/faq/replication-synchronization)
+    - 15.3. [Failover & Switchover](/faq/failover-switchover)
+    - 15.4. [Topology & Deployment](/faq/topology-deployment)
+    - 15.5. [Security & Configuration](/faq/security-configuration)
+    - 15.6. [Proxies & Routing](/faq/proxies-routing)
+    - 15.7. [Recovery & Data Loss](/faq/recovery-data-loss)
+    - 15.8. [Monitoring & Troubleshooting](/faq/monitoring-troubleshooting)
+    - 15.9. [Operational Best Practices](/faq/operational-best-practices)
 
 ---
 
