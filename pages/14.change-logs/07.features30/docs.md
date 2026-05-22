@@ -4,7 +4,7 @@ taxonomy:
     category: docs
 ---
 
-### 13.7.0.1 Features
+### 14.7.0.1 Features
 
 * CORE: React GUI migration
 * CORE: Staging with multi source cluster

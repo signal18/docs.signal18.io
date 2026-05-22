@@ -4,9 +4,9 @@ taxonomy:
     category: docs
 ---
 
-### 13.8.0.1 Features
+### 14.8.0.1 Features
 
-#### 13.8.0.1.1 Monitoring Enhancements
+#### 14.8.0.1.1 Monitoring Enhancements
 
 * **Sleeping Transactions Monitoring**: Monitor long-running transactions including sleeping transactions that hold InnoDB locks. Tracks transaction duration, isolation level, tables locked, rows modified, and memory usage. [See documentation](/configuration/monitoring/processlist-monitoring)
 
@@ -52,11 +52,11 @@ taxonomy:
 
 * **Signup Email Verification Polling**: After signup, the frontend polls a lightweight CRM endpoint (`GET /api/signup/status?email=xxx`) every 5 seconds to check GitLab email confirmation status. Once confirmed, the user is automatically logged in. This avoids hitting the login rate limiter (3 attempts / 3 minutes) that would block a polling-based login approach.
 
-#### 13.8.0.1.2 Topology
+#### 14.8.0.1.2 Topology
 
 * **Active-Passive Topology**: New topology mode for monitoring single servers or multiple independent servers without replication management. Disables automatic failover while maintaining full monitoring capabilities. [See documentation](/architecture/topologies/active-passive)
 
-#### 13.8.0.1.3 Backup Enhancements
+#### 14.8.0.1.3 Backup Enhancements
 
 * **Restic Task Management**: Background task queue for backup operations with pause/resume/cancel support via API
 
@@ -70,7 +70,7 @@ taxonomy:
 
 * **MariaDB Backup Tools**: Native support for `mariadb-backup` and `mariadb-import` (formerly `maria-backup`)
 
-#### 13.8.0.1.4 Configuration Management
+#### 14.8.0.1.4 Configuration Management
 
 * **Configurator Diff Tracking**: Track differences between proposed and current configuration
 
@@ -78,11 +78,11 @@ taxonomy:
 
 * **Deprecated Configuration Detection**: Automatically identify outdated configuration parameters
 
-#### 13.8.0.1.5 Backup & Restore
+#### 14.8.0.1.5 Backup & Restore
 
 * **Cross-Cluster User Restore**: Restore backups between clusters while merging database USERS tables
 
-#### 13.8.0.1.6 Provisioning
+#### 14.8.0.1.6 Provisioning
 
 * **OpenSVC Go Agent**: Migration to new OpenSVC go-based agent
 
@@ -90,7 +90,7 @@ taxonomy:
 
 * **OpenSVC Failover Monitoring**: Split-brain detection and monitoring for OpenSVC clusters
 
-#### 13.8.0.1.7 API & Integration
+#### 14.8.0.1.7 API & Integration
 
 * **Application Deployments**: Support for managing application deployments via peering
 
@@ -98,7 +98,7 @@ taxonomy:
 
 * **OAuth Authentication**: OAuth2 provider integration for API authentication (parameters: `api-oauth-client-id`, `api-oauth-client-secret`, `api-oauth-provider-url`, `api-oauth-redirect-url`)
 
-#### 13.8.0.1.8 Scheduler
+#### 14.8.0.1.8 Scheduler
 
 * **Enhanced Scheduler System**: Comprehensive task scheduling with cron support for database maintenance, backups, and administrative operations
 
@@ -120,13 +120,13 @@ taxonomy:
 
 * **SLA Rotation**: Automated SLA metric rotation via scheduler
 
-#### 13.8.0.1.9 Database Compatibility
+#### 14.8.0.1.9 Database Compatibility
 
 * **MySQL 8.4 Support**: Version parsing and SSL mode compatibility fixes for MySQL 8.4
 
 * **PostgreSQL Enhancements**: Improved PostgreSQL logical and streaming replication support
 
-#### 13.8.0.1.10 Performance & Reliability
+#### 14.8.0.1.10 Performance & Reliability
 
 * **Job Script Versioning**: Automatic upgrades and version tracking for database job scripts
 
@@ -136,6 +136,6 @@ taxonomy:
 
 * **Audit Log Tailers**: Capture and monitor audit log entries
 
-#### 13.8.0.1.11 Development & Build
+#### 14.8.0.1.11 Development & Build
 
 * **SBOM Generation**: Software Bill of Materials generation for security compliance  

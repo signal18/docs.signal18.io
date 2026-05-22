@@ -4,9 +4,9 @@ taxonomy:
     category: docs
 ---
 
-## 14.1 Installation & Setup
+## 15.1 Installation & Setup
 
-### 14.1.1 Why does connection fail when using "localhost" as the database host?
+### 15.1.1 Why does connection fail when using "localhost" as the database host?
 
 **Problem**: Connection failures or socket errors when using `localhost` in `db-servers-hosts`.
 
@@ -29,7 +29,7 @@ GRANT ALL PRIVILEGES ON *.* TO 'root'@'127.0.0.1' IDENTIFIED BY 'password';
 
 ---
 
-### 14.1.2 What are the minimum database versions required?
+### 15.1.2 What are the minimum database versions required?
 
 **Requirement**: **replication-manager** requires GTID-enabled replication.
 
@@ -50,7 +50,7 @@ enforce_gtid_consistency = ON    # MySQL
 
 ---
 
-### 14.1.3 Why isn't HAProxy showing statistics correctly?
+### 15.1.3 Why isn't HAProxy showing statistics correctly?
 
 **Problem**: HAProxy statistics not appearing in **replication-manager** dashboard or incorrect connection counts.
 
@@ -68,7 +68,7 @@ haproxy-read-port = 3307
 
 ---
 
-### 14.1.4 Why are my configuration changes not persisting after restart?
+### 15.1.4 Why are my configuration changes not persisting after restart?
 
 **Problem**: Changes made via the web UI or API are lost when **replication-manager** restarts.
 
@@ -87,7 +87,7 @@ With this enabled, changes are saved to `/var/lib/replication-manager/cluster_na
 
 ---
 
-### 14.1.5 How do I migrate from version 2.x to 3.x?
+### 15.1.5 How do I migrate from version 2.x to 3.x?
 
 **Major changes in 3.x:**
 
@@ -120,7 +120,7 @@ docker run -v /home/repman/etc:/etc/replication-manager:rw \
 
 ---
 
-### 14.1.6 What's the minimum configuration needed to start monitoring?
+### 15.1.6 What's the minimum configuration needed to start monitoring?
 
 **Version 3.x** uses a two-part structure: `[Default]` section for global settings and separate cluster sections.
 
@@ -163,9 +163,9 @@ failover-mode = "manual"
 
 ---
 
-## 14.2 Replication & Synchronization
+## 15.2 Replication & Synchronization
 
-### 14.2.1 Does semi-sync replication guarantee no data loss after a master crash?
+### 15.2.1 Does semi-sync replication guarantee no data loss after a master crash?
 
 **Short answer**: No.
 
@@ -185,7 +185,7 @@ failover-mode = "manual"
 
 ---
 
-### 14.2.2 Why does my switchover fail after long write inactivity?
+### 15.2.2 Why does my switchover fail after long write inactivity?
 
 **Problem**: Rejoining slaves during switchover fails when using `expire_logs_days` after extended periods without writes.
 
@@ -205,7 +205,7 @@ failover-mode = "manual"
 
 ---
 
-### 14.2.3 What's the difference between AFTER_SYNC and AFTER_COMMIT?
+### 15.2.3 What's the difference between AFTER_SYNC and AFTER_COMMIT?
 
 **Parameter**: `rpl_semi_sync_master_wait_point`
 
@@ -230,7 +230,7 @@ failover-mode = "manual"
 
 ---
 
-### 14.2.4 Can SUPER privileged users write during switchover on MariaDB?
+### 15.2.4 Can SUPER privileged users write during switchover on MariaDB?
 
 **Problem**: Applications with SUPER privileges can write to a read-only master during switchover.
 
@@ -256,7 +256,7 @@ failover-mode = "manual"
 
 ---
 
-### 14.2.5 Why does MySQL hang during shutdown with GTID enabled?
+### 15.2.5 Why does MySQL hang during shutdown with GTID enabled?
 
 **Problem**: MySQL server hangs during shutdown when using GTID with `autocommit=0` and `super_read_only=ON`.
 
@@ -280,7 +280,7 @@ failover-mode = "manual"
 
 ---
 
-### 14.2.6 What happens when semi-sync reaches timeout?
+### 15.2.6 What happens when semi-sync reaches timeout?
 
 **Problem**: Semi-sync timeout causes workload changes and increased failover risk.
 
@@ -303,7 +303,7 @@ failover-mode = "manual"
 
 ---
 
-### 14.2.7 Why can't relay slaves reconnect after their master dies in multi-tier topology?
+### 15.2.7 Why can't relay slaves reconnect after their master dies in multi-tier topology?
 
 **Problem**: Relay slaves cannot automatically reconnect in multi-tier replication when their intermediate master fails.
 
@@ -324,7 +324,7 @@ And the Relay node dies, the Slave cannot automatically reconnect to Master.
 
 ---
 
-### 14.2.8 What does "server-id 1000" reserved mean?
+### 15.2.8 What does "server-id 1000" reserved mean?
 
 **Restriction**: Do not use `server-id = 1000` on any database node in your cluster.
 
@@ -341,9 +341,9 @@ And the Relay node dies, the Slave cannot automatically reconnect to Master.
 
 ---
 
-## 14.3 Failover & Switchover
+## 15.3 Failover & Switchover
 
-### 14.3.1 How does replication-manager prevent false positive failovers?
+### 15.3.1 How does replication-manager prevent false positive failovers?
 
 **Multi-layer protection:**
 
@@ -382,7 +382,7 @@ failover-max-slave-delay = 30
 
 ---
 
-### 14.3.2 What happens when the entire cluster goes down?
+### 15.3.2 What happens when the entire cluster goes down?
 
 **Default behavior**: **replication-manager** waits for the old master to recover.
 
@@ -409,7 +409,7 @@ failover-max-slave-delay = 30
 
 ---
 
-### 14.3.3 Why did my failover get rejected?
+### 15.3.3 Why did my failover get rejected?
 
 **Failover can be rejected for multiple reasons:**
 
@@ -443,7 +443,7 @@ failover-max-slave-delay = 30
 
 ---
 
-### 14.3.4 How long should I wait between failover attempts?
+### 15.3.4 How long should I wait between failover attempts?
 
 **Parameter**: `failover-time-limit`
 
@@ -470,7 +470,7 @@ failover-time-limit = 10
 
 ---
 
-### 14.3.5 What does "failover-at-sync" mean for data safety?
+### 15.3.5 What does "failover-at-sync" mean for data safety?
 
 **Parameter**: `failover-at-sync`
 
@@ -497,7 +497,7 @@ failover-time-limit = 10
 
 ---
 
-### 14.3.6 Why is my switchover stuck or timing out?
+### 15.3.6 Why is my switchover stuck or timing out?
 
 **Problem**: Switchover hangs or takes longer than expected.
 
@@ -541,7 +541,7 @@ log-level = 4
 
 ---
 
-### 14.3.7 When will replication-manager NOT perform automatic failover?
+### 15.3.7 When will replication-manager NOT perform automatic failover?
 
 **Failover is prevented when:**
 
@@ -571,7 +571,7 @@ log-level = 4
 
 ---
 
-### 14.3.8 How do I keep the MySQL/MariaDB Event Scheduler enabled on the master after failover?
+### 15.3.8 How do I keep the MySQL/MariaDB Event Scheduler enabled on the master after failover?
 
 **Problem**: When `read_only` is set on slaves, MySQL/MariaDB automatically disables the Event Scheduler. After a failover or switchover, the new master needs the Event Scheduler re-enabled, but this doesn't happen automatically without configuration.
 
@@ -597,9 +597,9 @@ No post-failover script is needed. The toggle is fully automated on both promoti
 
 ---
 
-## 14.4 Topology & Deployment
+## 15.4 Topology & Deployment
 
-### 14.4.1 Why are two-node clusters not recommended?
+### 15.4.1 Why are two-node clusters not recommended?
 
 **Limitation**: Two-node clusters lack fault tolerance for automatic failover decisions.
 
@@ -631,7 +631,7 @@ No post-failover script is needed. The toggle is fully automated on both promoti
 
 ---
 
-### 14.4.2 What are the limitations of Galera cluster support?
+### 15.4.2 What are the limitations of Galera cluster support?
 
 **Supported but with constraints:**
 
@@ -659,7 +659,7 @@ No post-failover script is needed. The toggle is fully automated on both promoti
 
 ---
 
-### 14.4.3 How does multi-master prevent split-brain?
+### 15.4.3 How does multi-master prevent split-brain?
 
 **Required configuration** for master-master (multi-master) topology:
 
@@ -690,7 +690,7 @@ Must be set in **MariaDB configuration file** (my.cnf), not just dynamically.
 
 ---
 
-### 14.4.4 What happens if a relay slave crashes in multi-tier topology?
+### 15.4.4 What happens if a relay slave crashes in multi-tier topology?
 
 **Problem**: Relay node failures are not automatically managed.
 
@@ -727,9 +727,9 @@ CHANGE MASTER TO MASTER_HOST='master', ...
 
 ---
 
-## 14.5 Security & Configuration
+## 15.5 Security & Configuration
 
-### 14.5.1 How do I change the default API credentials?
+### 15.5.1 How do I change the default API credentials?
 
 **Default credentials**: `admin:repman` (INSECURE)
 
@@ -758,7 +758,7 @@ replication-manager-cli --user=myuser --password=mypassword status
 
 ---
 
-### 14.5.2 How do I encrypt passwords in configuration files?
+### 15.5.2 How do I encrypt passwords in configuration files?
 
 **Three-step process:**
 
@@ -793,7 +793,7 @@ replication-credential = "repl:50711adb2ef2a959577edbda5cbe3d2ace844e750b20629a9
 
 ---
 
-### 14.5.3 How do I integrate with HashiCorp Vault?
+### 15.5.3 How do I integrate with HashiCorp Vault?
 
 **Two modes available:**
 
@@ -848,7 +848,7 @@ vault write database/static-roles/repman-monitor \
 
 ---
 
-### 14.5.4 Do I need to replace the self-signed certificates?
+### 15.5.4 Do I need to replace the self-signed certificates?
 
 **Yes, for production deployments.**
 
@@ -885,9 +885,9 @@ openssl req -new -x509 -sha256 -key server.key -out server.crt -days 3650
 
 ---
 
-## 14.6 Proxies & Routing
+## 15.6 Proxies & Routing
 
-### 14.6.1 Why aren't ProxySQL users syncing automatically?
+### 15.6.1 Why aren't ProxySQL users syncing automatically?
 
 **Problem**: Database users not appearing in ProxySQL configuration.
 
@@ -918,7 +918,7 @@ proxysql-bootstrap-users = true
 
 ---
 
-### 14.6.2 What's the difference between ProxySQL bootstrap-users and manual configuration?
+### 15.6.2 What's the difference between ProxySQL bootstrap-users and manual configuration?
 
 **Bootstrap mode** (`proxysql-bootstrap-users = true`):
 - **replication-manager** discovers database users automatically
@@ -942,7 +942,7 @@ proxysql-bootstrap-users = true
 
 ---
 
-### 14.6.3 Why does MaxScale have a monitoring delay?
+### 15.6.3 Why does MaxScale have a monitoring delay?
 
 **Problem**: MaxScale's internal monitor has built-in delays before detecting topology changes.
 
@@ -970,7 +970,7 @@ maxscale-read-port = 3307
 
 ---
 
-### 14.6.4 Which proxy should I use?
+### 15.6.4 Which proxy should I use?
 
 **Decision matrix:**
 
@@ -1007,9 +1007,9 @@ maxscale-read-port = 3307
 
 ---
 
-## 14.7 Recovery & Data Loss
+## 15.7 Recovery & Data Loss
 
-### 14.7.1 How do I recover a failed master?
+### 15.7.1 How do I recover a failed master?
 
 **Recovery methods depend on scenario:**
 
@@ -1054,7 +1054,7 @@ autorejoin-semisync = false
 
 ---
 
-### 14.7.2 When should I use flashback vs mysqldump recovery?
+### 15.7.2 When should I use flashback vs mysqldump recovery?
 
 **Flashback recovery:**
 
@@ -1119,7 +1119,7 @@ autorejoin-semisync = false
 
 ---
 
-### 14.7.3 Where can I find crash information after failover?
+### 15.7.3 Where can I find crash information after failover?
 
 **replication-manager** records crash details in multiple locations:
 
@@ -1165,9 +1165,9 @@ GET /api/clusters/cluster_name/crashes
 
 ---
 
-## 14.8 Monitoring & Troubleshooting
+## 15.8 Monitoring & Troubleshooting
 
-### 14.8.1 How do I increase logging for debugging?
+### 15.8.1 How do I increase logging for debugging?
 
 **Increase log verbosity dynamically via API:**
 
@@ -1218,7 +1218,7 @@ replication-manager-cli show > state.json
 
 ---
 
-### 14.8.2 Why is performance schema monitoring causing overhead?
+### 15.8.2 Why is performance schema monitoring causing overhead?
 
 **Change in version 3.x**: Performance Schema monitoring enabled by default.
 
@@ -1257,7 +1257,7 @@ performance_schema = OFF
 
 ---
 
-### 14.8.3 How do I check internal status for support tickets?
+### 15.8.3 How do I check internal status for support tickets?
 
 **Collect internal status:**
 
@@ -1301,7 +1301,7 @@ replication-manager-cli show --get=crashes
 
 ---
 
-### 14.8.5 How is table fragmentation measured in the Schema tab?
+### 15.8.5 How is table fragmentation measured in the Schema tab?
 
 **Short answer**: The Schema tab shows a fragmentation estimate based on `DATA_FREE / (DATA_LENGTH + INDEX_LENGTH)` from `information_schema.TABLES`. This is an indicator, not a precise measurement.
 
@@ -1350,9 +1350,9 @@ The Schema tab in the dashboard computes the fragmentation ratio from cached `in
 
 ---
 
-## 14.9 Operational Best Practices
+## 15.9 Operational Best Practices
 
-### 14.9.1 What are the recommended parallel replication settings?
+### 15.9.1 What are the recommended parallel replication settings?
 
 **MariaDB 10.1+ optimistic parallel replication:**
 
@@ -1384,7 +1384,7 @@ SHOW VARIABLES LIKE 'slave_parallel%';
 
 ---
 
-### 14.9.2 What are the recommended semi-sync settings?
+### 15.9.2 What are the recommended semi-sync settings?
 
 **MariaDB semi-sync configuration:**
 
@@ -1422,7 +1422,7 @@ rpl_semi_sync_master_wait_point = AFTER_COMMIT
 
 ---
 
-### 14.9.3 Should I enable dynamic best practice enforcement?
+### 15.9.3 Should I enable dynamic best practice enforcement?
 
 **Parameter**: `monitoring-enforce-best-practices`
 
@@ -1454,7 +1454,7 @@ rpl_semi_sync_slave_enabled = ON
 
 ---
 
-### 14.9.4 What backup strategy should I use?
+### 15.9.4 What backup strategy should I use?
 
 **Backup types available:**
 
