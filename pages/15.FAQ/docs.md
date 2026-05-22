@@ -571,6 +571,32 @@ log-level = 4
 
 ---
 
+### 14.3.8 How do I keep the MySQL/MariaDB Event Scheduler enabled on the master after failover?
+
+**Problem**: When `read_only` is set on slaves, MySQL/MariaDB automatically disables the Event Scheduler. After a failover or switchover, the new master needs the Event Scheduler re-enabled, but this doesn't happen automatically without configuration.
+
+**Solution**: Set the following in your replication-manager configuration:
+
+```toml
+failover-event-scheduler = true
+```
+
+**What this does**:
+
+When enabled, replication-manager automatically manages the Event Scheduler across topology changes:
+
+1. **On failover/switchover**: Enables `SET GLOBAL event_scheduler=1` on the newly promoted master
+2. **On demotion**: Disables `SET GLOBAL event_scheduler=0` on the old master when it becomes a slave and is set to read-only
+3. **Continuous monitoring**: If the master doesn't have the Event Scheduler running and the flag is set, replication-manager auto-enables it during the next monitoring tick — so even a manual restart of the master will get the scheduler re-enabled
+
+No post-failover script is needed. The toggle is fully automated on both promotion and demotion.
+
+**GUI**: The setting can also be toggled from the dashboard under **Settings → Failover → Event Scheduler**.
+
+**API**: `PUT /api/clusters/{name}/settings/actions/switch/failover-event-scheduler`
+
+---
+
 ## 14.4 Topology & Deployment
 
 ### 14.4.1 Why are two-node clusters not recommended?
