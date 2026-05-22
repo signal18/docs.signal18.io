@@ -316,9 +316,19 @@ Master → Relay → Slave
 
 And the Relay node dies, the Slave cannot automatically reconnect to Master.
 
-**Workaround**: Manually repoint slaves to the new topology after relay node failure.
+**Workaround 1**: Manually repoint slaves to the new topology after relay node failure.
 
-**Design consideration**: Multi-tier topologies require additional operational procedures for relay node failures.
+**Workaround 2 (recommended)**: Use **multi-domain child clusters** instead of multi-tier replication. replication-manager supports defining each level of the tree as its own master-slave cluster, where a slave of the parent cluster is the master of the child cluster. Each cluster has independent failover management, so a failure at any level is handled automatically within that cluster.
+
+```
+[parent-cluster]                [child-cluster]
+Master → Slave1 (= child Master) → ChildSlave1
+         Slave2                     ChildSlave2
+```
+
+**Limitation**: Child cluster replication does not support replication filtering (`replicate-do-db`, `replicate-ignore-table`, etc.) — all databases and tables are replicated to the child level.
+
+**Design consideration**: Multi-domain child clusters provide fully automated HA at every level of the tree, at the cost of no filtering. Multi-tier relay topologies allow filtering but require manual intervention when relay nodes fail.
 
 **Reference**: `/pages/05.configuration/05.replication/docs.md`
 
