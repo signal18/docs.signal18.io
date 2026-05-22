@@ -44,6 +44,14 @@ taxonomy:
 
 * **Docker Image Version Sort**: Version dropdown in the configurator now sorts by semantic version descending (newest first) instead of alphabetically.
 
+* **Settings Shortcut Buttons**: Gear icon buttons on dashboard, maintenance, schema, tops, and graphs panels link directly to the relevant settings section. Clicking navigates to the Settings tab with only the related accordion visible; a "Show all settings" button restores the full view.
+
+* **Schema Tab Rename**: The "Shards" tab has been renamed to "Schema" to better reflect its purpose (table list, checksum, schema graph).
+
+* **DictTables Persistence Separation**: Table metadata (`DictTables`) is now saved to a separate `dicttables.json` file instead of `serverstate.json`. This prevents table size changes from generating git diffs on every monitoring tick. The file is automatically added to `.gitignore`. Cluster workload totals (`DBTableSize`/`DBIndexSize`) are recomputed immediately on restart from the cached metadata so the dashboard no longer shows "cluster totals missing" after a fresh restart.
+
+* **Signup Email Verification Polling**: After signup, the frontend polls a lightweight CRM endpoint (`GET /api/signup/status?email=xxx`) every 5 seconds to check GitLab email confirmation status. Once confirmed, the user is automatically logged in. This avoids hitting the login rate limiter (3 attempts / 3 minutes) that would block a polling-based login approach.
+
 #### 13.8.0.1.2 Topology
 
 * **Active-Passive Topology**: New topology mode for monitoring single servers or multiple independent servers without replication management. Disables automatic failover while maintaining full monitoring capabilities. [See documentation](/architecture/topologies/active-passive)
