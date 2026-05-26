@@ -27,8 +27,8 @@ replication-manager orchestrates backup tools and adds features that standalone 
 | Backup encrypted at rest | &#10008; | &#10008; | &#10008; | &#10004; |
 | Parallel compression (pgzip) | &#10008; | &#10008; | &#10008; | &#10004; |
 | Check local disk size before backup | &#10008; | &#10008; | &#10008; | &#10004; |
-| Backup database config | &#10008; | &#10008; | &#10008; | &#10008; |
-| Config change history | &#10008; | &#10008; | &#10008; | &#10008; |
+| Backup database config (via git) | &#10008; | &#10008; | &#10008; | &#10004; |
+| Config change history (via logs) | &#10008; | &#10008; | &#10008; | &#10004; |
 | **Restore** | | | | |
 | Multi-threaded reload | &#10008;* | &#10004; | &#10008; | &#10004; |
 | Partial reload (per-table) | &#10008; | &#10004; | &#10004; | &#10004; |
