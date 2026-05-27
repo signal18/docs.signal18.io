@@ -6,7 +6,7 @@ taxonomy:
 
 ## 2.1.9.1 Install from Source
 
-Building from source requires [Go 1.24 or later](https://golang.org/dl/) and Node.js 22 (for the React dashboard).
+Building from source requires [Go 1.25 or later](https://golang.org/dl/) and Node.js 22 (for the React dashboard).
 
 ---
 

@@ -6,7 +6,7 @@ taxonomy:
 
 ## 10.1.1 Building from source
 
-* Download a Go release (Go 1.8 minimum): https://golang.org/dl/ or use your system's release if >= 1.8
+* Download a Go release (Go 1.25 minimum): https://golang.org/dl/ or use your system's release if >= 1.25
 * Create a build directory: `mkdir -p ~/go`
 * Point GOPATH environment variable to this directory: `export GOPATH=~/go`
 * Clone the source: `go get github.com/signal18/replication-manager`
