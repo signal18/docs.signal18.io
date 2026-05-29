@@ -232,16 +232,33 @@ On every config refresh cycle:
 
 ---
 
-## 10.3.3.6 GUI Actions on Delta Variables
+## 10.3.3.6 GUI Actions on Variables
 
-Each variable in the delta panel has two action buttons:
+Variable actions can be performed from two places in the GUI, both working per-server:
+
+### 10.3.3.6.1 Configurator Tab — Config Override Files
+
+The **Config Override Files** panel in the Configurator tab shows the three config files (`01_preserved.cnf`, `02_delta.cnf`, `03_agreed.cnf`) for each server. Select a server from the dropdown to view its config state.
+
+Each variable in the **delta** panel has two action buttons:
 
 | Button | Action | Effect |
 |---|---|---|
 | **Accept** (checkmark) | Accept the compliance value | Variable removed from delta. Compliance tag value applies on next DB restart. Tracked in `agreed.cnf` until restart. |
 | **Preserve** (lock) | Keep the current DB value | Variable moves to `01_preserved.cnf` (deployed to DB). Removed from delta. DB keeps its current value across restarts. |
 
-Variables in the preserved panel have a **Remove** (trash) button that clears the preservation and returns the variable to delta.
+Variables in the **preserved** panel have a **Remove** (trash) button that clears the preservation and returns the variable to delta.
+
+### 10.3.3.6.2 Server Variables Tab — Runtime vs Compliance
+
+The **Variables** tab in the ClusterDB page (per-server view) shows every runtime variable alongside its compliance value. This gives a complete side-by-side view of what the server is running vs what the configurator expects.
+
+From this tab you can:
+- **Preserve** a variable — keeps the current runtime value, overrides compliance
+- **Accept** a variable — agrees with the compliance value, applies on next restart
+- **Edit** a variable value — set a custom preserved value
+
+This is useful for reviewing the full variable list rather than just the differences, and for acting on variables that may not appear in the delta (e.g. variables where the values match but you want to lock them).
 
 ---
 
