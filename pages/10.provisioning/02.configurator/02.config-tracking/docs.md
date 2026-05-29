@@ -282,11 +282,21 @@ On every config refresh cycle:
 
 ## 10.3.3.5 Configuration Keys
 
+##### `prov-db-config`
+
+| | |
+|---|---|
+| Description | Enable the configurator's config tracking and deployment. When `false`, dbjobs skips all config-related work (no print-defaults, no delta computation, no config push). All other dbjobs features (backups, optimize, log collection) continue to work normally. Use this when you manage your own `my.cnf` and don't use the tag-based configurator. |
+| Type | Boolean |
+| Default | `true` |
+
+Available as a toggle in **Settings > Scheduler > Enable Configurator**.
+
 ##### `prov-db-config-preserve`
 
 | | |
 |---|---|
-| Description | Include the override files (`01_preserved.cnf`, `02_delta.cnf`, and an empty `03_agreed.cnf`) in the generated `config.tar.gz` under `custom.d/`. When `false`, the config tarball only contains tag-generated fragments — a clean config with no overrides. |
+| Description | Include the override files (`01_preserved.cnf`, `02_delta.cnf`, and an empty `03_agreed.cnf`) in the generated `config.tar.gz` under `custom.d/`. When `false`, the config tarball only contains tag-generated fragments — a clean config with no overrides. Only relevant when `prov-db-config` is `true`. |
 | Type | Boolean |
 | Default | `true` |
 
