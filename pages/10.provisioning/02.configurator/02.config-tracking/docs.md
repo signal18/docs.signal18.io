@@ -148,7 +148,52 @@ This ensures config files remain valid across version upgrades without requiring
 
 ---
 
-## 10.3.3.4 Preserved Variables — Three Levels
+## 10.3.3.4 How It Works — Variable Lifecycle
+
+When the configurator detects a difference between the compliance tags and the running database, the variable enters the **delta**. From there, the operator decides what to do:
+
+**Accept** — "The compliance value is correct, apply it on next restart."
+- Variable removed from delta (compliance tag takes effect on restart since nothing overrides it)
+- Tracked in `agreed.cnf` to suppress delta regeneration until restart
+- After restart: runtime matches compliance, diff gone, agreed entry no longer needed
+
+**Preserve** — "My DB value is correct, keep it permanently."
+- Variable moves to `01_preserved.cnf` (deployed to DB, overrides compliance tag)
+- Removed from delta
+- Survives tag changes — the preserved value always wins
+
+**Example — encryption setup:**
+
+1. You add the `encryption` tag to enable table encryption
+2. Rolling restart deploys the encryption config
+3. You remove the `encryption` tag (tag was only needed for initial setup)
+4. Delta shows all encryption variables (`innodb_encrypt_tables`, etc.) as `delta:no-config`
+5. You click **Preserve** on each — the encryption settings move to `01_preserved.cnf`
+6. Delta is clean. Encryption persists even without the tag.
+
+---
+
+## 10.3.3.5 Dependency on dbjobs
+
+The config tracking system requires the **dbjobs script** running on each database host. The configurator cannot compute the delta on its own — it needs dbjobs to:
+
+1. **Fetch the compliance config** from replication-manager and run `mariadbd --print-defaults` to produce `dummy.cnf` (what the tags expect)
+2. **Read the running config** via `mariadbd --print-defaults` on the actual `my.cnf` to produce `current.cnf` (what the DB is running)
+3. **Validate for unknown variables** via `mariadbd --help --verbose` to detect variables the DB doesn't recognize
+4. **Stream both outputs** back to replication-manager via TCP
+
+Without dbjobs, the `dummy.cnf` and `current.cnf` files are empty, the delta is empty, and the configurator shows no differences. The dbjobs script runs automatically on provisioned servers (via container entrypoint or SSH). For on-premise setups, ensure dbjobs is scheduled via cron or systemd.
+
+**Unknown variable detection:** during step 3, dbjobs checks whether the database binary recognizes all variables in the compliance config. Variables that are unknown (e.g. MySQL-only variable on MariaDB, or a variable removed in a newer version) are flagged with `# unknown:varname=value` markers. Replication-manager receives these markers and:
+- **Removes the variable from preserved** if it was there (would crash DB on restart)
+- **Excludes it from delta** (would crash DB on restart)
+- **Surfaces it in agreed.cnf** with a red "UNKNOWN — not recognized by DB" badge
+
+The operator should fix the compliance tag (add `loose_` prefix or remove the variable) to resolve the issue.
+
+---
+
+## 10.3.3.6 Preserved Variables — Three Levels
 
 Preserved variables can be defined at three levels. When they conflict, higher priority wins:
 
