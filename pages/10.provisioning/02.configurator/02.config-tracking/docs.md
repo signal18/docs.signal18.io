@@ -131,20 +131,43 @@ Each variable in the diff view has one of these states:
 | **Unknown** | Variable in compliance not recognized by DB | `03_agreed.cnf` | No — scrubbed from delta/preserved |
 | **Dropped** | Variable was deprecated and operator accepted removal | `dropped_variables.json` | No |
 
-### 10.3.3.3.5 The `loose_` Prefix for Deprecated Variables
+### 10.3.3.3.5 The `loose_` Prefix — Safe Variable Naming
 
-When a variable exists on the server but not in the compliance module (e.g. `innodb_checksum_algorithm` removed in MariaDB 11.8.8), it is written with a `loose_` prefix in all three cnf files:
+MariaDB and MySQL handle the `loose_` prefix specially:
+- **Known variable**: strips `loose_`, applies the value normally
+- **Unknown variable**: silently ignores it instead of refusing to start
+
+This makes `loose_` essential for **cross-vendor compatibility** (MySQL-only variables on MariaDB, or vice versa) and **version safety** (variables removed in newer versions).
+
+**Where replication-manager uses `loose_`:**
+
+| Context | When `loose_` is added |
+|---|---|
+| `02_delta.cnf` | Variables with `delta:no-config` (deployed but not in compliance) are automatically prefixed with `loose_` |
+| `01_preserved.cnf` | Variables with no compliance counterpart (`Config == nil`) get `loose_` prefix |
+| Compliance tags | Tag authors should use `loose_` for any variable that may not exist on all target DB versions/vendors |
+
+**Without `loose_`, unknown variables crash the database on restart.** This is the most common cause of failed rolling restarts after compliance tag changes.
+
+**Example — MySQL vs MariaDB:**
+
+A compliance tag that works on both vendors:
 
 ```ini
 [mysqld]
-loose_innodb_checksum_algorithm=none
+# MySQL-only — MariaDB ignores it silently
+loose_binlog_rows_query_log_events = 1
+
+[mariadb]
+# MariaDB-only — MySQL ignores the [mariadb] section entirely
+loose_binlog_annotate_row_events = 1
 ```
 
-MariaDB handles `loose_` specially:
-- **Old version**: recognizes the variable, strips `loose_`, applies normally
-- **New version**: doesn't recognize the variable, `loose_` means "ignore silently"
+Without the `loose_` prefix, deploying `binlog_rows_query_log_events` to a MariaDB server would prevent it from starting.
 
-This ensures config files remain valid across version upgrades without requiring manual intervention. When replication-manager reads the files back, `normalizeConfigVarName()` strips the `loose_` prefix so the variable name matches correctly for comparison.
+**Unknown variable detection:** The dbjobs script runs `mariadbd --help --verbose` to detect variables in the compliance config that the database doesn't recognize. These are flagged in the configurator's agreed panel with a red "UNKNOWN" badge. The fix is to either add `loose_` prefix to the variable in the compliance tag, or remove it entirely.
+
+When replication-manager reads cnf files back, `normalizeConfigVarName()` strips the `loose_` prefix so the variable name matches correctly for comparison across all three files.
 
 ---
 
