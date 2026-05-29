@@ -47,15 +47,20 @@ The delta file has a 4-layer safety framework for writing runtime values:
 
 If the delta is empty after a config regeneration and restart, the server is fully converged.
 
-### 10.3.3.2.3 03_agreed.cnf — Manually accepted deviations
+### 10.3.3.2.3 03_agreed.cnf — Accepted compliance values (internal tracking)
 
-When a delta value is reviewed and accepted — either by an operator using the GUI, or via the API — the variable moves from `02_delta.cnf` to `03_agreed.cnf`. This signals that the deviation is **known and intentional**, not drift to be remediated.
+When an operator clicks **Accept** on a delta variable, it means "I agree with the compliance value — apply it on next restart." The variable is removed from `02_delta.cnf` and tracked in `03_agreed.cnf` so it doesn't reappear in delta before the database restarts.
+
+**`agreed.cnf` is NOT deployed to the database config.** An empty `agreed.cnf` is written to `custom.d/` to overwrite any stale entries from previous versions. The real `agreed.cnf` stays in replication-manager's data directory as internal state.
+
+After the database restarts, the compliance value takes effect (nothing overrides it), the runtime matches compliance, and the agreed entry is no longer needed.
+
+`agreed.cnf` also surfaces **unknown variables** — variables in the compliance tags that the database doesn't recognize. These are detected by the dbjobs validation (`mariadbd --help --verbose`) and shown with a red "UNKNOWN" badge so the operator can fix the compliance tag (e.g. add `loose_` prefix).
 
 Accepting a variable via API:
 
 ```
-POST /api/clusters/{clusterName}/servers/{serverName}/actions/set-variable-accepted
-Body: {"variable": "MAX_CONNECTIONS"}
+POST /api/clusters/{clusterName}/servers/{serverName}/variables-accept?variableName=max_connections
 ```
 
 ---
@@ -112,18 +117,19 @@ After both `dummy.cnf` and `current.cnf` are received:
 
 4. **Write delta** — remaining differences are written to `02_delta.cnf`. Variables with no Config counterpart (deployed but not in compliance) are prefixed with `loose_` so they remain valid across version upgrades.
 
-5. **Copy to tarball** — all three files (`01_preserved.cnf`, `02_delta.cnf`, `03_agreed.cnf`) are included in the next `config.tar.gz` generation under `etc/mysql/custom.d/`, where MariaDB reads them after the tag-generated `conf.d/`.
+5. **Copy to tarball** — `01_preserved.cnf` and `02_delta.cnf` are included in the next `config.tar.gz` generation under `etc/mysql/custom.d/`, where MariaDB reads them after the tag-generated `conf.d/`. An empty `03_agreed.cnf` is also written to overwrite any stale entries from previous versions — the real agreed.cnf stays in replication-manager's data directory as internal state.
 
 ### 10.3.3.3.4 Variable States in the GUI
 
 Each variable in the diff view has one of these states:
 
-| State | Meaning | File |
-|---|---|---|
-| **Delta** | Deployed differs from expected, no action taken yet | `02_delta.cnf` |
-| **Preserved** | Operator chose to keep the deployed value | `01_preserved.cnf` |
-| **Accepted** | Operator chose to accept the config (expected) value | `03_agreed.cnf` |
-| **Dropped** | Variable was deprecated (no config value) and operator accepted removal | Not in any file |
+| State | Meaning | File | Deployed to DB |
+|---|---|---|---|
+| **Delta** | Deployed differs from expected, no action taken yet | `02_delta.cnf` | Yes — protects current DB value |
+| **Preserved** | Operator chose to keep the deployed value | `01_preserved.cnf` | Yes — overrides compliance tag |
+| **Accepted** | Operator chose to accept the compliance value | `03_agreed.cnf` | No — internal tracking only |
+| **Unknown** | Variable in compliance not recognized by DB | `03_agreed.cnf` | No — scrubbed from delta/preserved |
+| **Dropped** | Variable was deprecated and operator accepted removal | `dropped_variables.json` | No |
 
 ### 10.3.3.3.5 The `loose_` Prefix for Deprecated Variables
 
@@ -212,7 +218,7 @@ On every config refresh cycle:
 
 | | |
 |---|---|
-| Description | Include the three override files (`01_preserved.cnf`, `02_delta.cnf`, `03_agreed.cnf`) in the generated `config.tar.gz` under `custom.d/`. When `false`, the config tarball only contains tag-generated fragments — a clean config with no overrides. |
+| Description | Include the override files (`01_preserved.cnf`, `02_delta.cnf`, and an empty `03_agreed.cnf`) in the generated `config.tar.gz` under `custom.d/`. When `false`, the config tarball only contains tag-generated fragments — a clean config with no overrides. |
 | Type | Boolean |
 | Default | `true` |
 
@@ -226,7 +232,38 @@ On every config refresh cycle:
 
 ---
 
-## 10.3.3.6 Monitoring Config Changes
+## 10.3.3.6 GUI Actions on Delta Variables
+
+Each variable in the delta panel has two action buttons:
+
+| Button | Action | Effect |
+|---|---|---|
+| **Accept** (checkmark) | Accept the compliance value | Variable removed from delta. Compliance tag value applies on next DB restart. Tracked in `agreed.cnf` until restart. |
+| **Preserve** (lock) | Keep the current DB value | Variable moves to `01_preserved.cnf` (deployed to DB). Removed from delta. DB keeps its current value across restarts. |
+
+Variables in the preserved panel have a **Remove** (trash) button that clears the preservation and returns the variable to delta.
+
+---
+
+## 10.3.3.7 Unknown Variable Detection
+
+The dbjobs script validates the compliance config against the database binary after fetching it. It runs `mariadbd --help --verbose` to detect variables that the database doesn't recognize.
+
+Unknown variables are:
+- **Scrubbed from preserved** (would crash DB on restart)
+- **Excluded from delta** (would crash DB on restart)
+- **Shown in agreed** with a red "UNKNOWN — not recognized by DB" badge
+
+Common causes:
+- MySQL-only variable on a MariaDB server (or vice versa)
+- Variable removed in a newer database version
+- Typo in the compliance tag
+
+To fix: add `loose_` prefix to the variable in the compliance tag (makes the DB ignore it silently if unrecognized), or remove it from the tag.
+
+---
+
+## 10.3.3.9 Monitoring Config Changes
 
 replication-manager detects when the deployed config changes on disk (checksum comparison). When a change is detected:
 
@@ -240,7 +277,7 @@ This happens within the normal monitoring loop interval (`monitoring-ticker`), s
 
 ---
 
-## 10.3.3.7 Reading Variables from Config Files
+## 10.3.3.10 Reading Variables from Config Files
 
 Before the database is running (e.g., during provisioning or after a crash), replication-manager can read configuration values directly from the deployed `.cnf` files rather than from `SHOW VARIABLES`. This allows it to know the intended configuration even for offline servers.
 
