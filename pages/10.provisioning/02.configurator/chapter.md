@@ -22,6 +22,11 @@ Before any compliance change is applied to your database, your current configura
 
 ---
 
+**5. Bug-aware configuration (roadmap).**
+Our long-term goal is to integrate the configurator with MariaDB and MySQL bug tracking (MDEV, MySQL Bugs) and the enterprise advisor. When a feature is known to be buggy in a specific version range, the configurator should automatically disable it or apply a workaround — and re-enable it once the fix lands. For example, if a replication bug affects MariaDB 10.11.4 through 10.11.7, the configurator would detect your version, disable the affected feature in the compliance config, and document why. When you upgrade past the fix version, the feature is re-enabled automatically. This turns the configurator from a static best-practice engine into a **real-time, version-aware advisor** that protects you from known regressions without requiring manual tracking of every MDEV and CVE across your fleet.
+
+---
+
 ### How It Works
 
 The configurator uses a **tag-based system** where each tag produces a MySQL/MariaDB cnf fragment. The full config is assembled from the selected tags, deployed to the database, and continuously tracked for drift.
