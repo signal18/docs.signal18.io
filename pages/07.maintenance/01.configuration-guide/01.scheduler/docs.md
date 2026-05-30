@@ -15,6 +15,8 @@ taxonomy:
 
 > **Note:** The scheduler is disabled by default. On a fresh install, no maintenance jobs (backups, optimize, analyze, schema monitoring, etc.) will run until `monitoring-scheduler` is explicitly set to `true` in the configuration. The individual cron toggles (e.g. `scheduler-db-servers-logical-backup`) only take effect when the global scheduler is enabled.
 
+> **Warning:** When the scheduler is enabled and `prov-db-config` is `true` (default), the dbjobs script will also track and deploy database configuration files from compliance tags. This means configuration files may be pushed to your database servers. If you manage your own `my.cnf` and don't want the configurator to modify your database config, set `prov-db-config = false` in your configuration or disable it via **Settings > Scheduler > Enable Configurator** in the GUI. See [Config Tracking](/provisioning/configurator/config-tracking) for details.
+
 ## 7.2.1.2 CRON Expression Format
 
 A cron expression represents a set of times, using 6 space-separated fields.
