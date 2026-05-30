@@ -107,7 +107,9 @@ The generated archive is served at:
 GET /api/clusters/{clusterName}/servers/{host}/{port}/config
 ```
 
-An **init container** that shares the network namespace with the database container fetches this URL at service startup and unpacks it:
+An **init container** that shares the network namespace with the database container fetches this URL at service startup and unpacks it.
+
+**OpenSVC** uses HTTPS for secure config delivery:
 
 ```
 # OpenSVC container spec
@@ -115,8 +117,10 @@ An **init container** that shares the network namespace with the database contai
 type    = docker
 image   = busybox
 netns   = container#0001
-command = sh -c 'wget -qO- http://{env.mrm_api_addr}/api/clusters/{env.mrm_cluster_name}/servers/{env.ip_pod01}/{env.port_pod01}/config | tar xzvf - -C /data'
+command = sh -c 'wget --no-check-certificate -qO- https://{env.mrm_api_addr}/api/clusters/{env.mrm_cluster_name}/servers/{env.ip_pod01}/{env.port_pod01}/config | tar xzvf - -C /data'
 ```
+
+**Kubernetes** example:
 
 ```yaml
 # Kubernetes init container
@@ -126,7 +130,7 @@ initContainers:
   command:
   - sh
   - -c
-  - 'wget -qO- http://replication-manager:10001/api/clusters/my-cluster/servers/db1/3306/config | tar xzf - -C /data'
+  - 'wget -qO- https://replication-manager:10005/api/clusters/my-cluster/servers/db1/3306/config | tar xzf - -C /data'
 ```
 
 ### 10.3.1.4.2 SSH mode (osc / onpremise)
