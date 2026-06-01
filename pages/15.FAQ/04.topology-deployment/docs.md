@@ -36,7 +36,35 @@ taxonomy:
 
 ---
 
-### 15.4.2 What are the limitations of Galera cluster support?
+### 15.4.2 Why is my 2-node cluster stuck after restarting replication-manager?
+
+**Symptom**: After a failover in a 2-node cluster, restarting replication-manager leaves both servers stuck — one as Failed, the other as Suspect. No master is discovered, and the cluster doesn't recover.
+
+**Cause**: On restart, all servers start in Suspect state. Without a quorum (minimum 3 nodes or an arbitrator), replication-manager cannot safely determine which server should be master. It refuses to guess because promoting the wrong server could cause data loss or split-brain.
+
+**Why it can't auto-recover**: Replication-manager intentionally avoids promoting a Suspect server to master to prevent a dangerous scenario during network glitches — a server briefly going Suspect could be wrongly treated as standalone, triggering an unwanted rejoin that breaks a working cluster.
+
+**Solutions**:
+
+1. **Use an arbitrator** (recommended for 2-node production):
+   ```toml
+   arbitration-external = true
+   arbitration-external-hosts = "arbitrator.example.com:10001"
+   ```
+   The arbitrator remembers who was master and provides the quorum needed for safe election after restart.
+
+2. **Use 3+ nodes**: Natural quorum — replication-manager can safely elect a master by majority.
+
+3. **Manual recovery after restart**: If stuck, manually bootstrap replication from the GUI (Actions → Bootstrap Master-Slave) or CLI:
+   ```bash
+   replication-manager-cli bootstrap --cluster=mycluster --topology=master-slave
+   ```
+
+**Prevention**: For production 2-node clusters, always configure an arbitrator. Without one, any replication-manager restart after a failover requires manual intervention.
+
+---
+
+### 15.4.3 What are the limitations of Galera cluster support?
 
 **Supported but with constraints:**
 
@@ -64,7 +92,7 @@ taxonomy:
 
 ---
 
-### 15.4.3 How does multi-master prevent split-brain?
+### 15.4.4 How does multi-master prevent split-brain?
 
 **Required configuration** for master-master (multi-master) topology:
 
@@ -95,7 +123,7 @@ Must be set in **MariaDB configuration file** (my.cnf), not just dynamically.
 
 ---
 
-### 15.4.4 What happens if a relay slave crashes in multi-tier topology?
+### 15.4.5 What happens if a relay slave crashes in multi-tier topology?
 
 **Problem**: Relay node failures are not automatically managed.
 
