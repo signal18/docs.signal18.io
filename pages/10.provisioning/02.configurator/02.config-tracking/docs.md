@@ -6,11 +6,15 @@ taxonomy:
 
 ## 10.3.3.1 Config Tracking
 
+> **Available since:** replication-manager **v2.1.0** (basic config generation and status delta), **v2.3.0** (dynamic variable change tracking), **v3.1.17** (delta/preserved variable override system), **v3.1.25** (three-layer config system with agreed.cnf, per-variable Accept/Preserve GUI, unknown variable detection, `prov-db-config` toggle)
+
 The configurator does not just generate a one-time config archive — it continuously monitors the live database configuration and tracks **drift** between what replication-manager expects to be deployed and what is actually running. This lets you detect unplanned changes, preserve intentional deviations, and keep config in a known state across rolling restarts and node replacements.
 
 ---
 
 ## 10.3.3.2 Three-Layer Config System
+
+> **Available since:** replication-manager **v3.1.17** (delta/preserved), **v3.1.25** (agreed.cnf, per-variable Accept/Preserve GUI)
 
 Each server's data directory contains three override files that sit in `etc/mysql/custom.d/` inside the config archive (read after all tag-generated fragments):
 
@@ -284,15 +288,19 @@ On every config refresh cycle:
 
 ##### `prov-db-config`
 
+> **Available since:** replication-manager **v3.1.25**
+
 | | |
 |---|---|
 | Description | Enable the configurator's config tracking and deployment. When `false`, dbjobs skips all config-related work (no print-defaults, no delta computation, no config push). All other dbjobs features (backups, optimize, log collection) continue to work normally. Use this when you manage your own `my.cnf` and don't use the tag-based configurator. |
 | Type | Boolean |
-| Default | `true` |
+| Default | `true` (PRO edition), `false` (OSC edition) |
 
 Available as a toggle in **Settings > Scheduler > Enable Configurator**.
 
 ##### `prov-db-config-preserve`
+
+> **Available since:** replication-manager **v3.1.25**
 
 | | |
 |---|---|
@@ -301,6 +309,8 @@ Available as a toggle in **Settings > Scheduler > Enable Configurator**.
 | Default | `true` |
 
 ##### `prov-db-config-preserve-vars` (deprecated)
+
+> **Available since:** replication-manager **v2.1.0** — **Deprecated in v3.1.25**, use `preserved_variables.cnf` instead.
 
 | | |
 |---|---|
@@ -311,6 +321,8 @@ Available as a toggle in **Settings > Scheduler > Enable Configurator**.
 ---
 
 ## 10.3.3.6 GUI Actions on Variables
+
+> **Available since:** replication-manager **v3.1.17** (Variables tab), **v3.1.25** (per-variable Accept/Preserve/Remove buttons in Config Override Files panel)
 
 Variable actions can be performed from two places in the GUI, both working per-server:
 
@@ -341,6 +353,8 @@ This is useful for reviewing the full variable list rather than just the differe
 ---
 
 ## 10.3.3.7 Unknown Variable Detection
+
+> **Available since:** replication-manager **v3.1.25**
 
 The dbjobs script validates the compliance config against the database binary after fetching it. It runs `mariadbd --help --verbose` to detect variables that the database doesn't recognize.
 
