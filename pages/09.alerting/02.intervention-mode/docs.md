@@ -22,6 +22,16 @@ All suppressed notifications are counted and shown as "blocked notifications" in
 
 Monitoring, state detection, failover, and switchover continue to operate normally — only the notification delivery is muted.
 
+**Exception — intervention start/stop notifications are always delivered:**
+
+| Event | Level | When sent | Message |
+|---|---|---|---|
+| Scheduled | ALERT | Immediately when scheduled | "Intervention scheduled by {user} at {time}: {reason} — notifications will be muted" |
+| Started | ALERT | Before muting activates | "Intervention started by {user}: {reason} (scope: {scope}) — notifications are now muted" |
+| Ended | ALERTOK | After unmuting | "Intervention ended by {user}: {reason}. Duration: {duration}. Suppressed alerts: {count} — notifications resumed" |
+
+These three notifications bypass the mute so that all team members are informed when maintenance begins and ends, and how many alerts were silenced.
+
 ---
 
 ## 9.3.2 Warning States

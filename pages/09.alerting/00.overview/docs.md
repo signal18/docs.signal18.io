@@ -44,7 +44,7 @@ Alerts fire on any cluster state transition — new error or warning states dete
 3. **Send** — codes that are new (present now, absent before) dispatch an alert to all channels
 4. **Resolve** — codes that cleared (absent now, present before) dispatch a resolve notification
 5. **Suppress** — the scheduler can silence alerts during planned maintenance windows using a cron expression (`alert-disable`)
-6. **Mute** — intervention mode silences all channels on demand during planned maintenance, with optional scheduling and auto-unmute (v3.1.25)
+6. **Mute** — intervention mode silences all channels on demand during planned maintenance, with optional scheduling and auto-unmute (v3.1.26)
 
 ---
 
