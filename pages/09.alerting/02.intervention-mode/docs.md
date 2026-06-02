@@ -12,11 +12,11 @@ Intervention mode — also called **Mute** — silences all alert notifications 
 
 When intervention mode is active:
 - **Email** alerts are suppressed
-- **Slack** notifications are suppressed
-- **Microsoft Teams** notifications are suppressed
+- **Slack** notifications are suppressed (including state RESOLV/OPENED diffs)
+- **Microsoft Teams** notifications are suppressed (including state diffs)
 - **Pushover** push notifications are suppressed
-- **ALERT**, **START**, and **ALERTOK** log events skip external channels (Slack, Teams, Cloud18)
-- **Subscription** notifications (Cloud18) continue normally — they are not blocked
+- **Cloud18 / Mattermost** alert forwarding is suppressed (ALERT, START, ALERTOK channels)
+- **ALERT**, **START**, and **ALERTOK** log events skip all external channels
 
 All suppressed notifications are counted and shown as "blocked notifications" in the GUI badge and intervention history.
 
