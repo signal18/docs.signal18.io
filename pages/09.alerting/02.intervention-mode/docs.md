@@ -6,7 +6,7 @@ taxonomy:
 
 ## 9.3.1 Intervention Mode
 
-> **Available since:** replication-manager **v3.1.25**
+> **Available since:** replication-manager **v3.1.26**
 
 Intervention mode — also called **Mute** — silences all alert notifications for a cluster or globally across all clusters during planned maintenance. Unlike the scheduled [alert blackout window](/alerting/configuration-guide#9-2-3-alert-blackout-window) which uses a fixed cron expression, intervention mode is started and stopped on demand from the GUI or API, with optional scheduling and auto-unmute.
 
@@ -110,7 +110,7 @@ POST /api/clusters/{clusterName}/actions/intervention-start
 Request body (JSON):
 ```json
 {
-  "reason": "Rolling restart for v3.1.25",
+  "reason": "Rolling restart for v3.1.26",
   "startAt": "2026-06-02T14:00:00Z",
   "endAt": "2026-06-02T15:00:00Z"
 }
@@ -153,6 +153,6 @@ Ends the active intervention on all clusters.
 | **Duration** | Fixed (`scheduler-alert-disable-time`) | Operator-defined with optional auto-unmute |
 | **History** | No audit trail | Full history with user, reason, blocked count |
 | **Warning state** | No | WARN0172 (scheduled), WARN0173 (active) |
-| **Available since** | v2.1.0 | v3.1.25 |
+| **Available since** | v2.1.0 | v3.1.26 |
 
 Both can be active simultaneously. When either is active, notifications are suppressed.
