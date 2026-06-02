@@ -26,9 +26,9 @@ Compliance module  (embedded opensvc/moduleset_mariadb.svc.mrm.db.json)
         ▼
   <datadir>/<cluster>/<host_port>/init/
         ├── etc/mysql/
-        │       ├── conf.d/        tag-generated .cnf fragments (symlinked)
-        │       ├── rc.d/          ordered symlinks to active fragments
-        │       └── custom.d/      user overlay (01_preserved, 02_delta, 03_agreed)
+        │       ├── replication-manager.d/  full library of all .cnf fragments
+        │       ├── conf.d/                 symlinks to active fragments in replication-manager.d/
+        │       └── custom.d/               user overlay (01_preserved, 02_delta, 03_agreed)
         ├── init/
         │       └── dbjobs_new     maintenance job script
         └── data/
@@ -312,10 +312,10 @@ Inside the replication-manager working directory:
 ├── config.tar.gz         ← packed archive served to init containers
 ├── init/
 │   ├── etc/mysql/
-│   │   ├── conf.d/       tag-generated .cnf fragments
-│   │   ├── rc.d/         ordered symlinks (loaded by main my.cnf)
-│   │   ├── custom.d/     user overlays (preserved, delta, agreed)
-│   │   └── ssl/          TLS certificates
+│   │   ├── replication-manager.d/  full library of all .cnf fragments
+│   │   ├── conf.d/                 symlinks to active fragments in replication-manager.d/
+│   │   ├── custom.d/               user overlays (preserved, delta, agreed)
+│   │   └── ssl/                    TLS certificates
 │   └── init/
 │       └── dbjobs_new    maintenance job script
 ├── 01_preserved.cnf      server-specific locked variables (see Config Tracking)
@@ -324,7 +324,7 @@ Inside the replication-manager working directory:
 └── preserved_variables.cnf  cluster-wide preserved variables
 ```
 
-`etc/mysql/rc.d` contains numbered symlinks that control load order. `etc/mysql/custom.d` is read last, so user overlays always win over tag-generated fragments. This is where the three-layer preserved/delta/agreed files land inside the container.
+`etc/mysql/replication-manager.d/` holds the full library of `.cnf` fragments. `etc/mysql/conf.d/` contains symlinks to the active fragments — load order is controlled by filename prefix (`01_`, `02_`). `etc/mysql/custom.d/` is read last, so user overlays always win over tag-generated fragments. This is where the three-layer preserved/delta/agreed files land inside the container.
 
 See [Config Tracking](../02.config-tracking) for a full explanation of `01_preserved.cnf`, `02_delta.cnf`, and `03_agreed.cnf`.
 
