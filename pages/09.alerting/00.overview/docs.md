@@ -44,9 +44,14 @@ Alerts fire on any cluster state transition — new error or warning states dete
 3. **Send** — codes that are new (present now, absent before) dispatch an alert to all channels
 4. **Resolve** — codes that cleared (absent now, present before) dispatch a resolve notification
 5. **Suppress** — the scheduler can silence alerts during planned maintenance windows using a cron expression (`alert-disable`)
+6. **Mute** — intervention mode silences all channels on demand during planned maintenance, with optional scheduling and auto-unmute (v3.1.25)
 
 ---
 
 ## 9.1.5 Configuration Guide
 
 See [Configuration Guide](configuration-guide) for all SMTP, Slack, Teams, Mattermost, Pushover, and script settings.
+
+## 9.1.6 Intervention Mode (Mute)
+
+See [Intervention Mode](intervention-mode) for on-demand notification muting during planned maintenance, with scheduling, auto-unmute, and full audit trail.
