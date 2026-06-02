@@ -162,9 +162,16 @@ Proxy tags are set via `prov-proxy-tags`. Available tags for ProxySQL, HAProxy, 
 
 Tags are matched against the embedded compliance module (`share/opensvc/moduleset_mariadb.svc.mrm.db.json`). Each tag corresponds to a **filterset** (fset) in the module. A filterset groups one or more rulesets that each contribute:
 
-- A `.cnf` file fragment placed under `etc/mysql/conf.d/`
-- A symlink in `etc/mysql/rc.d/` that controls load order
+- A `.cnf` file fragment stored in `etc/mysql/replication-manager.d/` (the full library of all available fragments)
+- An active copy placed under `etc/mysql/conf.d/` (only the fragments for enabled tags — this is the directory included by `my.cnf` via `!includedir`)
 - Optional `# mariadb_command:` or `# mariadb_default:` SQL lines for runtime application
+
+The `my.cnf` include chain is:
+```
+[mysqld]
+!includedir /etc/mysql/conf.d       # tag-generated fragments (from replication-manager.d)
+!includedir /etc/mysql/custom.d     # overrides: preserved, delta, agreed (from config tracking)
+```
 
 You can supply a custom compliance module file instead of the embedded one:
 
