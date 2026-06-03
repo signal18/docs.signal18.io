@@ -159,7 +159,22 @@ These variables allow the script to call back into the replication-manager API, 
 
 ---
 
-## 7.1.6 How Results Are Streamed Back
+## 7.1.6 Database Host Prerequisites
+
+The dbjobs script requires the following packages **on each database host** (or inside each database container):
+
+| Package | Required for | Install |
+|---|---|---|
+| **socat** | All data streaming: config delivery, backup streaming, script upgrades, log shipping, jobs-check. Without socat, dbjobs cannot communicate with replication-manager. | `apt install socat` (Debian/Ubuntu), `yum install socat` (RHEL/CentOS) |
+| **bash** | The dbjobs script requires bash (not sh/dash) | Included in all standard distros |
+| **MariaDB/MySQL client** | SQL job execution, `mariadbd --print-defaults` for config tracking | Installed with the database server |
+| **gzip** | Compressing/decompressing streamed data | Included in all standard distros |
+
+> `socat` is **not** part of minimal Linux installations but is included as a dependency of MariaDB Server packages (used by Galera SST). On on-premise deployments, verify it is installed on every database host before enabling the scheduler. Docker images built by replication-manager include socat by default.
+
+---
+
+## 7.1.8 How Results Are Streamed Back
 
 Tasks that produce output (backups, log fetches) stream their data back to replication-manager using `socat`. replication-manager opens a TCP listener on a port from `scheduler-db-servers-sender-ports` and records that address in the job row. The script reads the address from the row and pipes the output directly:
 
@@ -186,11 +201,11 @@ scheduler-db-servers-sender-ports = "4000,4001,4002"  # port pool; one per concu
 
 ---
 
-## 7.1.7 How Job Execution Logs Are Pushed via the API
+## 7.1.9 How Job Execution Logs Are Pushed via the API
 
 In addition to streaming bulk data (backups) over TCP/socat, the dbjobs script reports execution logs back to replication-manager through encrypted REST API calls. This mechanism is used for error logs, slow query logs, optimize output, and all other job status reporting.
 
-### 7.1.7.1 Authentication and Authorization
+### 7.1.9.1 Authentication and Authorization
 
 The dbjobs script authenticates with replication-manager using the database server password:
 
@@ -207,7 +222,7 @@ No manual user configuration is needed — the `system` service account is auto-
 
 > **ACL grant: `db-jobs`** — Controls access to all job dispatch API endpoints. Granted automatically to the `system` user. Can be assigned to custom service accounts via the user management API if needed.
 
-### 7.1.7.2 Log Push Flow
+### 7.1.9.2 Log Push Flow
 
 Job execution logs are sent in real time while the job is running:
 
@@ -219,7 +234,7 @@ Job execution logs are sent in real time while the job is running:
 6. **replication-manager decrypts and processes** — the server decrypts the payload, parses log entries, extracts metadata (backup positions, GTIDs, error codes), and writes to the module-based logging system
 7. **Checkpoint is saved** — the script records how far it read in the log file, so if the script restarts it resumes from the last position
 
-### 7.1.7.3 Encryption
+### 7.1.9.3 Encryption
 
 All log data is encrypted in transit using AES-256-CBC:
 
@@ -230,7 +245,7 @@ All log data is encrypted in transit using AES-256-CBC:
 
 The encrypted payload is wrapped in a JSON envelope: `{"data":"<base64_encrypted_content>"}`.
 
-### 7.1.7.4 Log Level Filtering
+### 7.1.9.4 Log Level Filtering
 
 To avoid unnecessary network traffic, the script checks whether a given log level should be sent before transmitting:
 
@@ -238,7 +253,7 @@ To avoid unnecessary network traffic, the script checks whether a given log leve
 2. replication-manager responds with `"true"` or `"false"`
 3. Only logs matching enabled levels (INFO, ERROR, WARN, DEBUG) are transmitted
 
-### 7.1.7.5 Task Need Check
+### 7.1.9.5 Task Need Check
 
 Before executing a task, the script asks replication-manager whether the task is actually needed:
 
@@ -247,7 +262,7 @@ Before executing a task, the script asks replication-manager whether the task is
 
 This allows replication-manager to skip tasks that are not relevant (e.g. an optimize that was already completed, or a backup that is not configured for this server).
 
-### 7.1.7.6 API Endpoints Summary
+### 7.1.9.6 API Endpoints Summary
 
 | Endpoint | Method | Purpose |
 |---|---|---|
@@ -257,7 +272,7 @@ This allows replication-manager to skip tasks that are not relevant (e.g. an opt
 | `/api/clusters/{cluster}/jobs-log-level/{task}/{level}` | GET | Check if a log level is enabled for a task |
 | `/api/clusters/{cluster}/servers/{host}/{port}/actions/receive-jobs-check` | GET | Open TCP receiver port for script update |
 
-### 7.1.7.7 Retry and Resilience
+### 7.1.9.7 Retry and Resilience
 
 The script includes retry logic for API calls:
 
@@ -265,7 +280,7 @@ The script includes retry logic for API calls:
 - Failures are logged locally to `{log_dir}/api_calls.log`
 - The checkpoint system ensures no log lines are lost if the script is interrupted — it resumes from the last successfully sent position
 
-### 7.1.7.8 Configuration
+### 7.1.9.8 Configuration
 
 ```toml
 ## Log batch size — number of log lines sent per API call (default: 5)
@@ -274,11 +289,11 @@ scheduler-db-servers-log-batch-size = 5
 
 ---
 
-## 7.1.8 Job Dispatch Modes (since 3.x)
+## 7.1.10 Job Dispatch Modes (since 3.x)
 
 replication-manager supports two modes for dispatching maintenance tasks to database hosts. The mode is controlled by `scheduler-jobs-mode`.
 
-### 7.1.8.1 SQL Mode (default)
+### 7.1.10.1 SQL Mode (default)
 
 ```toml
 scheduler-jobs-mode = "sql"
@@ -290,7 +305,7 @@ This mode requires:
 - A working SQL connection to the database
 - The `replication_manager_schema` database and `jobs` table (created automatically)
 
-### 7.1.8.2 API Mode
+### 7.1.10.2 API Mode
 
 ```toml
 scheduler-jobs-mode = "api"
@@ -305,7 +320,7 @@ This mode:
 - Reduces SQL overhead on the database servers — no jobs table polling on every dbjobs cycle
 - The `replication_manager_schema` database is still created silently for checksum and benchmark features
 
-### 7.1.8.3 API Endpoints
+### 7.1.10.3 API Endpoints
 
 All job API endpoints require the `db-jobs` ACL grant. The dbjobs script authenticates via `secret-login` to obtain a JWT token, then passes it as `Authorization: Bearer` on every call.
 
@@ -320,7 +335,7 @@ All job API endpoints require the `db-jobs` ACL grant. The dbjobs script authent
 | `/api/clusters/{cluster}/servers/{host}/{port}/actions/receive-jobs-check` | POST | Script version check | Open receiver for script checksum comparison |
 | `/api/clusters/{cluster}/servers/{host}/{port}/actions/send-jobs-upgrade` | POST | Script upgrade | Request new script version from replication-manager |
 
-### 7.1.8.4 API Mode Task Lifecycle
+### 7.1.10.4 API Mode Task Lifecycle
 
 ```
 1. Scheduler fires
@@ -338,7 +353,7 @@ All job API endpoints require the `db-jobs` ACL grant. The dbjobs script authent
    └── Next monitoring tick: WARN not re-set → state machine closes it
 ```
 
-### 7.1.8.5 Task Execution Mode
+### 7.1.10.5 Task Execution Mode
 
 Some tasks can run either locally (by replication-manager) or remotely (by the dbjobs script). Use `scheduler-jobs-exec-remote` to control which tasks are dispatched to the dbjobs script.
 
@@ -359,11 +374,11 @@ scheduler-jobs-exec-remote = "mysqldump,optimize"
 
 When a task is forced remote, the dbjobs script runs the command on the database host using the local client binaries. This avoids client/server version mismatch issues (e.g. mysqldump version must match the server version).
 
-### 7.1.8.6 Job State Persistence
+### 7.1.10.6 Job State Persistence
 
 Job results are persisted to `serverstate.json` alongside other server metadata (variables, table dictionary, etc.). After a replication-manager restart, the maintenance tab shows full job history immediately — no need to wait for the next SQL refresh or API callback.
 
-### 7.1.8.7 Security
+### 7.1.10.7 Security
 
 | Layer | SQL mode | API mode |
 |---|---|---|
