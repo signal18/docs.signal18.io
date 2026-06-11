@@ -226,11 +226,16 @@ HAProxy Runtime API  provides very powerful dynamic configuration capabilities w
 
 backend service_write
 
-In this backend one need to define a single master node a named it leader
+In this backend one need to define a single master node and name it `leader`
 
 backend service_read
 
-In this backend one need to define a all replica nodes and named them with the Id of replication manager aka db<hash(host:port)>
-One can get those ID via API (http interface / cluster menu / debug / servers )  
+In this backend one need to define all replica nodes. Server names can be:
+- The replication-manager server ID: `db<hash(host:port)>` — used by auto-provisioned configs
+- **Any custom name** (e.g. `srv1`, `srv2`) — since **replication-manager (3.1.29)**, server lookup falls back to the FQDN from HAProxy's `show servers state` when DNS-based IP resolution fails (e.g. when a container is stopped and HAProxy reports `MAINT (resolution)`). This means user-managed HAProxy configs with custom server names work correctly.
 
-The replication-manager will auto DRAIN the backend route if the replication is broken or is late or the server is in ignored list
+One can get server IDs via API (http interface / cluster menu / debug / servers)
+
+The replication-manager will auto DRAIN the backend route if the replication is broken or is late or the server is in ignored list.
+
+> **Note on HAProxy 3.3.9**: This version has a known regression (haproxy/haproxy#3355) where WebSocket over HTTP/2 is broken. Upgrade to HAProxy **3.3.10+** if you use `alpn h2,http/1.1` on the frontend bind and need WebSocket (e.g. for the terminal feature).
