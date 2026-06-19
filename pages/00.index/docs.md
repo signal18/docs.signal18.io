@@ -88,6 +88,7 @@ taxonomy:
       - 6.2.4. [Performance Schema Monitoring](/monitoring/configuration-guide/performance-schema)
       - 6.2.5. [Multi node monitoring](/monitoring/configuration-guide/clustering)
    - 6.3. [Logs and Troubleshooting](/monitoring/logs-troubleshooting)
+   - 6.4. [Cluster Slideshow](/monitoring/slideshow)
 
 7. **Maintenance**
    - 7.1. [Overview](/maintenance/overview)
