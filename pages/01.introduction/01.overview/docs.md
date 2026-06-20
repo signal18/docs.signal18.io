@@ -111,3 +111,16 @@ See the [Monitoring](/monitoring/overview) section for configuration, metrics en
 - **Planned maintenance support** — intervention mode silences all channels on demand during maintenance windows, with optional scheduling and auto-unmute so alerts resume automatically
 
 See the [Alerting](/alerting/overview) section for channel configuration and alert lifecycle details.
+
+## 1.1.9 Cloud18
+
+Not every team wants to run its own infrastructure. **Cloud18** is a ready-to-go cloud platform powered by replication-manager that lets you deploy fully managed MariaDB and MySQL clusters — so you can sleep at night knowing your databases are monitored, backed up, and maintained with the same best practices described above.
+
+Cloud18 is built around a community of trusted partners — hosting providers, consultants, and managed-service operators — who deliver cost-effective DBaaS on infrastructure they control. The goals are:
+
+- **Managed databases without vendor lock-in** — deploy on partner infrastructure across regions and providers, not a single hyperscaler; migrate between partners or back to self-hosted at any time
+- **Same tool, zero ops** — Cloud18 runs the same replication-manager you can install yourself, with the same configurator, scheduler, monitoring, and alerting — but operated for you
+- **Community of trusted partners** — partners are vetted for infrastructure quality and support capability, creating a network of cost-effective DBaaS options that compete on service rather than lock-in
+- **Credit-based resource model** — a unified credit system maps CPU, memory, disk, and IOPS to a single billing unit, making it easy to compare plans and scale resources across partners
+
+Whether you self-host replication-manager or use Cloud18, the experience is the same dashboard, the same API, and the same configuration language — the only difference is who operates the infrastructure.
