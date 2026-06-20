@@ -87,3 +87,27 @@ Our team has maintained heavily loaded databases where maintenance alone consume
 - **Two dispatch modes** — SQL mode (traditional job table polling) or API mode (REST-based task discovery that works even when the database is down, enabling crash log delivery)
 
 Each task is individually enabled and given its own cron expression. The scheduler is disabled by default. See the [Maintenance](/maintenance/overview) section for a full explanation of the job system, task types, dbjobs script delivery, and dispatch modes.
+
+## 1.1.7 Monitoring
+
+**replication-manager** runs a continuous monitoring loop that tracks every server in every managed cluster. On each tick it connects to each database and proxy, reads state, and updates an in-memory topology model that drives the GUI, API, alerting, and failover decisions. The goals are:
+
+- **Full topology awareness** — track server roles, GTID positions, replication lag, semi-sync state, and relay log positions across async, semi-sync, multi-source, Galera, and group replication topologies
+- **Schema and data consistency** — detect structural drift between primary and replicas (missing tables, column changes, index differences) and row-level divergence through chunk-based checksums, with one-click repair from the GUI
+- **Workload analysis** — capture active processlist, Performance Schema digest statistics, and query routing rules consolidated from all proxies to understand where time is spent
+- **Security and compliance auditing** — continuous CIS Benchmark checks on configuration, user accounts, and privileges; detect no-password accounts, wildcard grants, and privilege escalation; match running versions against CVE and bug advisory databases
+- **Metrics for external systems** — all collected counters are pushed to the embedded Graphite database and exposed as Prometheus metrics for integration with existing dashboards and alerting pipelines
+- **NOC slideshow** — full-screen auto-rotating display of all monitored clusters for wall-mounted screens, with no login required for read-only viewers
+
+See the [Monitoring](/monitoring/overview) section for configuration, metrics endpoints, and the monitoring loop architecture.
+
+## 1.1.8 Alerting
+
+**replication-manager** emits alerts the moment a condition is detected and resolves them automatically once it clears. The goals are:
+
+- **Instant state-change notifications** — alert on primary down, replica lag, replication thread stopped, split-brain, backup failures, disk pressure, and configuration drift, delivered simultaneously through all configured channels
+- **Multi-channel delivery** — email (SMTP with TLS), Slack, Microsoft Teams, Mattermost, Pushover mobile notifications, and custom scripts
+- **Automatic resolution** — when the condition clears, a matching resolve notification is sent without manual intervention
+- **Planned maintenance support** — intervention mode silences all channels on demand during maintenance windows, with optional scheduling and auto-unmute so alerts resume automatically
+
+See the [Alerting](/alerting/overview) section for channel configuration and alert lifecycle details.
