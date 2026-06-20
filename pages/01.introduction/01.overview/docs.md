@@ -56,3 +56,34 @@ To perform switchover on leader replicas while preserving data consistency, **re
 - [x] Layer 7: MariaDB Spider layer for database traffic splitting or table sharding across different database clusters
 
 Multiple strategies can be combined depending on feature maturity, security, or performance requirements.
+
+## 1.1.5 Software Configurator
+
+**replication-manager** includes a built-in **Software Configurator** — a rules engine that generates, delivers, and tracks database and proxy configuration files.
+
+Database fine-tuning is complex. The configurator enforces best practices out of the box while leaving full freedom for the user to override any setting. Each configuration fragment is documented through the plugin system, which provides inline documentation helpers so users can understand what each option does, why it matters, and when to change it. The goals are:
+
+- **Best-practice defaults without constraints** — translate a set of cluster tags (`innodb`, `semisync`, `threadpool`, `pfs`, …) and hardware resource settings (memory, disk, IOPS, cores) into ready-to-use `.cnf` files with correct buffer pool sizes, log paths, and engine-specific settings. Users can override any generated value through the preserved/delta/agreed layering system without fighting the tool
+- **Config discovery** — point replication-manager at an existing database server and have it reverse-engineer the tag set and memory profile that matches the running configuration, so nothing is lost when onboarding existing deployments
+- **Drift detection** — continuously compare the live database variables against the expected configuration and surface differences as preserved, delta, or agreed deviations (see [Config Tracking](/provisioning/configurator/config-tracking))
+- **Documentation helpers** — the plugin system annotates each configuration fragment with documentation, explaining the purpose and impact of each setting so DBAs can make informed decisions rather than guessing
+- **Secure delivery** — package config files as a `config.tar.gz` archive served over the REST API, consumed by init containers (OpenSVC, Kubernetes) or SSH provisioners with optional JWT authentication
+- **Rolling config updates** — when tags or resources change, regenerate all config archives and coordinate delivery through rolling restarts without manual intervention
+
+The configurator is the sole source of truth for configuration files deployed to each monitored database server. See the [Software Configurator](/provisioning/configurator/overview) section for a full explanation of tags, config delivery, the `.system` directory layout, and config tracking.
+
+## 1.1.6 Scheduled Maintenance
+
+**replication-manager** embeds a cluster scheduler that automates recurring database maintenance tasks.
+
+Our team has maintained heavily loaded databases where maintenance alone consumed more than two days a week of multiple DBAs. The goal is to deliver maintenance-free database systems by automating the best practices around backups, defragmentation, and database growth control — so DBAs can focus on architecture and optimization rather than routine upkeep.
+
+- **Automated backups** — schedule logical backups (mysqldump, mydumper) and physical backups (mariabackup, xtrabackup) with configurable retention and optional Restic archiving to S3-compatible storage
+- **Defragmentation** — schedule `OPTIMIZE TABLE` across all schemas to reclaim wasted space from InnoDB fragmentation, and `ANALYZE TABLE` to keep optimizer statistics accurate on large, write-heavy workloads
+- **Database growth control** — monitor table sizes, row counts, and data growth over time; detect schema drift between replicas with checksums; alert on unexpected growth before disk pressure becomes critical
+- **Log management** — collect error logs, slow query logs, and audit logs from each database server; rotate log tables on schedule
+- **Rolling operations** — perform rolling restarts and rolling re-provisioning one node at a time, maintaining cluster availability throughout
+- **Flexible execution** — tasks run either logically (SQL from replication-manager) or remotely (via the dbjobs script on each database host), depending on whether they need local filesystem access
+- **Two dispatch modes** — SQL mode (traditional job table polling) or API mode (REST-based task discovery that works even when the database is down, enabling crash log delivery)
+
+Each task is individually enabled and given its own cron expression. The scheduler is disabled by default. See the [Maintenance](/maintenance/overview) section for a full explanation of the job system, task types, dbjobs script delivery, and dispatch modes.
