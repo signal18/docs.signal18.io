@@ -117,11 +117,12 @@ replication-manager ships an embedded Graphite/Carbon store. Since **v3.1.1** th
 
 ## 2.7.7 Multi-Node replication-manager (Arbitration)
 
-When running multiple replication-manager instances for arbitration or HA:
+When running multiple replication-manager instances in an active/standby pair:
 
 | Port | Protocol | Direction | Description |
 |---|---|---|---|
-| `10001` | TCP | repman → repman | Heartbeat and arbitration peer communication. Configured by `arbitration-peer-hosts`. |
+| `10005` | TCP | repman → repman | Peer heartbeat via `/api/heartbeat` on the standard API port. Stays on the local network or VPN. Configured by `arbitration-peer-hosts`. |
+| `10001` | TCP | repman → arbitrator | Heartbeat reports and election requests to the external arbitrator service (`replication-manager-arb`). Can go through a TLS reverse proxy using `https://` in `arbitration-external-hosts`. Configured by `arbitration-external-hosts`. |
 
 ---
 
