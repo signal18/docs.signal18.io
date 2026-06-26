@@ -6,7 +6,9 @@ taxonomy:
 
 ### 4.7.1 Overview
 
-Replication-manager supports running multiple instances in an active/standby pair for high availability of the monitoring layer itself. An external arbitrator service resolves split-brain situations when both instances lose contact with each other.
+Arbitration provides high availability for the monitoring layer by running two replication-manager instances across separate datacenters. An external arbitrator service ensures that exactly one instance is active at any time, preventing conflicting operations on your database clusters during network partitions. Arbitration requires a registered instance with a support or partner subscription plan.
+
+Under the free plan, you typically deploy a single replication-manager instance in a third datacenter that acts as the arbitrator of your databases and proxies availability. Because such an instance does not hold critical data, it is easy to relocate in case of failure — you may lose monitored data and statistics, but you can restore configuration from personal backups or from the Signal18 GitLab for registered instances.
 
 When arbitration is enabled, one instance is elected **active** and the other enters **standby** mode. The active instance is the sole authority for all cluster operations. The standby instance monitors the same database clusters but does not modify them.
 
