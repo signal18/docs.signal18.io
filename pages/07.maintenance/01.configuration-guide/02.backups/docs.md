@@ -27,6 +27,8 @@ replication-manager orchestrates backup tools and adds features that standalone 
 | Backup encrypted at rest | &#10008; | &#10008; | &#10008; | &#10004; |
 | Parallel compression (pgzip) | &#10008; | &#10008; | &#10008; | &#10004; |
 | Check local disk size before backup | &#10008; | &#10008; | &#10008; | &#10004; |
+| Replication-aware backup (default master, configurable to slave via `db-servers-backup-hosts`) | &#10008; | &#10008; | &#10008; | &#10004; |
+| **Config Management** | | | | |
 | Backup database config (via configurator delta tracking) | &#10008; | &#10008; | &#10008; | &#10004; |
 | Config change history (via variable change monitoring) | &#10008; | &#10008; | &#10008; | &#10004; |
 | **Restore** | | | | |
