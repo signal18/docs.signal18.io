@@ -6,4 +6,4 @@ taxonomy:
 
 ### 6.2.5 Multi node monitoring
 
-The documentation for active/standby monitoring with external arbitration has moved to [Chapter 4.7 — Arbitration](/high-availability/arbitration).
+The documentation for active/standby monitoring with external arbitration has moved to [Chapter 4.7 — Arbitration](/architecture/arbitration/overview).

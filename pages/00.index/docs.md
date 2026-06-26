@@ -78,6 +78,9 @@ taxonomy:
          - [External Checks](/architecture/configuration-guide/routing/external-checks)
       - 4.5.6. [Checks & Enforce](/architecture/configuration-guide/checks-enforce)
    - 4.6. [Troubleshooting](/architecture/troubleshooting)
+   - 4.7. **Arbitration**
+      - 4.7.1. [Overview](/architecture/arbitration/overview)
+      - 4.7.2. [Configuration Guide](/architecture/arbitration/configuration-guide)
 
 6. **Monitoring**
    - 6.1. [Overview](/monitoring/overview)
