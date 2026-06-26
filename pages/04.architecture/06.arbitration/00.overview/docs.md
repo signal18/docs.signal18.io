@@ -10,6 +10,15 @@ Arbitration provides high availability for the monitoring layer by running two r
 
 Under the free plan, you typically deploy a single replication-manager instance in a third datacenter that acts as the arbitrator of your databases and proxies availability. Because such an instance does not hold critical data, it is easy to relocate in case of failure — you may lose monitored data and statistics, but you can restore configuration from personal backups or from the Signal18 GitLab for registered instances.
 
+Both instances in the pair must share the same registration URI and the same encryption key. On the second instance, copy the following from the first:
+
+- The encryption key file (path configured via `monitoring-key-path`, default `.replication-manager.key`)
+- `cloud18-domain`
+- `cloud18-sub-domain`
+- `cloud18-sub-domain-zone`
+- `cloud18-gitlab-user`
+- `cloud18-gitlab-password`
+
 When arbitration is enabled, one instance is elected **active** and the other enters **standby** mode. The active instance is the sole authority for all cluster operations. The standby instance monitors the same database clusters but does not modify them.
 
 ---
