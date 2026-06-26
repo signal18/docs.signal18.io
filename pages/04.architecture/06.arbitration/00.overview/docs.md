@@ -57,8 +57,8 @@ The standby instance suppresses all operations that could conflict with the acti
 
 ##### Operations that remain active on standby
 
-The following operations remain active on standby because they are read-only or maintain local state only:
-
+- **Split-brain master protection** — the standby demotes the old master as a writer and promotes it as a slave of the winner's elected master, preventing two writable servers (see [4.7.1.5](#4715-split-brain-master-protection))
+- Database cluster monitoring (topology discovery, replication health, server state)
 - SLA metric rotation (internal counters)
 - Schema monitoring (read-only metadata collection)
 - Alert schedule disable/enable (local toggle)
@@ -98,7 +98,19 @@ If the active instance goes down, the standby detects the peer is unreachable (s
 
 ---
 
-### 4.7.1.5 Arbitrator availability and subscription requirements
+### 4.7.1.5 Split-brain master protection
+
+The primary goal of arbitration is to protect the database infrastructure from having two masters accepting writes simultaneously. During a network partition, the active replication-manager may failover to a slave, promoting it as the new master. If the standby then takes over as active, it may still see the old master as writable — leaving two servers accepting writes and causing data divergence.
+
+When the arbitrator elects a winner, the losing instance compares its own master with the winner's elected master. If they differ, the loser demotes its master by reattaching it as a slave of the winner's master using GTID-based replication (`CHANGE MASTER`). This converges the topology back to a single writer as quickly as possible.
+
+If you need custom handling of the demoted master (for example, fencing it from client traffic before rejoining), you can use the `arbitration-failed-master-script` setting to run an external script instead of the automatic GTID rejoin. The script receives the failed master's host and port as arguments.
+
+> **Note:** Automatic master rejoin after lost arbitration only works with GTID-based replication.
+
+---
+
+### 4.7.1.6 Arbitrator availability and subscription requirements
 
 Starting from the release following 3.1.30, the arbitrator binary (`replication-manager-arb`) will be included in all release editions, not only the Pro edition. This allows any deployment to set up active/standby pairs with external arbitration.
 
