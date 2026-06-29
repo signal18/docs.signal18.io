@@ -132,11 +132,26 @@ The role and grants assigned to an SSO user are managed entirely through the rep
 
 ---
 
-## 2.5.6 Summary
+## 2.5.6 Encrypt Your Clear Passwords
+
+After changing the default passwords, encrypt them so they are not stored in clear text in your configuration files. replication-manager provides AES encryption for all password fields.
+
+1. Generate an encryption key: `replication-manager keygen`
+2. Encrypt each password: `replication-manager password`
+3. Replace clear passwords in your configuration with the encrypted hashes
+
+When an encryption key is detected at startup, encrypted passwords are automatically decrypted by the application — no further configuration change is required.
+
+See [Security — Configuration Guide](/security/configuration-guide) for full details on key generation, password encryption, and secure deployment.
+
+---
+
+## 2.5.7 Summary
 
 | Step | Action |
 |---|---|
 | 1 | Open `https://<host>:10005` |
 | 2 | Log in as `admin` / `repman` |
 | 3 | Change the `admin` and `dba` passwords — clears WARN0108 |
-| 4 | (Optional) Register the instance at gitlab.signal18.io to enable SSO and community plugins |
+| 4 | Encrypt your clear passwords with `replication-manager keygen` and `replication-manager password` (see [Security](/security/configuration-guide)) |
+| 5 | (Optional) Register the instance at gitlab.signal18.io to enable SSO and community plugins |
