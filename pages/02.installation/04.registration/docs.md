@@ -6,13 +6,20 @@ taxonomy:
 
 ## 2.5.1 Overview
 
-Registering your replication-manager instance with the Signal18 DBAaS platform links it to a **GitLab identity** at [gitlab.signal18.io](https://gitlab.signal18.io). Registration is required to use:
+**Cloud18** is the name for the commercial infrastructure and services that extend the open source replication-manager. It has two dimensions:
+
+1. **Signal18 commercial infrastructure** — a set of hosted services (GitLab for configuration versioning, CRM for subscription management, arbitrator for monitoring HA, Mattermost for direct chat) that enrich the open source replication-manager experience with additional features and support
+2. **Signal18 and partner infrastructures** — infrastructure provided by Signal18 and its partners that can be consumed via replication-manager for deploying complex database applications as a service, based on Docker or Podman containers and in some cases on virtual machines
+
+Registering your replication-manager instance with Cloud18 links it to a **GitLab identity** at [gitlab.signal18.io](https://gitlab.signal18.io). Registration is required to use:
 
 - **Config backup and restore** — all cluster configurations versioned in a private GitLab repository, recoverable on any new instance in one command
 - **Community plugins** — the full library of workload, security, and score plugins, kept up to date automatically
 - **Cluster role sharing** — grant scoped access to any cluster to other registered SSO users without sharing credentials or VPN
 - **Cloud18 marketplace** — consume clusters provided by other participants or publish your own
 - **Direct chat** — real-time messaging with the Signal18 team and partners
+
+Registration is free. Upgrading from the free plan to a commercial subscription unlocks additional capabilities including **arbitration for replication-manager monitoring high availability**, **automatic updates of enterprise advisory plugins** for security and workload states, bug fixes, developer sponsorship, feature requests, and **professional service remote engagement** on Support + Services plans. See [Subscription Plans](#2-5-6-subscription-plans) for the full plan comparison.
 
 ---
 
@@ -195,10 +202,39 @@ Every registered instance starts on the **Free** plan. Plans are per URI — a u
 
 | Plan | Value | Description |
 |---|---|---|
-| Free | `free` | Default. Community plugins included. No alert forwarding to Signal18. |
-| Support | `support` | Bug fixes, developer sponsorship, feature requests, enterprise plugins. |
-| Support + Services | `support-services` | Adds 12 days per year of DBA services on top of Support. |
-| Partner | `partner` | Market Place partner — expose clusters for sale or consume partner-provided clusters. |
+| Free | `free` | Default — community plugins, config backup & restore, cluster role sharing, marketplace access, direct chat |
+| Support | `support` | All Free features plus arbitration for monitoring HA, automatic enterprise advisory updates, alert forwarding, bug fixes, developer sponsorship, feature requests |
+| Support + Services | `support-services` | All Support features plus 12 days per year of DBA professional services and remote engagement |
+| Partner | `partner` | All Support features plus marketplace provider — publish clusters for sale or consume partner-provided clusters |
+
+### What each plan unlocks
+
+**Free** — all core replication-manager features work without restriction. Registration adds:
+
+- Community plugins (workload, security, and score plugins kept up to date automatically)
+- Configuration backup and restore via GitLab
+- Cluster role sharing with external SSO users
+- Cloud18 marketplace participation (consumer)
+- Direct chat with the Signal18 team and partners
+- Enterprise advisory plugins run with embedded defaults (refreshed only with each new release)
+
+**Support** — everything in Free, plus:
+
+- **Arbitration for replication-manager monitoring HA** — automatic split-brain resolution via the external arbitrator; free-plan instances detect split-brain but require manual recovery (see [Arbitration](/architecture/arbitration/overview#4-7-1-6-arbitrator-availability-and-subscription-requirements))
+- **Automatic enterprise advisory plugin updates** — the Signal18 back office pushes daily refreshes of security CVE, replication bug, workload regression, and compliance advisory databases without waiting for a new release
+- **Alert forwarding** — cluster ALERT/ALERTOK notifications (including compliance findings) are forwarded to the Signal18 operations team automatically; free-plan alerts are local only
+- **Bug fixes and feature requests** — direct engineering support for issues and feature development
+- **Developer sponsorship** — fund development of specific features or integrations
+
+**Support + Services** — everything in Support, plus:
+
+- **12 days per year of DBA professional services** — on-site or remote engagement for migrations, performance tuning, architecture reviews, disaster recovery planning, and production incident support
+- **Professional service remote engagement** — remote DBA consulting and troubleshooting sessions
+
+**Partner** — everything in Support, plus:
+
+- **Marketplace provider** — publish your clusters for sale to other registered users, or consume clusters provided by other partners
+- **Partner-level collaboration** — dedicated partner channel, co-branded marketplace presence, SLA coordination
 
 Plans can be changed at any time from **Global Settings → Register → Marketplace** in the GUI, or via the API:
 
@@ -217,8 +253,6 @@ curl -s -X POST https://repman-host:10005/api/register/subscription \
   -H "Content-Type: application/json" \
   -d '{"uri":"mycompany.ovh.fr-1","plan":"support"}'
 ```
-
-> **Alert forwarding** — only non-free instances forward cluster ALERT/ALERTOK notifications to the Signal18 operations team. Free instances monitor locally only.
 
 ---
 

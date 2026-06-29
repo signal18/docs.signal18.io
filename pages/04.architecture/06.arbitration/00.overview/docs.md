@@ -19,7 +19,7 @@ Both instances in the pair must share the same registration URI and the same enc
 - `cloud18-gitlab-user`
 - `cloud18-gitlab-password`
 
-When arbitration is enabled, one instance is elected **active** and the other enters **standby** mode. The active instance is the sole authority for all cluster operations. The standby instance monitors the same database clusters but does not modify them.
+When arbitration is enabled, the first instance to start is elected **active** and the other enters **standby** mode. The active instance is the sole authority for all cluster operations. The standby instance monitors the same database clusters but does not modify them.
 
 ---
 
