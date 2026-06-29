@@ -16,7 +16,9 @@ The goal of Cloud18 registration in replication-manager is to connect your open 
 Registering your replication-manager instance with Cloud18 just links your instance under a free plan to a Signal18 identity found at [gitlab.signal18.io](https://gitlab.signal18.io), and brings:
 
 - **Config backup and restore** — all replication-manager configurations versioned in a private GitLab repository, recoverable on any new instance in one command
-- **Community plugins** — the full library of workload, security, and score plugins, kept up to date automatically
+- **Community security alert plugins and score** — security auditing, CIS Benchmark checks, and scoring plugins kept up to date automatically
+- **Community workload alert plugins and tags** — workload anomaly detection, performance monitoring, and configuration tag plugins
+- **Community resource documentation and blogs** — access to community knowledge base, documentation, and blog content
 - **Cluster role sharing** — grant scoped access to any cluster to other registered SSO users without sharing credentials
 - **Direct chat** — real-time messaging with the Signal18 team and partners via the replication-manager GUI or Mattermost clients
 - **Arbitration for monitoring HA** — external arbitrator service for automatic split-brain resolution between active/standby replication-manager pairs
@@ -223,7 +225,9 @@ Every registered instance starts on the **Free** plan. Plans are per URI — a u
 
 | Feature | Free | Support | Support + Services | Partner |
 |---|:---:|:---:|:---:|:---:|
-| Community plugins (security, workload, score) | x | x | x | x |
+| Community security alert plugins and score | x | x | x | x |
+| Community workload alert plugins and tags | x | x | x | x |
+| Community resource documentation and blogs | x | x | x | x |
 | Configuration backup and restore via GitLab | x | x | x | x |
 | Cluster role sharing with external SSO users | x | x | x | x |
 | Marketplace namespace (consumer) | x | x | x | x |
