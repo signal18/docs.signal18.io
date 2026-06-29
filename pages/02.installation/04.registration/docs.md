@@ -206,46 +206,42 @@ This calls `POST /api/register/confirm` once and exits immediately with the resu
 
 ---
 
+<a name="2-5-6-subscription-plans"></a>
+
 ## 2.5.6 Subscription Plans
 
 Every registered instance starts on the **Free** plan. Plans are per URI — a user with several repman instances can put each on a different tier.
 
 | Plan | Value | Description |
 |---|---|---|
-| Free | `free` | Default — community plugins, config backup & restore, cluster role sharing, marketplace access, direct chat |
+| Free | `free` | Default — community plugins (security, workload advisor), config backup & restore, cluster role sharing, marketplace access, direct chat |
 | Support | `support` | All Free features plus arbitration for monitoring HA, automatic enterprise advisory updates, alert forwarding, bug fixes, developer sponsorship, feature requests |
 | Support + Services | `support-services` | All Support features plus 12 days per year of DBA professional services and remote engagement |
 | Partner | `partner` | All Support features plus marketplace provider — publish clusters for sale |
 
 ### What each plan unlocks
 
-**Free** — all core replication-manager features work without restriction. Registration adds:
-
-- Community plugins (workload, security, and score plugins kept up to date automatically)
-- Configuration backup and restore via GitLab
-- Cluster role sharing with external SSO users
-- Cloud18 marketplace participation (consumer)
-- Direct chat with the Signal18 team and partners
-- Enterprise advisory plugins run with embedded defaults (refreshed only with each new release)
-
-**Support** — everything in Free, plus:
-
-- **Arbitration for replication-manager monitoring HA** — automatic split-brain resolution via the external arbitrator; free-plan instances detect split-brain but require manual recovery (see [Arbitration](/architecture/arbitration/overview#4-7-1-6-arbitrator-availability-and-subscription-requirements))
-- **Automatic enterprise advisory plugin updates** — the Signal18 back office pushes daily refreshes of security CVE, replication bug, workload regression, and compliance advisory databases without waiting for a new release
-- **Alert forwarding** — cluster ALERT/ALERTOK notifications (including compliance findings) are forwarded to the Signal18 operations team automatically; free-plan alerts are local only
-- **Bug fixes and feature requests** — direct engineering support for issues and feature development
-- **Developer sponsorship** — fund development of specific features or integrations
-
-**Support + Services** — everything in Support, plus:
-
-- **12 days per year of DBA professional services** — on-site or remote engagement for migrations, performance tuning, architecture reviews, disaster recovery planning, and production incident support
-- **Professional service remote engagement** — remote DBA consulting and troubleshooting sessions
-
-**Partner** — everything in Support, plus:
-
-- **Marketplace provider** — publish your clusters for sale to other registered users. Provide per-database and per-application unit pricing, describe your infrastructure and hardware via Google Spreadsheet per provisionable plan
-- **CRM invoicing** — use the Signal18 CRM for invoicing your marketplace customers
-- **Partner-level collaboration** — dedicated partner channel, co-branded marketplace presence, SLA coordination
+| Feature | Free | Support | Support + Services | Partner |
+|---|:---:|:---:|:---:|:---:|
+| Community plugins (security, workload, score) | x | x | x | x |
+| Configuration backup and restore via GitLab | x | x | x | x |
+| Cluster role sharing with external SSO users | x | x | x | x |
+| Marketplace namespace (consumer) | x | x | x | x |
+| Marketplace free credit | x | x | x | x |
+| Direct chat with Signal18 team and partners | x | x | x | x |
+| Enterprise advisory plugins (embedded defaults) | x | x | x | x |
+| Automatic enterprise advisory plugin updates (daily) | | x | x | x |
+| Arbitration for monitoring HA (split-brain resolution) | | x | x | x |
+| Alert forwarding to Signal18 operations team | | x | x | x |
+| Bug fixes and feature requests | | x | x | x |
+| Developer sponsorship | | x | x | x |
+| 12 days/year DBA professional services | | | x | x |
+| Professional service remote engagement | | | x | x |
+| Marketplace provider (publish clusters for sale) | | | | x |
+| Per-database and per-application unit pricing | | | | x |
+| Infrastructure description via Google Spreadsheet | | | | x |
+| CRM invoicing for marketplace customers | | | | x |
+| Partner-level collaboration and SLA coordination | | | | x |
 
 Plans can be changed at any time from **Global Settings → Register → Marketplace** in the GUI, or via the API:
 
