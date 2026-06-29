@@ -6,10 +6,12 @@ taxonomy:
 
 ## 2.5.1 Overview
 
-**Cloud18** is the name for the commercial infrastructure and services that extend the open source replication-manager. It has two dimensions:
+The goal of Cloud18 registration in replication-manager is to connect your open source instance to a ecosystem of commercial services, community resources, and partner infrastructures — turning a standalone monitoring tool into a fully supported, cloud-ready database platform.
 
-1. **Signal18 commercial infrastructure** — a set of hosted services that enrich the open source replication-manager experience with additional features and support
-2. **DBaaS marketplace** — a marketplace delivered by Signal18 and partner infrastructures where complex database applications can be consumed as a service via replication-manager, deployed on Docker or Podman containers and in some cases on virtual machines
+> **Definition — Cloud18:** the commercial infrastructure and services that extend the open source replication-manager. It has two dimensions:
+>
+> 1. **Signal18 commercial infrastructure** — a set of hosted services that enrich the open source replication-manager experience with additional features and support
+> 2. **DBaaS marketplace** — a marketplace delivered by Signal18 and partner infrastructures where complex database applications can be consumed as a service via replication-manager, deployed on Docker or Podman containers and in some cases on virtual machines
 
 Registering your replication-manager instance with Cloud18 is free, links it to a **GitLab identity** at [gitlab.signal18.io](https://gitlab.signal18.io), and brings:
 
