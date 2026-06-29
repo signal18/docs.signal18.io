@@ -6,7 +6,7 @@ taxonomy:
 
 ## 2.5.1 Overview
 
-The goal of Cloud18 registration in replication-manager is to connect your open source instance to a ecosystem of commercial services, community resources, and partner infrastructures — turning a standalone monitoring tool into a fully supported, cloud-ready database platform.
+The goal of Cloud18 registration in replication-manager is to connect your open source instance to free additional community resources, additional commercial services like support — turning a standalone monitoring tool into a fully supported on-premise solution — and cloud infrastructures for deploying database applications as a service.
 
 > **Definition — Cloud18:** the commercial infrastructure and services that extend the open source replication-manager. It has two dimensions:
 >
