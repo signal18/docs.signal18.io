@@ -13,21 +13,21 @@ The goal of Cloud18 registration in replication-manager is to connect your open 
 > 1. **Signal18 commercial infrastructure** — a set of hosted services that enrich the open source replication-manager experience with additional features and support
 > 2. **DBaaS marketplace** — a marketplace delivered by Signal18 and partner infrastructures where complex database applications can be consumed as a service via replication-manager, deployed on Docker or Podman containers and in some cases on virtual machines
 
-Registering your replication-manager instance with Cloud18 is free, links it to a **GitLab identity** at [gitlab.signal18.io](https://gitlab.signal18.io), and brings:
+Registering your replication-manager instance with Cloud18 just links your instance under a free plan to a Signal18 identity found at [gitlab.signal18.io](https://gitlab.signal18.io), and brings:
 
 - **Config backup and restore** — all replication-manager configurations versioned in a private GitLab repository, recoverable on any new instance in one command
 - **Community plugins** — the full library of workload, security, and score plugins, kept up to date automatically
 - **Cluster role sharing** — grant scoped access to any cluster to other registered SSO users without sharing credentials
 - **Direct chat** — real-time messaging with the Signal18 team and partners via the replication-manager GUI or Mattermost clients
-- **Arbitration for monitoring HA** — external arbitrator service for automatic split-brain resolution between active/standby replication-manager pairs (paid plans)
-- **Enterprise advisory plugin updates** — automatic daily refreshes of security CVE, replication bug, workload regression, and compliance advisory databases without waiting for a new release (paid plans)
-- **Alert forwarding** — cluster ALERT/ALERTOK notifications forwarded to the Signal18 operations team (paid plans)
-- **Bug fixes and feature requests** — direct engineering support for issues and feature development (paid plans)
-- **Developer sponsorship** — fund development of specific features or integrations (paid plans)
-- **Professional service remote engagement** — remote DBA consulting, troubleshooting sessions, and on-site services (Support + Services plan)
+- **Arbitration for monitoring HA** — external arbitrator service for automatic split-brain resolution between active/standby replication-manager pairs
+- **Enterprise advisory plugin updates** — automatic daily refreshes of security CVE, replication bug, workload regression, and compliance advisory databases without waiting for a new release
+- **Alert forwarding** — cluster ALERT/ALERTOK notifications forwarded to the Signal18 operations team
+- **Bug fixes and feature requests** — direct engineering support for issues and feature development
+- **Developer sponsorship** — fund development of specific features or integrations
+- **Professional service remote engagement** — remote DBA consulting, troubleshooting sessions, and on-site services
 - **Marketplace namespace** — consume clusters provided by other participants or publish your own
 - **Marketplace credit** — free credit to get started on the cloud
-- **Marketplace provider** — expose your replication-manager infrastructure for sale (Partner plan)
+- **Marketplace provider** — expose your replication-manager infrastructure for sale
 
 See [Subscription Plans](#2-5-6-subscription-plans) for the full plan comparison.
 
