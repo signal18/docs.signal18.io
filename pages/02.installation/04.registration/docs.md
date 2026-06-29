@@ -206,7 +206,7 @@ This calls `POST /api/register/confirm` once and exits immediately with the resu
 
 ---
 
-## 2.5.6 Subscription Plans {#2-5-6-subscription-plans}
+## 2.5.6 Subscription Plans
 
 Every registered instance starts on the **Free** plan. Plans are per URI — a user with several repman instances can put each on a different tier.
 
@@ -215,7 +215,7 @@ Every registered instance starts on the **Free** plan. Plans are per URI — a u
 | Free | `free` | Default — community plugins, config backup & restore, cluster role sharing, marketplace access, direct chat |
 | Support | `support` | All Free features plus arbitration for monitoring HA, automatic enterprise advisory updates, alert forwarding, bug fixes, developer sponsorship, feature requests |
 | Support + Services | `support-services` | All Support features plus 12 days per year of DBA professional services and remote engagement |
-| Partner | `partner` | All Support features plus marketplace provider — publish clusters for sale or consume partner-provided clusters |
+| Partner | `partner` | All Support features plus marketplace provider — publish clusters for sale |
 
 ### What each plan unlocks
 
@@ -243,7 +243,8 @@ Every registered instance starts on the **Free** plan. Plans are per URI — a u
 
 **Partner** — everything in Support, plus:
 
-- **Marketplace provider** — publish your clusters for sale to other registered users, or consume clusters provided by other partners
+- **Marketplace provider** — publish your clusters for sale to other registered users. Provide per-database and per-application unit pricing, describe your infrastructure and hardware via Google Spreadsheet per provisionable plan
+- **CRM invoicing** — use the Signal18 CRM for invoicing your marketplace customers
 - **Partner-level collaboration** — dedicated partner channel, co-branded marketplace presence, SLA coordination
 
 Plans can be changed at any time from **Global Settings → Register → Marketplace** in the GUI, or via the API:
