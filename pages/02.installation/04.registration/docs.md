@@ -15,9 +15,9 @@ The goal of Cloud18 registration in replication-manager is to connect your open 
 
 Registering your replication-manager instance with Cloud18 is free, links it to a **GitLab identity** at [gitlab.signal18.io](https://gitlab.signal18.io), and brings:
 
-- **Config backup and restore** — all cluster configurations versioned in a private GitLab repository, recoverable on any new instance in one command
+- **Config backup and restore** — all replication-manager configurations versioned in a private GitLab repository, recoverable on any new instance in one command
 - **Community plugins** — the full library of workload, security, and score plugins, kept up to date automatically
-- **Cluster role sharing** — grant scoped access to any cluster to other registered SSO users without sharing credentials or VPN
+- **Cluster role sharing** — grant scoped access to any cluster to other registered SSO users without sharing credentials
 - **Direct chat** — real-time messaging with the Signal18 team and partners via the replication-manager GUI or Mattermost clients
 - **Arbitration for monitoring HA** — external arbitrator service for automatic split-brain resolution between active/standby replication-manager pairs (paid plans)
 - **Enterprise advisory plugin updates** — automatic daily refreshes of security CVE, replication bug, workload regression, and compliance advisory databases without waiting for a new release (paid plans)
