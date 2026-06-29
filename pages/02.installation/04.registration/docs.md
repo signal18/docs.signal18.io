@@ -8,24 +8,30 @@ taxonomy:
 
 **Cloud18** is the name for the commercial infrastructure and services that extend the open source replication-manager. It has two dimensions:
 
-1. **Signal18 commercial infrastructure** — a set of hosted services (GitLab for configuration versioning, CRM for subscription management, arbitrator for monitoring HA, Mattermost for direct chat) that enrich the open source replication-manager experience with additional features and support
-2. **Signal18 and partner infrastructures** — infrastructure provided by Signal18 and its partners that can be consumed via replication-manager for deploying complex database applications as a service, based on Docker or Podman containers and in some cases on virtual machines
+1. **Signal18 commercial infrastructure** — a set of hosted services that enrich the open source replication-manager experience with additional features and support. Registering your instance with Cloud18 is free, links it to a **GitLab identity** at [gitlab.signal18.io](https://gitlab.signal18.io), and brings:
+   - **Config backup and restore** — all cluster configurations versioned in a private GitLab repository, recoverable on any new instance in one command
+   - **Community plugins** — the full library of workload, security, and score plugins, kept up to date automatically
+   - **Cluster role sharing** — grant scoped access to any cluster to other registered SSO users without sharing credentials or VPN
+   - **Cloud18 marketplace** — consume clusters provided by other participants or publish your own
+   - **Direct chat** — real-time messaging with the Signal18 team and partners via Mattermost
 
-Registering your replication-manager instance with Cloud18 links it to a **GitLab identity** at [gitlab.signal18.io](https://gitlab.signal18.io). Registration is required to use:
+   Upgrading to a commercial subscription plan additionally brings:
+   - **Arbitration for monitoring HA** — external arbitrator service for automatic split-brain resolution between active/standby replication-manager pairs
+   - **Enterprise advisory plugin updates** — automatic daily refreshes of security CVE, replication bug, workload regression, and compliance advisory databases without waiting for a new release
+   - **Alert forwarding** — cluster ALERT/ALERTOK notifications forwarded to the Signal18 operations team
+   - **Bug fixes and feature requests** — direct engineering support for issues and feature development
+   - **Developer sponsorship** — fund development of specific features or integrations
+   - **Professional service remote engagement** — remote DBA consulting, troubleshooting sessions, and on-site services (Support + Services plan)
 
-- **Config backup and restore** — all cluster configurations versioned in a private GitLab repository, recoverable on any new instance in one command
-- **Community plugins** — the full library of workload, security, and score plugins, kept up to date automatically
-- **Cluster role sharing** — grant scoped access to any cluster to other registered SSO users without sharing credentials or VPN
-- **Cloud18 marketplace** — consume clusters provided by other participants or publish your own
-- **Direct chat** — real-time messaging with the Signal18 team and partners
+   See [Subscription Plans](#2-5-6-subscription-plans) for the full plan comparison.
 
-Registration is free. Upgrading from the free plan to a commercial subscription unlocks additional capabilities including **arbitration for replication-manager monitoring high availability**, **automatic updates of enterprise advisory plugins** for security and workload states, bug fixes, developer sponsorship, feature requests, and **professional service remote engagement** on Support + Services plans. See [Subscription Plans](#2-5-6-subscription-plans) for the full plan comparison.
+2. **DBaaS marketplace** — a marketplace delivered by Signal18 and partner infrastructures where complex database applications can be consumed as a service via replication-manager, deployed on Docker or Podman containers and in some cases on virtual machines
 
 ---
 
 ## 2.5.2 Concepts — Domain, Subdomain, Zone
 
-Every registered instance is identified by three slugs that together form a unique cluster slot:
+Every registered instance is identified by three slugs that together form a unique identifier to your replication-manager running instance:
 
 | Field | Role | Example |
 |---|---|---|
