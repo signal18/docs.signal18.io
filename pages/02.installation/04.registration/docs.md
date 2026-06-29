@@ -25,9 +25,9 @@ Registering your replication-manager instance with Cloud18 is free, links it to 
 - **Bug fixes and feature requests** — direct engineering support for issues and feature development (paid plans)
 - **Developer sponsorship** — fund development of specific features or integrations (paid plans)
 - **Professional service remote engagement** — remote DBA consulting, troubleshooting sessions, and on-site services (Support + Services plan)
-- **Cloud18 marketplace** — consume clusters provided by other participants or publish your own
-- **Cloud18 free credit** — free credit to get started on the cloud
-- **Cloud18 marketplace provider** — expose your replication-manager infrastructure for sale (Partner plan)
+- **Marketplace namespace** — consume clusters provided by other participants or publish your own
+- **Marketplace credit** — free credit to get started on the cloud
+- **Marketplace provider** — expose your replication-manager infrastructure for sale (Partner plan)
 
 See [Subscription Plans](#2-5-6-subscription-plans) for the full plan comparison.
 
