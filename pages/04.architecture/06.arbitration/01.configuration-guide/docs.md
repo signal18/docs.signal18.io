@@ -12,6 +12,8 @@ To configure active standby and arbitration, use the following settings on each 
 
 ### 4.7.2.1 Arbitration settings
 
+All arbitration settings are server-scoped (global): they apply to the whole replication-manager instance and can be changed at runtime from the **Arbitration** card in the global Settings page of the dashboard.
+
 ##### `arbitration-external` (1.0)
 
 | Item | Value |
@@ -20,18 +22,20 @@ To configure active standby and arbitration, use the following settings on each 
 | Type | Boolean |
 | Default Value | false |
 
+Enabling external arbitration through the API or the dashboard requires a registered Cloud18 account with a support, support-services or partner subscription plan. Free or unregistered instances cannot enable it (the API returns an error, and automatic split-brain resolution reports `ERR00104`).
+
 ##### `arbitration-external-hosts` (1.0)
 
 | Item | Value |
 | ---- | ----- |
 | Description | Address of the external arbitrator service. Supports `https://` prefix for TLS. |
 | Type | String |
-| Default Value | "88.191.151.84:80" |
+| Default Value | "https://arbitrator.cloud18.io" (was "88.191.151.84:80" before 3.1) |
 
 When using a TLS reverse proxy in front of the arbitrator, prefix the address with `https://`:
 
 ```toml
-arbitration-external-hosts = "https://arbitrator.signal18.io"
+arbitration-external-hosts = "https://arbitrator.cloud18.io"
 ```
 
 Without a scheme prefix, `http://` is used by default — no breaking change for existing configurations.
@@ -43,6 +47,10 @@ Without a scheme prefix, `http://` is used by default — no breaking change for
 | Description | Shared secret used by the arbitrator to identify your cluster. Should be unique across all users of the arbitrator. Use your organization name combined with random alphanumeric characters. |
 | Type | String |
 | Default Value | "" |
+
+The secret is not an authentication credential: together with the cluster name it forms the primary key under which the arbitrator stores your heartbeats and arbitration decisions. Its purpose is to prevent another (possibly malicious) user of a shared arbitrator from overwriting your cluster's records.
+
+When the secret is stored encrypted in the configuration (`hash_...` value produced by `replication-manager password`), the encrypted form is what is sent to the arbitrator — the plain-text secret never leaves the server, consistent with the general secret handling described in the security chapter. This is safe for arbitration because both instances of an active/standby pair share the same encryption key anyway (a shared key is required for configuration exchange via git), so both peers send the identical value and register under the same primary key.
 
 ##### `arbitration-external-unique-id` (1.0)
 
