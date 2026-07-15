@@ -129,6 +129,10 @@ To limit how far the isolated old master can diverge while the partition lasts, 
 
 Together these keep the old master from accumulating a large divergent tail while the majority runs the real failover on the other side of the partition.
 
+##### Known limitation: symmetric (equal) partitions
+
+The mechanism above resolves a **clear** majority/minority split — one side keeps the arbitrator and the other loses both the arbitrator and the peer. A **symmetric** partition, where the two instances are cut from each other but **both can still reach the arbitrator** (equal partitions, neither a clear minority), is a **known limitation**: the arbitrator does not yet force **both** sides to stand down until the split resolves. This "both-sides-loser" arbitration and its test case are planned work. Deployments should keep the arbitrator in a third location whose link to each side fails independently, so a real partition produces a clear minority rather than an equal split.
+
 ##### Regaining active status and rejoining the old master
 
 Once the split brain ends, the minority instance **regains its active replication-manager status**. It then **processes the rejoin of the old master**, which may have **diverged** (writes that committed before the fence took effect). The old master is reattached under the newly elected master:
