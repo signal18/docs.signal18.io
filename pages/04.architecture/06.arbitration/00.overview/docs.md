@@ -144,6 +144,12 @@ Once the split brain ends, the minority instance **regains its active replicatio
 - **Since 3.1.32:** the correction can be **conducted manually** from the dashboard — the *Last Divergence* viewer shows the captured divergent tail and offers the recovery methods (flashback, logical dump, logical/physical backup restore, reset-and-reslave, or discard-and-force). Each method is offered only when it is actually possible for that cluster.
 - **Automation** of this correction is possible by **enabling one or more of the automatic rejoin methods** (`autorejoin-flashback`, `autorejoin-mysqldump`, `autorejoin-logical-backup`, `autorejoin-physical-backup`, …). When an applicable method is enabled, replication-manager rejoins the diverged old master automatically instead of waiting for an operator.
 
+##### Reviewing the divergent tail (crash history)
+
+Rejoining the old master first **produces a backup of the divergent binlog delta** — the events the old master wrote past the failover election point — before any recovery is attempted. Each real crash is kept on disk with its captured delta and can be **reviewed from the crash history list** in the dashboard (the *Last Divergence* viewer), one entry per crash.
+
+Since 3.1.32, the viewer **shows the decoded diff** of that delta (the exact statements and row events that diverged) and marks it **flashback-able when possible** — that is, when the tail is pure row-based DML that flashback can reverse. When it is not flashback-able (it contains DDL or statement-format writes), the viewer says so, so the operator knows a reseed or restore is required instead of a rewind.
+
 ---
 
 ### 4.7.1.7 Arbitrator availability and subscription requirements
