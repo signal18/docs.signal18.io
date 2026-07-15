@@ -112,6 +112,8 @@ If you need custom handling of the demoted master (for example, fencing it from 
 
 ### 4.7.1.6 Minority and majority: failover delegation and old-master protection
 
+> This mechanism is **critical for continuity of service**: it is what lets you safely enable **automatic failover** across two datacenters. Without it, a network partition would either block failover (an outage) or let both sides promote a master (split brain / data divergence). The minority/majority delegation keeps a single writer available and recoverable throughout the partition, so `failover-mode = automatic` can be trusted in a two-datacenter deployment.
+
 Arbitration reasons **per cluster** in terms of a **majority** and a **minority** side of a network partition. The majority is the side that can still confirm authority through the arbitrator (the always-reachable third datacenter); the minority is the side that is cut off from both its peer and the arbitrator, and therefore cannot prove it holds authority.
 
 ##### The minority delegates the failover to the majority
