@@ -152,7 +152,22 @@ Since 3.1.32, the viewer **shows the decoded diff** of that delta (the exact sta
 
 ---
 
-### 4.7.1.7 Arbitrator availability and subscription requirements
+### 4.7.1.7 Single replication-manager: self-arbitrated failover
+
+When the network is **trustable** (a single datacenter, or a reliable LAN/VPN), a **single replication-manager instance is a complete solution** and follows exactly the same architectural design — it is simply **the arbitrator of its own** decisions, with no external third party to consult.
+
+Its automatic failover rests on the same core assumption: **the master crash must be real**, not a transient network glitch. Before promoting a slave, replication-manager runs its **false-positive detection** and cross-checks the outage from two independent angles:
+
+- the **proxy** view of the master (external reachability), and
+- the **slaves** — if any slave can still communicate with the master (replication I/O still flowing, slave heartbeat still increasing), then the master is not actually down.
+
+If any of these still sees the master, the outage is treated as a **false positive** and replication-manager **does nothing** — no failover — avoiding a needless promotion that would create two masters the moment the master recovers.
+
+When the checks confirm a **real outage**, replication-manager acts — and the failover **succeeds cleanly when the slaves run semi-synchronous replication** (`semisync`). A semisync slave has acknowledged every transaction the master committed, so the **elected slave has received all of the master's events and has not diverged**; it can be promoted as the new master with no lost transactions. Without semisync, an asynchronous replica may lag behind at the moment of the crash, and whatever the old master committed but had not yet shipped becomes the divergent tail handled by the rejoin/lost-events flow described above.
+
+---
+
+### 4.7.1.8 Arbitrator availability and subscription requirements
 
 Starting from the release following 3.1.30, the arbitrator binary (`replication-manager-arb`) will be included in all release editions, not only the Pro edition. This allows any deployment to set up active/standby pairs with external arbitration.
 
