@@ -110,7 +110,33 @@ If you need custom handling of the demoted master (for example, fencing it from 
 
 ---
 
-### 4.7.1.6 Arbitrator availability and subscription requirements
+### 4.7.1.6 Minority and majority: failover delegation and old-master protection
+
+Arbitration reasons **per cluster** in terms of a **majority** and a **minority** side of a network partition. The majority is the side that can still confirm authority through the arbitrator (the always-reachable third datacenter); the minority is the side that is cut off from both its peer and the arbitrator, and therefore cannot prove it holds authority.
+
+##### The minority delegates the failover to the majority
+
+When the **active** replication-manager finds itself on the **minority** side **and colocated with the current master**, it must **not** fail over on its own: it cannot confirm it still holds authority, and promoting a replica alone would risk two writable masters. Instead it **delegates the failover to the DR replication-manager on the majority side**, which lives with one or more slaves. Because the majority can reach the arbitrator, it safely wins the election and **elects a new master** from its slaves.
+
+##### Protecting the old master to avoid divergence during the split
+
+To limit how far the isolated old master can diverge while the partition lasts, the minority does not simply abandon it — it **fences** it:
+
+- sets it **read-only** and applies a **FTWRL** (`FLUSH TABLES WITH READ LOCK`) freeze, so no new write — not even from replication-manager's own SUPER connection — can land on it;
+- marks it **failed for the proxy running on the minority side**, so that proxy **stops routing client traffic to this now-dead master**.
+
+Together these keep the old master from accumulating a large divergent tail while the majority runs the real failover on the other side of the partition.
+
+##### Regaining active status and rejoining the old master
+
+Once the split brain ends, the minority instance **regains its active replication-manager status**. It then **processes the rejoin of the old master**, which may have **diverged** (writes that committed before the fence took effect). The old master is reattached under the newly elected master:
+
+- cleanly, by GTID `CHANGE MASTER`, when nothing diverged;
+- otherwise via **flashback**, **reseed**, or another operator-chosen recovery, guided by the captured *lost events* (the divergent tail), so the cluster converges back to a single writer without silently discarding data.
+
+---
+
+### 4.7.1.7 Arbitrator availability and subscription requirements
 
 Starting from the release following 3.1.30, the arbitrator binary (`replication-manager-arb`) will be included in all release editions, not only the Pro edition. This allows any deployment to set up active/standby pairs with external arbitration.
 
