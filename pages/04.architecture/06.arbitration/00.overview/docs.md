@@ -136,6 +136,14 @@ Once the split brain ends, the minority instance **regains its active replicatio
 - cleanly, by GTID `CHANGE MASTER`, when nothing diverged;
 - otherwise via **flashback**, **reseed**, or another operator-chosen recovery, guided by the captured *lost events* (the divergent tail), so the cluster converges back to a single writer without silently discarding data.
 
+##### Default behavior and version support
+
+**By default, replication-manager does not re-enter the lost events into the cluster.** The divergent tail produced on the old master by an automatic failover is captured and preserved (the *lost events* archive), but it is **not** automatically merged back into the newly elected master — the safe default avoids automatic, data-affecting reconciliation.
+
+- **Older versions:** the divergent dataset is not reintroduced automatically; recovering it required manual, out-of-band handling.
+- **Since 3.1.32:** the correction can be **conducted manually** from the dashboard — the *Last Divergence* viewer shows the captured divergent tail and offers the recovery methods (flashback, logical dump, logical/physical backup restore, reset-and-reslave, or discard-and-force). Each method is offered only when it is actually possible for that cluster.
+- **Automation** of this correction is possible by **enabling one or more of the automatic rejoin methods** (`autorejoin-flashback`, `autorejoin-mysqldump`, `autorejoin-logical-backup`, `autorejoin-physical-backup`, …). When an applicable method is enabled, replication-manager rejoins the diverged old master automatically instead of waiting for an operator.
+
 ---
 
 ### 4.7.1.7 Arbitrator availability and subscription requirements
