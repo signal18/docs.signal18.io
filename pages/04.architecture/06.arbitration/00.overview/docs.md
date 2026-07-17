@@ -116,6 +116,14 @@ If you need custom handling of the demoted master (for example, fencing it from 
 
 Arbitration reasons **per cluster** in terms of a **majority** and a **minority** side of a network partition. The majority is the side that can still confirm authority through the arbitrator (the always-reachable third datacenter); the minority is the side that is cut off from both its peer and the arbitrator, and therefore cannot prove it holds authority.
 
+The diagrams below trace the same three-datacenter partition through each plan — **start from the free plan to see the problem the mechanism solves**, then the support plan that removes it.
+
+![Free plan orchestration — the isolated old master piles unrecoverable binlogs](/images/arbitrationfree.png)
+*Free plan — no dedicated arbitrator (a third repman stands in), so tie-breaking is weaker and the split lingers. Replication is cut, so the isolated old master keeps writing binlogs no slave consumes: a growing pile of delta transactions that cannot be flashed back. The only way home is a full restore from backup.*
+
+![Support plan orchestration — old master FTWRL-fenced, a single flashback-able delta](/images/arbitrationsupport.png)
+*Support plan — a dedicated arbitrator in the third datacenter is the strong tie-breaker. The minority is detected fast and yields cleanly; its proxy-to-master link is FTWRL-fenced (writes blocked) while the majority promotes a new master. The old master's divergence is a single flashback-able delta — it rejoins in place in seconds, never a restore.*
+
 ##### The minority delegates the failover to the majority
 
 When the **active** replication-manager finds itself on the **minority** side **and colocated with the current master**, it must **not** fail over on its own: it cannot confirm it still holds authority, and promoting a replica alone would risk two writable masters. Instead it **delegates the failover to the DR replication-manager on the majority side**, which lives with one or more slaves. Because the majority can reach the arbitrator, it safely wins the election and **elects a new master** from its slaves.
@@ -132,6 +140,9 @@ Together these keep the old master from accumulating a large divergent tail whil
 ##### Known limitation: symmetric (equal) partitions
 
 The mechanism above resolves a **clear** majority/minority split — one side keeps the arbitrator and the other loses both the arbitrator and the peer. A **symmetric** partition, where the two instances are cut from each other but **both can still reach the arbitrator** (equal partitions, neither a clear minority), is a **known limitation**: the arbitrator does not yet force **both** sides to stand down until the split resolves. This "both-sides-loser" arbitration and its test case are planned work. Deployments should keep the arbitrator in a third location whose link to each side fails independently, so a real partition produces a clear minority rather than an equal split.
+
+![Lose–lose symmetric split — both sides reach the arbitrator but not each other, so both masters are fenced](/images/arbitrationloselose.png)
+*Symmetric split — both datacenters still reach the arbitrator but not each other, so each could naïvely read a 2-of-3 majority and promote. The safe resolution is to grant neither: both proxies are cut and both masters are FTWRL-frozen. The price is a full write outage until an operator (or a directional-failback policy) elects a survivor — but there is zero divergence, so recovery is a clean unfreeze, never a restore.*
 
 ##### Regaining active status and rejoining the old master
 
