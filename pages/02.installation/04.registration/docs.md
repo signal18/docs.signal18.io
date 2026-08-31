@@ -282,7 +282,7 @@ The same two-step flow is available as a standalone web page — useful when no
 replication-manager is reachable from a connected network (see the air-gapped
 section below), or to declare instances before any installation:
 
-`https://api.crm.ovh-fr-2.signal18.cloud18.io/console/register-instance`
+`https://api.crm.ovh-fr-2.signal18.cloud18.io/register-instance`
 
 - **Existing Signal18 account**: log in with your SSO email and password, enter
   the instance identity (domain, subdomain, zone) and your subscription plan —
