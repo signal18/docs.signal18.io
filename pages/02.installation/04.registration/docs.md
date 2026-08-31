@@ -431,6 +431,14 @@ plugin verification. The license:
 - never blocks monitoring: a missing or invalid license leaves the instance on
   the `free` plan and raises a warning.
 
+### Requirements
+
+- **replication-manager v3.1.41 or newer** (offline license verification is not
+  in v3.1.40 and earlier; until v3.1.41 is released, a nightly build dated
+  2026-08-19 or later carries it).
+- The on-premise package must include the plugin binaries and the embedded
+  plugin-signing public key (standard in the packages).
+
 ### Procedure
 
 1. **Declare each instance from your work network** using the
