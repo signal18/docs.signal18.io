@@ -276,6 +276,20 @@ Open **Global Settings → Register** in the replication-manager dashboard. Clic
 
 The Register button is disabled while Cloud18 is already connected. Disconnect first to re-register.
 
+### Registering via the Web Console (no replication-manager needed)
+
+The same two-step flow is available as a standalone web page — useful when no
+replication-manager is reachable from a connected network (see the air-gapped
+section below), or to declare instances before any installation:
+
+`https://api.crm.ovh-fr-2.signal18.cloud18.io/console/register-instance`
+
+- **Existing Signal18 account**: log in with your SSO email and password, enter
+  the instance identity (domain, subdomain, zone) and your subscription plan —
+  registration and plan declaration complete in one visit.
+- **New account**: the account is created and GitLab sends the confirmation
+  email; click the link and the page finishes automatically.
+
 ---
 
 ## 2.5.8 Starting Fresh from GitLab (Restore)
@@ -356,3 +370,57 @@ replication-manager host
 ```
 
 See [Security — Configuration Guide](/security/configuration-guide) for key generation and rotation.
+
+---
+
+## 2.5.12 Air-Gapped / PCI DSS — Offline License
+
+Some production environments allow **no outbound network at all**: the
+replication-manager instance can reach neither the Signal18 SSO nor any
+Signal18 service at runtime. Registration still works — it simply happens
+**from your work network**, and everything Signal18 delivers reaches the
+instance as files through your own deposit procedure.
+
+The plan-gated features (enterprise plugins, arbitration eligibility) are then
+unlocked by an **offline license**: a small signed file that replication-manager
+verifies locally against the plugin-signing public key already embedded for
+plugin verification. The license:
+
+- is bound to **one instance identity** (`domain.subdomain.zone`) — copied to
+  any other instance, it is rejected;
+- carries the **subscription plan** of that instance — the plan loaded is
+  exactly the signed one;
+- **never expires** on the instance — refreshed only on signing-key rotation
+  or plan change;
+- never blocks monitoring: a missing or invalid license leaves the instance on
+  the `free` plan and raises a warning.
+
+### Procedure
+
+1. **Declare each instance from your work network** using the
+   [Web Console](#registering-via-the-web-console-no-replication-manager-needed)
+   (one sub-domain per instance). Your domain must match your registered
+   client name at Signal18 — licenses are only issued for known clients.
+2. **Collect the delivery**: shortly after registration, Signal18 drops into
+   the instance's `-pull` GitLab project the `plugins/` binaries for your
+   version/platform and the instance's offline license
+   (`license.json` + `license.sig`). Clone the `-pull` project from your work
+   network.
+3. **Deposit into the production zone** through your standard change-management
+   procedure (everything is Ed25519-signed and re-verified locally).
+4. **Configure the instance**:
+
+```toml
+cloud18-domain          = "yourcompany"
+cloud18-sub-domain      = "prod1"        # identical to the declaration
+cloud18-sub-domain-zone = "fr-1"
+cloud18-license-file    = "/etc/replication-manager/license.json"
+```
+
+   Place `license.json` and `license.sig` side by side and the `plugins/`
+   directory in the instance plugin location.
+5. **Start and verify**: the subscription plan shows the licensed plan,
+   enterprise plugins load, and no license warning is raised (a warning means
+   the declared identity does not match the signed one).
+
+No outbound network is ever required in production.
