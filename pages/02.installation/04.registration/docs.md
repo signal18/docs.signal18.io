@@ -375,9 +375,12 @@ See [Security — Configuration Guide](/security/configuration-guide) for key ge
 
 ## 2.5.12 Air-Gapped / PCI DSS — Offline License
 
-Some production environments allow **no outbound network at all**: the
-replication-manager instance can reach neither the Signal18 SSO nor any
-Signal18 service at runtime. Registration still works — it simply happens
+Some production environments allow **no outbound network at all** — typically
+a PCI DSS cardholder data environment (CDE), where **PCI DSS v4.0 Requirement 1**
+mandates network security controls restricting all traffic into and out of the
+CDE to what is strictly necessary (req. 1.3.1/1.3.2), or any comparably
+segmented / air-gapped zone. There, the replication-manager instance can reach
+neither the Signal18 SSO nor any Signal18 service at runtime. Registration still works — it simply happens
 **from your work network**, and everything Signal18 delivers reaches the
 instance as files through your own deposit procedure.
 
