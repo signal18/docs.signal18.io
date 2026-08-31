@@ -461,8 +461,14 @@ cloud18-sub-domain-zone = "fr-1"
 cloud18-license-file    = "/etc/replication-manager/license.json"
 ```
 
-   Place `license.json` and `license.sig` side by side and the `plugins/`
-   directory in the instance plugin location.
+   Copy **both** `license.json` and `license.sig` into the **same directory**,
+   keeping their exact names. There is **no configuration setting for the
+   `.sig` file**: replication-manager automatically looks for the detached
+   signature next to the file named by `cloud18-license-file`
+   (`license.json` → `license.sig` in the same directory). If the signature
+   file is missing or does not match, the license is rejected and the plan
+   falls back to `free` with a warning.
+   Place the `plugins/` directory in the instance plugin location.
 5. **Start and verify**: the subscription plan shows the licensed plan,
    enterprise plugins load, and no license warning is raised (a warning means
    the declared identity does not match the signed one).
