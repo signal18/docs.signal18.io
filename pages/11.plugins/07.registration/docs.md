@@ -9,6 +9,12 @@ taxonomy:
 
 Community and Enterprise plugins require your replication-manager instance to be **registered** with the Signal18 SSO at [gitlab.signal18.io](https://gitlab.signal18.io).
 
+Registration can be done directly from the replication-manager GUI, or — with
+no replication-manager at all — from the **web console** at
+`https://api.crm.ovh-fr-2.signal18.cloud18.io/console/register-instance`
+(useful for air-gapped / PCI environments, see
+[Air-Gapped & PCI DSS — Offline License](../09.offline-license)).
+
 Registration is free. It takes less than two minutes and unlocks:
 
 - **Community plugins** — the full library of workload, security, and score plugins, kept up to date automatically
