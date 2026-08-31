@@ -278,17 +278,20 @@ The Register button is disabled while Cloud18 is already connected. Disconnect f
 
 ### Registering via the Web Console (no replication-manager needed)
 
-The same two-step flow is available as a standalone web page — useful when no
-replication-manager is reachable from a connected network (see the air-gapped
-section below), or to declare instances before any installation:
+The registration flow is also available as a standalone self-service web page —
+useful when no replication-manager is reachable from a connected network (see
+the air-gapped section below), or to manage instances before any installation:
 
 `https://api.crm.ovh-fr-2.signal18.cloud18.io/register-instance`
 
-- **Existing Signal18 account**: log in with your SSO email and password, enter
-  the instance identity (domain, subdomain, zone) and your subscription plan —
-  registration and plan declaration complete in one visit.
-- **New account**: the account is created and GitLab sends the confirmation
-  email; click the link and the page finishes automatically.
+1. **Sign in** with your Signal18 SSO email and password (or create an
+   account — GitLab sends a confirmation email and the page continues
+   automatically once the link is clicked).
+2. **Your instances** — the full lifecycle in one place: the list of your
+   registered instances with plan and project links, **Register instance**
+   (identity + subscription plan, active immediately), and **Unregister**
+   (deletes the instance's GitLab projects and deactivates its subscription —
+   to fix a typo, unregister then re-register).
 
 ---
 
