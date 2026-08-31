@@ -35,6 +35,36 @@ See [Subscription Plans](#2-5-6-subscription-plans) for the full plan comparison
 
 ---
 
+## Quick start — what to do
+
+Pick your situation:
+
+**Your replication-manager has internet access** → register from its GUI:
+**Global Settings → Register**, fill email / password / domain / sub-domain /
+zone, click the link in the confirmation email, done (details in 2.5.7).
+
+**Your production is air-gapped (PCI DSS) — or you want to declare instances
+before installing anything** → use the web page, from any connected machine:
+
+1. Open `https://api.crm.ovh-fr-2.signal18.cloud18.io/register-instance`.
+2. **Sign in** with your Signal18 account — or create one: you receive a
+   confirmation email from GitLab, click its link, the page continues alone.
+3. Under **Register a new instance**, fill: **Domain** = your Signal18 client
+   name (mandatory — as given by Signal18), **Sub-domain** = your choice, one
+   per instance (e.g. `prod1`), **Zone** = your choice (e.g. `fr-1`), and your
+   **subscription plan**. Click **Register instance**.
+4. The instance appears in **Your instances** with two GitLab links. Wait a
+   few minutes, then open the **delivery** link (`-pull` project): Signal18
+   has dropped the plugin binaries and the license files there.
+5. Follow **2.5.12** below to bring those files into your air-gapped
+   production and configure the instance.
+
+Made a typo? **Unregister** the instance in the list and register it again.
+
+**You script your onboarding** → call the API directly (2.5.3).
+
+---
+
 ## 2.5.2 Concepts — Domain, Subdomain, Zone
 
 Every registered instance is identified by three slugs that together form a unique identifier to your replication-manager running instance:
