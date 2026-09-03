@@ -198,6 +198,25 @@ When the configurator detects a difference between the compliance tags and the r
 5. You click **Preserve** on each — the encryption settings move to `01_preserved.cnf`
 6. Delta is clean. Encryption persists even without the tag.
 
+### 10.3.3.4.5 Auto-Agree Compliance — automatic Accept
+
+> **Available since:** replication-manager **v3.1.42**
+
+By default every value delta waits for a manual **Accept**. On clusters where you trust the compliance module to be the source of truth, replication-manager can accept value deltas for you.
+
+When **`prov-db-compliance-auto-agree`** is enabled, a **value delta** — a variable that exists in compliance but whose deployed value differs — is automatically accepted to the compliance value: it moves to `03_agreed.cnf` and applies on the next database restart, exactly as if an operator had clicked **Accept**.
+
+**Scope — value changes only.** Auto-agree is deliberately conservative. It only acts on variables that exist in compliance and simply have a different value. It **never** auto-accepts:
+
+- **Unknown variables** (not recognized by the database) — accepting one would crash the database on restart. They stay in the agreed panel with the red "UNKNOWN" badge for you to fix the compliance tag.
+- **Dropped / deprecated variables** — always left for manual review.
+
+Those two classes are exactly the ones `loose_` makes impossible to auto-detect reliably, which is why they always require a human decision — and why auto-agree is safe to turn on.
+
+It is the DB-side counterpart of **Auto-Update Compliance** (`prov-auto-update-compliance`): that one regenerates the config when a new compliance module arrives (replication-manager side), this one applies value deltas to the running database (DB side). It requires config tracking (`prov-db-config`) to be on, and is **off by default** so production keeps the manual review workflow until you opt in. Toggle it in the **Configurator tab → Auto-Agree Compliance**, next to Auto-Update Compliance.
+
+**Automatic cleanup of reconciled Accepts.** Whether a variable was accepted manually or by auto-agree, once the database restarts and actually runs the compliance value (runtime == compliance), the `03_agreed.cnf` entry has done its job and is **removed automatically** — the variable stops showing as a pending difference on its own. Operator-forced **Preserved** values are never removed; only accepted (agreed) entries that have reconciled.
+
 ---
 
 ## 10.3.3.5 Dependency on dbjobs
@@ -317,6 +336,18 @@ Available as a toggle in **Settings > Scheduler > Enable Configurator**.
 | Description | Semicolon-separated list of variable names (or `name=value` pairs) to preserve. **Deprecated** — use `preserved_variables.cnf` instead. Values are auto-migrated to `preserved_variables.cnf` on first boot if the file doesn't exist yet. |
 | Type | String |
 | Default | `""` |
+
+##### `prov-db-compliance-auto-agree`
+
+> **Available since:** replication-manager **v3.1.42**
+
+| | |
+|---|---|
+| Description | Automatically accept value deltas to the compliance value — the DB-side automation of the manual **Accept** action. Scoped to value changes only: unknown variables and dropped/deprecated variables are never auto-accepted and always stay for manual review. Requires `prov-db-config`. Once a database restart makes the runtime match compliance, the accepted (`agreed.cnf`) entry is removed automatically. Off by default so production keeps the manual review workflow. |
+| Type | Boolean |
+| Default | `false` |
+
+Available as a toggle in the **Configurator tab → Auto-Agree Compliance**.
 
 ---
 
