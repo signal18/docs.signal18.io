@@ -117,7 +117,7 @@ replication-manager offers three rolling actions that walk the cluster one node 
 | | Rolling restart | Rolling upgrade | Rolling reprovision |
 |---|---|---|---|
 | **OpenSVC** | `om <svc> stop` → `start` (existing config) | update the service config object (re-push) + image re-pull + stop/start | `om <svc> unprovision` → `provision` (+ reseed) |
-| **Kubernetes** | restart the pod | patch the Deployment (config + `imagePullPolicy: Always`) + rollout restart | delete the Deployment/PVC + recreate (+ reseed) |
+| **Kubernetes** | rollout restart the pod (scale 0→1 / `restartedAt` annotation) | patch the Deployment (config + `imagePullPolicy: Always`) + wait for rollout | delete the Deployment + Service, then recreate (+ reseed) — the **PVC is retained** |
 | **On-premise (SSH)** | `systemctl restart` (or SQL `SHUTDOWN` + start) | rewrite the config on the host + restart | reinitialise the data directory + reseed |
 
 > **Terminology — "service" is a false friend across orchestrators.** In **OpenSVC** a *service* **is** the workload (its containers, volumes and config — `om <ns>/svc/<name>`). In **Kubernetes** the workload is a **Deployment**, and a *Service* is a **network** object (ClusterIP/LoadBalancer) — the opposite meaning. So the "service config" that a rolling **upgrade** re-pushes is the **OpenSVC service** = the **Kubernetes Deployment** (not the K8s `Service`).
