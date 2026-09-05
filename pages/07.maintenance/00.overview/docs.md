@@ -100,6 +100,34 @@ scheduler-db-servers-optimize             = true
 scheduler-db-servers-optimize-cron        = "0 0 3 * * 0"    # Sundays at 03:00
 ```
 
+### 7.1.3.2 Rolling Operations: restart vs upgrade vs reprovision
+
+replication-manager offers three rolling actions that walk the cluster one node at a time (replicas first, then a switchover for the primary) so the cluster stays available. They differ in **whether they regenerate and re-push the orchestrator service definition** — which is what actually applies a configuration change such as a new `my.cnf`, an added volume mount, or a new container image — and in **how disruptive they are**:
+
+| Action | API action · scheduler key | What it does to the service | Refreshes the service config? | Data | Use it to |
+|---|---|---|---|---|---|
+| **Rolling restart** | `actions/rolling/restart` · `scheduler-rolling-restart` | Stop then start the **existing** service | **No** — restarts with the currently deployed config | Preserved | Clear a hung process, or apply a change that only needs a restart |
+| **Rolling upgrade** | `actions/rolling/upgrade` | Re-push the regenerated service config (and re-pull the image), then stop + start | **Yes** | Preserved | Roll out a **config change** (my.cnf, mounts, image) with **no reseed** |
+| **Rolling reprovision** | `actions/rolling/reprov` · `scheduler-rolling-reprov` (pro) | **Unprovision (destroy)** then reprovision the service, then **reseed** the replica from the primary | Yes (regenerated on reprovision) | **Replicas reseeded** from the primary | Rebuild a node from scratch, or recover a corrupted service |
+
+> **Choose the right one.** To roll out a **configuration change**, use **rolling upgrade** — a rolling *restart* will **not** pick it up (it reuses the already-deployed config), and a rolling *reprovision* is destructive (it reseeds every replica). Reserve **reprovision** for a genuine from-scratch rebuild.
+
+**What each does per orchestrator:**
+
+| | Rolling restart | Rolling upgrade | Rolling reprovision |
+|---|---|---|---|
+| **OpenSVC** | `om <svc> stop` → `start` (existing config) | update the service config object (re-push) + image re-pull + stop/start | `om <svc> unprovision` → `provision` (+ reseed) |
+| **Kubernetes** | restart the pod | patch the Deployment (config + `imagePullPolicy: Always`) + rollout restart | delete the Deployment/PVC + recreate (+ reseed) |
+| **On-premise (SSH)** | `systemctl restart` (or SQL `SHUTDOWN` + start) | rewrite the config on the host + restart | reinitialise the data directory + reseed |
+
+> **Terminology — "service" is a false friend across orchestrators.** In **OpenSVC** a *service* **is** the workload (its containers, volumes and config — `om <ns>/svc/<name>`). In **Kubernetes** the workload is a **Deployment**, and a *Service* is a **network** object (ClusterIP/LoadBalancer) — the opposite meaning. So the "service config" that a rolling **upgrade** re-pushes is the **OpenSVC service** = the **Kubernetes Deployment** (not the K8s `Service`).
+
+| Concept | OpenSVC | Kubernetes |
+|---|---|---|
+| **Workload** — containers + config; *what a rolling upgrade re-pushes* | **service** (`om <ns>/svc/<name>`) | **Deployment** |
+| **Storage** | `volume` resource / pool | **PersistentVolumeClaim (PVC)** |
+| **Network address** (VIP) | `ip` resource / HAProxy gateway | **Service** (ClusterIP / LoadBalancer) |
+
 ---
 
 ## 7.1.4 How the dbjobs Script Is Delivered
