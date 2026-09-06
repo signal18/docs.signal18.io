@@ -57,10 +57,11 @@ access**, two ways:
 **shared PID namespace** (`shareProcessNamespace`) so the sidecar reads the
 database container's *own* cgroup that Kubernetes already mounts. This is
 **pod-scoped**: it never crosses the pod boundary, so it does **not** affect
-inter-pod or inter-tenant isolation. It is enabled only after a server-side
-**dry-run** confirms the cluster's admission (PodSecurity/webhooks) accepts it —
-so it can never break a deployment. It never mounts the node filesystem
-(`hostPath`) or shares the node's process namespace (`hostPID`).
+inter-pod or inter-tenant isolation. It never mounts the node filesystem
+(`hostPath`) or shares the node's process namespace (`hostPID`). If the cluster's
+admission (PodSecurity) forbids `shareProcessNamespace`, provisioning simply
+retries without it, so the database still comes up — the sensor is optional and
+can never break a deployment.
 
 If a namespace policy refuses `shareProcessNamespace`, the sensor stays off on
 that cluster and replication-manager raises an alert (**WARN0212**) so the
@@ -106,7 +107,7 @@ sealed-secrets) to get real encryption and central rotation.
 | Concern | OpenSVC | Kubernetes |
 |---|---|---|
 | Tenant boundary | namespace | namespace (+ RBAC/PodSecurity/NetworkPolicy) |
-| Resource read | least-privilege slice bind (own service only) | pod-scoped shared PID ns (dry-run gated; alert if refused) |
+| Resource read | least-privilege slice bind (own service only) | pod-scoped shared PID ns (optional; alert if refused) |
 | Node filesystem access | none | none (no hostPath) |
 | Node process namespace | none | none (no hostPID) |
 | Secrets at rest | encrypted (cluster key) | base64 unless encryption-at-rest enabled |
