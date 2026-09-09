@@ -239,3 +239,43 @@ One can get server IDs via API (http interface / cluster menu / debug / servers)
 The replication-manager will auto DRAIN the backend route if the replication is broken or is late or the server is in ignored list.
 
 > **Note on HAProxy 3.3.9**: This version has a known regression (haproxy/haproxy#3355) where WebSocket over HTTP/2 is broken. Upgrade to HAProxy **3.3.10+** if you use `alpn h2,http/1.1` on the frontend bind and need WebSocket (e.g. for the terminal feature).
+
+---
+
+## Version 3.1.41 and 3.1.42 Addendum
+
+The following additions are additive to the configuration and examples above.
+
+### Version 3.1.41, PR #1731: Runtime API lifecycle
+
+##### `haproxy-api-bootstrap-servers` (3.1.41)
+
+> **Available since:** replication-manager **v3.1.41**
+
+Set `haproxy-api-bootstrap-servers = true` with `haproxy-mode = "runtimeapi"`
+to let replication-manager add, drain, remove, and address-correct backend
+members without a full HAProxy reload. HAProxy 2.6 or newer is required.
+
+The setting is disabled by default. Changing it sets a proxy reprovision
+reminder; the already-provisioned proxy keeps its last-provisioned value until
+reprovisioning.
+
+```toml
+haproxy-mode = "runtimeapi"
+haproxy-api-bootstrap-servers = true
+haproxy-api-port = 1999
+```
+
+### Version 3.1.42, PR #1747: mode and external-check behavior
+
+##### `haproxy-mode` (3.1.42)
+
+> **Available since:** replication-manager **v0.7**; mode validation and lifecycle behavior updated in **v3.1.42**
+
+The accepted mode values are `runtimeapi`, `standby`, `externalcheck`, and
+`dataplaneapi`. Changing `haproxy-mode` while an HAProxy proxy is provisioned
+is rejected; unprovision it before selecting a different mode.
+
+Newly provisioned external-check configurations use `/reader-status` for the
+reader backend. Existing configurations retain their generated
+`/slave-status` script until they are reprovisioned.

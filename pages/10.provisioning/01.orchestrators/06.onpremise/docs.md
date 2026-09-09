@@ -21,6 +21,13 @@ We plan to extend this to deploy tar.gz binary distribution of each software in 
 >
 > For HAProxy and ProxySQL, configuration is only pushed during initial provisioning. Ongoing management uses the runtime API (`haproxy-mode = runtimeapi`).
 
+### Version 3.1.42 addendum
+
+For HAProxy, ongoing backend state follows the selected `haproxy-mode`.
+ProxySQL topology, hostgroup, and user changes are applied through the
+ProxySQL admin API. This clarifies the lifecycle behavior without replacing the
+original provisioning note above.
+
 
 ##### `onpremise-ssh` (2.2)
 
