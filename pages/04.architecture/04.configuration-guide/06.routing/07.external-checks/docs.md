@@ -33,3 +33,23 @@ Return Code 200 if server id is a slave
   - [x] Slaves with replication lags still return valid code
   - [x] Slaves with replication stopped return error code
   - [x] Master with READONLY return error code
+
+---
+
+## Version 3.1.42 Addendum
+
+The following endpoint change complements the legacy paths above, which remain
+documented for compatibility with existing scripts.
+
+### Version 3.1.42, PR #1747: reader-status for new HAProxy checks
+
+Newly provisioned HAProxy `externalcheck` configurations use the following
+reader endpoint:
+
+```text
+http://{http-bind-address}:{http-port}/clusters/{clusterName}/servers/{serverHost}/{serverPort}/reader-status
+```
+
+Return code 200 means that the server is an eligible reader. Existing proxies
+continue to use their generated `slave-status` script until they are
+reprovisioned.

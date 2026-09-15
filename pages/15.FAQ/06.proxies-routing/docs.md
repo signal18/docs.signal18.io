@@ -121,3 +121,78 @@ maxscale-read-port = 3307
 **Recommendation**: Start with HAProxy for simplicity, move to ProxySQL for advanced features.
 
 **Reference**: Configuration documentation for each proxy type
+
+---
+
+## Version 3.1.41 and 3.1.42 Proxy Addendum
+
+The following notes describe proxy behavior introduced for the 3.1.x
+documentation set. The original FAQ entries above remain unchanged.
+
+### 15.6.5 What does HAProxy Runtime API bootstrap do? (3.1.41)
+
+Set `haproxy-mode = "runtimeapi"` and
+`haproxy-api-bootstrap-servers = true` to let replication-manager add, drain,
+remove, and address-correct read and write backend members without a full
+HAProxy reload.
+This requires HAProxy 2.6 or newer.
+
+The setting can be changed while the cluster is running, but the running proxy
+keeps its last-provisioned behavior until it is reprovisioned. It is disabled
+by default. A member without a resolved literal address cannot receive a
+dynamic membership update.
+
+**Reference**: `/pages/04.architecture/04.configuration-guide/06.routing/01.haproxy`
+
+### 15.6.6 Which HAProxy mode should I use? (3.1.42)
+
+- Use `runtimeapi` when replication-manager should manage live backend state.
+- Use `standby` when HAProxy must run locally beside replication-manager.
+- Use `externalcheck` when HAProxy should call replication-manager health
+  endpoints and own the health decision.
+- Treat `dataplaneapi` as the current external-check-style compatibility mode;
+  full Data Plane API management is not implemented yet.
+
+Changing `haproxy-mode` requires the proxy to be unprovisioned first.
+
+### 15.6.7 Why did my external-check proxy keep using `/slave-status`? (3.1.42)
+
+Newly provisioned external-check HAProxy configurations use `/reader-status`
+for reader health. An existing proxy keeps its previously generated
+`checkslave` script until it is reprovisioned. Reprovision the proxy after
+upgrading to receive the current check endpoint.
+
+### 15.6.8 Which MaxScale API and config mode should I use? (3.1.42)
+
+Use the default `maxscale-rest-api = true` for MaxScale 2.2 and newer and set
+`maxscale-rest-port` to the REST listener port. Disable REST only for MaxScale
+versions older than 2.2; MaxAdmin was removed in MaxScale 2.5.
+
+`maxscale-mode = "auto"` detects legacy or pinloki configuration syntax from
+the MaxScale image tag. Use `legacy` or `pinloki` to override detection. These
+settings select generated config syntax and are independent of REST versus
+MaxAdmin client transport.
+
+If `maxscale-get-info-method = "maxinfo"` is selected for a pinloki release,
+replication-manager falls back to the supported method and reports
+`WARN0211`.
+
+### 15.6.9 Why does replication-manager not change MaxScale server states? (3.1.42)
+
+With `maxscale-disable-monitor = false`, MaxScale's own monitor owns master,
+slave, and running state. replication-manager reads that state and avoids
+conflicting manual updates. This is the normal configuration.
+
+Set `maxscale-disable-monitor = true` only when replication-manager must stop
+the MaxScale monitor and drive server state itself.
+
+### 15.6.10 Does Kubernetes provision every proxy type? (3.1.42)
+
+No. Native Kubernetes proxy provisioning currently implements HAProxy and
+ProxySQL. Other proxy types are not implemented yet.
+
+Kubernetes proxy names must be lowercase RFC 1035 labels because the configured
+proxy name becomes the Kubernetes Service name. IP addresses, dotted hostnames,
+uppercase names, and names containing colons are rejected.
+
+**Reference**: `/pages/10.provisioning/01.orchestrators/03.kubernetes`

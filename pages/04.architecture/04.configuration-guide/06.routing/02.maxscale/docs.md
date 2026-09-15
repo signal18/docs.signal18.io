@@ -226,3 +226,54 @@ MaxScale Binlog Server Configuration
 ```
 router_options=mariadb10-compatibility=1,server-id=999,user=skysql,password=skyvodka,send_slave_heartbeat=on,transaction_safety=on,semisync=1
 ```
+
+---
+
+## Version 3.1.42 Addendum
+
+The following changes complement the legacy MaxScale guidance above.
+
+### Version 3.1.42, PR #1768: REST API and generated config modes
+
+##### `maxscale-mode` (3.1.42)
+
+> **Available since:** replication-manager **v3.1.42**
+
+##### `maxscale-rest-api` (3.1.42)
+
+> **Available since:** replication-manager **v3.1.42**
+
+##### `maxscale-rest-port` (3.1.42)
+
+> **Available since:** replication-manager **v3.1.42**
+
+`maxscale-rest-api` defaults to `true` for MaxScale 2.2 and newer, with
+`maxscale-rest-port` defaulting to `8989`. Disable REST only for versions older
+than 2.2, which use MaxAdmin. MaxAdmin was removed in MaxScale 2.5.
+
+`maxscale-mode` accepts `auto`, `legacy`, and `pinloki`. The setting controls
+generated config syntax and is independent of REST versus MaxAdmin transport.
+Both generated forms use `password=`, not the obsolete `passwd=` form.
+
+The new configuration variables covered by this version are
+`maxscale-mode`, `maxscale-rest-api`, and `maxscale-rest-port`.
+
+If `maxscale-get-info-method = "maxinfo"` is selected on pinloki-mode MaxScale,
+replication-manager falls back to the supported method and reports `WARN0211`.
+
+### Version 3.1.42, PR #1768: monitor ownership and live read policy
+
+With `maxscale-disable-monitor = false`, MaxScale's own monitor owns master,
+slave, and running state. replication-manager avoids conflicting manual state
+updates. If the monitor is disabled, or no monitor exists, replication-manager
+can drive server state directly.
+
+`proxy-servers-read-on-master` and
+`proxy-servers-read-on-master-no-slave` are pushed to the supported MaxScale
+REST service when changed. `maxscale-server-match-port` allows matching
+backends by host and port when multiple database ports share one host.
+
+### Version 3.1.42, PR #1768: Kubernetes limitation
+
+Native Kubernetes proxy provisioning currently implements HAProxy and
+ProxySQL. Other proxy types are not implemented yet.

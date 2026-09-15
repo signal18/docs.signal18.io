@@ -139,3 +139,22 @@ taxonomy:
 #### 14.8.0.1.11 Development & Build
 
 * **SBOM Generation**: Software Bill of Materials generation for security compliance  
+
+#### 14.8.0.1.12 Proxy and Routing Updates
+
+* **Version 3.1.41 - HAProxy Runtime API lifecycle**: Added
+  `haproxy-api-bootstrap-servers` for dynamic backend member add, drain,
+  address correction, and stale-server removal without a full HAProxy reload.
+
+* **Version 3.1.42 - HAProxy external checks**: Extended `haproxy-mode` behavior
+  and generated `/reader-status` checks for newly provisioned external-check
+  proxies. Existing `/slave-status` scripts remain compatible until
+  reprovisioning.
+
+* **Version 3.1.42 - MaxScale REST and config modes**: Added
+  `maxscale-mode`, `maxscale-rest-api`, and `maxscale-rest-port` support for
+  legacy and pinloki configuration generation.
+
+* **Version 3.1.42 - Kubernetes proxy provisioning**: Added native HAProxy and
+  ProxySQL proxy lifecycle provisioning and the
+  `prov-kube-proxy-storage-class` setting for proxy PVCs.

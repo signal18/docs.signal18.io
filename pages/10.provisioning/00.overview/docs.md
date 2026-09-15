@@ -49,6 +49,9 @@ All proxy types share resource (memory, CPU, disk) and network configuration:
 | **MySQL Router** | Lightweight routing for InnoDB Cluster |
 | **Sphinx** | Full-text search engine as a service |
 
+For Kubernetes native proxy provisioning in **version 3.1.42**, **HAProxy** and
+**ProxySQL** are implemented. Other proxy types are not implemented yet.
+
 ### 10.1.3.3 Service Plans
 
 Pre-defined plans set the number of database nodes and resource tiers in a single setting (`prov-service-plan`). Plans are registered in a central registry and can be switched dynamically, triggering automatic cluster resize.
