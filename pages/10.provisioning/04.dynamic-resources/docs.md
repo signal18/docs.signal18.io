@@ -175,38 +175,65 @@ oscillation.
 
 ## What it looks like
 
-A 32-thread sysbench run on a three-node test cluster with a plan of 1 DBU per database and
-`prov-db-cpu-cores` starting at 1, captured on the dashboard.
+Three sysbench runs on a three-node test cluster, plan 1 DBU per database, `prov-db-cpu-cores`
+starting at 1 before each run, captured on the dashboard over the same two hours:
 
-**Cluster → Graphs, Consumed DBU.** Two minutes into the run the load saturates the single core,
-the grow fires and the configured resources move from 3 to 6 DBU while the plan line stays at 3.
-The dotted **configured 6 (over plan)** line is the technical allocation; the bars are the real
-consumption per axis; the orange line is the DBU pivot, the axis that binds.
+| run | client threads | replication threads | avg TPS | avg latency |
+|---|---|---|---|---|
+| 1 | 32 | 2 | 662 | 48 ms |
+| 2 | 32 | 32 | 668 | 48 ms |
+| 3 | 128 | 32 | 1306 | 98 ms |
 
-![Consumed DBU during the grow: configured 6 over a plan of 3](/images/dynamic-resources-dbu-grow.jpg)
+**The Resource Manager setup behind these numbers.** The instance runs with
+`resource-manager-infra-quota-pct = 10`: repman may allocate 10 % of the three agents' metal
+(default 90). The three agents add up to 64 cores and 576 GB, which the ratios turn into
+60 DBU of capacity on the scarcest axis, IO, so the **usable pool is 6 DBU** and 6.4 APU. The
+dev3 plan of 3 DBU sits inside that pool; the runs below borrow from the rest of it.
 
-**The full cycle.** The same graph after the run: consumption climbed above the plan for the
-duration of the load, then the cluster was idle and the shrink brought the configuration back to
-the plan, so the configured line disappears (it is drawn only when it differs from the plan).
+![Resource Manager: capacity, quota, usable pool and consumption per axis](/images/dynamic-resources-rm-quota.jpg)
 
-![Consumed DBU over a grow and a shrink](/images/dynamic-resources-dbu-cycle.jpg)
+**Cluster → Graphs, Queries per second.** Runs 1 and 2 plateau at about 15k qps on the master
+whatever the cores: with 32 clients the bottleneck is the round trip between the client and
+the proxy, not the database. Run 3, with 128 clients, reaches 27k, drops to 16k while the
+slaves are capped at 2 cores and the envelope refuses the third one, and climbs to 35k once the
+envelope is widened and the cluster grows to 3 cores.
 
-**Cluster → Graphs, Consumed APU.** The proxy's consumption in APU rises with the load, well
-under its plan of 2 APU.
+![QPS over the three runs](/images/dynamic-resources-qps-3runs.jpg)
 
-![Consumed APU of the proxy during the run](/images/dynamic-resources-apu.jpg)
+**Cluster → Graphs, Consumed DBU.** The bars are the real consumption per axis, the orange line
+the DBU pivot, the dashed line the plan. Runs 1 and 2 barely cross the plan; run 3 climbs to
+almost 6 DBU, twice the plan, as the cluster grows to 3 cores per database, then falls back
+when the load stops and the shrink aligns the configuration down.
 
-**Resources.** The cluster-level view: real consumption against the plan and the usable pool,
-and the derived **Overcommit DBU** history, consumption above the plan during the run. This is
-usage above the contract, served from the node's pool.
+![Consumed DBU over the three runs](/images/dynamic-resources-dbu-3runs.jpg)
 
-![Resource Manager: over-commit of the cluster during the run](/images/dynamic-resources-rm-overcommit.jpg)
+**Cluster → Graphs, Consumed APU.** The proxy follows the same shape in APU: 0.5 under 32
+clients, 1.6 under 128, well inside its plan of 2.
 
-**Workload panel.** With the overcommit envelope reached, the next automatic step was refused
-and reported as ERR00112 with its reason, next to WARN0213, the information that consumption
-sits at the plan and that the plan may be raised by hand.
+![Consumed APU over the three runs](/images/dynamic-resources-apu-3runs.jpg)
+
+**Resources, Overcommit DBU.** The derived history of consumption above the plan: a few tenths
+of a DBU during runs 1 and 2, up to 2.7 DBU during run 3. This is usage above the contract,
+served from the node pool.
+
+![Resource Manager: over-commit of the cluster over the three runs](/images/dynamic-resources-rm-overcommit-3runs.jpg)
+
+**Workload panel.** When the envelope was reached during run 3, the next automatic step was
+refused and reported as ERR00112 with its reason, next to WARN0213, the information that
+consumption sits at the plan and that the plan may be raised by hand.
 
 ![Workload panel with ERR00112 and WARN0213](/images/dynamic-resources-workload-err00112.jpg)
+
+**The resize log.** Every attempt, applied or not, is a record in the cluster's
+`resource_resize.log` (JSON, one line per server and attempt, in the cluster working
+directory). The master's records for run 3, condensed:
+
+```
+12:51:45  db1  cpu  grow    applied=true   feasibility=yes  cores=2   <- saturation on 1 core
+12:53:57  db1  cpu  grow    applied=false  feasibility=no   cores=2   <- envelope reached (ERR00112)
+12:57:01  db1  cpu  grow    applied=true   feasibility=yes  cores=3   <- overcommit widened to 200 %
+13:10:43  db1  cpu  shrink  applied=true   feasibility=yes  cores=1   <- idle: aligned to the DBU in one move
+```
 
 ## Settings
 
