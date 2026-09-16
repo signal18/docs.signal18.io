@@ -4,6 +4,9 @@ taxonomy:
     category: Provisioning
 ---
 
+Available from **replication-manager 3.1.42**. Every setting below is new in 3.1.42 unless
+another version is given.
+
 ## What it does
 
 With dynamic resources enabled, **replication-manager** resizes a database's CPU and memory
@@ -95,21 +98,23 @@ oscillation.
 
 ## Settings
 
-| Setting | Default | Meaning |
-|---|---|---|
-| `prov-db-dynamic-resource` | false | Enable the live resize |
-| `prov-db-docker-run-args-limit` | true | Cap at the docker level; set false on OpenSVC so the process group can be resized live |
-| `prov-db-cap-safety-pct` | 15 | Saturated at 85 % of the configured resource |
-| `prov-db-cap-shrink-pct` | 50 | Under-used at 50 % of the configured resource |
-| `prov-db-overcommit-pct` | 50 | Grow ceiling: up to ceil(plan × 1.5) DBU per database |
-| `prov-db-undercommit-pct` | 50 | Shrink floor: down to floor(plan × 0.5) DBU per database, min 1 |
-| `prov-db-scale-up-config-in-plan-speed` | 1m | How long saturation must last before a grow |
-| `prov-db-scale-down-config-in-plan-speed` | 5m | How long under-use must last before a shrink |
-| `prov-db-scale-up-plan-speed` | 30m | How long consumption must sit at the plan before WARN0213 |
-| `prov-db-dynamic-resize-policy` | scale-speed | `daily-time` defers the memory move to `prov-db-dynamic-resize-daily-time` (03:00) |
-| `prov-db-dynamic-resource-can-change-script` | | Your feasibility check before a move (prints yes, no or migration) |
-| `prov-db-dynamic-resource-change-script` | | Your own resize hook, replaces the native backend |
-| `prov-db-resource-raised-over-plan-script` | | Your veto on a grow past the plan (non-zero exit refuses) |
+| Setting | Since | Default | Meaning |
+|---|---|---|---|
+| `prov-db-dynamic-resource` | 3.1.42 | false | Enable the live resize |
+| `prov-db-docker-run-args-limit` | 3.1 | true | Cap at the docker level; set false on OpenSVC so the process group can be resized live |
+| `monitoring-system-resources` | 3.1.42 | true | The resource sensor (global setting) the decisions read |
+| `prov-db-dbu` | 3.1.42 | | The plan, in DBU per database |
+| `prov-db-cap-safety-pct` | 3.1.42 | 15 | Saturated at 85 % of the configured resource |
+| `prov-db-cap-shrink-pct` | 3.1.42 | 50 | Under-used at 50 % of the configured resource |
+| `prov-db-overcommit-pct` | 3.1.42 | 50 | Grow ceiling: up to ceil(plan × 1.5) DBU per database |
+| `prov-db-undercommit-pct` | 3.1.42 | 50 | Shrink floor: down to floor(plan × 0.5) DBU per database, min 1 |
+| `prov-db-scale-up-config-in-plan-speed` | 3.1.42 | 1m | How long saturation must last before a grow |
+| `prov-db-scale-down-config-in-plan-speed` | 3.1.42 | 5m | How long under-use must last before a shrink |
+| `prov-db-scale-up-plan-speed` | 3.1.42 | 30m | How long consumption must sit at the plan before WARN0213 |
+| `prov-db-dynamic-resize-policy` | 3.1.42 | scale-speed | `daily-time` defers the memory move to `prov-db-dynamic-resize-daily-time` (03:00) |
+| `prov-db-dynamic-resource-can-change-script` | 3.1.42 | | Your feasibility check before a move (prints yes, no or migration) |
+| `prov-db-dynamic-resource-change-script` | 3.1.42 | | Your own resize hook, replaces the native backend |
+| `prov-db-resource-raised-over-plan-script` | 3.1.42 | | Your veto on a grow past the plan (non-zero exit refuses) |
 
 ## Limits and known behaviour
 
