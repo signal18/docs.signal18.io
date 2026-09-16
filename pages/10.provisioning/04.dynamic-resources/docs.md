@@ -7,6 +7,34 @@ taxonomy:
 Available from **replication-manager 3.1.42**. Every setting below is new in 3.1.42 unless
 another version is given.
 
+## Units: DBU for stateful, APU for stateless
+
+**replication-manager** measures, plans and bills resources in **units**, not in raw cores
+and gigabytes. There are two kinds of unit, one per kind of workload:
+
+| Unit | Workload | 1 unit = | IOPS |
+|---|---|---|---|
+| **DBU**, Database Unit | **stateful**: the database servers | 1 core, 4 GB memory, 40 GB disk | 1000 IOPS, locked in the unit |
+| **APU**, Application Unit | **stateless**: proxies (ProxySQL, MaxScale, HAProxy) and applications | 1 core, 1 GB memory, 10 GB disk | none: a stateless service has no IO to reserve |
+
+A unit is a **bundle with a fixed ratio**. A database that needs 2 cores, 8 GB and 80 GB is
+2 DBU; one that needs 2 cores and 2 GB is still 2 DBU, because the unit follows the axis
+that binds (here CPU) and the others come with it. The ratios are the same everywhere; only
+the price per unit differs from one provider to another.
+
+Why two units: a database holds data, so memory (the buffer pool), disk and IOPS are what it
+lives on, and one core needs about 4 GB behind it to be useful. A proxy or an application
+holds no data: it needs cores and a little memory, disk only for its binary and logs, and no
+IOPS reservation at all. Pricing them with the same bundle would make a proxy pay for 40 GB
+and 1000 IOPS it never uses.
+
+- The **plan** is expressed in units: `prov-db-dbu` per database, `prov-proxy-apu` per proxy
+  or application. The cluster total, `prov-service-plan-dbu` and `prov-service-plan-apu`, is
+  the sum over its members and is what you see as the plan line on the graphs.
+- What a service **consumes** is measured on its cgroup and converted to the same unit on
+  each axis, so consumption, configuration and plan compare directly.
+- Dynamic resources, below, move databases by whole **DBU** on the axis that binds.
+
 ## What it does
 
 With dynamic resources enabled, **replication-manager** resizes a database's CPU and memory
