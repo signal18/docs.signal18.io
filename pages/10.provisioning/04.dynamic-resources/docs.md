@@ -19,14 +19,13 @@ and gigabytes. There are two kinds of unit, one per kind of workload:
 
 A unit is a **bundle with a fixed ratio**. A database that needs 2 cores, 8 GB and 80 GB is
 2 DBU; one that needs 2 cores and 2 GB is still 2 DBU, because the unit follows the axis
-that binds (here CPU) and the others come with it. The ratios are the same everywhere; only
-the price per unit differs from one provider to another.
+that binds (here CPU) and the others come with it. The ratios are the same everywhere.
 
 Why two units: a database holds data, so memory (the buffer pool), disk and IOPS are what it
 lives on, and one core needs about 4 GB behind it to be useful. A proxy or an application
 holds no data: it needs cores and a little memory, disk only for its binary and logs, and no
-IOPS reservation at all. Pricing them with the same bundle would make a proxy pay for 40 GB
-and 1000 IOPS it never uses.
+IOPS reservation at all. Sizing them with the same bundle would reserve 40 GB and 1000 IOPS
+a proxy never uses.
 
 - The **plan** is expressed in units: `prov-db-dbu` per database, `prov-proxy-apu` per proxy
   or application. The cluster total, `prov-service-plan-dbu` and `prov-service-plan-apu`, is
@@ -61,7 +60,8 @@ and 1000 IOPS it never uses.
 5. **Consumption comes back in the same unit.** The sensor reads the service cgroup, cores
    used, memory, IO, disk, and divides each axis by the ratio; the pivot is the axis that
    binds. That consumed DBU is what the graph bars show, what the dynamic resize compares
-   with the configured resources, and what is billed as overage past the plan. Proxies and
+   with the configured resources, and what counts as usage above the contract past the plan.
+   Proxies and
    applications are measured the same way, in APU, through their sidecar.
 6. **The dynamic resize moves step 2 only.** A grow or a shrink changes `prov-db-cpu-cores`
    or `prov-db-memory` by whole units, the orchestrator applies it live, the configurator
@@ -74,7 +74,7 @@ cluster name; values are passed in the environment so a shell script needs no pa
 
 | Script | When it runs | Arguments | Environment | Effect of its exit code |
 |---|---|---|---|---|
-| `prov-plan-increase-script` | after a plan change in units (step 1) | `unit from to cluster` | `REPMAN_PLAN_UNIT` (DBU or APU), `REPMAN_PLAN_FROM`, `REPMAN_PLAN_TO`, `REPMAN_CLUSTER` | informational: the plan has already changed (billing, ticketing, notification) |
+| `prov-plan-increase-script` | after a plan change in units (step 1) | `unit from to cluster` | `REPMAN_PLAN_UNIT` (DBU or APU), `REPMAN_PLAN_FROM`, `REPMAN_PLAN_TO`, `REPMAN_CLUSTER` | informational: the plan has already changed (ticketing, notification, your own accounting) |
 | `prov-db-dynamic-resource-can-change-script` | before every live resize of a database (step 6) | `host port direction cluster` | `REPMAN_RESIZE_DIRECTION` (grow or shrink), `REPMAN_PROV_DB_MEMORY`, `REPMAN_PROV_DB_CORES`, `REPMAN_PROV_DB_DISK_SIZE`, `REPMAN_PROV_DB_DISK_IOPS`, `REPMAN_SERVER_HOST`, `REPMAN_SERVER_PORT` | prints its verdict on stdout: `yes` (resize in place), `no` (keep the current size), `migration` (the host lacks capacity, the instance must move) |
 | `prov-db-dynamic-resource-change-script` | instead of the native backend, to apply the resize (step 3 done by you) | `host port direction cluster` | same as above | non-zero exit = the resize failed; the database configuration is not raised over a container that did not grow. Mandatory on-premise, localhost and SlapOS for a live resize; without it those fall back to a restart |
 | `prov-db-resource-raised-over-plan-script` | when an automatic grow would take a database **past its plan**, after the envelope and the pool allowed it | `host port cluster` | `REPMAN_CLUSTER`, `REPMAN_SERVER_HOST`, `REPMAN_SERVER_PORT`, `REPMAN_PLAN_DBU`, `REPMAN_TARGET_DBU`, `REPMAN_BORROW_DBU` (target minus plan) | non-zero exit **vetoes** the over-plan grow; the refusal is reported as ERR00112 |
@@ -91,9 +91,10 @@ With dynamic resources enabled, **replication-manager** resizes a database's CPU
 - when a server saturates a resource, the resource **grows** by one unit;
 - when every server of the cluster under-uses a resource, it **shrinks** back to what the
   load needs;
-- the **plan** (what you pay for) is never changed by the resize. Growing past the plan is
-  allowed within a commercial envelope and billed as overage; the plan itself is only ever
-  raised by you.
+- the **plan** is your **resource contract**: the underlying platform guarantees that the
+  plan can always be served by a real hardware reservation. The resize never changes it.
+  Growing past the plan is allowed within an envelope, as long as the node has the resources
+  to lend; the plan itself is only ever raised by you.
 
 Resources are counted in **DBU** (Database Units): 1 DBU = 1 core, 4 GB of memory,
 40 GB of disk, 1000 IOPS. A resize moves by whole DBU on the axis that is binding.
