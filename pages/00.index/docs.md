@@ -130,6 +130,7 @@ taxonomy:
        - 10.3.4. [Configuration Guide](/provisioning/configurator/configuration-guide)
        - 10.3.5. [Distributions & Rolling Upgrade](/provisioning/configurator/distributions)
     - 10.4. [Service Plan](/provisioning/serviceplan)
+    - 10.5. [Dynamic Resources](/provisioning/dynamic-resources)
 
 11. **Plugins**
     - 11.1. [Plugin Architecture](/plugins/architecture)
