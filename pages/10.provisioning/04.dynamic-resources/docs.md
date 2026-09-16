@@ -35,6 +35,54 @@ and 1000 IOPS it never uses.
   each axis, so consumption, configuration and plan compare directly.
 - Dynamic resources, below, move databases by whole **DBU** on the axis that binds.
 
+## From a unit to a running service
+
+1. **The plan is set in units, per member.** `prov-db-dbu` is the DBU count of each database,
+   `prov-proxy-apu` the APU count of each proxy or application. The cluster totals,
+   `prov-service-plan-dbu` and `prov-service-plan-apu`, are those numbers times the member
+   count, recomputed every tick: they are the plan lines on the graphs. A plan change (API
+   `ChangePlanUnits`, or the plan slider) moves the per-member number by whole units, floor 1.
+2. **The unit is unfolded into resources at the fixed ratio.** N DBU on a database becomes
+   `prov-db-cpu-cores = N`, `prov-db-memory = N × 4096 MB`, `prov-db-disk-size = N × 40 GB`,
+   `prov-db-disk-iops = N × 1000`; N APU on a proxy becomes N cores, N × 1024 MB, N × 10 GB
+   and no IOPS. From there the unit is gone: everything downstream reads `prov-db-*` and
+   `prov-proxy-*`. The log line "Plan DBU N/db -> resources aligned to …" records the unfolding.
+3. **The resources are deployed by the orchestrator.** On OpenSVC they land in the service
+   file: image and run arguments, volume size, and either `--cpus` / `--memory` in the docker
+   run arguments or, with `prov-db-docker-run-args-limit` off, the process-group keywords
+   `pg_cpu_quota` / `pg_mem_limit`. On Kubernetes they become the Deployment's requests and
+   limits and the volume claim size. On-premise they only size the database, nothing is
+   provisioned.
+4. **The same numbers size the database itself.** The configurator derives the server
+   configuration from `prov-db-memory` and `prov-db-cpu-cores`: buffer pool and the other
+   memory areas through the shared and threaded memory percentages, thread pool, IO threads,
+   IO capacity from the IOPS. A DBU is both the container envelope and the tuning of what runs
+   inside it; that is why the ratio is locked.
+5. **Consumption comes back in the same unit.** The sensor reads the service cgroup, cores
+   used, memory, IO, disk, and divides each axis by the ratio; the pivot is the axis that
+   binds. That consumed DBU is what the graph bars show, what the dynamic resize compares
+   with the configured resources, and what is billed as overage past the plan. Proxies and
+   applications are measured the same way, in APU, through their sidecar.
+6. **The dynamic resize moves step 2 only.** A grow or a shrink changes `prov-db-cpu-cores`
+   or `prov-db-memory` by whole units, the orchestrator applies it live, the configurator
+   re-tunes the database, and the plan stays where you put it.
+
+### Hook scripts
+
+Every step above can be observed or overridden by a script you own. All scripts receive the
+cluster name; values are passed in the environment so a shell script needs no parsing.
+
+| Script | When it runs | Arguments | Environment | Effect of its exit code |
+|---|---|---|---|---|
+| `prov-plan-increase-script` | after a plan change in units (step 1) | `unit from to cluster` | `REPMAN_PLAN_UNIT` (DBU or APU), `REPMAN_PLAN_FROM`, `REPMAN_PLAN_TO`, `REPMAN_CLUSTER` | informational: the plan has already changed (billing, ticketing, notification) |
+| `prov-db-dynamic-resource-can-change-script` | before every live resize of a database (step 6) | `host port direction cluster` | `REPMAN_RESIZE_DIRECTION` (grow or shrink), `REPMAN_PROV_DB_MEMORY`, `REPMAN_PROV_DB_CORES`, `REPMAN_PROV_DB_DISK_SIZE`, `REPMAN_PROV_DB_DISK_IOPS`, `REPMAN_SERVER_HOST`, `REPMAN_SERVER_PORT` | prints its verdict on stdout: `yes` (resize in place), `no` (keep the current size), `migration` (the host lacks capacity, the instance must move) |
+| `prov-db-dynamic-resource-change-script` | instead of the native backend, to apply the resize (step 3 done by you) | `host port direction cluster` | same as above | non-zero exit = the resize failed; the database configuration is not raised over a container that did not grow. Mandatory on-premise, localhost and SlapOS for a live resize; without it those fall back to a restart |
+| `prov-db-resource-raised-over-plan-script` | when an automatic grow would take a database **past its plan**, after the envelope and the pool allowed it | `host port cluster` | `REPMAN_CLUSTER`, `REPMAN_SERVER_HOST`, `REPMAN_SERVER_PORT`, `REPMAN_PLAN_DBU`, `REPMAN_TARGET_DBU`, `REPMAN_BORROW_DBU` (target minus plan) | non-zero exit **vetoes** the over-plan grow; the refusal is reported as ERR00112 |
+
+The provisioning hooks that create and destroy services (`prov-db-bootstrap-script`,
+`prov-db-cleanup-script` and the others) are documented in the Orchestrators → Scripts
+page; they are not involved in a live resize.
+
 ## What it does
 
 With dynamic resources enabled, **replication-manager** resizes a database's CPU and memory
