@@ -193,6 +193,25 @@ oscillation.
 | `prov-db-dynamic-resource-change-script` | 3.1.42 | | Your own resize hook, replaces the native backend |
 | `prov-db-resource-raised-over-plan-script` | 3.1.42 | | Your veto on a grow past the plan (non-zero exit refuses) |
 
+## Database releases and the memory resize
+
+A CPU resize is harmless for the workload: it re-tunes the thread pool and the IO threads and
+moves the container limit. A **memory** resize changes `innodb_buffer_pool_size` on the
+running server, and that operation depends on the database release.
+
+| Release | Live buffer pool resize | What to expect |
+|---|---|---|
+| MariaDB 10.2.2 → 10.11.11, 11.4.0 → 11.4.5, 11.8.0 → 11.8.1, and MySQL 5.7.5 → 8.x | yes, in chunks (`innodb_buffer_pool_chunk_size`) | **the resize blocks the workload**: the server waits for running transactions to finish, and new transactions that need the buffer pool wait until the resize is complete; nested transactions started during the resize may fail. A shrink, which withdraws pages, is the longest. |
+| MariaDB 10.11.12+, 11.4.6+, 11.8.2+ (MDEV-29445, chunks removed) | yes, up to `innodb_buffer_pool_size_max` | the buffer pool can only grow up to `innodb_buffer_pool_size_max`, a **read-only** startup variable that defaults to the size the server started with: a live grow above it is refused with warning 1292 and nothing changes. Set `innodb_buffer_pool_size_max` at startup to the largest size the database may grow to. A shrink may not release the memory to the system (MDEV-32339), so the container limit is lowered only once the memory is actually free. |
+| PostgreSQL | no (`shared_buffers` is startup-only) | the memory resize is applied at the next restart |
+| Older MariaDB (< 10.2.2) and MySQL (< 5.7.5) | no | restart |
+
+Because of the first row, on releases that still use chunks prefer
+`prov-db-dynamic-resize-policy = daily-time` with `prov-db-dynamic-resize-daily-time` set to an
+off-peak hour: the memory move is then applied once a day at that time, after any running
+backup or maintenance job, instead of at the moment the load saturates. CPU and IOPS moves
+are not affected by the policy and stay immediate.
+
 ## Limits and known behaviour
 
 - Kubernetes cannot **decrease** memory in place with the default resize policy: a memory
@@ -201,6 +220,10 @@ oscillation.
 - On OpenSVC, a cluster whose databases do not all run on the node repman talks to may see
   the new limit applied on the next reconciliation on the other nodes rather than
   immediately (issue #1795). The configuration is right at once; the running limit follows.
+- On MariaDB 10.11.12+, 11.4.6+ and 11.8.2+ the live memory grow is bounded by
+  `innodb_buffer_pool_size_max` (see the releases table); until **replication-manager** sets
+  it at startup from the plan and the overcommit envelope, a database started small cannot
+  grow its buffer pool live beyond its startup size.
 - A resource declared in the static cluster file is immutable: a dynamic move on it is kept
   only until the next restart. Leave `prov-db-cpu-cores` and `prov-db-memory` out of the
   static file when you enable dynamic resources.
