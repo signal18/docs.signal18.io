@@ -173,6 +173,41 @@ oscillation.
 - The resize history (dimension, direction, applied or not, statements run) is kept in the
   resource resize log of the cluster.
 
+## What it looks like
+
+A 32-thread sysbench run on a three-node test cluster with a plan of 1 DBU per database and
+`prov-db-cpu-cores` starting at 1, captured on the dashboard.
+
+**Cluster → Graphs, Consumed DBU.** Two minutes into the run the load saturates the single core,
+the grow fires and the configured resources move from 3 to 6 DBU while the plan line stays at 3.
+The dotted **configured 6 (over plan)** line is the technical allocation; the bars are the real
+consumption per axis; the orange line is the DBU pivot, the axis that binds.
+
+![Consumed DBU during the grow: configured 6 over a plan of 3](/images/dynamic-resources-dbu-grow.jpg)
+
+**The full cycle.** The same graph after the run: consumption climbed above the plan for the
+duration of the load, then the cluster was idle and the shrink brought the configuration back to
+the plan, so the configured line disappears (it is drawn only when it differs from the plan).
+
+![Consumed DBU over a grow and a shrink](/images/dynamic-resources-dbu-cycle.jpg)
+
+**Cluster → Graphs, Consumed APU.** The proxy's consumption in APU rises with the load, well
+under its plan of 2 APU.
+
+![Consumed APU of the proxy during the run](/images/dynamic-resources-apu.jpg)
+
+**Resources.** The cluster-level view: real consumption against the plan and the usable pool,
+and the derived **Overcommit DBU** history, consumption above the plan during the run. This is
+usage above the contract, served from the node's pool.
+
+![Resource Manager: over-commit of the cluster during the run](/images/dynamic-resources-rm-overcommit.jpg)
+
+**Workload panel.** With the overcommit envelope reached, the next automatic step was refused
+and reported as ERR00112 with its reason, next to WARN0213, the information that consumption
+sits at the plan and that the plan may be raised by hand.
+
+![Workload panel with ERR00112 and WARN0213](/images/dynamic-resources-workload-err00112.jpg)
+
 ## Settings
 
 | Setting | Since | Default | Meaning |
