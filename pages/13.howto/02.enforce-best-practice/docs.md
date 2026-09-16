@@ -67,8 +67,8 @@ unless you set `force-slave-parallel-mode` yourself.
 
 | Setting | Since | Default | Meaning |
 |---|---|---|---|
-| `force-slave-parallel-mode` | 2.0 | (empty) | Mode enforced on the replicas; wins over the dynamic-configuration default |
-| `prov-db-apply-dynamic-config` | 2.1 | false | replication-manager applies configuration changes to the running databases; with it on and no forced mode, replicas run `optimistic` |
+| `force-slave-parallel-mode` | 3.0.17 | (empty) | Mode enforced on the replicas; wins over the dynamic-configuration default |
+| `prov-db-apply-dynamic-config` | 2.2.1 | false | replication-manager applies configuration changes to the running databases; with it on and no forced mode, replicas run `optimistic` |
 | `prov-db-replication-parallel-threads` | 3.1.42 | 32 | `slave_parallel_threads` deployed by the configurator (the workers; not tied to the core count) |
 | `prov-db-replication-domain-parallel-threads` | 3.1.42 | 0 | `slave_domain_parallel_threads` (0 = no per-domain cap) |
 
