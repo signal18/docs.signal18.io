@@ -252,9 +252,6 @@ are not affected by the policy and stay immediate.
 - Kubernetes cannot **decrease** memory in place with the default resize policy: a memory
   shrink is applied at the next restart. CPU moves both ways.
 - IOPS are tuned in the database only; there is no live IO cap on the container.
-- On OpenSVC, a cluster whose databases do not all run on the node repman talks to may see
-  the new limit applied on the next reconciliation on the other nodes rather than
-  immediately (issue #1795). The configuration is right at once; the running limit follows.
 - On MariaDB 10.11.12+, 11.4.6+ and 11.8.2+ the live memory grow is bounded by
   `innodb_buffer_pool_size_max` (see the releases table); until **replication-manager** sets
   it at startup from the plan and the overcommit envelope, a database started small cannot
