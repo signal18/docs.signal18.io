@@ -17,7 +17,7 @@ registration guide, including these paths, lives in
 
 Registration is free. It takes less than two minutes and unlocks:
 
-- **Community plugins** — the full library of workload, security, and score plugins, kept up to date automatically
+- **Community plugins** — the full library of workload, security, score and schema plugins, kept up to date automatically
 - **Config backup & restore** — all cluster configurations versioned in GitLab, recoverable on any new replication-manager instance in one command
 - **Cluster role sharing** — grant scoped access to any cluster to other registered SSO users without sharing credentials or VPN
 - **Direct chat** — a built-in chat panel in the replication-manager GUI for real-time conversation with the Signal18 team and marketplace partners

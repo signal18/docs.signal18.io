@@ -39,6 +39,8 @@ Fine-grained control over what gets collected:
 | `monitoring-schema-on-replicas` | `true` | Mirror schema collection on all replicas |
 | `monitoring-schema-ignore-tables` | `""` | Comma-separated `schema.table` patterns to exclude |
 
+The same collection feeds the [Schema Plugins](/plugins/schema-plugins): the advisories on row size, BLOB compression, redundant indexes (needs `monitoring-schema-indexes`) and AUTO_INCREMENT exhaustion run on this snapshot and issue no query of their own.
+
 ### 7.2.3.1.4 Change Detection
 
 Once metadata has been collected on the primary and all replicas, Replication Manager continuously compares CRC64 fingerprints across all cluster nodes to detect structural drift — schema divergence between replicas and their primary, missing or added tables, column type changes, collation changes.

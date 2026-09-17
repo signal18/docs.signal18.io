@@ -14,7 +14,7 @@ replication-manager ships three tiers of plugins:
 | Tier | Who can use it | Requires | Examples |
 |---|---|---|---|
 | **Static** | Everyone | Nothing — bundled in the binary | `errorlog`, `slowlog`, `auditlog` |
-| **Community** | Registered instances | Free account at gitlab.signal18.io | All workload, security and score plugins |
+| **Community** | Registered instances | Free account at gitlab.signal18.io | All workload, security, score and schema plugins |
 | **Enterprise** | Support contract customers | Signal18 Support or Partner plan | `enterprise-security`, `enterprise-replication`, `enterprise-workload`, `enterprise-compliance` |
 
 **Community plugins** are the primary tier of external plugins. They are distributed to instances that have registered at gitlab.signal18.io and serve a dual purpose: they bring real monitoring value to users and they help signal18 understand how replication-manager is deployed in the field — workload patterns, security posture, topology shapes — so we can improve the product and focus roadmap investment where it matters most.

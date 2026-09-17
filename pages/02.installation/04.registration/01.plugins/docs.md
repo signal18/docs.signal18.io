@@ -15,7 +15,7 @@ Plugins are organised in three tiers:
 | Tier | Who can use it | Requires | Examples |
 |---|---|---|---|
 | **Static** | Everyone | Nothing — bundled in the binary | `errorlog`, `slowlog`, `auditlog` |
-| **Community** | Registered instances | Free account at gitlab.signal18.io | All workload, security, and score plugins |
+| **Community** | Registered instances | Free account at gitlab.signal18.io | All workload, security, score and schema plugins |
 | **Enterprise** | Support contract customers | Signal18 Support Contract | `plugin-critical-alerts` |
 
 **Static plugins** run in-process as Go functions. They use Graphite-backed spike detection and need no registration.
@@ -93,7 +93,18 @@ Compute binary pass/fail checks that feed the **SecurityScore** gauge in the clu
 | `plugin-score-lts` | Running a supported LTS version |
 | `plugin-score-proxy` | Proxy layer present |
 
-### 2.7.1.3.4 Enterprise Advisory Plugins
+### 2.7.1.3.4 Schema Plugins
+
+Read the schema dictionary the schema monitor already collects and flag data-model risks before they become incidents. Findings carry `SCH` codes, one finding per plugin listing every table concerned, routed to the Schema Logs view. See [Schema Plugins](/plugins/schema-plugins).
+
+| Plugin | Finds | Since |
+|---|---|---|
+| `plugin-schema-row-size` | InnoDB row past the inline budget (SCH0001) | 3.1.33 |
+| `plugin-schema-lob-compression` | Large uncompressed BLOB/TEXT, MariaDB (SCH0002) | 3.1.33 |
+| `plugin-schema-duplicate-index` | Redundant / duplicate index (SCH0003) | 3.1.42 |
+| `plugin-schema-auto-increment-exhaustion` | AUTO_INCREMENT near the column capacity (SCH0004) | 3.1.42 |
+
+### 2.7.1.3.5 Enterprise Advisory Plugins
 
 Enterprise advisory plugins are **built-in** (bundled in the binary) and run on every instance. They match the running database and tool versions against a CVE/bug advisory database. On **paid plans** (Support, Partner) the advisory database is refreshed daily by the Signal18 back office. On the **free plan** the embedded default is used and a persistent security alert warns that advisories are frozen.
 

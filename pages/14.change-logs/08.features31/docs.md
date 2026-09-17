@@ -8,6 +8,12 @@ taxonomy:
 
 #### 14.8.0.1.1 Monitoring Enhancements
 
+* **Version 3.1.42 - Schema plugins SCH0003 / SCH0004**: `plugin-schema-duplicate-index` flags redundant indexes (leftmost-prefix rule, uniqueness respected, InnoDB implicit primary-key suffix handled) with a `DROP INDEX` remediation each; `plugin-schema-auto-increment-exhaustion` flags AUTO_INCREMENT counters past 95 % (configurable) of the column type capacity with the widening `ALTER`. Plugin wire v4 carries indexes, auto-increment and column extra on the schema snapshot. [See documentation](/plugins/schema-plugins)
+
+* **Version 3.1.42 - Graphs page in sections and every Top gauge over time**: the Graphs page is organised in Workload, Replication, Resources, InnoDB and Memory sections; the Top page gauges and per-instance bar graphs (Queries, Rows, Transactions, Swap, Cache Miss) get a time series each, plus a replication parallelism chart (binlog group commit size vs parallel workers) and threads connected.
+
+* **Version 3.1.42 - Optimistic parallel replication under dynamic configuration**: with `prov-db-apply-dynamic-config` on and no `force-slave-parallel-mode`, MariaDB replicas are enforced to `slave_parallel_mode=optimistic`; failures raise WARN0216 and are retried after five minutes. New `prov-db-replication-parallel-threads` (32) and `prov-db-replication-domain-parallel-threads` (0) settings decouple the workers from the core count. [See documentation](/howto/enforce-best-practice)
+
 * **Sleeping Transactions Monitoring**: Monitor long-running transactions including sleeping transactions that hold InnoDB locks. Tracks transaction duration, isolation level, tables locked, rows modified, and memory usage. [See documentation](/configuration/monitoring/processlist-monitoring)
 
 * **Performance Schema Mutex Monitoring**: Collect InnoDB mutex wait events from Performance Schema. Identifies mutex contention and performance bottlenecks. [See documentation](/configuration/monitoring/performance-schema)
@@ -83,6 +89,8 @@ taxonomy:
 * **Cross-Cluster User Restore**: Restore backups between clusters while merging database USERS tables
 
 #### 14.8.0.1.6 Provisioning
+
+* **Version 3.1.42 - Dynamic resources**: live CPU, memory and IO resize of the databases inside the plan and up to `prov-db-overcommit-pct` over it, shrink down to `prov-db-undercommit-pct`, on OpenSVC (process-group quotas) and Kubernetes (in-place pod resize), with hook scripts and the DBU/APU graphs. [See documentation](/provisioning/dynamic-resources)
 
 * **OpenSVC Go Agent**: Migration to new OpenSVC go-based agent
 

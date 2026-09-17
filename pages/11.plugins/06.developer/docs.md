@@ -95,8 +95,11 @@ type Request struct {
     ProcessList     []Process         `json:"process_list"`
     BinlogEvents    []BinlogEvent     `json:"binlog_events"`
     Config          map[string]string `json:"config,omitempty"`
+    Tables          []Table           `json:"tables,omitempty"`   // wire v3+, primary only
 }
 ```
+
+`Tables` is the schema dictionary snapshot, present on the primary's request only: per table `schema`, `name`, `engine`, `row_format`, `rows`, `data_length`, `avg_row_length` and `columns` (name, type, nullable, charset, collation) since wire v3; `indexes` (name, unique, primary, type, columns with `sub_part`), `auto_increment`, `index_length` and `columns[].extra` since wire v4 (replication-manager 3.1.42). The wire version is additive: a plugin written for an older version keeps working.
 
 `ServerVariables` keys are always **lowercase** (e.g. `require_secure_transport`, not `REQUIRE_SECURE_TRANSPORT`). Boolean values may be `"ON"` / `"OFF"` or `"1"` / `"0"` depending on the MariaDB/MySQL version — always test both.
 

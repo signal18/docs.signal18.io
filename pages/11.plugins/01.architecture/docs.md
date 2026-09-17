@@ -15,7 +15,7 @@ Plugins are organised in three tiers:
 | Tier | Implementation | Availability | Examples |
 |---|---|---|---|
 | **Static** | In-process Go functions, no subprocess | All instances, no registration required | `errorlog`, `sqlerrorlog`, `slowlog`, `auditlog` |
-| **Community** | External compiled binaries | Instances registered at gitlab.signal18.io (free) | All workload, security and score plugins |
+| **Community** | External compiled binaries | Instances registered at gitlab.signal18.io (free) | All workload, security, score and schema plugins |
 | **Enterprise** | External compiled binaries | Signal18 Support Contract customers | `plugin-critical-alerts` |
 
 **Community plugins** are the external plugin library shipped with replication-manager. Registering your instance at gitlab.signal18.io unlocks the full community plugin set. Registration is free — it allows Signal18 to understand how the product is used in production so the roadmap can be focused where it creates the most value.
