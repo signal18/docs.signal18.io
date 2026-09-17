@@ -16,8 +16,8 @@ replication-manager-pro can provision and manage the complete lifecycle of datab
 
 | Orchestrator | `prov-orchestrator` | Description |
 |---|---|---|
-| **OpenSVC** | `opensvc` | Service cluster with Docker/Podman micro-services across a pool of agents. Primary supported backend. |
-| **Kubernetes** | `kube` | Native K8s deployment using a kubeconfig file. |
+| **OpenSVC** | `opensvc` | Service cluster with Docker/Podman micro-services across a pool of agents. Primary supported backend. Live resource resize in both directions (see [Dynamic Resources](/provisioning/dynamic-resources)). |
+| **Kubernetes** | `kube` | Native K8s deployment using a kubeconfig file. In-place Pod resize grows CPU and memory live; a memory decrease waits for a restart with the default resize policy. |
 | **SlapOS** | `slapos` | Distributed service mesh from Nexedi. |
 | **On-Premise SSH** | `onpremise` | SSH-based bootstrap onto existing bare-metal or VM hosts. No agent required. |
 | **Local** | `local` | Processes started directly on the replication-manager host. For testing only. |

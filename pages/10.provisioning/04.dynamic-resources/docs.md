@@ -160,6 +160,38 @@ never squeezed below what it holds.
 Between 50 % and 85 % of the configured resources nothing moves: this dead band avoids
 oscillation.
 
+### Memory shrink: OpenSVC and Kubernetes differ
+
+On **OpenSVC** the memory cap is the service process group. Lowering it is a live cgroup
+change, and because **replication-manager** lowers the buffer pool first and waits for the
+memory to be released, the new limit never sits below what the database holds. The node
+gets the memory back at once.
+
+On **Kubernetes** the memory limit can only be **raised** in place. Lowering `memory.max`
+under a running container would force the kernel to reclaim, and to OOM-kill the process
+if it cannot, so with the default resize policy (`NotRequired`) the kubelet reports the
+decrease as `Infeasible` and leaves the live limit where it was. **replication-manager**
+then applies the shrink at the next restart of the database: the Pod spec already carries
+the lower value, and the buffer pool has already been reduced by SQL. Until that restart the
+old amount stays booked on the node, since requests equal limits, so the memory the
+database no longer uses is not available to other Pods.
+
+To have shrinks apply without waiting, set the memory resize policy of the database
+container to `RestartContainer`:
+
+```yaml
+resizePolicy:
+  - resourceName: memory
+    restartPolicy: RestartContainer
+```
+
+A memory shrink then becomes a container restart, which **replication-manager** sequences
+as any restart (restart cookie, rolling restart), and `prov-db-dynamic-resize-policy =
+daily-time` confines it to a quiet window. The trade is an immediate release of node
+memory against a restart on each shrink: a reasonable choice for replicas, rarely for the
+primary. This is one of the reasons to prefer OpenSVC when the workload needs its
+resources to follow the load in both directions.
+
 ## What you see
 
 - **Graphs → Consumed DBU**: the bars are the real consumption per axis; the dashed
@@ -277,7 +309,8 @@ are not affected by the policy and stay immediate.
 ## Limits and known behaviour
 
 - Kubernetes cannot **decrease** memory in place with the default resize policy: a memory
-  shrink is applied at the next restart. CPU moves both ways.
+  shrink is applied at the next restart, or at once with `RestartContainer` (see "Memory
+  shrink: OpenSVC and Kubernetes differ"). CPU moves both ways.
 - IOPS are tuned in the database only; there is no live IO cap on the container.
 - On MariaDB 10.11.12+, 11.4.6+ and 11.8.2+ the live memory grow is bounded by
   `innodb_buffer_pool_size_max` (see the releases table); until **replication-manager** sets
