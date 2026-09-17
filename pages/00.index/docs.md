@@ -139,6 +139,7 @@ taxonomy:
     - 11.4. [Security Plugins](/plugins/security-plugins)
     - 11.5. [Score Plugins](/plugins/score-plugins)
     - 11.6. [Developing Plugins](/plugins/developer)
+    - 11.7. [Schema Plugins](/plugins/schema-plugins)
 
 12. **Contribute**
     - 12.1. [Build](/contribute/build)
