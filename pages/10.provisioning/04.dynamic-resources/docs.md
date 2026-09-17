@@ -105,7 +105,10 @@ Resources are counted in **DBU** (Database Units): 1 DBU = 1 core, 4 GB of memor
   or **Kubernetes 1.33+** (in-place Pod resize). On-premise, localhost and SlapOS can only
   resize through your own script, or at the next restart.
 - The resource sensor on (`monitoring-system-resources`, default on): it reads the
-  service cgroup and produces the consumed DBU the decisions are based on.
+  service cgroup and produces the consumed DBU the decisions are based on. The sensor
+  pushes one reading per run of the database jobs (about every minute); a reading older
+  than **3 minutes** counts as no reading, and every decision waits until readings flow
+  again (see "Limits and known behaviour").
 - On OpenSVC, the cap must live on the process group, not on the docker run arguments:
   set `prov-db-docker-run-args-limit = false` and rolling-restart once so the containers
   are recreated resize-ready. Until then WARN0214 tells you the live move cannot bind.
@@ -202,6 +205,10 @@ resources to follow the load in both directions.
   plan by hand), ERR00112 (an automatic grow was refused, with the reason).
 - **WARN0214**: dynamic resources are on but the container is still capped by the docker
   run arguments, the live move cannot take effect.
+- **WARN0215**: the sensor has not reported for more than 3 minutes (a long backup or
+  other database job is running in the jobs container, or that container is down), or on
+  Kubernetes the sensor prerequisites are missing. Nothing is resized while it stands, and
+  the Consumed DBU graph shows a gap for the silent period. It clears on the next reading.
 - The resize history (dimension, direction, applied or not, statements run) is kept in the
   resource resize log of the cluster.
 
@@ -312,6 +319,12 @@ are not affected by the policy and stay immediate.
   shrink is applied at the next restart, or at once with `RestartContainer` (see "Memory
   shrink: OpenSVC and Kubernetes differ"). CPU moves both ways.
 - IOPS are tuned in the database only; there is no live IO cap on the container.
+- The sensor runs inside the database jobs cycle, so a long job (backup, reseed, optimize)
+  silences it for its whole duration. Since 3.1.42 a reading older than 3 minutes is
+  treated as no reading: the decisions stand still, WARN0215 says why, and the graph shows
+  the gap rather than a frozen value. Before that release the last reading stayed in force
+  and a shrink or grow could fire on it during the job. A memory move is also never applied
+  on a server while a job runs there.
 - On MariaDB 10.11.12+, 11.4.6+ and 11.8.2+ the live memory grow is bounded by
   `innodb_buffer_pool_size_max` (see the releases table); until **replication-manager** sets
   it at startup from the plan and the overcommit envelope, a database started small cannot
