@@ -110,6 +110,9 @@ cp ~/.kube/config /etc/replication-manager/kube/config
 chmod 600 /etc/replication-manager/kube/config
 ```
 
+For selecting a specific Kubernetes StorageClass for database volumes, see
+[Database Storage and StorageClass Selection](../../../10.provisioning/01.orchestrators/03.kubernetes).
+
 ---
 
 ## 2.1.10.4 SlapOS
