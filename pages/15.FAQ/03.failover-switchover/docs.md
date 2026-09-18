@@ -260,29 +260,32 @@ No post-failover script is needed. The toggle is fully automated on both promoti
 
 ```
 INFO   Starting master switchover
-INFO   Checking long running updates on master 10
-ERROR  Long updates running on master. Cannot switchover
+WARN   Long updates running on master db1:3306: 1 write query/transaction past switchover-wait-write-query=10s, waiting for them to complete, 9s left of switchover-wait-trx=10s
+WARN   Long update on db1:3306: session 312619 user app host 10.0.0.5:35878 command Query running 15s, trx open 16s rows modified 1200 rows locked 1200: UPDATE orders SET ...
+ERROR  Long updates running on master. Cannot switchover: 1 write query/transaction on db1:3306 still past switchover-wait-write-query=10s after switchover-wait-trx=10s, not killed (rollback time unknown)
 ```
 
 A write query, or an InnoDB transaction left open, has been running on the master for at
-least `switchover-wait-write-query` seconds (default 10). The switchover stops before
-touching anything, because its next step takes a global read lock on the master and then
-kills the sessions still running under it: that long transaction would either stall every
-other session or be rolled back.
+least `switchover-wait-write-query` seconds (default 10). Nothing is locked yet at that
+point, so the switchover waits for it, re-checking every 2 seconds for up to
+`switchover-wait-trx` seconds (default 10), and proceeds as soon as it is gone. The `WARN`
+lines name each session it is waiting for. If it is still running at the deadline the
+switchover is cancelled, and the transaction is never killed: its rollback would take an
+unknown time and run on the server being demoted.
 
 **What to do:**
 
-1. Find the session on the **Top** page (long and sleeping transactions are listed with
-   their id and duration), let it finish or kill it, then run the switchover again.
-2. If you accept that the long transaction is rolled back, raise
-   `switchover-wait-write-query`: since **3.1.42** under **Settings → Replication Failover →
-   Switchover Cancel on Long Write** (no restart), before that in the cluster configuration
-   file with a restart of **replication-manager**. The sessions still running under the read
-   lock are then killed after `switchover-wait-kill` (5 s by default). Put the value back
-   once the switchover is done.
+1. Let the transaction finish and run the switchover again. The session id, its age and
+   its rows modified are in the log lines above; the **Top** page lists it too.
+2. Make the switchover wait longer: raise `switchover-wait-trx`, since **3.1.42** under
+   **Settings → Replication Failover → Switchover Wait Transactions** (no restart), before
+   that in the cluster configuration file with a restart of **replication-manager**.
+3. Kill the session yourself only if its `rows modified` is small enough for the rollback
+   to be immediate. A rollback of millions of rows cannot be stopped, not even by restarting
+   the server.
 
-There is no per-call force option today: the guard is either on, at its threshold, or
-raised out of the way. A failover does not run this check.
+There is no force option that kills the transaction, by design. A failover does not run
+this check.
 
 See [Switchover configuration](/architecture/configuration-guide/switchover).
 

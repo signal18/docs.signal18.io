@@ -34,42 +34,52 @@ taxonomy:
 
 | Item | Value |
 | ---- | ----- |
-| Description | Switchover is cancelled when a write query or an open InnoDB transaction has been running on the master for at least this many seconds. |
+| Description | A write query or an open InnoDB transaction running on the master for at least this many seconds counts as a long write: the switchover waits for it to complete, up to `switchover-wait-trx`, and is cancelled if it is still there. |
 | Type | integer |
 | Default Value | 10 |
 
-**What is checked.** Just before demoting the master, **replication-manager** counts on it
-the queries other than SELECT running for at least this many seconds, and the InnoDB
-transactions open for at least this long. If the count is not zero the switchover stops
-there, before anything has changed, with the log line `Long updates running on master.
-Cannot switchover`.
+**What is checked.** First thing in a switchover, before anything is frozen or locked,
+**replication-manager** counts on the master the queries other than SELECT running for at
+least this many seconds, and the InnoDB transactions open for at least this long.
 
-**Why.** The next step of a switchover takes a global read lock on the master
-(`FLUSH TABLES WITH READ LOCK`), waits `switchover-wait-trx` seconds for it, then kills the
-client threads still running after `switchover-wait-kill` milliseconds. A long write or an
-open transaction either holds that lock and stalls every session queued behind it, or gets
-killed and rolled back. Refusing is the choice that loses nothing.
+**What happens.** Nothing is locked at that point, so the application does not see the
+wait: the count is repeated every 2 seconds for up to `switchover-wait-trx` seconds, and
+the switchover goes on as soon as it reaches zero. Each pass logs one line per session,
+with its id, user, host, running time, transaction age, rows modified and rows locked, so
+you can see what the switchover is waiting for. Still there at the deadline: the switchover
+is cancelled with `Long updates running on master. Cannot switchover`.
 
-**How to get past it.** There is no force option on the switchover itself.
+**Why it is never killed.** Killing a transaction starts a rollback whose duration nobody
+knows: proportional to the rows it modified, not interruptible, and resumed by InnoDB
+recovery if the server is restarted. That rollback would run on the server being demoted,
+holding its row locks while the new master's writes replicate onto it. Waiting or cancelling
+loses nothing; killing can cost an hour.
 
-- Let the transaction finish or kill it yourself, then switch over. The Top page shows the
-  long and sleeping transactions with their session id.
-- Raise the value, for example to 3600. Since **3.1.42** it is a dynamic setting: in the
-  dashboard under **Settings → Replication Failover → Switchover Cancel on Long Write**, or
-  through the settings API; before that release it lives in the cluster configuration file
-  and takes a restart of **replication-manager**. Once raised, the switchover proceeds and
-  the threads still running under the read lock are killed after `switchover-wait-kill`:
-  the long transaction is rolled back. This disables the guard for every switchover, not
-  just one; put the value back afterwards.
+**How to get past a cancel.**
+
+- Let the transaction finish and run the switchover again. The log lines above and the Top
+  page show the session.
+- Raise `switchover-wait-trx` so the switchover waits longer. Since **3.1.42** both settings
+  are dynamic: **Settings → Replication Failover → Switchover Long Write Threshold** and
+  **Switchover Wait Transactions**, or the settings API; before that release they live in
+  the cluster configuration file and take a restart of **replication-manager**.
+- Kill the session yourself only when the `rows modified` in the log line is small enough
+  that its rollback is immediate.
 
 A failover does not run this check: a failed master has no queries left to protect.
+
+**What follows the guard.** The switchover then flushes the master's tables without a lock
+(`FLUSH TABLES`, so the later read lock is fast), also bounded by `switchover-wait-trx`, and
+freezes the master: read only, a grace period of `switchover-wait-kill` milliseconds for the
+writes still in flight, then every remaining client session is killed and the global read
+lock (`FLUSH TABLES WITH READ LOCK`) is taken before the candidate is promoted.
 
 
 ##### `switchover-wait-trx` (2.0), `wait-trx` (1.0)
 
 | Item | Value |
 | ---- | ----- |
-| Description | Switchover is cancel after this timeout in second if can't return from FTWRL. |
+| Description | Seconds the switchover waits, before freezing anything, for the long writes found by `switchover-wait-write-query` to complete, then again for the flush of the master's tables. Cancelled if either is still pending at the deadline. Dynamic since 3.1.42 (Settings → Replication Failover → Switchover Wait Transactions). |
 | Type | integer |
 | Default Value | 10 |
 
