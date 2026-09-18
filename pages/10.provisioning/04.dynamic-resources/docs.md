@@ -122,7 +122,10 @@ prov-db-docker-run-args-limit = false   # OpenSVC: cap on the process group
 prov-db-dbu = 1                         # the plan, per database
 ```
 
-The same settings are in the dashboard under **Settings → Dynamic Config**.
+In the dashboard: the plan is the DBU slider under **Configurator → Database Configurator →
+Resources**, the switch is **Apply Dynamic Resource Resize** under **Settings → Dynamic Config**
+next to the tuning settings below (margins, overcommit, speeds, resize policy), and
+`prov-db-docker-run-args-limit` is only in the configuration file.
 
 ## How a grow happens
 
