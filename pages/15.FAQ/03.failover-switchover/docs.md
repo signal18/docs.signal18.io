@@ -255,3 +255,33 @@ No post-failover script is needed. The toggle is fully automated on both promoti
 **GUI**: The setting can also be toggled from the dashboard under **Settings → Failover → Event Scheduler**.
 
 **API**: `PUT /api/clusters/{name}/settings/actions/switch/failover-event-scheduler`
+
+### 15.3.9 Why was my switchover cancelled with "Long updates running on master"?
+
+```
+INFO   Starting master switchover
+INFO   Checking long running updates on master 10
+ERROR  Long updates running on master. Cannot switchover
+```
+
+A write query, or an InnoDB transaction left open, has been running on the master for at
+least `switchover-wait-write-query` seconds (default 10). The switchover stops before
+touching anything, because its next step takes a global read lock on the master and then
+kills the sessions still running under it: that long transaction would either stall every
+other session or be rolled back.
+
+**What to do:**
+
+1. Find the session on the **Top** page (long and sleeping transactions are listed with
+   their id and duration), let it finish or kill it, then run the switchover again.
+2. If the application always keeps long transactions open and you accept that they are
+   rolled back at switchover, raise `switchover-wait-write-query` in the cluster
+   configuration file and restart **replication-manager**. The setting is static. From then
+   on the sessions still running under the read lock are killed after
+   `switchover-wait-kill` (5 s by default).
+
+There is no per-call force option today: the guard is either on, at its threshold, or
+raised out of the way. A failover does not run this check.
+
+See [Switchover configuration](/architecture/configuration-guide/switchover).
+
