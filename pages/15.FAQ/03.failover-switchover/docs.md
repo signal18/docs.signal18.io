@@ -287,5 +287,8 @@ unknown time and run on the server being demoted.
 There is no force option that kills the transaction, by design. A failover does not run
 this check.
 
+The alert **WARN0217** opens right after the switchover with the outcome of the wait,
+completed or cancelled, so the alert history keeps a trace of it.
+
 See [Switchover configuration](/architecture/configuration-guide/switchover).
 

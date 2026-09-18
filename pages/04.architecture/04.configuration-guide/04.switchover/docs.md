@@ -49,6 +49,13 @@ with its id, user, host, running time, transaction age, rows modified and rows l
 you can see what the switchover is waiting for. Still there at the deadline: the switchover
 is cancelled with `Long updates running on master. Cannot switchover`.
 
+While it waits, the cluster object of the API (`GET /api/clusters/{name}`) carries
+`switchoverLongWriteWait` with the master, the number of long writes, the start and the
+deadline of the wait; it is `null` otherwise. A switchover runs on the monitoring loop
+itself, so no state opens and no alert fires until it returns: the first tick after it
+opens the state **WARN0217** with the outcome, "completed after N s, switchover
+proceeding" or "still running after switchover-wait-trx, switchover cancelled".
+
 **Why it is never killed.** Killing a transaction starts a rollback whose duration nobody
 knows: proportional to the rows it modified, not interruptible, and resumed by InnoDB
 recovery if the server is restarted. That rollback would run on the server being demoted,
