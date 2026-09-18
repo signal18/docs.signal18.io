@@ -54,11 +54,13 @@ killed and rolled back. Refusing is the choice that loses nothing.
 
 - Let the transaction finish or kill it yourself, then switch over. The Top page shows the
   long and sleeping transactions with their session id.
-- Raise the value, for example to 3600, in the cluster configuration file: it is a static
-  setting, with no dynamic setter and no dashboard control, so it takes a restart of
-  **replication-manager**. Once raised, the switchover proceeds and the threads still
-  running under the read lock are killed after `switchover-wait-kill`: the long transaction
-  is rolled back. This disables the guard for every switchover, not just one.
+- Raise the value, for example to 3600. Since **3.1.42** it is a dynamic setting: in the
+  dashboard under **Settings → Replication Failover → Switchover Cancel on Long Write**, or
+  through the settings API; before that release it lives in the cluster configuration file
+  and takes a restart of **replication-manager**. Once raised, the switchover proceeds and
+  the threads still running under the read lock are killed after `switchover-wait-kill`:
+  the long transaction is rolled back. This disables the guard for every switchover, not
+  just one; put the value back afterwards.
 
 A failover does not run this check: a failed master has no queries left to protect.
 

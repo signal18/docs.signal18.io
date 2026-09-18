@@ -274,11 +274,12 @@ other session or be rolled back.
 
 1. Find the session on the **Top** page (long and sleeping transactions are listed with
    their id and duration), let it finish or kill it, then run the switchover again.
-2. If the application always keeps long transactions open and you accept that they are
-   rolled back at switchover, raise `switchover-wait-write-query` in the cluster
-   configuration file and restart **replication-manager**. The setting is static. From then
-   on the sessions still running under the read lock are killed after
-   `switchover-wait-kill` (5 s by default).
+2. If you accept that the long transaction is rolled back, raise
+   `switchover-wait-write-query`: since **3.1.42** under **Settings → Replication Failover →
+   Switchover Cancel on Long Write** (no restart), before that in the cluster configuration
+   file with a restart of **replication-manager**. The sessions still running under the read
+   lock are then killed after `switchover-wait-kill` (5 s by default). Put the value back
+   once the switchover is done.
 
 There is no per-call force option today: the guard is either on, at its threshold, or
 raised out of the way. A failover does not run this check.
