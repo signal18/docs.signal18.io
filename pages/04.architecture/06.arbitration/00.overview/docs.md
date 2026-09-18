@@ -165,6 +165,8 @@ Rejoining the old master first **produces a backup of the divergent binlog delta
 
 Since 3.1.32, the viewer **shows the decoded diff** of that delta (the exact statements and row events that diverged) and marks it **flashback-able when possible** — that is, when the tail is pure row-based DML that flashback can reverse. When it is not flashback-able (it contains DDL or statement-format writes), the viewer says so, so the operator knows a reseed or restore is required instead of a rewind.
 
+A **switchover** also leaves a row in the crash history (it is a master change, and its election anchors serve point-in-time recovery), but it has no divergent tail by construction: the old master is frozen under a global read lock and the candidate has applied all its relay logs before promotion. Since **3.1.42** the switchover stamps its own row **no-divergence** once the old master is re-slaved, and the Crashes view shows **none** in the Divergence column with no *Lost Events* to review. Rows written by earlier releases keep an empty outcome.
+
 ---
 
 ### 4.7.1.7 Single replication-manager: self-arbitrated failover
