@@ -160,6 +160,15 @@ Memory is shrunk before CPU. A memory shrink lowers the InnoDB buffer pool first
 container limit only once the pool has actually released the memory, so the database is
 never squeezed below what it holds.
 
+**The redo log follows.** On every memory move the InnoDB redo log is resized live with the
+buffer pool, to a quarter of it rounded to a power of two (128 MB at least, 16 GB at most),
+on MariaDB 10.9 and later (`innodb_log_file_size`) and MySQL or Percona 8.0.30 and later
+(`innodb_redo_log_capacity`). It is the last statement of the move, after the buffer pool.
+Older releases keep their redo until the next restart, and the move marks the database as
+needing one. A redo grow needs the new file's worth of free disk during the switch; a redo
+shrink under heavy writes can take a while, the checkpoint has to pass the new end first,
+but it does not block the workload.
+
 Between 50 % and 85 % of the configured resources nothing moves: this dead band avoids
 oscillation.
 
@@ -305,6 +314,7 @@ running server, and that operation depends on the database release.
 | MariaDB 10.2.2 → 10.11.11, 11.4.0 → 11.4.5, 11.8.0 → 11.8.1, and MySQL 5.7.5 → 8.x | yes, in chunks (`innodb_buffer_pool_chunk_size`) | **the resize blocks the workload**: the server waits for running transactions to finish, and new transactions that need the buffer pool wait until the resize is complete; nested transactions started during the resize may fail. A shrink, which withdraws pages, is the longest. |
 | MariaDB 10.11.12+, 11.4.6+, 11.8.2+ (MDEV-29445, chunks removed) | yes, up to `innodb_buffer_pool_size_max` | the buffer pool can only grow up to `innodb_buffer_pool_size_max`, a **read-only** startup variable that defaults to the size the server started with: a live grow above it is refused with warning 1292 and nothing changes. Set `innodb_buffer_pool_size_max` at startup to the largest size the database may grow to. A shrink may not release the memory to the system (MDEV-32339), so the container limit is lowered only once the memory is actually free. |
 | PostgreSQL | no (`shared_buffers` is startup-only) | the memory resize is applied at the next restart |
+| Redo log: MariaDB 10.9+, MySQL/Percona 8.0.30+ | yes, with the buffer pool (last statement of the move) | older releases keep their redo until the next restart |
 | Older MariaDB (< 10.2.2) and MySQL (< 5.7.5) | no | restart |
 
 Because of the first row, on releases that still use chunks prefer
