@@ -14,8 +14,9 @@ and gigabytes. There are two kinds of unit, one per kind of workload:
 
 | Unit | Workload | 1 unit = | IOPS |
 |---|---|---|---|
-| **DBU**, Database Unit | **stateful**: the database servers | 1 core, 4 GB memory, 40 GB disk | 1000 IOPS, locked in the unit |
+| **DBU**, Database Unit | **stateful**: the database servers | 1 core, 4 GB memory, 20 GB disk | 1000 IOPS, locked in the unit |
 | **APU**, Application Unit | **stateless**: proxies (ProxySQL, MaxScale, HAProxy) and applications | 1 core, 1 GB memory, 10 GB disk | none: a stateless service has no IO to reserve |
+| **BKU**, Backup Unit | **storage**: the disk really used by the backups of a database | 20 GB of disk, nothing else | none |
 
 A unit is a **bundle with a fixed ratio**. A database that needs 2 cores, 8 GB and 80 GB is
 2 DBU; one that needs 2 cores and 2 GB is still 2 DBU, because the unit follows the axis
@@ -34,6 +35,11 @@ a proxy never uses.
   each axis, so consumption, configuration and plan compare directly.
 - Dynamic resources, below, move databases by whole **DBU** on the axis that binds.
 
+A backup is not sized in DBU. Its storage is counted in **BKU**: one unit is 20 GB of disk,
+the same quantity as the DBU disk axis, and nothing on the other axes. What is billed is the
+disk the backups really use, with a floor of three BKU per DBU of the database, so a database
+at N DBU always has at least 3 × N × 20 GB of backup space accounted for.
+
 ## From a unit to a running service
 
 1. **The plan is set in units, per member.** `prov-db-dbu` is the DBU count of each database,
@@ -42,7 +48,7 @@ a proxy never uses.
    count, recomputed every tick: they are the plan lines on the graphs. A plan change (API
    `ChangePlanUnits`, or the plan slider) moves the per-member number by whole units, floor 1.
 2. **The unit is unfolded into resources at the fixed ratio.** N DBU on a database becomes
-   `prov-db-cpu-cores = N`, `prov-db-memory = N × 4096 MB`, `prov-db-disk-size = N × 40 GB`,
+   `prov-db-cpu-cores = N`, `prov-db-memory = N × 4096 MB`, `prov-db-disk-size = N × 20 GB`,
    `prov-db-disk-iops = N × 1000`; N APU on a proxy becomes N cores, N × 1024 MB, N × 10 GB
    and no IOPS. From there the unit is gone: everything downstream reads `prov-db-*` and
    `prov-proxy-*`. The log line "Plan DBU N/db -> resources aligned to …" records the unfolding.
@@ -97,7 +103,7 @@ With dynamic resources enabled, **replication-manager** resizes a database's CPU
   to lend; the plan itself is only ever raised by you.
 
 Resources are counted in **DBU** (Database Units): 1 DBU = 1 core, 4 GB of memory,
-40 GB of disk, 1000 IOPS. A resize moves by whole DBU on the axis that is binding.
+20 GB of disk, 1000 IOPS. A resize moves by whole DBU on the axis that is binding.
 
 ## Requirements
 
