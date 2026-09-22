@@ -37,8 +37,9 @@ a proxy never uses.
 
 A backup is not sized in DBU. Its storage is counted in **BKU**: one unit is 20 GB of disk,
 the same quantity as the DBU disk axis, and nothing on the other axes. What is billed is the
-disk the backups really use, with a floor of three BKU per DBU of the database, so a database
-at N DBU always has at least 3 × N × 20 GB of backup space accounted for.
+disk the backups really use against a **BKU plan** of its own, set per database like the DBU
+plan. The default BKU plan is three times the database's DBU disk, so a database at N DBU
+starts with a plan of 3 × N BKU. Usage above the plan is over-commit: billed, never blocked.
 
 ## From a unit to a running service
 
