@@ -41,6 +41,19 @@ disk the backups really use against a **BKU plan** of its own, set per database 
 plan. The default BKU plan is three times the database's DBU disk, so a database at N DBU
 starts with a plan of 3 × N BKU. Usage above the plan is over-commit: billed, never blocked.
 
+Since **3.1.43** the BKU plan is the setting `prov-db-bku` (default 6, per cluster), moved from
+the dashboard under **Configurator → Database Configurator → Resources → Backup BKU**. Two
+measurements are kept against it, every 30 monitoring ticks:
+
+- **local**: the disk really used by the cluster's backup cache and archive, on the storage
+  that holds them;
+- **remote**: what is archived off the cluster through restic, on S3 or SFTP, as the
+  repository really holds it after deduplication. Remote storage has its own price.
+
+The **Graphs → Resources** page shows both as BKU bars against the plan line, next to the DBU
+and APU charts. Local usage above the plan raises **WARN0219** on the cluster, an accounting
+signal only: nothing is stopped or purged because of it.
+
 ## From a unit to a running service
 
 1. **The plan is set in units, per member.** `prov-db-dbu` is the DBU count of each database,
