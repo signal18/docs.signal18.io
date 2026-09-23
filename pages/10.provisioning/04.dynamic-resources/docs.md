@@ -45,10 +45,12 @@ Since **3.1.43** the BKU plan is the setting `prov-db-bku` (default 6, per clust
 the dashboard under **Configurator → Database Configurator → Resources → Backup BKU**. Two
 measurements are kept against it, every 30 monitoring ticks:
 
-- **local**: the disk really used by the cluster's local backup, the backups directory of
-  **replication-manager** on the local pool;
-- **remote**: what is archived off the cluster through restic, on S3 or SFTP, as the
-  repository really holds it after deduplication. Remote storage has its own price.
+- **local**: the disk really used on the local pool by the cluster's backups: the last backup
+  of each server in its backup directory, plus the restic archive when its repository is a
+  local path. A backup kept after its push to the archive is on disk twice and counts twice.
+- **remote**: what is archived off the cluster through restic, when its repository is on S3
+  or SFTP, as the repository really holds it after deduplication. Remote storage has its own
+  price.
 
 The **Graphs → Resources** page shows both as BKU bars against the plan line, next to the DBU
 and APU charts. Local usage above the plan raises **WARN0219** on the cluster, an accounting
