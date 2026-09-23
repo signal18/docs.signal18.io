@@ -169,6 +169,13 @@ Every monitoring tick, each server's consumption is compared with its configured
 
 One step per window: the next grow is evaluated after `prov-db-scale-up-config-in-plan-speed`.
 
+**Disk is different.** No orchestrator resizes a database volume live, and the declared
+`prov-db-disk-size` does not bound the datadir. So, since **3.1.43**, when the measured datadir of
+a node is over the configured disk, the configuration follows reality: `prov-db-disk-size`
+becomes the largest node's usage in whole gigabytes, no rounding to the unit, within the plan
+for free, past the plan through the same envelope as the other axes. It is bookkeeping, not a
+resize: the volume itself is untouched. Disk never shrinks.
+
 ## How a shrink happens
 
 1. An axis is **under-used** when a server uses at most `prov-db-cap-shrink-pct` percent of
