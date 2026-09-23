@@ -45,8 +45,8 @@ Since **3.1.43** the BKU plan is the setting `prov-db-bku` (default 6, per clust
 the dashboard under **Configurator → Database Configurator → Resources → Backup BKU**. Two
 measurements are kept against it, every 30 monitoring ticks:
 
-- **local**: the disk really used by the cluster's backup cache and archive, on the storage
-  that holds them;
+- **local**: the disk really used by the cluster's local backup, the backups directory of
+  **replication-manager** on the local pool;
 - **remote**: what is archived off the cluster through restic, on S3 or SFTP, as the
   repository really holds it after deduplication. Remote storage has its own price.
 
