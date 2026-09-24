@@ -27,6 +27,11 @@ A token can only **narrow** what its owner may do, never extend it:
 - A token scoped to named clusters can only reach those clusters' endpoints. Global
   settings and cluster management need the "every cluster" scope.
 - A token cannot issue tokens. Creating one requires an interactive login.
+- Two grants control it: `token-create` lets a user issue tokens for their own account,
+  `token-manage` lets them list and revoke other users' tokens on a cluster. Both are in the
+  default ACL of `admin`; `dba`, sponsors and external dbops get `token-create`. If your
+  `api-credentials-acl-allow` lists grants explicitly, add `token` or `token-create` to the
+  users who should issue tokens. The `system` service account can never hold these grants.
 
 ### 8.8.1 Creating a token
 
@@ -54,7 +59,7 @@ I hold" and the server default lifetime.
 | `POST` | `/api/tokens` | create, body `{"label","grants","clusters","expireDays"}` |
 | `GET` | `/api/tokens` | list my tokens |
 | `DELETE` | `/api/tokens/{id}` | revoke |
-| `GET` | `/api/clusters/{name}/tokens` | list every token covering a cluster (grant `grant-show`) |
+| `GET` | `/api/clusters/{name}/tokens` | list every token covering a cluster (grant `token-manage`) |
 
 ### 8.8.2 Using a token
 
@@ -77,7 +82,7 @@ A session JWT expires after `api-token-timeout` hours and dies when **replicatio
 restarts; an API token lives until its expiry or revocation and survives restarts.
 
 A revoked token is refused immediately. Revoking another user's token needs the
-`cluster-grant` grant on every cluster the token covers.
+`token-manage` grant on every cluster the token covers.
 
 ### 8.8.3 Where tokens live
 
