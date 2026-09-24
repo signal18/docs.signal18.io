@@ -12,6 +12,12 @@ and a cluster scope, and expire. A client sends the token as
 `Authorization: Bearer <token>` and never logs in. Every call is attributed to the user
 who issued the token in the security log.
 
+A token replaces the interactive login for machine clients. The login itself, the
+`POST /api/login` call that returns a session JWT from a username and password, and the
+accounts it authenticates are described in [First login](/installation/first-login) and
+[API client usage](/usage/api/overview). Creating a token still requires that login: a
+token cannot issue tokens.
+
 A token can only **narrow** what its owner may do, never extend it:
 
 - At creation, every grant put in the token must be a grant the owner holds.
@@ -52,10 +58,23 @@ I hold" and the server default lifetime.
 
 ### 8.8.2 Using a token
 
+With the interactive login you first exchange a username and password for a session JWT
+(see [API client usage](/usage/api/overview)):
+
+```
+JWT=$(curl -s -k -H 'Content-Type: application/json' --data '{"username":"admin","password":"..."}' https://repman:10005/api/login | jq -r .token)
+curl -k -H "Authorization: Bearer $JWT" https://repman:10005/api/clusters/belair/topology/servers
+```
+
+With an API token there is no login call, the token is the bearer:
+
 ```
 curl -k -H "Authorization: Bearer <token>" https://repman:10005/api/clusters/belair/topology/servers
 replication-manager-cli --api-token <token> topology --cluster belair
 ```
+
+A session JWT expires after `api-token-timeout` hours and dies when **replication-manager**
+restarts; an API token lives until its expiry or revocation and survives restarts.
 
 A revoked token is refused immediately. Revoking another user's token needs the
 `cluster-grant` grant on every cluster the token covers.

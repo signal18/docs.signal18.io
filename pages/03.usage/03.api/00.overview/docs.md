@@ -64,6 +64,13 @@ TOKEN=$(wget  -qO- --no-check-certificate --post-data '{"username":"admin","pass
 wget -qO- --no-check-certificate --header 'Accept: application/json' --header "Authorization: Bearer ${TOKEN}"  https://127.0.0.1:10005/api/clusters
 ```
 
+# Calling API with an API token (no login)
+
+Since **3.1.43** a user can issue an [API token](/security/api-tokens) for scripts, CI or
+an MCP server: a bearer narrowed to a subset of their grants and a cluster scope, used
+directly as `Authorization: Bearer <token>` without the `/api/login` call above, and
+revocable at any time.
+
 ## 3.4.1.2 API documentation
 [Can be browsed online](https://dbaas-fr-2.signal18.io/api-docs/index.html)
 Or by installing the product and point to http://127.0.0.1:10001/api-docs
