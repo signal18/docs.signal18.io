@@ -106,6 +106,7 @@ taxonomy:
    - 8.2. [Configuration Guide](/security/configuration-guide)
    - 8.3. [SBOM and CRA Compliance](/security/sbom-cra)
    - 8.4. [HTTPS Bastion and Terminal](/security/https-bastion)
+   - 8.8. [API Tokens](/security/api-tokens)
 
 9. **Alerting**
    - 9.1. [Overview](/alerting/overview)
