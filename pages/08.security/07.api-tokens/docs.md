@@ -24,7 +24,7 @@ A token can only **narrow** what its owner may do, never extend it:
 
 ### 8.8.1 Creating a token
 
-**Dashboard**: Users page, panel **My API tokens**, key icon. Give it a label, pick the
+**Dashboard**: open a cluster, tab **API Tokens** (visible to every logged-in user), key icon. Give it a label, pick the
 grants (none selected means every grant you hold), the cluster scope, and the lifetime.
 The token is displayed once with a copy button; the eye icon shows it again later, since
 it is yours.
