@@ -391,6 +391,12 @@ it in *Settings → Cloud → Self-Service Clusters* or with `cloud18-self-servi
   use and drop it, nothing on other clusters.
 - A single identity may sponsor at most `cloud18-self-service-max-clusters-per-user` clusters
   (3 by default), so nobody can flood your listing; dropping a cluster frees a slot.
+- The resource manager must have room: a new cluster reserves the default plan of a master
+  and a replica (2 × `prov-db-dbu`) and `prov-service-plan-apu`, and is refused when the
+  infrastructure pool (capacity × `resource-manager-infra-quota-pct` minus the plans already
+  sold) cannot hold it. Declare the capacity with `resource-manager-infra-cpu-cores` and
+  `resource-manager-infra-memory-mb` when your agents do not report it; an unknown capacity
+  does not gate.
 - You are informed, nothing to accept: a mail to `mail-to` when SMTP is configured, an entry
   `cloud18_self_service_cluster` in the security log, and a warning in the cluster log.
 - `GET /api/cloud18/self-service` tells a caller whether they may create a cluster here and
