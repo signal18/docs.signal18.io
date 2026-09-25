@@ -69,7 +69,7 @@ the cluster ACL, and the refusal lands in the security log.
 
 ![Claude Code driving replication-manager through MCP](mcp-demo.svg)
 
-The recording is also available as an [asciinema cast](mcp-demo.cast).
+The recording is also available as an [asciinema cast](mcp-demo.cast.txt).
 
 ### 3.8.4 What the assistant may do
 
