@@ -44,6 +44,7 @@ taxonomy:
       - 3.4.3. [API Client Usage (v2 and older)](/usage/api/previous-versions)
    - 3.5. [Provisioning Agent](/usage/pro)
    - 3.6. [Logs](/usage/logs)
+   - 3.7. [AI Assistant (MCP)](/usage/mcp)
 
 4. **High Availability**
    - 4.1. [Overview](/architecture/overview)
