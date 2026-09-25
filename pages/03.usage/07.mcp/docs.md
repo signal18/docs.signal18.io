@@ -79,7 +79,8 @@ Read: `list-clusters`, `get-cluster-health`, `get-cluster-topology`, `get-cluste
 `get-cluster-alerts`, `get-cluster-logs`, `get-cluster-crashes`, `check-cluster-error-state`,
 `get-server-status`, `get-server-variables`, `get-server-processlist`,
 `get-server-slow-queries`, `get-server-error-log`, `get-server-tables`,
-`check-server-is-master`, `check-server-is-slave`, `check-server-is-late`, `list-backups`,
+`check-server-is-master`, `check-server-is-slave`, `check-server-is-late`,
+`last-crash-lost-event` (the transactions lost on the old master at the last failover, decoded, with the rejoin methods available), `list-backups`,
 `get-backup-stats`, `list-restic-snapshots`, `get-restic-stats`, `get-restic-task-queue`,
 `list-proxies`, `get-proxy`.
 
@@ -89,7 +90,9 @@ Actions (each needs the matching grant, for example `cluster-switchover`): `clus
 `cluster-stop-traffic`, `cluster-physical-backup`, `cluster-checksum-tables`,
 `cluster-set-setting`, `cluster-switch-setting`, `cluster-bootstrap-replication`,
 `cluster-cleanup-replication`, `server-start`, `server-stop`, `server-restart`,
-`server-backup-physical`, `server-optimize`, `server-set-maintenance`, `server-set-read-only`,
+`server-backup-physical`, `server-backup-logical`, `server-logical-backup-splitdump` (needs
+`backup-mysqldump-splitdump` on the cluster), `server-restore-logical-backup` and
+`server-restore-physical-backup` (reseed a replica from the last backup, `db-restore` grant), `server-optimize`, `server-set-maintenance`, `server-set-read-only`,
 `server-set-read-write`, `server-kill-query`, `restic-init`, `restic-fetch`, `restic-purge`,
 `restic-unlock`, `restic-task-queue-pause`, `restic-task-queue-resume`, `restic-task-cancel`,
 `proxy-start`, `proxy-stop`, `proxy-provision`, `proxy-unprovision`.
