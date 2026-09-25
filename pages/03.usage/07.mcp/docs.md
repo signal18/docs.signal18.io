@@ -115,6 +115,13 @@ assistant can create a cluster there directly, with no subscription or email cha
   cluster; the provider is informed. This is billable consumption on the infrastructure.
 - `get-cloud18-cluster` (infrastructure, cluster_name): state, servers, proxies and apps, to
   follow the provisioning.
+- `create-cloud18-cluster-token` (infrastructure, cluster_name, grants, expire_days): once the
+  cluster exists, this is how the assistant gets to operate it. A token is valid on one
+  **replication-manager** only, so the sponsor mints one on the infrastructure hosting the
+  cluster, scoped to that cluster, and the tool returns it once together with the
+  infrastructure's MCP endpoint configuration. Add it to the assistant as a second MCP server
+  (one server per infrastructure) and the cluster's tools appear there, under the partner's
+  ACL for your identity.
 
 For example: "use infrastructure https://repman.example.io to create a cluster named blab,
 latest MariaDB LTS, HAProxy, with the latest phpMyAdmin app on it".
