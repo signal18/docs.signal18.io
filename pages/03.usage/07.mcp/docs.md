@@ -24,7 +24,6 @@ more. There is no separate MCP permission model.
 | `mcp-bind-address` / `mcp-port` | `localhost` / `10007` | Standalone `sse` transport only. |
 | `mcp-advertise-address` | | Standalone `sse` transport only: public base URL announced to clients when it differs from the bind address. |
 | `mcp-auth-enabled` | `true` | Require a bearer on the MCP endpoints and run every tool under that user's ACL. |
-| `mcp-write-enabled` | `false` | Register the action tools (failover, switchover, settings, restic, proxies…). Server-wide, cannot be changed through a tool. |
 
 All are server-wide settings, applied live, in the dashboard under **Settings** (global) →
 **AI Assistant (MCP)**, or through the global settings API.
@@ -69,7 +68,8 @@ An interactive login JWT from `POST /api/login` also works, but it expires after
 - Each tool is checked against the ACL of the REST endpoint it mirrors: reading server
   variables needs `db-show-variables`, a switchover needs `cluster-switchover`, changing a
   setting needs `cluster-settings`, and so on. A token narrowed to `db-show` can read but
-  never act.
+  never act. There is no global read-only switch: read-only or read-write is decided per
+  account or token.
 - Refusals are returned to the assistant as tool errors and written to the security log as
   `mcp_denied`; rejected connections as `mcp_auth_failure`.
 
@@ -83,7 +83,7 @@ Read: `list-clusters`, `get-cluster-health`, `get-cluster-topology`, `get-cluste
 `get-backup-stats`, `list-restic-snapshots`, `get-restic-stats`, `get-restic-task-queue`,
 `list-proxies`, `get-proxy`.
 
-Actions (with `mcp-write-enabled`): `cluster-failover`, `cluster-switchover`,
+Actions (each needs the matching grant, for example `cluster-switchover`): `cluster-failover`, `cluster-switchover`,
 `cluster-rolling-restart`, `cluster-optimize`, `cluster-rotate-passwords`,
 `cluster-reset-failover-control`, `cluster-reset-sla`, `cluster-start-traffic`,
 `cluster-stop-traffic`, `cluster-physical-backup`, `cluster-checksum-tables`,
