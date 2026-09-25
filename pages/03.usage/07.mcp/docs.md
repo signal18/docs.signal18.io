@@ -61,7 +61,17 @@ for Claude Code:
 An interactive login JWT from `POST /api/login` also works, but it expires after
 `api-token-timeout` hours and at every restart.
 
-### 3.8.3 What the assistant may do
+### 3.8.3 Demo
+
+Claude Code driving **replication-manager** from the terminal with a token limited to
+`db-show cluster-show` on one cluster: the reads are answered, the switchover is refused by
+the cluster ACL, and the refusal lands in the security log.
+
+![Claude Code driving replication-manager through MCP](mcp-demo.svg)
+
+The recording is also available as an [asciinema cast](mcp-demo.cast).
+
+### 3.8.4 What the assistant may do
 
 - Only the clusters the account has access to are listed; a cluster-scoped token sees only
   its clusters.
@@ -73,7 +83,7 @@ An interactive login JWT from `POST /api/login` also works, but it expires after
 - Refusals are returned to the assistant as tool errors and written to the security log as
   `mcp_denied`; rejected connections as `mcp_auth_failure`.
 
-### 3.8.4 Tools
+### 3.8.5 Tools
 
 Read: `list-clusters`, `get-cluster-health`, `get-cluster-topology`, `get-cluster-settings`,
 `get-cluster-alerts`, `get-cluster-logs`, `get-cluster-crashes`, `check-cluster-error-state`,
