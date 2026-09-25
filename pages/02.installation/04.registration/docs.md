@@ -375,6 +375,26 @@ When `monitoring-restore-config-on-start` is set, replication-manager:
 | `cloud18-gitlab-password` | `""` | server | GitLab password (stored AES-encrypted) |
 | `cloud18-crm-api-url` | `https://api.crm.ovh-fr-2.signal18.cloud18.io` | server | CRM API base URL called by `POST /api/register` |
 | `monitoring-restore-config-on-start` | `false` | server | Clone config from GitLab on startup and wipe local working directory |
+| `cloud18-self-service-clusters` | `false` | server | Let Cloud18 users create clusters on this infrastructure without the subscription chain (see below) |
+| `cloud18-self-service-max-clusters-per-user` | `3` | server | Clusters one Cloud18 identity may sponsor here through self-service |
+
+### Self-service clusters
+
+A marketplace provider (OpenSVC or Kubernetes orchestrator) can let Cloud18 users create a
+cluster on its infrastructure **directly**, from their own **replication-manager** or from an
+AI assistant ([MCP](/usage/mcp)), without the subscription and email-acceptance chain. Enable
+it in *Settings → Cloud → Self-Service Clusters* or with `cloud18-self-service-clusters = true`.
+
+- The cluster starts on the infrastructure's default unit plan (`prov-db-dbu`,
+  `prov-service-plan-apu`, `prov-service-plan-bku`); no service plan is chosen.
+- The creator becomes the **sponsor** of the cluster: enough grants to populate, provision,
+  use and drop it, nothing on other clusters.
+- A single identity may sponsor at most `cloud18-self-service-max-clusters-per-user` clusters
+  (3 by default), so nobody can flood your listing; dropping a cluster frees a slot.
+- You are informed, nothing to accept: a mail to `mail-to` when SMTP is configured, an entry
+  `cloud18_self_service_cluster` in the security log, and a warning in the cluster log.
+- `GET /api/cloud18/self-service` tells a caller whether they may create a cluster here and
+  how many they already sponsor.
 
 ---
 

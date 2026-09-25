@@ -100,6 +100,25 @@ authenticated caller, actions need the `global-admin-show` grant, and a token mu
   the distinct provider infrastructures (one per `api-public-url`) with the clusters each offers.
 - Prompt `cloud18-onboarding` walks the assistant through the whole flow.
 
+**Creating a cluster on an infrastructure.** When the provider has enabled self-service (see
+[Registration, self-service clusters](/installation/registration#self-service-clusters)), the
+assistant can create a cluster there directly, with no subscription or email chain:
+
+- `cloud18-create-cluster` (infrastructure, cluster_name, db_image, db_count, proxy, apps,
+  confirm). Without `confirm` it only returns the plan: the services it would create and the
+  infrastructure's self-service status for your identity (enabled or the reason, per-user
+  limit, remaining slots). With `confirm=true` it creates the cluster on the infrastructure's
+  default unit plan (DBU / APU / BKU, no service plan to choose), sets the database image
+  (default `mariadb:lts`, the latest MariaDB long-term-support release), adds the database
+  nodes (default 2), the proxy (default `haproxy`), the apps from their templates (for example
+  `phpmyadmin`), and provisions. Your instance's Cloud18 identity becomes the sponsor of that
+  cluster; the provider is informed. This is billable consumption on the infrastructure.
+- `get-cloud18-cluster` (infrastructure, cluster_name): state, servers, proxies and apps, to
+  follow the provisioning.
+
+For example: "use infrastructure https://repman.example.io to create a cluster named blab,
+latest MariaDB LTS, HAProxy, with the latest phpMyAdmin app on it".
+
 ### 3.8.6 Tools
 
 Read: `list-clusters`, `get-cluster-health`, `get-cluster-topology`, `get-cluster-settings`,
