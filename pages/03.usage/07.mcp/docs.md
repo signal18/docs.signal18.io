@@ -20,17 +20,19 @@ more. There is no separate MCP permission model.
 | Setting | Default | Description |
 | --- | --- | --- |
 | `mcp-server` | `false` | Start the MCP server. |
-| `mcp-transport` | `sse` | `sse` (HTTP, for remote clients), `stdio`, or `both`. |
-| `mcp-bind-address` / `mcp-port` | `localhost` / `10007` | Where the SSE transport listens. |
-| `mcp-advertise-address` | | Public base URL announced to clients when it differs from the bind address. |
+| `mcp-transport` | `api` | `api`: the MCP endpoints live on the API itself, `/api/mcp/sse` on the HTTP and HTTPS ports, so TLS and the public URL are the API's own. `sse`: a standalone plain-HTTP listener. `stdio`, `both` (sse + stdio). |
+| `mcp-bind-address` / `mcp-port` | `localhost` / `10007` | Standalone `sse` transport only. |
+| `mcp-advertise-address` | | Standalone `sse` transport only: public base URL announced to clients when it differs from the bind address. |
 | `mcp-auth-enabled` | `true` | Require a bearer on the MCP endpoints and run every tool under that user's ACL. |
 | `mcp-write-enabled` | `false` | Register the action tools (failover, switchover, settings, restic, proxies…). Server-wide, cannot be changed through a tool. |
 
-All are server-wide settings and need a restart of **replication-manager**.
+All are server-wide settings, applied live, in the dashboard under **Settings** (global) →
+**AI Assistant (MCP)**, or through the global settings API.
 
-The SSE transport is plain HTTP: keep it on localhost or behind a TLS proxy when clients are
-remote. The `stdio` transport carries no credential and only starts with
-`mcp-auth-enabled = false`, which runs every tool unrestricted.
+With the default `api` transport nothing else is exposed: the assistant connects to the
+same HTTPS URL as the dashboard and the API. The standalone `sse` transport is plain HTTP:
+keep it on localhost or behind a TLS proxy. The `stdio` transport carries no credential and
+only starts with `mcp-auth-enabled = false`, which runs every tool unrestricted.
 
 ### 3.8.2 Authenticating the assistant
 
@@ -50,7 +52,7 @@ for Claude Code:
   "mcpServers": {
     "replication-manager": {
       "type": "sse",
-      "url": "http://localhost:10007/sse",
+      "url": "https://repman.example.com:10005/api/mcp/sse",
       "headers": { "Authorization": "Bearer ${REPLICATION_MANAGER_API_TOKEN}" }
     }
   }
