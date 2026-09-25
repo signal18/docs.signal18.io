@@ -88,7 +88,7 @@ Actions (each needs the matching grant, for example `cluster-switchover`): `clus
 `cluster-rolling-restart`, `cluster-optimize`, `cluster-rotate-passwords`,
 `cluster-reset-failover-control`, `cluster-reset-sla`, `cluster-start-traffic`,
 `cluster-stop-traffic`, `cluster-physical-backup`, `cluster-checksum-tables`,
-`cluster-set-setting`, `cluster-switch-setting`, `cluster-bootstrap-replication`,
+`run-sysbench` and `sysbench-cleanup` (`cluster-bench` grant), `cluster-set-setting`, `cluster-switch-setting`, `cluster-bootstrap-replication`,
 `cluster-cleanup-replication`, `server-start`, `server-stop`, `server-restart`,
 `server-backup-physical`, `server-backup-logical`, `server-logical-backup-splitdump` (needs
 `backup-mysqldump-splitdump` on the cluster), `server-restore-logical-backup` and
