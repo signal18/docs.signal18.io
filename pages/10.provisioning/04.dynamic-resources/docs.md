@@ -49,12 +49,15 @@ measurements are kept against it, every 30 monitoring ticks:
   of each server in its backup directory, plus the restic archive when its repository is a
   local path. A backup kept after its push to the archive is on disk twice and counts twice.
 - **remote**: what is archived off the cluster through restic, when its repository is on S3
-  or SFTP, as the repository really holds it after deduplication. Remote storage has its own
-  price.
+  or SFTP, as the repository really holds it after deduplication.
 
-The **Graphs → Resources** page shows both as BKU bars against the plan line, next to the DBU
-and APU charts. Local usage above the plan raises **WARN0219** on the cluster, an accounting
-signal only: nothing is stopped or purged because of it.
+The backup **archive** of a cluster is local plus remote, and both count against its BKU plan.
+The billed units are the plan, or the archive rounded up to the next unit when it is larger;
+the price is `cloud18-marketplace-bku-price` (Eur per BKU per month, *Settings → Marketplace*,
+0 = backups not priced). The **Graphs → Resources** page shows local and remote as BKU bars
+against the plan line, next to the DBU and APU charts. An archive above the plan raises
+**WARN0219** on the cluster, an accounting signal only: nothing is stopped or purged because
+of it.
 
 ## From a unit to a running service
 
