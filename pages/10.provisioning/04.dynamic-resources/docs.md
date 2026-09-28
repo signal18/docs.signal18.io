@@ -74,27 +74,33 @@ A plan is a commitment, so a unit family with a plan is not billed flat. Two rat
 to the replication-manager instance (*Settings → Marketplace*), make the price asymmetric
 around the plan, in percent of the unit price:
 
-- `cloud18-marketplace-overcommit-price-pct`, default **150**: a unit consumed **above** the
-  plan costs one and a half times the unit price.
-- `cloud18-marketplace-undercommit-price-pct`, default **80**: a plan unit left **unconsumed**
-  is billed at eighty percent, a fifth is given back.
+- `cloud18-marketplace-overcommit-price-pct`, default **150**: the **surcharge** on a unit
+  consumed above the plan. At 150 such a unit costs 2.5 times the unit price.
+- `cloud18-marketplace-undercommit-price-pct`, default **80**: the **reduction** on a plan unit
+  left unconsumed. At 80 such a unit costs 0.2 times the unit price.
 
 With a plan P, a consumption C in whole units and a unit price U, the month costs
-P × U + (C − P) × U × 150 % when C is above P, and C × U + (P − C) × U × 80 % otherwise.
-Setting both ratios to 100 gives a flat bill of the plan or the consumption, whichever is
-larger. The ratios apply to every family with a plan, DBU, APU and BKU. The BAU has no plan
+P × U + (C − P) × U × 2.5 when C is above P, and C × U + (P − C) × U × 0.2 otherwise.
+Setting both to 0 gives a flat bill of the plan or the consumption, whichever is larger. The ratios apply to every family with a plan, DBU, APU and BKU. The BAU has no plan
 and is billed on usage alone, so the ratios never touch it.
 
 ### What an application consumes at least
 
 A running application or proxy is never billed under one APU, whether or not its consumption
-is measured. An application occupies every agent it is placed on: in **flex** topology it
-runs one instance per agent behind the load balancer, in **failover** topology it runs one
-instance but its volume is replicated on every agent. Either way it counts at least one APU
-**per agent**; a proxy counts at least one. Measured consumption only raises the bill above
-that floor. A stopped unit counts nothing, and its plan unit is billed at the under-commit
-rate. The plan of an application follows the same rule: its size, at least one APU, times
-its agent count.
+is measured. In **flex** topology an application runs one instance per agent behind the load
+balancer and counts at least one APU per agent. In **failover** topology it runs one instance
+and counts one APU: the standby agents hold a copy of its volume, no cpu, no memory. A proxy
+counts at least one. Measured consumption only raises the bill above that floor. A stopped
+unit counts nothing, and its plan unit is billed at the under-commit rate. The plan of an
+application follows the same rule: its size, at least one APU, times its running instances.
+
+The disk of an application is billed apart, in storage units that carry no cpu and no
+memory: its declared `prov-app-disk-size` times the agents holding a copy, rounded up per
+application. An ordinary application counts it in **BKU**, on the cluster's plan. A storage
+application, one flagged **S3 Provider** in its settings such as minio hosting an archive for
+other clusters, counts it in **BAU** as producer, with no plan. Every unit bills from its
+declared setting, the same way a database bills `prov-db-disk-size`; nothing is read back
+from the orchestrator.
 
 ## From a unit to a running service
 
