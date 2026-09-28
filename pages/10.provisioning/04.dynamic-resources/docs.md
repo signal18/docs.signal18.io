@@ -86,6 +86,13 @@ and is billed on usage alone, so the ratios never touch it.
 
 ### What an application consumes at least
 
+On an OpenSVC v3 cluster the consumption of applications and proxies is read from the
+orchestrator itself: every service is its own cgroup, and the daemon of each agent publishes
+its cpu time and memory, refreshed every fifteen seconds. Replication-manager reads that page
+every ten monitoring ticks, nothing is installed in the services. Measured cpu and memory
+raise the bill of a unit above its floor; disk is not measured there, it is billed from the
+declared size as described below. The switch is `monitoring-system-resources`.
+
 A running application or proxy is never billed under one APU, whether or not its consumption
 is measured. In **flex** topology an application runs one instance per agent behind the load
 balancer and counts at least one APU per agent. In **failover** topology it runs one instance
