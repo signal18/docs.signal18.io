@@ -68,6 +68,24 @@ measurements are taken every 30 monitoring ticks:
 The **Graphs → Resources** page shows the local backups as BKU bars against the plan line and
 the remote archive as BAU bars, next to the DBU and APU charts.
 
+### One metal, two pots
+
+Database, compute and storage units are three projections of the same servers, so the room
+left for one unit depends on what the others already hold. Replication-manager keeps one
+physical ledger per axis, cores, memory, IOPS and NVMe disk, and derives two pots from it,
+shown on the **Resource Manager** page:
+
+- the **plan pot** is the sellable capacity, capacity times the quota, minus every plan
+  already sold, whatever the unit. A plan is a guarantee, so only other plans can bind it:
+  a plan increase is admitted when it fits this pot, and consumption plays no role.
+- the **over-commit pot** is the whole capacity minus every plan minus everything already
+  borrowed above a plan. An existing plan may grow beyond itself into this pot only. It is a
+  loan, never a sale.
+
+The rule of precedence: **a plan increase always wins over borrowed resources**. A sale can
+leave the over-commit pot negative; the instance then reports it, refuses any further loan,
+and the borrowed part must give way.
+
 ### Price ratios around the plan
 
 A plan is a commitment, so a unit family with a plan is not billed flat. Two ratios, global
