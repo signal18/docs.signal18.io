@@ -50,9 +50,10 @@ measurements are taken every 30 monitoring ticks:
 - **BKU, local**: the disk really used on the local pool by the cluster's backups: the last
   backup of each server in its backup directory, plus the restic archive when its repository
   is a local path. A backup kept after its push to the archive is on disk twice and counts
-  twice. This is what the BKU plan covers. The billed units are the plan, or the usage rounded
-  up to the next unit when it is larger; the price is `cloud18-marketplace-bku-price` (Eur per
-  BKU per month, *Settings → Marketplace*, 0 = local backups not priced). Local usage above the
+  twice. This is what the BKU plan covers. The usage is rounded up to the next unit and priced
+  around the plan with the instance's two price ratios (below); the unit price is
+  `cloud18-marketplace-bku-price` (Eur per BKU per month, *Settings → Marketplace*, 0 = local
+  backups not priced). Local usage above the
   plan raises **WARN0219** on the cluster, an accounting signal only: nothing is stopped or
   purged because of it.
 - **BAU, remote archive**: what is archived off the cluster through restic, when its
@@ -66,6 +67,23 @@ measurements are taken every 30 monitoring ticks:
 
 The **Graphs → Resources** page shows the local backups as BKU bars against the plan line and
 the remote archive as BAU bars, next to the DBU and APU charts.
+
+### Price ratios around the plan
+
+A plan is a commitment, so a unit family with a plan is not billed flat. Two ratios, global
+to the replication-manager instance (*Settings → Marketplace*), make the price asymmetric
+around the plan, in percent of the unit price:
+
+- `cloud18-marketplace-overcommit-price-pct`, default **150**: a unit consumed **above** the
+  plan costs one and a half times the unit price.
+- `cloud18-marketplace-undercommit-price-pct`, default **80**: a plan unit left **unconsumed**
+  is billed at eighty percent, a fifth is given back.
+
+With a plan P, a consumption C in whole units and a unit price U, the month costs
+P × U + (C − P) × U × 150 % when C is above P, and C × U + (P − C) × U × 80 % otherwise.
+Setting both ratios to 100 gives a flat bill of the plan or the consumption, whichever is
+larger. The ratios apply to every family with a plan, DBU, APU and BKU. The BAU has no plan
+and is billed on usage alone, so the ratios never touch it.
 
 ## From a unit to a running service
 
