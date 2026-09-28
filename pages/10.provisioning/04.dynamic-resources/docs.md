@@ -85,6 +85,17 @@ Setting both ratios to 100 gives a flat bill of the plan or the consumption, whi
 larger. The ratios apply to every family with a plan, DBU, APU and BKU. The BAU has no plan
 and is billed on usage alone, so the ratios never touch it.
 
+### What an application consumes at least
+
+A running application or proxy is never billed under one APU, whether or not its consumption
+is measured. An application occupies every agent it is placed on: in **flex** topology it
+runs one instance per agent behind the load balancer, in **failover** topology it runs one
+instance but its volume is replicated on every agent. Either way it counts at least one APU
+**per agent**; a proxy counts at least one. Measured consumption only raises the bill above
+that floor. A stopped unit counts nothing, and its plan unit is billed at the under-commit
+rate. The plan of an application follows the same rule: its size, at least one APU, times
+its agent count.
+
 ## From a unit to a running service
 
 1. **The plan is set in units, per member.** `prov-db-dbu` is the DBU count of each database,
