@@ -16,7 +16,8 @@ and gigabytes. There are two kinds of unit, one per kind of workload:
 |---|---|---|---|
 | **DBU**, Database Unit | **stateful**: the database servers | 1 core, 4 GB memory, 20 GB disk | 1000 IOPS, locked in the unit |
 | **APU**, Application Unit | **stateless**: proxies (ProxySQL, MaxScale, HAProxy) and applications | 1 core, 1 GB memory, 10 GB disk | none: a stateless service has no IO to reserve |
-| **BKU**, Backup Unit | **storage**: the disk really used by the backups of a database | 20 GB of disk, nothing else | none |
+| **BKU**, Backup Unit | **storage**: the disk really used by the local backups of a database | 20 GB of disk, nothing else | none |
+| **BAU**, Backup Archive Unit | **remote storage**: what is archived off the cluster on S3 or SFTP | 20 GB of disk, nothing else | none |
 
 A unit is a **bundle with a fixed ratio**. A database that needs 2 cores, 8 GB and 80 GB is
 2 DBU; one that needs 2 cores and 2 GB is still 2 DBU, because the unit follows the axis
@@ -35,29 +36,36 @@ a proxy never uses.
   each axis, so consumption, configuration and plan compare directly.
 - Dynamic resources, below, move databases by whole **DBU** on the axis that binds.
 
-A backup is not sized in DBU. Its storage is counted in **BKU**: one unit is 20 GB of disk,
-the same quantity as the DBU disk axis, and nothing on the other axes. What is billed is the
-disk the backups really use against a **BKU plan** of its own, set per database like the DBU
-plan. The default BKU plan is three times the database's DBU disk, so a database at N DBU
-starts with a plan of 3 × N BKU. Usage above the plan is over-commit: billed, never blocked.
+A backup is not sized in DBU. Its local storage is counted in **BKU**: one unit is 20 GB of
+disk, the same quantity as the DBU disk axis, and nothing on the other axes. What is billed is
+the disk the local backups really use against a **BKU plan** of its own, set per database like
+the DBU plan. The default BKU plan is three times the database's DBU disk, so a database at
+N DBU starts with a plan of 3 × N BKU. Usage above the plan is over-commit: billed, never
+blocked. What leaves the cluster is a unit of its own, the **BAU**, described below.
 
 Since **3.1.43** the BKU plan is the setting `prov-db-bku` (default 6, per cluster), moved from
 the dashboard under **Configurator → Database Configurator → Resources → Backup BKU**. Two
-measurements are kept against it, every 30 monitoring ticks:
+measurements are taken every 30 monitoring ticks:
 
-- **local**: the disk really used on the local pool by the cluster's backups: the last backup
-  of each server in its backup directory, plus the restic archive when its repository is a
-  local path. A backup kept after its push to the archive is on disk twice and counts twice.
-- **remote**: what is archived off the cluster through restic, when its repository is on S3
-  or SFTP, as the repository really holds it after deduplication.
+- **BKU, local**: the disk really used on the local pool by the cluster's backups: the last
+  backup of each server in its backup directory, plus the restic archive when its repository
+  is a local path. A backup kept after its push to the archive is on disk twice and counts
+  twice. This is what the BKU plan covers. The billed units are the plan, or the usage rounded
+  up to the next unit when it is larger; the price is `cloud18-marketplace-bku-price` (Eur per
+  BKU per month, *Settings → Marketplace*, 0 = local backups not priced). Local usage above the
+  plan raises **WARN0219** on the cluster, an accounting signal only: nothing is stopped or
+  purged because of it.
+- **BAU, remote archive**: what is archived off the cluster through restic, when its
+  repository is on S3 or SFTP, as the repository really holds it after deduplication. One BAU
+  is the same 20 GB. There is **no plan** for the archive: it is tracked and billed on usage,
+  rounded up to the next unit, at `cloud18-marketplace-bau-price` (Eur per BAU per month,
+  *Settings → Marketplace*, 0 = not priced). The price applies to Signal18 or partner storage
+  only: a cluster that brought its own remote storage switches on **Remote Archive On Client
+  Storage** (*Settings → Cloud18*, `cloud18-marketplace-bau-client-storage`) and its archive
+  is measured but never priced.
 
-The backup **archive** of a cluster is local plus remote, and both count against its BKU plan.
-The billed units are the plan, or the archive rounded up to the next unit when it is larger;
-the price is `cloud18-marketplace-bku-price` (Eur per BKU per month, *Settings → Marketplace*,
-0 = backups not priced). The **Graphs → Resources** page shows local and remote as BKU bars
-against the plan line, next to the DBU and APU charts. An archive above the plan raises
-**WARN0219** on the cluster, an accounting signal only: nothing is stopped or purged because
-of it.
+The **Graphs → Resources** page shows the local backups as BKU bars against the plan line and
+the remote archive as BAU bars, next to the DBU and APU charts.
 
 ## From a unit to a running service
 
