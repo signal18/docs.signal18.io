@@ -19,6 +19,12 @@ and gigabytes. There are two kinds of unit, one per kind of workload:
 | **BKU**, Backup Unit | **storage**: the disk really used by the local backups of a database | 20 GB of disk, nothing else | none |
 | **BAU**, Backup Archive Unit | **remote storage**: what is archived off the cluster on S3 or SFTP | 20 GB of disk, nothing else | none |
 
+The three ratios are settings of the instance, `resource-manager-ratio-dbu`,
+`resource-manager-ratio-apu` and `resource-manager-ratio-bku` (*Settings → Marketplace*), written
+as `cores=1,mem=4g,disk=20g,iops=1000`; the table shows their defaults. Every graph, configurator
+and bill reads the ratio from the instance, so changing a setting re-projects everything at
+the next tick without resizing anything.
+
 A unit is a **bundle with a fixed ratio**. A database that needs 2 cores, 8 GB and 80 GB is
 2 DBU; one that needs 2 cores and 2 GB is still 2 DBU, because the unit follows the axis
 that binds (here CPU) and the others come with it. The ratios are the same everywhere.
