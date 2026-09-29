@@ -15,7 +15,7 @@ and gigabytes. There are two kinds of unit, one per kind of workload:
 | Unit | Workload | 1 unit = | IOPS |
 |---|---|---|---|
 | **DBU**, Database Unit | **stateful**: the database servers | 1 core, 4 GB memory, 20 GB disk | 1000 IOPS, locked in the unit |
-| **APU**, Application Unit | **stateless**: proxies (ProxySQL, MaxScale, HAProxy) and applications | 1 core, 1 GB memory, 10 GB disk | none: a stateless service has no IO to reserve |
+| **APU**, Application Unit | **stateless**: proxies (ProxySQL, MaxScale, HAProxy) and applications | 1 core, 2 GB memory, 10 GB disk | none: a stateless service has no IO to reserve |
 | **BKU**, Backup Unit | **storage**: the disk really used by the local backups of a database | 20 GB of disk, nothing else | none |
 | **BAU**, Backup Archive Unit | **remote storage**: what is archived off the cluster on S3 or SFTP | 20 GB of disk, nothing else | none |
 
@@ -136,7 +136,7 @@ from the orchestrator.
    `ChangePlanUnits`, or the plan slider) moves the per-member number by whole units, floor 1.
 2. **The unit is unfolded into resources at the fixed ratio.** N DBU on a database becomes
    `prov-db-cpu-cores = N`, `prov-db-memory = N × 4096 MB`, `prov-db-disk-size = N × 20 GB`,
-   `prov-db-disk-iops = N × 1000`; N APU on a proxy becomes N cores, N × 1024 MB, N × 10 GB
+   `prov-db-disk-iops = N × 1000`; N APU on a proxy becomes N cores, N × 2048 MB, N × 10 GB
    and no IOPS. From there the unit is gone: everything downstream reads `prov-db-*` and
    `prov-proxy-*`. The log line "Plan DBU N/db -> resources aligned to …" records the unfolding.
 3. **The resources are deployed by the orchestrator.** On OpenSVC they land in the service
