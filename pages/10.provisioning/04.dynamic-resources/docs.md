@@ -35,6 +35,16 @@ holds no data: it needs cores and a little memory, disk only for its binary and 
 IOPS reservation at all. Sizing them with the same bundle would reserve 40 GB and 1000 IOPS
 a proxy never uses.
 
+An application can be **stateful** too: a storage service such as minio holds data like a
+database does. Such an app is accounted as **DBU**, not APU: its declared shape
+(`prov-app-cpu-cores`, `prov-app-memory`, `prov-app-disk-size`) is projected with the
+Database ratio and rounded up to whole DBU, reserved in the DBU pool of the infrastructure and
+billed at the DBU price, with the same floor of one unit per running instance and the same
+over/under-commit ratios. This is the `app-stateful` switch of the application (*App →
+Overview → Stateful*); the shared minio template carries it as a default, so a minio created
+from the template is stateful from the start. Stateful apps are their own DBU line, *Stateful
+units*, next to the databases' plan, never added to it.
+
 - The **plan** is expressed in units: `prov-db-dbu` per database, `prov-proxy-apu` per proxy
   or application. The cluster total, `prov-service-plan-dbu` and `prov-service-plan-apu`, is
   the sum over its members and is what you see as the plan line on the graphs.
