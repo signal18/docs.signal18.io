@@ -45,6 +45,14 @@ Overview → Stateful*); the shared minio template carries it as a default, so a
 from the template is stateful from the start. Stateful apps are their own DBU line, *Stateful
 units*, next to the databases' plan, never added to it.
 
+An application has no unit field of its own: what you declare is its shape per instance,
+`prov-app-cpu-cores`, `prov-app-memory` and `prov-app-disk-size`, and the unit count is derived
+from it at the ratio, times the running instances (one per agent for a flex app, one for a
+failover app). The *App Unit* slider on the application page is a sizing helper: choosing N
+units writes those three values at the ratio and asks for a reprovision, it stores nothing
+else. The reservation history of every application and proxy is a graphite series next to
+its consumption, `apu.<cluster>.<name>.plan_apu`, or `plan_dbu` for a stateful application.
+
 - The **plan** is expressed in units: `prov-db-dbu` per database, `prov-proxy-apu` per proxy
   or application. The cluster total, `prov-service-plan-dbu` and `prov-service-plan-apu`, is
   the sum over its members and is what you see as the plan line on the graphs.
