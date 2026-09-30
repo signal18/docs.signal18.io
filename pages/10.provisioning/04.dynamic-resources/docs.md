@@ -246,13 +246,16 @@ next to the tuning settings below (margins, overcommit, speeds, resize policy), 
 
 ## How a grow happens
 
-**Disk grows too.** On OpenSVC v3 a bigger declared disk, from the follow rule when a datadir
-outgrows it, from the setting or from a plan change on the disk axis, grows the data volume
-of every running database through the orchestrator's resize action, no reprovision. Volumes
-only grow: a smaller declaration still needs a reprovision. When the orchestrator refuses a
-grow, the reason is shown as WARN0220 on the server until a later grow goes through. The
-volume must carry a quota for the grow to bound anything, which the shared volume template
-sets at provisioning.
+**Disk moves too.** On OpenSVC v3 a moved declared disk, from the follow rule when a datadir
+outgrows it, from the shrink rule when every node sits well under it, from the setting or
+from a plan change on the disk axis, resizes the data volume of every running database
+through the orchestrator's resize action, no reprovision. When the orchestrator refuses a
+move, the reason is shown as WARN0220 on the server until a later move goes through. The
+volume must carry a quota for the size to bound anything, which the shared volume template
+sets at provisioning. Today's orchestrator only grows a volume: a shrink moves the
+declaration and leaves the volume where it is, shown as WARN0221 on the server until an
+orchestrator release lowers the quota to the declared size. A shrink never rebuilds anything:
+it is data.
 
 
 Every monitoring tick, each server's consumption is compared with its configured resources.
@@ -273,12 +276,15 @@ Every monitoring tick, each server's consumption is compared with its configured
 
 One step per window: the next grow is evaluated after `prov-db-scale-up-config-in-plan-speed`.
 
-**Disk is different.** No orchestrator resizes a database volume live, and the declared
-`prov-db-disk-size` does not bound the datadir. So, since **3.1.43**, when the measured datadir of
-a node is over the configured disk, the configuration follows reality: `prov-db-disk-size`
-becomes the largest node's usage in whole gigabytes, no rounding to the unit, within the plan
-for free, past the plan through the same envelope as the other axes. It is bookkeeping, not a
-resize: the volume itself is untouched. Disk never shrinks.
+**Disk follows usage both ways.** The declared `prov-db-disk-size` is what the volume's quota
+bounds. Since **3.1.43**, when the measured datadir of a node is over the configured disk, the
+configuration follows reality: `prov-db-disk-size` becomes the largest node's usage in whole
+gigabytes, no rounding to the unit, within the plan for free, past the plan through the same
+envelope as the other axes. And when every node has stayed well under the configured disk
+for `prov-db-scale-down-config-in-plan-speed`, the disk shrinks back in one move, aligned to
+the unit, to the larger of the **plan's disk** and the peak usage plus the safety margin: the
+plan is the floor, a database never gets less disk than its plan promises, whatever the
+undercommit allowed on cores and memory.
 
 ## How a shrink happens
 
@@ -356,6 +362,11 @@ resources to follow the load in both directions.
   other database job is running in the jobs container, or that container is down), or on
   Kubernetes the sensor prerequisites are missing. Nothing is resized while it stands, and
   the Consumed DBU graph shows a gap for the silent period. It clears on the next reading.
+- **WARN0220**: the orchestrator refused a disk move on that server, with its reason; the
+  volume keeps its size, the declared disk was saved, the next move asks again.
+- **WARN0221**: the declared disk went down but the volume did not follow: the orchestrator
+  in place only grows a volume. Clears when a later resize lands the volume at the declared
+  size.
 - The resize history (dimension, direction, applied or not, statements run) is kept in the
   resource resize log of the cluster.
 
