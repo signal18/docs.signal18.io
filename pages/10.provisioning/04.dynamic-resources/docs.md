@@ -246,6 +246,15 @@ next to the tuning settings below (margins, overcommit, speeds, resize policy), 
 
 ## How a grow happens
 
+**Disk grows too.** On OpenSVC v3 a bigger declared disk, from the follow rule when a datadir
+outgrows it, from the setting or from a plan change on the disk axis, grows the data volume
+of every running database through the orchestrator's resize action, no reprovision. Volumes
+only grow: a smaller declaration still needs a reprovision. When the orchestrator refuses a
+grow, the reason is shown as WARN0220 on the server until a later grow goes through. The
+volume must carry a quota for the grow to bound anything, which the shared volume template
+sets at provisioning.
+
+
 Every monitoring tick, each server's consumption is compared with its configured resources.
 
 1. A server is **saturated** on an axis when it uses at least `100 - prov-db-cap-safety-pct`
