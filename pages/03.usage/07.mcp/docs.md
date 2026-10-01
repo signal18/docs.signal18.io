@@ -128,34 +128,53 @@ latest MariaDB LTS, HAProxy, with the latest phpMyAdmin app on it".
 
 ### 3.8.6 Tools
 
-Read: `list-clusters`, `get-cluster-health`, `get-cluster-topology`, `get-cluster-settings`,
-`get-cluster-alerts`, `get-cluster-logs`, `get-cluster-crashes`, `check-cluster-error-state`,
-`get-server-status`, `get-server-variables`, `get-server-processlist`,
-`get-server-slow-queries`, `get-server-error-log`, `get-server-tables`,
-`check-server-is-master`, `check-server-is-slave`, `check-server-is-late`,
-`last-crash-lost-event` (the transactions lost on the old master at the last failover, decoded, with the rejoin methods available), `list-backups`,
-`get-backup-stats`, `list-restic-snapshots`, `get-restic-stats`, `get-restic-task-queue`,
-`list-proxies`, `get-proxy`, `get-server-replication` (role, every replication channel with
-its threads, lag, errors and GTID positions, and the master status), `get-server-version`
-(flavor, version and the provisioning image).
+The tools follow the API's own domains, every one of them scoped by `cluster_name` like the
+REST routes under `/api/clusters/{clusterName}`. Reads need the matching `*-show` grant,
+actions the grant named next to them (for example `cluster-switchover`).
 
-Actions (each needs the matching grant, for example `cluster-switchover`): `cluster-failover`, `cluster-switchover`,
-`cluster-rolling-restart`, `cluster-optimize`, `cluster-rotate-passwords`,
-`cluster-reset-failover-control`, `cluster-reset-sla`, `cluster-start-traffic`,
-`cluster-stop-traffic`, `cluster-physical-backup`, `cluster-checksum-tables`,
-`run-sysbench` and `sysbench-cleanup` (`cluster-bench` grant), `cluster-set-setting`, `cluster-switch-setting`, `cluster-bootstrap-replication`,
-`cluster-cleanup-replication`, `server-start`, `server-stop`, `server-restart`,
-`server-backup-physical`, `server-backup-logical`, `server-logical-backup-splitdump` (needs
-`backup-mysqldump-splitdump` on the cluster), `server-restore-logical-backup` and
-`server-restore-physical-backup` (reseed a replica from the last backup, `db-restore` grant), `server-optimize`, `server-set-maintenance`, `server-set-read-only`,
-`server-set-read-write`, `server-kill-query`, `restic-init`, `restic-fetch`, `restic-purge`,
-`restic-unlock`, `restic-task-queue-pause`, `restic-task-queue-resume`, `restic-task-cancel`,
-`proxy-start`, `proxy-stop`, `proxy-provision`, `proxy-unprovision`.
+**Cluster**
 
-Cloud18 (instance-wide, see 3.8.5): reads `get-cloud18-status`, `get-cloud18-register-status`,
-`get-cloud18-subscription`, `list-cloud18-subscription-plans`, `list-cloud18-clusters-for-sale`,
-`list-cloud18-infrastructures`, `get-cloud18-cluster`; actions (global admin grant)
-`cloud18-register`, `cloud18-register-confirm`, `cloud18-unregister`,
-`cloud18-change-subscription`, `cloud18-create-cluster` (self-service on the chosen
-infrastructure, with the borrowed-capacity note when the provider allows it),
-`create-cloud18-cluster-token`; prompt `cloud18-onboarding`.
+- Reads: `list-clusters`, `get-cluster-health`, `get-cluster-topology`, `get-cluster-settings`,
+  `get-cluster-alerts`, `get-cluster-logs`, `get-cluster-crashes`, `check-cluster-error-state`,
+  `last-crash-lost-event` (the transactions lost on the old master at the last failover, decoded,
+  with the rejoin methods available).
+- Actions: `cluster-failover`, `cluster-switchover`, `cluster-rolling-restart`, `cluster-optimize`,
+  `cluster-rotate-passwords`, `cluster-reset-failover-control`, `cluster-reset-sla`,
+  `cluster-start-traffic`, `cluster-stop-traffic`, `cluster-checksum-tables`,
+  `cluster-set-setting`, `cluster-switch-setting`, `cluster-bootstrap-replication`,
+  `cluster-cleanup-replication`, `run-sysbench` and `sysbench-cleanup` (`cluster-bench` grant).
+- Backups and archives of the cluster: reads `list-backups`, `get-backup-stats`,
+  `list-restic-snapshots`, `get-restic-stats`, `get-restic-task-queue`; actions
+  `cluster-physical-backup`, `restic-init`, `restic-fetch`, `restic-purge`, `restic-unlock`,
+  `restic-task-queue-pause`, `restic-task-queue-resume`, `restic-task-cancel`.
+
+**Database servers**
+
+- Reads: `get-server-status`, `get-server-variables`, `get-server-processlist`,
+  `get-server-slow-queries`, `get-server-error-log`, `get-server-tables`,
+  `check-server-is-master`, `check-server-is-slave`, `check-server-is-late`,
+  `get-server-replication` (role, every replication channel with its threads, lag, errors and
+  GTID positions, and the master status), `get-server-version` (flavor, version and the
+  provisioning image).
+- Actions: `server-start`, `server-stop`, `server-restart`, `server-optimize`,
+  `server-set-maintenance`, `server-set-read-only`, `server-set-read-write`, `server-kill-query`.
+- Backups and restores of one server: `server-backup-physical`, `server-backup-logical`,
+  `server-logical-backup-splitdump` (needs `backup-mysqldump-splitdump` on the cluster),
+  `server-restore-logical-backup` and `server-restore-physical-backup` (reseed a replica from
+  the last backup, `db-restore` grant).
+
+**Proxies**
+
+- Reads: `list-proxies`, `get-proxy`.
+- Actions: `proxy-start`, `proxy-stop`, `proxy-provision`, `proxy-unprovision`.
+
+**Cloud18** (instance-wide, see 3.8.5)
+
+- Reads: `get-cloud18-status`, `get-cloud18-register-status`, `get-cloud18-subscription`,
+  `list-cloud18-subscription-plans`, `list-cloud18-clusters-for-sale`,
+  `list-cloud18-infrastructures`, `get-cloud18-cluster`.
+- Actions (global admin grant): `cloud18-register`, `cloud18-register-confirm`,
+  `cloud18-unregister`, `cloud18-change-subscription`, `cloud18-create-cluster` (self-service
+  on the chosen infrastructure, with the borrowed-capacity note when the provider allows it),
+  `create-cloud18-cluster-token`.
+- Prompt: `cloud18-onboarding`.
