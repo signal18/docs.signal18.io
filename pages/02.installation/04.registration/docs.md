@@ -421,6 +421,17 @@ it in *Settings → Cloud → Self-Service Clusters* or with `cloud18-self-servi
   `cloud18_self_service_cluster` in the security log, and a warning in the cluster log.
 - `GET /api/cloud18/self-service` tells a caller whether they may create a cluster here and
   how many they already sponsor.
+- **What a cluster costs**: the resource manager keeps a month statement per cluster, the
+  integral over every monitoring period since the first of the month of each unit family's
+  rate, unit price × (plan + over-commit at the over-commit percentage − under-commit at the
+  under-commit percentage), for the database plan (DBU), the stateful applications (DBU), the
+  applications and proxies (APU), the local backups (BKU) and the archives (BAU). Read it with
+  `GET /api/clusters/{clusterName}/price`, for the whole infrastructure with
+  `GET /api/global/price` (running month) or `/api/global/price/YYYY-MM` (a closed month),
+  on the Resource Manager page, or from the assistant with `get-cloud18-cluster-price`. The
+  statement of each month is kept as a file in the working directory, `billing/billing-YYYY-MM.json`,
+  closed as final at the month change: that file is what invoicing is built from. Each row
+  carries the partner and the sponsor identities, so a cluster dropped mid-month keeps its days.
 
 ---
 

@@ -155,6 +155,7 @@ Tool names follow six rules, so that a new tool is named by rule and not by tast
 | `get-cluster-health` | read | `cluster_name`\* | Get the high-level health status of a cluster |
 | `get-cluster-last-crash-lost-event` | read | `cluster_name`\*, `server_name`\*, `file` | Get the lost events of the last crash of a server |
 | `get-cluster-local-backup-stats` | read | `cluster_name`\* | Get aggregated backup statistics for a cluster |
+| `get-cluster-price` | read | `cluster_name`\* | Get what a cluster costs this month on this infrastructure, in EUR, as the resource manager integrates it per monitoring period |
 | `get-cluster-settings` | read | `cluster_name`\* | Get the full configuration for a cluster |
 | `get-cluster-topology` | read | `cluster_name`\* | Get the full topology of a cluster |
 | `list-cluster-archive-backups` | read | `cluster_name`\* | List all Restic snapshots stored in the cluster's Restic repository |
@@ -239,6 +240,7 @@ Tool names follow six rules, so that a new tool is named by rule and not by tast
 | Tool | Kind | Parameters | What it does |
 | --- | --- | --- | --- |
 | `get-cloud18-cluster` | read | `infrastructure`\*, `cluster_name`\* | Read a cluster on a Cloud18 infrastructure as this instance's Cloud18 identity |
+| `get-cloud18-cluster-price` | read | `infrastructure`\*, `cluster_name`\* | Get what a cluster costs this month on a Cloud18 infrastructure, in EUR, as that infrastructure's resource manager integrates it per monitoring period |
 | `get-cloud18-register-status` | read |  | State of the Cloud18 registration started with cloud18-register |
 | `get-cloud18-status` | read |  | Whether this replication-manager instance is registered with Signal18 Cloud18, its URI (domain.subdomain.zone), GitLab user, subscription plan, the CRM API in use, the state of a registration in progress, and whether peers and the marketplace are disabled |
 | `get-cloud18-subscription` | read |  | The current subscription plan of this instance as known by the CRM (the instance must be registered) |
