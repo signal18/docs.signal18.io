@@ -115,7 +115,7 @@ assistant can create a cluster there directly, with no subscription or email cha
   cluster; the provider is informed. This is billable consumption on the infrastructure.
 - `get-cloud18-cluster` (infrastructure, cluster_name): state, servers, proxies and apps, to
   follow the provisioning.
-- `create-cloud18-cluster-token` (infrastructure, cluster_name, grants, expire_days): once the
+- `cloud18-create-cluster-token` (infrastructure, cluster_name, grants, expire_days): once the
   cluster exists, this is how the assistant gets to operate it. A token is valid on one
   **replication-manager** only, so the sponsor mints one on the infrastructure hosting the
   cluster, scoped to that cluster, and the tool returns it once together with the
@@ -128,9 +128,22 @@ latest MariaDB LTS, HAProxy, with the latest phpMyAdmin app on it".
 
 ### 3.8.6 Tools
 
-The tools follow the API's own domains, every one of them scoped by `cluster_name` like the
-REST routes under `/api/clusters/{clusterName}`. Reads need the matching `*-show` grant,
-actions the grant named next to them (for example `cluster-switchover`).
+Tool names follow six rules, so that a new tool is named by rule and not by taste:
+
+1. A read is `<verb>-<domain>-<object>`: `list-` when the result has several entries,
+   `get-` when it is one object (a status map, a settings object, statistics), `check-`
+   when it answers yes or no with a reason.
+2. An action is `<domain>-<verb>[-<object>]`, imperative: `cluster-switchover`,
+   `database-start`, `proxy-stop`, `cluster-archive-purge`.
+3. The domains are the API's: `cluster`, `database` (one database server, as opposed to a
+   proxy), `proxy`, `cloud18`. A cluster-scoped object carries `cluster`
+   (`list-cluster-local-backups`), a server-scoped one carries `database`
+   (`database-backup-physical`).
+4. Objects use the product's words, `local` backups and `archive` backups, never the name
+   of the implementation behind them.
+5. Parameters are `cluster_name`, `server_name` (host:port), `proxy_name`, `task_id`.
+6. One tool is one REST route and needs that route's grant: reads the matching `*-show`
+   grant, actions the grant named next to them (for example `cluster-switchover`).
 
 **Cluster**
 
@@ -144,7 +157,7 @@ actions the grant named next to them (for example `cluster-switchover`).
   `cluster-set-setting`, `cluster-switch-setting`, `cluster-bootstrap-replication`,
   `cluster-cleanup-replication`, `cluster-sysbench-run` and `cluster-sysbench-cleanup` (`cluster-bench` grant).
 - Backups and archives of the cluster: reads `list-cluster-local-backups`, `get-cluster-local-backup-stats`,
-  `list-cluster-archive-backups`, `get-cluster-archive-stats`, `get-cluster-archive-task-queue`; actions
+  `list-cluster-archive-backups`, `get-cluster-archive-stats`, `list-cluster-archive-tasks`; actions
   `cluster-physical-backup`, `cluster-archive-init`, `cluster-archive-fetch`, `cluster-archive-purge`, `cluster-archive-unlock`,
   `cluster-archive-task-queue-pause`, `cluster-archive-task-queue-resume`, `cluster-archive-task-cancel`.
 
@@ -176,5 +189,5 @@ actions the grant named next to them (for example `cluster-switchover`).
 - Actions (global admin grant): `cloud18-register`, `cloud18-register-confirm`,
   `cloud18-unregister`, `cloud18-change-subscription`, `cloud18-create-cluster` (self-service
   on the chosen infrastructure, with the borrowed-capacity note when the provider allows it),
-  `create-cloud18-cluster-token`.
+  `cloud18-create-cluster-token`.
 - Prompt: `cloud18-onboarding`.
