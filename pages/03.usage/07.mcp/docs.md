@@ -147,50 +147,103 @@ Tool names follow six rules, so that a new tool is named by rule and not by tast
 
 **Cluster**
 
-- Reads: `list-clusters`, `get-cluster-health`, `get-cluster-topology`, `get-cluster-settings`,
-  `get-cluster-alerts` (open errors and warnings per module: `ha`, `workload`, `security`,
-  `schema`, or all), `list-cluster-logs` (`log_type` general, task, workload, security, schema,
-  ddl, variable-change or sysbench; `level` minimum, warning by default; `module` tag; `limit`,
-  50 newest by default), `list-cluster-crashes`, `check-cluster-error-state`,
-  `get-cluster-last-crash-lost-event` (the transactions lost on the old master at the last failover, decoded,
-  with the rejoin methods available).
-- Actions: `cluster-failover`, `cluster-switchover`, `cluster-rolling-restart`, `cluster-optimize`,
-  `cluster-rotate-passwords`, `cluster-reset-failover-control`, `cluster-reset-sla`,
-  `cluster-start-traffic`, `cluster-stop-traffic`, `cluster-checksum-tables`,
-  `cluster-set-setting`, `cluster-switch-setting`, `cluster-bootstrap-replication`,
-  `cluster-cleanup-replication`, `cluster-sysbench-run` and `cluster-sysbench-cleanup` (`cluster-bench` grant).
-- Backups and archives of the cluster: reads `list-cluster-local-backups`, `get-cluster-local-backup-stats`,
-  `list-cluster-archive-backups`, `get-cluster-archive-stats`, `list-cluster-archive-tasks`; actions
-  `cluster-physical-backup`, `cluster-archive-init`, `cluster-archive-fetch`, `cluster-archive-purge`, `cluster-archive-unlock`,
-  `cluster-archive-task-queue-pause`, `cluster-archive-task-queue-resume`, `cluster-archive-task-cancel`.
+| Tool | Kind | Parameters | What it does |
+| --- | --- | --- | --- |
+| `check-cluster-error-state` | read | `cluster_name`\*, `error_code`\* | Check whether a specific error or warning code is currently active for a cluster |
+| `get-cluster-alerts` | read | `cluster_name`\*, `module` | Get the open errors and warnings of a cluster, per module |
+| `get-cluster-archive-stats` | read | `cluster_name`\* | Get Restic repository statistics |
+| `get-cluster-health` | read | `cluster_name`\* | Get the high-level health status of a cluster |
+| `get-cluster-last-crash-lost-event` | read | `cluster_name`\*, `server_name`\*, `file` | Get the lost events of the last crash of a server |
+| `get-cluster-local-backup-stats` | read | `cluster_name`\* | Get aggregated backup statistics for a cluster |
+| `get-cluster-settings` | read | `cluster_name`\* | Get the full configuration for a cluster |
+| `get-cluster-topology` | read | `cluster_name`\* | Get the full topology of a cluster |
+| `list-cluster-archive-backups` | read | `cluster_name`\* | List all Restic snapshots stored in the cluster's Restic repository |
+| `list-cluster-archive-tasks` | read | `cluster_name`\* | Get the current Restic task queue for a cluster |
+| `list-cluster-crashes` | read | `cluster_name`\* | Get the history of crash and failover events for a cluster |
+| `list-cluster-local-backups` | read | `cluster_name`\* | List all registered physical and logical backups for a cluster |
+| `list-cluster-logs` | read | `cluster_name`\*, `log_type`, `level`, `module`, `limit` | List recent log entries of a cluster, newest first, from one of its logs |
+| `list-clusters` | read |  | List the names of all database clusters currently monitored by replication-manager |
+| `cluster-archive-fetch` | action | `cluster_name`\* | Refresh the local snapshot metadata cache from the Restic repository |
+| `cluster-archive-init` | action | `cluster_name`\* | Initialize a new Restic repository for the cluster at the configured repository path (local or S3) |
+| `cluster-archive-purge` | action | `cluster_name`\*, `snapshot_id`\* | Delete a specific Restic snapshot by ID and run 'restic prune' to reclaim disk space |
+| `cluster-archive-task-cancel` | action | `cluster_name`\*, `task_id`\* | Cancel a pending or running Restic task by its integer task ID |
+| `cluster-archive-task-queue-pause` | action | `cluster_name`\* | Pause the Restic task queue, preventing new backup tasks from starting |
+| `cluster-archive-task-queue-resume` | action | `cluster_name`\* | Resume the Restic task queue after it was paused with cluster-archive-task-queue-pause |
+| `cluster-archive-unlock` | action | `cluster_name`\* | Remove stale lock files from the Restic repository |
+| `cluster-bootstrap-replication` | action | `cluster_name`\*, `clean` | Configure replication between cluster nodes for the first time, or after a cluster-cleanup-replication |
+| `cluster-checksum-tables` | action | `cluster_name`\* | Run CHECKSUM TABLE on all user tables across the cluster to verify data consistency between master and replicas |
+| `cluster-cleanup-replication` | action | `cluster_name`\* | Remove all replication configuration from all cluster nodes |
+| `cluster-failover` | action | `cluster_name`\* | Trigger an emergency failover |
+| `cluster-optimize` | action | `cluster_name`\* | Run OPTIMIZE TABLE on all user tables across all nodes in the cluster |
+| `cluster-physical-backup` | action | `cluster_name`\* | Trigger a physical (binary-level) backup on the master node using the configured backup tool (Mariabackup, xtrabackup) |
+| `cluster-reset-failover-control` | action | `cluster_name`\* | Reset the failover counter and cooldown timer for the cluster |
+| `cluster-reset-sla` | action | `cluster_name`\* | Reset the SLA (Service Level Agreement) uptime counters for the cluster |
+| `cluster-rolling-restart` | action | `cluster_name`\* | Restart all database nodes in the cluster one at a time, preserving availability |
+| `cluster-rotate-passwords` | action | `cluster_name`\* | Rotate all internal database account passwords (replication user, monitoring user, etc.) across the cluster |
+| `cluster-set-setting` | action | `cluster_name`\*, `setting_name`\*, `setting_value`\* | Set a named configuration key to a specific value for a cluster |
+| `cluster-start-traffic` | action | `cluster_name`\* | Re-enable application traffic to the cluster by opening the proxy backends |
+| `cluster-stop-traffic` | action | `cluster_name`\* | Halt application traffic to the cluster by draining the proxy backends |
+| `cluster-switch-setting` | action | `cluster_name`\*, `setting_name`\* | Toggle a boolean configuration key for the cluster (true→false or false→true) |
+| `cluster-switchover` | action | `cluster_name`\*, `preferred_master` | Perform a planned, zero-data-loss master change |
+| `cluster-sysbench-cleanup` | action | `cluster_name`\* | Drop the sysbench benchmark schema and data from the cluster |
+| `cluster-sysbench-run` | action | `cluster_name`\*, `test`, `time`, `threads` | Run a sysbench benchmark against the cluster through its proxy (a proxy must be configured) |
 
 **Database servers**
 
-- Reads: `get-database-status`, `get-database-variables`, `list-database-processes`,
-  `list-database-slow-queries`, `list-database-error-log`, `list-database-tables`,
-  `check-database-is-master`, `check-database-is-slave`, `check-database-is-late`,
-  `get-database-replication` (role, every replication channel with its threads, lag, errors and
-  GTID positions, and the master status), `get-database-version` (flavor, version and the
-  provisioning image).
-- Actions: `database-start`, `database-stop`, `database-restart`, `database-optimize`,
-  `database-set-maintenance`, `database-set-read-only`, `database-set-read-write`, `database-kill-query`.
-- Backups and restores of one server: `database-backup-physical`, `database-backup-logical`,
-  `database-logical-backup-splitdump` (needs `backup-mysqldump-splitdump` on the cluster),
-  `database-restore-logical-backup` and `database-restore-physical-backup` (reseed a replica from
-  the last backup, `db-restore` grant).
+| Tool | Kind | Parameters | What it does |
+| --- | --- | --- | --- |
+| `check-database-is-late` | read | `cluster_name`\*, `server_name`\* | Check if a replica has replication lag above the failover-max-slave-delay threshold |
+| `check-database-is-master` | read | `cluster_name`\*, `server_name`\* | Check whether a specific server is currently the active master (read-write primary) for the cluster |
+| `check-database-is-slave` | read | `cluster_name`\*, `server_name`\* | Check whether a specific server is currently an active replica (read-only, replicating from master) |
+| `get-database-replication` | read | `cluster_name`\*, `server_name`\* | Get the replication picture of a server |
+| `get-database-status` | read | `cluster_name`\*, `server_name`\* | Get all SHOW STATUS variables for a specific server |
+| `get-database-variables` | read | `cluster_name`\*, `server_name`\* | Get all SHOW VARIABLES for a specific server |
+| `get-database-version` | read | `cluster_name`\*, `server_name`\* | Get the database engine and version of a server |
+| `list-database-error-log` | read | `cluster_name`\*, `server_name`\* | Get the MariaDB/MySQL error log buffer for a specific server |
+| `list-database-processes` | read | `cluster_name`\*, `server_name`\* | Get the current process list (SHOW FULL PROCESSLIST) for a server |
+| `list-database-slow-queries` | read | `cluster_name`\*, `server_name`\* | Get slow query digest entries from Performance Schema (events_statements_summary_by_digest) |
+| `list-database-tables` | read | `cluster_name`\*, `server_name`\* | Get the list of all user tables across all databases on a server, with metadata (engine, row count, data size, index size) |
+| `database-backup-logical` | action | `cluster_name`\*, `server_name`\* | Trigger a logical backup (mysqldump or mydumper, as configured by backup-logical-type) on a specific server, preferably a replica |
+| `database-backup-physical` | action | `cluster_name`\*, `server_name`\* | Trigger a physical backup on a specific server (not necessarily the master) |
+| `database-kill-query` | action | `cluster_name`\*, `server_name`\*, `process_id`\* | Kill a specific query or connection on a server by process ID (KILL QUERY <id>) |
+| `database-logical-backup-splitdump` | action | `cluster_name`\*, `server_name`\* | Trigger a logical mysqldump backup in splitdump format (one directory with one file per table, mydumper-like, restorable in parallel) on a specific server |
+| `database-optimize` | action | `cluster_name`\*, `server_name`\* | Run OPTIMIZE TABLE on all user tables on a specific server |
+| `database-restart` | action | `cluster_name`\*, `server_name`\* | Restart a specific database server |
+| `database-restore-logical-backup` | action | `cluster_name`\*, `server_name`\* | Restore (reseed) a server from the cluster's last logical backup |
+| `database-restore-physical-backup` | action | `cluster_name`\*, `server_name`\* | Restore (reseed) a server from the cluster's last physical backup (Mariabackup/xtrabackup) |
+| `database-set-maintenance` | action | `cluster_name`\*, `server_name`\* | Toggle maintenance mode for a server (on/off) |
+| `database-set-read-only` | action | `cluster_name`\*, `server_name`\* | Set a server to read-only mode (SET GLOBAL read_only=ON) |
+| `database-set-read-write` | action | `cluster_name`\*, `server_name`\* | Set a server to read-write mode (SET GLOBAL read_only=OFF) |
+| `database-start` | action | `cluster_name`\*, `server_name`\* | Start a stopped database server in the cluster |
+| `database-stop` | action | `cluster_name`\*, `server_name`\* | Stop a running database server |
 
 **Proxies**
 
-- Reads: `list-proxies`, `get-proxy`.
-- Actions: `proxy-start`, `proxy-stop`, `proxy-provision`, `proxy-unprovision`.
+| Tool | Kind | Parameters | What it does |
+| --- | --- | --- | --- |
+| `get-proxy` | read | `cluster_name`\*, `proxy_name`\* | Get detailed configuration and status for a specific proxy |
+| `list-proxies` | read | `cluster_name`\* | List all load balancers and routers configured for a cluster (ProxySQL, MaxScale, HAProxy, etc.) |
+| `proxy-provision` | action | `cluster_name`\*, `proxy_name`\* | Provision a proxy service from scratch |
+| `proxy-start` | action | `cluster_name`\*, `proxy_name`\* | Start a stopped proxy service |
+| `proxy-stop` | action | `cluster_name`\*, `proxy_name`\* | Stop a running proxy service |
+| `proxy-unprovision` | action | `cluster_name`\*, `proxy_name`\* | Remove a provisioned proxy service |
 
-**Cloud18** (instance-wide, see 3.8.5)
+**Cloud18**
 
-- Reads: `get-cloud18-status`, `get-cloud18-register-status`, `get-cloud18-subscription`,
-  `list-cloud18-subscription-plans`, `list-cloud18-clusters-for-sale`,
-  `list-cloud18-infrastructures`, `get-cloud18-cluster`.
-- Actions (global admin grant): `cloud18-register`, `cloud18-register-confirm`,
-  `cloud18-unregister`, `cloud18-change-subscription`, `cloud18-create-cluster` (self-service
-  on the chosen infrastructure, with the borrowed-capacity note when the provider allows it),
-  `cloud18-create-cluster-token`.
-- Prompt: `cloud18-onboarding`.
+| Tool | Kind | Parameters | What it does |
+| --- | --- | --- | --- |
+| `get-cloud18-cluster` | read | `infrastructure`\*, `cluster_name`\* | Read a cluster on a Cloud18 infrastructure as this instance's Cloud18 identity |
+| `get-cloud18-register-status` | read |  | State of the Cloud18 registration started with cloud18-register |
+| `get-cloud18-status` | read |  | Whether this replication-manager instance is registered with Signal18 Cloud18, its URI (domain.subdomain.zone), GitLab user, subscription plan, the CRM API in use, the state of a registration in progress, and whether peers and the marketplace are disabled |
+| `get-cloud18-subscription` | read |  | The current subscription plan of this instance as known by the CRM (the instance must be registered) |
+| `list-cloud18-clusters-for-sale` | read |  | The Cloud18 marketplace catalogue |
+| `list-cloud18-infrastructures` | read |  | The infrastructures of the Cloud18 marketplace |
+| `list-cloud18-subscription-plans` | read |  | The instance subscription plans offered by Signal18 (free, support, support-services, partner) with what each unlocks, as published by the CRM |
+| `cloud18-change-subscription` | action | `plan`\* | Change the subscription plan of this instance |
+| `cloud18-create-cluster` | action | `infrastructure`\*, `cluster_name`\*, `db_image`, `db_count`, `proxy`, `apps`, `confirm` | Create a database cluster on a Cloud18 infrastructure (self-service) |
+| `cloud18-create-cluster-token` | action | `infrastructure`\*, `cluster_name`\*, `label`, `grants`, `expire_days` | Mint, on a Cloud18 infrastructure and as this instance's Cloud18 identity (the sponsor of the cluster), an API token scoped to one cluster there, and return the infrastructure's MCP endpoint configuration to add as a second MCP server |
+| `cloud18-register` | action | `email`\*, `uri`\* | Register this instance with Signal18 Cloud18 (free plan) |
+| `cloud18-register-confirm` | action | `email`\*, `uri`\* | Manual second step of the registration |
+| `cloud18-unregister` | action |  | Disconnect this instance from Cloud18 |
+
+\* required parameter. Reads need the matching `*-show` grant, actions the grant of their REST route (for example `cluster-switchover`, `db-restore`, `cluster-bench`); every tool is one route, see the ACL table in the server.
