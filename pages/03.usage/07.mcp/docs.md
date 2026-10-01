@@ -148,7 +148,10 @@ Tool names follow six rules, so that a new tool is named by rule and not by tast
 **Cluster**
 
 - Reads: `list-clusters`, `get-cluster-health`, `get-cluster-topology`, `get-cluster-settings`,
-  `get-cluster-alerts`, `list-cluster-logs`, `list-cluster-crashes`, `check-cluster-error-state`,
+  `get-cluster-alerts` (open errors and warnings per module: `ha`, `workload`, `security`,
+  `schema`, or all), `list-cluster-logs` (`log_type` general, task, workload, security, schema,
+  ddl, variable-change or sysbench; `level` minimum, warning by default; `module` tag; `limit`,
+  50 newest by default), `list-cluster-crashes`, `check-cluster-error-state`,
   `get-cluster-last-crash-lost-event` (the transactions lost on the old master at the last failover, decoded,
   with the rejoin methods available).
 - Actions: `cluster-failover`, `cluster-switchover`, `cluster-rolling-restart`, `cluster-optimize`,
