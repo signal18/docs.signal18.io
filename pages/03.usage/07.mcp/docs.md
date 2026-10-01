@@ -135,7 +135,9 @@ Read: `list-clusters`, `get-cluster-health`, `get-cluster-topology`, `get-cluste
 `check-server-is-master`, `check-server-is-slave`, `check-server-is-late`,
 `last-crash-lost-event` (the transactions lost on the old master at the last failover, decoded, with the rejoin methods available), `list-backups`,
 `get-backup-stats`, `list-restic-snapshots`, `get-restic-stats`, `get-restic-task-queue`,
-`list-proxies`, `get-proxy`.
+`list-proxies`, `get-proxy`, `get-server-replication` (role, every replication channel with
+its threads, lag, errors and GTID positions, and the master status), `get-server-version`
+(flavor, version and the provisioning image).
 
 Actions (each needs the matching grant, for example `cluster-switchover`): `cluster-failover`, `cluster-switchover`,
 `cluster-rolling-restart`, `cluster-optimize`, `cluster-rotate-passwords`,
@@ -149,3 +151,11 @@ Actions (each needs the matching grant, for example `cluster-switchover`): `clus
 `server-set-read-write`, `server-kill-query`, `restic-init`, `restic-fetch`, `restic-purge`,
 `restic-unlock`, `restic-task-queue-pause`, `restic-task-queue-resume`, `restic-task-cancel`,
 `proxy-start`, `proxy-stop`, `proxy-provision`, `proxy-unprovision`.
+
+Cloud18 (instance-wide, see 3.8.5): reads `get-cloud18-status`, `get-cloud18-register-status`,
+`get-cloud18-subscription`, `list-cloud18-subscription-plans`, `list-cloud18-clusters-for-sale`,
+`list-cloud18-infrastructures`, `get-cloud18-cluster`; actions (global admin grant)
+`cloud18-register`, `cloud18-register-confirm`, `cloud18-unregister`,
+`cloud18-change-subscription`, `cloud18-create-cluster` (self-service on the chosen
+infrastructure, with the borrowed-capacity note when the provider allows it),
+`create-cloud18-cluster-token`; prompt `cloud18-onboarding`.
