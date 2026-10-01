@@ -178,7 +178,10 @@ Tool names follow six rules, so that a new tool is named by rule and not by tast
 | `cluster-physical-backup` | action | `cluster_name`\* | Trigger a physical (binary-level) backup on the master node using the configured backup tool (Mariabackup, xtrabackup) |
 | `cluster-reset-failover-control` | action | `cluster_name`\* | Reset the failover counter and cooldown timer for the cluster |
 | `cluster-reset-sla` | action | `cluster_name`\* | Reset the SLA (Service Level Agreement) uptime counters for the cluster |
+| `cluster-rolling-jobs-upgrade` | action | `cluster_name`\* | Upgrade the jobs sidecar (the container running backups, restores and database jobs) of every node, one at a time |
+| `cluster-rolling-reprov` | action | `cluster_name`\* | Reprovision every database node of the cluster one at a time, preserving availability |
 | `cluster-rolling-restart` | action | `cluster_name`\* | Restart all database nodes in the cluster one at a time, preserving availability |
+| `cluster-rolling-upgrade` | action | `cluster_name`\*, `target`, `version`, `confirm` | Upgrade the database engine of every node one at a time, preserving availability, to a release line chosen by target |
 | `cluster-rotate-passwords` | action | `cluster_name`\* | Rotate all internal database account passwords (replication user, monitoring user, etc.) across the cluster |
 | `cluster-set-setting` | action | `cluster_name`\*, `setting_name`\*, `setting_value`\* | Set a named configuration key to a specific value for a cluster |
 | `cluster-start-traffic` | action | `cluster_name`\* | Re-enable application traffic to the cluster by opening the proxy backends |
