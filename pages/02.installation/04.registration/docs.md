@@ -377,6 +377,8 @@ When `monitoring-restore-config-on-start` is set, replication-manager:
 | `monitoring-restore-config-on-start` | `false` | server | Clone config from GitLab on startup and wipe local working directory |
 | `cloud18-self-service-clusters` | `false` | server | Let Cloud18 users create clusters on this infrastructure without the subscription chain (see below) |
 | `cloud18-self-service-max-clusters-per-user` | `3` | server | Clusters one Cloud18 identity may sponsor here through self-service |
+| `cloud18-self-service-clusters-enabled-script` | `""` | server | Your own gate on every self-service creation: a non-zero exit refuses it, its first output line is the reason (see below) |
+| `cloud18-self-service-clusters-can-borrow` | `false` | server | Let a self-service cluster be created on borrowed capacity when the plan pot cannot guarantee its units |
 
 ### Self-service clusters
 
@@ -397,6 +399,24 @@ it in *Settings → Cloud → Self-Service Clusters* or with `cloud18-self-servi
   sold) cannot hold it. Declare the capacity with `resource-manager-infra-cpu-cores` and
   `resource-manager-infra-memory-mb` when your agents do not report it; an unknown capacity
   does not gate.
+- **Borrowed capacity**: with `cloud18-self-service-clusters-can-borrow`, a pool that cannot
+  guarantee the units asks the over-commit pot instead (capacity minus every plan minus what
+  is already borrowed). The cluster is then created **without guarantee**, the self-service
+  status says `borrowed` with the figures, and the ledger shows the plan pot further overdrawn.
+- **Your own gate**: `cloud18-self-service-clusters-enabled-script` runs before every
+  creation, after the switch and the orchestrator check and before the per-user limit and the
+  pool. It receives the identity and the orchestrator as arguments and the pool figures in
+  the environment (`REPMAN_IDENTITY`, `REPMAN_ORCHESTRATOR`, `REPMAN_SPONSORED_CLUSTERS`,
+  `REPMAN_NEEDED_DBU`, `REPMAN_NEEDED_APU`, `REPMAN_FREE_DBU`, `REPMAN_FREE_APU`,
+  `REPMAN_BORROW_DBU`, `REPMAN_BORROW_APU`). A non-zero exit refuses the creation and the
+  first line it prints is the reason shown to the user; a script that does not answer within
+  30 s refuses too. It can only refuse more than the switch, never open what the switch closes.
+- **Born dynamic**: on OpenSVC and Kubernetes a self-service cluster starts with
+  `prov-db-apply-dynamic-config` and `prov-db-dynamic-resource` on, so its configuration is
+  applied live and its resources follow the load from day one (see
+  [Dynamic resources](/provisioning/dynamic-resources)). On OpenSVC the docker run-args cap
+  is dropped so the PG slice governs; on Kubernetes the requests/limits pair is declared so
+  the in-place Pod resize applies.
 - You are informed, nothing to accept: a mail to `mail-to` when SMTP is configured, an entry
   `cloud18_self_service_cluster` in the security log, and a warning in the cluster log.
 - `GET /api/cloud18/self-service` tells a caller whether they may create a cluster here and
