@@ -276,6 +276,11 @@ Every monitoring tick, each server's consumption is compared with its configured
 
 One step per window: the next grow is evaluated after `prov-db-scale-up-config-in-plan-speed`.
 
+**IOPS shrinks to the plan.** The IOPS declaration is a cap on the database, pure configuration.
+When every node has stayed well under its configured IOPS for `prov-db-scale-down-config-in-plan-speed`,
+`prov-db-disk-iops` comes back in one move, aligned to the unit, to the larger of the plan's IOPS and the
+peak usage plus the safety margin, never under the plan. Only a genuine IO bottleneck grows it again.
+
 **Disk follows usage both ways.** The declared `prov-db-disk-size` is what the volume's quota
 bounds. Since **3.1.43**, when the measured datadir of a node is over the configured disk, the
 configuration follows reality: `prov-db-disk-size` becomes the largest node's usage in whole
