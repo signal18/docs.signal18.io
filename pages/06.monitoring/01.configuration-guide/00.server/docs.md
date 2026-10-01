@@ -174,6 +174,29 @@ This parameter is needed for alerting on schema change and for sharding proxy to
 | Type          | string |
 | Default Value | ""|
 
+##### `monitoring-add-monitor-script` (3.1.43)
+
+| Item          | Value |
+| ----          | ----- |
+| Description   | Script run before a database, proxy or app monitor is added to the cluster; a non-zero exit refuses the add and the first output line is the reason |
+| Type          | string |
+| Default Value | ""|
+
+Arguments: `cluster type name version units` with type `database`, `proxy` or `app`, name `host:port`
+(or the app name), version the declared image tag, units the whole DBU or APU the declared resources
+amount to. Environment: `REPMAN_MONITOR_TYPE`, `REPMAN_MONITOR_NAME`, `REPMAN_MONITOR_HOST`,
+`REPMAN_MONITOR_PORT`, `REPMAN_MONITOR_VERSION`, `REPMAN_MONITOR_FLAVOR`, `REPMAN_RESOURCE_CORES`,
+`REPMAN_RESOURCE_MEMORY_MB`, `REPMAN_RESOURCE_DISK_GB`, `REPMAN_RESOURCE_IOPS`, `REPMAN_RESOURCE_UNIT`
+(`dbu` or `apu`), `REPMAN_RESOURCE_UNITS`. A script that does not answer within 30 s refuses too.
+
+##### `monitoring-drop-monitor-script` (3.1.43)
+
+| Item          | Value |
+| ----          | ----- |
+| Description   | Script run after a database, proxy or app monitor is dropped from the cluster, same arguments and environment as the add script with the version the monitor observed; informative only |
+| Type          | string |
+| Default Value | ""|
+
 
 ##### `monitoring-performance-schema` (2.1)
 
