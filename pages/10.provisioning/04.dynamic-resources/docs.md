@@ -300,12 +300,26 @@ undercommit allowed on cores and memory.
    server's peak consumption under the saturation mark. A 4-core database using 0.2 core
    goes straight to 1 core; a 2-core database with a 1.0-core peak stays at 2, because
    1 core would be saturated at once.
-4. The move never goes under the **undercommit floor** `prov-db-undercommit-pct`
-   (default 50): floor(plan × 0.5) DBU per database, and never under 1 DBU.
+4. The floor depends on the axis. Cores and memory may go under the plan down to the
+   **undercommit floor** `prov-db-undercommit-pct` (default 50): floor(plan × 0.5) DBU per
+   database, never under 1 DBU. Disk and IOPS are caps, not consumption: they come back
+   to the **plan** and never under it.
 
-Memory is shrunk before CPU. A memory shrink lowers the InnoDB buffer pool first and the
-container limit only once the pool has actually released the memory, so the database is
-never squeezed below what it holds.
+One axis per tick, in this order: memory, cores, disk, IOPS. A memory shrink lowers the
+InnoDB buffer pool first and the container limit only once the pool has actually released
+the memory, so the database is never squeezed below what it holds.
+
+### Per axis: what grows, what shrinks
+
+| axis | grows when | step | shrinks when | shrink target and floor | what moves |
+|---|---|---|---|---|---|
+| cores | one server saturated on cpu for the scale-up window; cores have priority, nothing else moves throughput while they are pinned | +1 core, over plan within the envelope, the node pool and your veto script | every server under-used on cpu for the scale-down window | smallest whole DBU keeping the peak under the saturation mark, down to the undercommit floor | the container's cpu quota, then `thread_pool_size` and `innodb_read_io_threads` live |
+| memory | InnoDB buffer-pool **pressure** sustained for the window, not occupancy | +1 DBU of memory, clamped to the container cap, over plan within the envelope | every server under-used on memory for the window | same rule and floor as cores | the buffer pool live, the container limit once the memory is free; redo log follows |
+| IOPS | IO saturated, taken only after a memory step bought no throughput | +1000 IOPS, over plan within the envelope | every server under-used on IO for the window | the plan or the peak plus margin, never under the plan | `innodb_io_capacity` and `_max`, write threads; no container primitive |
+| disk | the datadir outgrows the declaration | follows the usage in whole GB, applied first and alone | every server under-used on disk for the window | the plan or the peak plus margin, never under the plan | the declaration and the volume through the orchestrator, grow only until the orchestrator can shrink a volume (WARN0221) |
+
+Nothing here touches the plan: the plan is the contract, these rules move the resources
+around it, and the bill reads the resources as declared.
 
 **The redo log follows, since 3.1.43.** On every memory move the InnoDB redo log is resized live
 with the buffer pool, to a quarter of it rounded to a power of two (128 MB at least, 16 GB at most),
