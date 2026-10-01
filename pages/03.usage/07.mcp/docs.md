@@ -214,9 +214,12 @@ Tool names follow six rules, so that a new tool is named by rule and not by tast
 | `database-restart` | action | `cluster_name`\*, `server_name`\* | Restart a specific database server |
 | `database-restore-logical-backup` | action | `cluster_name`\*, `server_name`\* | Restore (reseed) a server from the cluster's last logical backup |
 | `database-restore-physical-backup` | action | `cluster_name`\*, `server_name`\* | Restore (reseed) a server from the cluster's last physical backup (Mariabackup/xtrabackup) |
+| `database-set-ignored-master` | action | `cluster_name`\*, `server_name`\* | Mark a database server as ignored for the master election |
 | `database-set-maintenance` | action | `cluster_name`\*, `server_name`\* | Toggle maintenance mode for a server (on/off) |
+| `database-set-prefered-master` | action | `cluster_name`\*, `server_name`\* | Mark a database server as a preferred master |
 | `database-set-read-only` | action | `cluster_name`\*, `server_name`\* | Set a server to read-only mode (SET GLOBAL read_only=ON) |
 | `database-set-read-write` | action | `cluster_name`\*, `server_name`\* | Set a server to read-write mode (SET GLOBAL read_only=OFF) |
+| `database-set-unrated-master` | action | `cluster_name`\*, `server_name`\* | Remove a database server from both the preferred and the ignored lists of the master election, back to an ordinary candidate |
 | `database-start` | action | `cluster_name`\*, `server_name`\* | Start a stopped database server in the cluster |
 | `database-stop` | action | `cluster_name`\*, `server_name`\* | Stop a running database server |
 
