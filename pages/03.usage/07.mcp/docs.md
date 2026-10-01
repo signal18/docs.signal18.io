@@ -136,31 +136,31 @@ actions the grant named next to them (for example `cluster-switchover`).
 
 - Reads: `list-clusters`, `get-cluster-health`, `get-cluster-topology`, `get-cluster-settings`,
   `get-cluster-alerts`, `get-cluster-logs`, `get-cluster-crashes`, `check-cluster-error-state`,
-  `last-crash-lost-event` (the transactions lost on the old master at the last failover, decoded,
+  `get-cluster-last-crash-lost-event` (the transactions lost on the old master at the last failover, decoded,
   with the rejoin methods available).
 - Actions: `cluster-failover`, `cluster-switchover`, `cluster-rolling-restart`, `cluster-optimize`,
   `cluster-rotate-passwords`, `cluster-reset-failover-control`, `cluster-reset-sla`,
   `cluster-start-traffic`, `cluster-stop-traffic`, `cluster-checksum-tables`,
   `cluster-set-setting`, `cluster-switch-setting`, `cluster-bootstrap-replication`,
-  `cluster-cleanup-replication`, `run-sysbench` and `sysbench-cleanup` (`cluster-bench` grant).
-- Backups and archives of the cluster: reads `list-backups`, `get-backup-stats`,
-  `list-restic-snapshots`, `get-restic-stats`, `get-restic-task-queue`; actions
-  `cluster-physical-backup`, `restic-init`, `restic-fetch`, `restic-purge`, `restic-unlock`,
-  `restic-task-queue-pause`, `restic-task-queue-resume`, `restic-task-cancel`.
+  `cluster-cleanup-replication`, `cluster-sysbench-run` and `cluster-sysbench-cleanup` (`cluster-bench` grant).
+- Backups and archives of the cluster: reads `get-cluster-local-backups`, `get-cluster-local-backup-stats`,
+  `get-cluster-archive-backups`, `get-cluster-archive-stats`, `get-cluster-archive-task-queue`; actions
+  `cluster-physical-backup`, `cluster-archive-init`, `cluster-archive-fetch`, `cluster-archive-purge`, `cluster-archive-unlock`,
+  `cluster-archive-task-queue-pause`, `cluster-archive-task-queue-resume`, `cluster-archive-task-cancel`.
 
 **Database servers**
 
-- Reads: `get-server-status`, `get-server-variables`, `get-server-processlist`,
-  `get-server-slow-queries`, `get-server-error-log`, `get-server-tables`,
-  `check-server-is-master`, `check-server-is-slave`, `check-server-is-late`,
-  `get-server-replication` (role, every replication channel with its threads, lag, errors and
-  GTID positions, and the master status), `get-server-version` (flavor, version and the
+- Reads: `get-database-status`, `get-database-variables`, `get-database-processlist`,
+  `get-database-slow-queries`, `get-database-error-log`, `get-database-tables`,
+  `check-database-is-master`, `check-database-is-slave`, `check-database-is-late`,
+  `get-database-replication` (role, every replication channel with its threads, lag, errors and
+  GTID positions, and the master status), `get-database-version` (flavor, version and the
   provisioning image).
-- Actions: `server-start`, `server-stop`, `server-restart`, `server-optimize`,
-  `server-set-maintenance`, `server-set-read-only`, `server-set-read-write`, `server-kill-query`.
-- Backups and restores of one server: `server-backup-physical`, `server-backup-logical`,
-  `server-logical-backup-splitdump` (needs `backup-mysqldump-splitdump` on the cluster),
-  `server-restore-logical-backup` and `server-restore-physical-backup` (reseed a replica from
+- Actions: `database-start`, `database-stop`, `database-restart`, `database-optimize`,
+  `database-set-maintenance`, `database-set-read-only`, `database-set-read-write`, `database-kill-query`.
+- Backups and restores of one server: `database-backup-physical`, `database-backup-logical`,
+  `database-logical-backup-splitdump` (needs `backup-mysqldump-splitdump` on the cluster),
+  `database-restore-logical-backup` and `database-restore-physical-backup` (reseed a replica from
   the last backup, `db-restore` grant).
 
 **Proxies**
