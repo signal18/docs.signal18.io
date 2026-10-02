@@ -106,11 +106,47 @@ replication-manager offers three rolling actions that walk the cluster one node 
 
 | Action | API action · scheduler key | What it does to the service | Refreshes the service config? | Data | Use it to |
 |---|---|---|---|---|---|
-| **Rolling restart** | `actions/rolling/restart` · `scheduler-rolling-restart` | Stop then start the **existing** service | **No** — restarts with the currently deployed config | Preserved | Clear a hung process, or apply a change that only needs a restart |
-| **Rolling upgrade** | `actions/rolling/upgrade` | Re-push the regenerated service config (and re-pull the image), then stop + start | **Yes** | Preserved | Roll out a **config change** (my.cnf, mounts, image) with **no reseed** |
+| **Rolling restart** | `actions/rolling/restart` · `scheduler-rolling-restart` | Stop then start the service: the container caps, run arguments and environment are re-applied, the **image never changes** | **Partly** — the image the service runs is kept | Preserved | Clear a hung process, or apply a change that only needs a restart |
+| **Rolling upgrade** | `actions/rolling/upgrade` (`?target=…`) | Resolve the **release** to run from the image list, re-push the service config with it, pull it, then stop + start | **Yes** | Preserved (restarted on the new release; across a major, optionally reprovisioned, see 7.1.3.3) | Move to a **release** (`patch`, `next-minor`, `next-lts`, `next-major`, `last-lts`, `version`) or roll out a **config change** (my.cnf, mounts) with **no reseed** |
 | **Rolling reprovision** | `actions/rolling/reprov` · `scheduler-rolling-reprov` (pro) | **Unprovision (destroy)** then reprovision the service, then **reseed** the replica from the primary | Yes (regenerated on reprovision) | **Replicas reseeded** from the primary | Rebuild a node from scratch, or recover a corrupted service |
 
 > **Choose the right one.** To roll out a **configuration change**, use **rolling upgrade** — a rolling *restart* will **not** pick it up (it reuses the already-deployed config), and a rolling *reprovision* is destructive (it reseeds every replica). Reserve **reprovision** for a genuine from-scratch rebuild.
+
+### 7.1.3.3 Database image and release (3.1.43)
+
+Three values describe the database image of a cluster:
+
+| Value | Where | Meaning |
+|---|---|---|
+| **Image list** | the configurator (`repos.json`, embedded in the release, refreshed by the Cloud18 back office) | the releases that exist, per image repository |
+| **Declared image** | `prov-db-image` (`prov-db-docker-img` in the TOML) | what you ask for: a release (`mariadb:11.8.9`), a line (`mariadb:11.8`), or a pointer (`mariadb:latest`, `mariadb:lts`) |
+| **Service release** | written by replication-manager (`prov-db-docker-img-resolved`), shown in *Configs › Orchestrator images › Service definition image* | the real release the service definition carries, what every node runs |
+
+The service definition always carries a real release, never a pointer, so a **rolling restart cannot move the version**: the container is recreated from the release the service was last rendered with. Only a **rolling upgrade** moves it, and it resolves the declared image with the image list, never with a live registry lookup:
+
+| Declared image | Default rolling upgrade (menu, `actions/rolling/upgrade` without target) resolves to |
+|---|---|
+| `mariadb:11.8.9` | `11.8.9` itself: the upgrade is a restart on the same release |
+| `mariadb:11.8` | the newest `11.8.x` the image list knows |
+| `mariadb:latest` | the newest release the image list knows |
+| `mariadb:lts` | the newest release of the highest long-term line |
+| a tag the list does not know | itself, unchanged: the orchestrator pulls whatever the registry has under that name |
+
+So to move a cluster to another line, declare it (`prov-db-image = mariadb:12.3` in the Configs page or the API) and run the default rolling upgrade. The named targets of `actions/rolling/upgrade?target=…` do both in one call, from the line the primary runs: `next-minor` (`11.4` → newest `11.5.x`), `next-lts` (`11.4` → newest `11.8.x`), `next-major` (`11.x` → newest `12.0.x`), `last-lts` (newest release of the highest LTS line), `version` (`&version=11.8.9` or `=11.8`). `GET actions/rolling/upgrade/plan?target=…` answers what would happen without doing anything: the target release, what `prov-db-image` declares afterwards, the node order, the mechanic and the warnings. The MCP tool `cluster-rolling-upgrade` exposes the same.
+
+**Mechanic.** A move within a major restarts each node on the new release with its data directory. A move **down across a major** (12.3 → 11.8) always **reprovisions** each node from scratch on the older release and reseeds it from the primary's last **logical backup**, because a data directory rewritten by a newer major cannot start on the older one and a physical backup of the newer major does not restore into the older one; the switchover runs with `switchover-lower-release` on for the duration. A move **up across a major** restarts in place and lets the engine run `mariadb-upgrade`, or reprovisions the same way from the last logical or physical backup when **`prov-db-upgrade-major-reprov`** (*Settings › Dynamic config › Reprovision On Major Upgrade*) is on: cleaner, longer. A downgrade is never refused by itself, it is announced in the plan.
+
+**Readiness gate for a move across a major.** A reprovisioned node is reseeded from a backup taken by the primary's own jobs container, never from a direct dump, and it catches up from the binary logs. Three warning states, checked every tick and shown with the other alerts, say when that is not possible; while any is open the plan and the API refuse the rolling reprov across a major, with the reasons:
+
+| State | Opens when | Clears when |
+|---|---|---|
+| **WARN0224** binary logs not monitored | `log_bin` is off on the primary, or `backup-binlogs` is off | binary logging on and `backup-binlogs` on |
+| **WARN0223** reseed method is the direct dump or none | neither `autorejoin-logical-backup` nor `autorejoin-physical-backup` is armed | one of them is armed |
+| **WARN0222** no backup usable for a reseed | no completed backup of the primary, for the armed method, newer than its binary log retention (`binlog_expire_logs_seconds`, else `expire_logs_days`; any completed backup when the primary never purges) | a backup completes |
+
+A move within a major is not gated.
+
+**Pinned image.** A `prov-db-docker-img` written in the immutable configuration (`cluster.d`) is not moved by an upgrade: the plan says so and the operator changes the pin first.
 
 **What each does per orchestrator:**
 

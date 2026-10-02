@@ -182,7 +182,7 @@ Tool names follow six rules, so that a new tool is named by rule and not by tast
 | `cluster-rolling-jobs-upgrade` | action | `cluster_name`\* | Upgrade the jobs sidecar (the container running backups, restores and database jobs) of every node, one at a time |
 | `cluster-rolling-reprov` | action | `cluster_name`\* | Reprovision every database node of the cluster one at a time, preserving availability |
 | `cluster-rolling-restart` | action | `cluster_name`\* | Restart all database nodes in the cluster one at a time, preserving availability |
-| `cluster-rolling-upgrade` | action | `cluster_name`\*, `target`, `version`, `confirm` | Upgrade the database engine of every node one at a time, preserving availability, to a release line chosen by target |
+| `cluster-rolling-upgrade` | action | `cluster_name`\*, `target`, `version`, `confirm` | Upgrade the database engine of every node one at a time, preserving availability, to a target taken from the image list of the configurator (never a registry lookup) |
 | `cluster-rotate-passwords` | action | `cluster_name`\* | Rotate all internal database account passwords (replication user, monitoring user, etc.) across the cluster |
 | `cluster-set-setting` | action | `cluster_name`\*, `setting_name`\*, `setting_value`\* | Set a named configuration key to a specific value for a cluster |
 | `cluster-start-traffic` | action | `cluster_name`\* | Re-enable application traffic to the cluster by opening the proxy backends |
