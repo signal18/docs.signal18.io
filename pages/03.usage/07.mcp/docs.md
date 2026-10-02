@@ -158,12 +158,15 @@ Tool names follow six rules, so that a new tool is named by rule and not by tast
 | `get-cluster-price` | read | `cluster_name`\* | Get what a cluster costs this month on this infrastructure, in EUR, as the resource manager integrates it per monitoring period |
 | `get-cluster-settings` | read | `cluster_name`\* | Get the full configuration for a cluster |
 | `get-cluster-topology` | read | `cluster_name`\* | Get the full topology of a cluster |
+| `list-app-templates` | read | `cluster_name`\* | List the app templates this replication-manager can deploy on a cluster |
+| `list-cluster-apps` | read | `cluster_name`\* | List the applications of a cluster with their state, template, image, provisioning state and URL (https on the primary route of the app once provisioned, the internal address otherwise) |
 | `list-cluster-archive-backups` | read | `cluster_name`\* | List all Restic snapshots stored in the cluster's Restic repository |
 | `list-cluster-archive-tasks` | read | `cluster_name`\* | Get the current Restic task queue for a cluster |
 | `list-cluster-crashes` | read | `cluster_name`\* | Get the history of crash and failover events for a cluster |
 | `list-cluster-local-backups` | read | `cluster_name`\* | List all registered physical and logical backups for a cluster |
 | `list-cluster-logs` | read | `cluster_name`\*, `log_type`, `level`, `module`, `limit` | List recent log entries of a cluster, newest first, from one of its logs |
 | `list-clusters` | read |  | List the names of all database clusters currently monitored by replication-manager |
+| `app-add` | action | `cluster_name`\*, `template`\*, `name`, `port` | Add an application to a cluster from a template (list-app-templates) |
 | `cluster-archive-fetch` | action | `cluster_name`\* | Refresh the local snapshot metadata cache from the Restic repository |
 | `cluster-archive-init` | action | `cluster_name`\* | Initialize a new Restic repository for the cluster at the configured repository path (local or S3) |
 | `cluster-archive-purge` | action | `cluster_name`\*, `snapshot_id`\* | Delete a specific Restic snapshot by ID and run 'restic prune' to reclaim disk space |
