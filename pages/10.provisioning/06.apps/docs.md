@@ -70,7 +70,7 @@ it all privileges on that schema only. Every statement is in the SQL log.
 (`app-db-owned`); a provision that finds the schema or the user already present without that
 mark is refused, the app shows the state `APPERR008` and nothing is altered. Free the names
 with `app-db-schema` / `app-db-user`, or set `app-db-owned` when the objects really belong to
-the app. Setting `app-db-pass` on an owned database rotates the user password at once.
+the app. On an owned account the provision re-applies the stored password, and setting `app-db-pass` rotates it at once.
 Dropping the app never drops the schema or the user.
 
 Dependent processes share the owner's database: `{{apps.#(name==erp-backend).db.user}}`,
