@@ -166,7 +166,11 @@ Tool names follow six rules, so that a new tool is named by rule and not by tast
 | `list-cluster-local-backups` | read | `cluster_name`\* | List all registered physical and logical backups for a cluster |
 | `list-cluster-logs` | read | `cluster_name`\*, `log_type`, `level`, `module`, `limit` | List recent log entries of a cluster, newest first, from one of its logs |
 | `list-clusters` | read |  | List the names of all database clusters currently monitored by replication-manager |
-| `app-add` | action | `cluster_name`\*, `template`\*, `name`, `port` | Add an application to a cluster from a template (list-app-templates) |
+| `app-start` | action | `cluster_name`\*, `app_name`\*, `node` | Start a provisioned application on the orchestrator (all its nodes, or one node) |
+| `app-stop` | action | `cluster_name`\*, `app_name`\*, `node` | Stop a running application; the service stays provisioned |
+| `app-restart` | action | `cluster_name`\*, `app_name`\*, `node` | Restart a running application |
+| `app-resize` | action | `cluster_name`\*, `app_name`\*, `units`\* | Resize the plan of an application in whole units (APU, DBU when stateful); cores, memory and disk follow the ratio; reprovision (app-unprovision, app-provision) applies it |
+| `app-add` | action | `cluster_name`\*, `template`\*, `name`, `port` | Add an application to a cluster from a template (list-app-templates); the answer carries the app's `db` object (schema, user) when the template asked the cluster for a database |
 | `cluster-archive-fetch` | action | `cluster_name`\* | Refresh the local snapshot metadata cache from the Restic repository |
 | `cluster-archive-init` | action | `cluster_name`\* | Initialize a new Restic repository for the cluster at the configured repository path (local or S3) |
 | `cluster-archive-purge` | action | `cluster_name`\*, `snapshot_id`\* | Delete a specific Restic snapshot by ID and run 'restic prune' to reclaim disk space |
