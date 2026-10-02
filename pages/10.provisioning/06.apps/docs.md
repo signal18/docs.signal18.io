@@ -62,8 +62,9 @@ Referencing `{{app.db.*}}` is enough to request the database. At add time the ap
 `app-db-schema` and `app-db-user` default to the app name (lower-case, `a-z0-9_`), and
 `app-db-pass` to a generated password stored encrypted; all three can be set by hand in the
 app Overview or through the app settings route. At provision, replication-manager creates
-the schema, the user on the cluster hosts (the monitor, the database nodes, the proxies, the
-apps) and grants it all privileges on that schema only. Every statement is in the SQL log.
+the schema, the user for `%` (the configurator disables name resolution, so a hostname-bound
+account could never log in; the database is reachable from the cluster network only) and grants
+it all privileges on that schema only. Every statement is in the SQL log.
 
 **An existing schema or user is never touched.** The app records what it created
 (`app-db-owned`); a provision that finds the schema or the user already present without that
