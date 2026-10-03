@@ -513,15 +513,15 @@ are not affected by the policy and stay immediate.
 
 ## GWU: the gateway network unit (3.1.43)
 
-The octets a cluster's applications send **out** through the Cloud18 gateways are metered in
-**GWU**. One GWU is `cloud18-marketplace-gwu-unit-mb` MB (million octets, 100 by default) per
+The octets a cluster's applications exchange, **in and out**, through the Cloud18 gateways are
+metered in **GWU**. One GWU is `cloud18-marketplace-gwu-unit-mb` MB (million octets, 100 by default) per
 month; the cluster's plan is `prov-gateway-units` (10 by default), the price
 `cloud18-marketplace-gwu-price` (EUR per GWU per month, 0 = not priced), with the same
 over-commit and under-commit percentages as the compute units. The family is a volume: the
 month-to-date total is billed and projected linearly to the end of the month, it is not a rate.
 
 replication-manager reads every gateway's HAProxy stats port (`<gateway domain>:8404`, the
-`bout` counter of each backend) and attributes the octets to the cluster named in the backend;
+`bin` and `bout` counters of each backend) and attributes the octets to the cluster named in the backend;
 counters reset by a gateway reload are handled, and the month-to-date totals survive a restart
 (`gwu.json` in the working directory). Series: `gwu.<cluster>.bytes`, `units`, `plan`, `billed`;
 the Graphs page has a Gateway network section, the Maintenance page the plan control, the user
