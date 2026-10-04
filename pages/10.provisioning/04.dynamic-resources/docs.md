@@ -535,8 +535,11 @@ aligned with the gateway services, one value applies to all, 1000 by default). T
 page stacks every cluster's bandwidth (`gwu.<cluster>.mbps`, in + out, derived between two polls
 of the gateway counters) under that capacity line; the series `gateway.<domain>.mbps`,
 `capacity_mbps` and `utilization_pct` carry the same per gateway. This is tracked, not invoiced:
-the GWU line appears in the statement only when `cloud18-marketplace-gwu-price` is set. More
-bandwidth means another gateway with its own VIP, shared stick tables and DNS round robin.
+the GWU line appears in the statement only when `cloud18-marketplace-gwu-price` is set. Each
+cluster's fair share is the gateway capacity divided by the clusters attached to it
+(`gwu.<cluster>.share_mbps`): above it the cluster **borrows** bandwidth, below it it **gives away**,
+both stacked per cluster on the Resource Manager page. More bandwidth means another gateway with
+its own VIP, shared stick tables and DNS round robin.
 
 ### Several gateways
 
