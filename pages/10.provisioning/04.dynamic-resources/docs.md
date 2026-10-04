@@ -555,3 +555,31 @@ aligned, for several gateways active at once: the app routes are published on ev
 two clusters sharing any gateway are checked for route conflicts together, and the app CNAMEs
 point at the first domain of the list, under which the DNS round-robins the gateway VIPs. The
 GWU reading sums every gateway.
+
+## Internal network: Mb/s per database, proxy and app (3.1.43)
+
+GWU is the cluster seen from the gateway uplink. The internal network view is the same cluster
+seen from inside: what each database, proxy and app receives and sends on its own network
+interface, in Mb/s, in and out kept apart. It is monitoring only: no unit, no plan, no price, no alert. Its
+purpose is to show which unit holds the bandwidth when a node link saturates. On a private
+network such as an OVH vRack the traffic is unmetered, so the question is saturation, never cost.
+
+The counters come from the same jobs scripts that already report the cgroup usage, so the path is
+identical on every orchestrator and on premise:
+
+| unit | source | what is counted |
+|---|---|---|
+| database | the database jobs script reads the network counters of the database process | on OpenSVC the pod interface; on premise the database host interfaces, replication and backups included |
+| proxy, app (OpenSVC) | the sensor sidecar of the service reads the pod interface | everything the pod moves |
+| proxy (on premise) | the proxy's own counters (HAProxy, ProxySQL) | SQL traffic only, shown as source `status` |
+
+The scripts report raw cumulative counters; replication-manager computes the rate, so a script
+restart or a counter reset never produces a negative or inflated value. The Graphs page,
+Resources section, shows two charts, "Internal network IN" and "Internal network OUT", each
+stacked per service so the top of the stack is the cluster. The series are
+`net.<cluster>.<kind>.<unit>.rx_mbps` and `tx_mbps` per unit, `net.<cluster>.rx_mbps` and
+`tx_mbps` for the cluster.
+
+Databases report as soon as the jobs script is refreshed, which replication-manager does on
+its own. Proxies and apps report after their next reprovision, which installs the sensor sidecar.
+The sidecar is governed by `monitoring-system-resources`, the same switch as the cgroup sensor.
