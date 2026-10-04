@@ -513,34 +513,28 @@ are not affected by the policy and stay immediate.
 
 ## GWU: the gateway network unit (3.1.43)
 
-The octets a cluster's applications exchange, **in and out**, through the Cloud18 gateways are
-metered in **GWU**. One GWU is `cloud18-marketplace-gwu-unit-mb` MB (million octets, 100 by default) per
-month; the cluster's plan is `prov-gateway-units` (10 by default), the price
-`cloud18-marketplace-gwu-price` (EUR per GWU per month, 0 = not priced), with the same
-over-commit and under-commit percentages as the compute units. The family is a volume: the
-month-to-date total is billed and projected linearly to the end of the month, it is not a rate.
+The Cloud18 gateways share one uplink, so the bandwidth every cluster takes through them is
+**tracked** in **GWU**, a bandwidth unit, and not invoiced unless you set a price.
 
-replication-manager reads every gateway's HAProxy stats port (`<gateway domain>:8404`, the
-`bin` and `bout` counters of each backend) and attributes the octets to the cluster named in the backend;
-counters reset by a gateway reload are handled, and the month-to-date totals survive a restart
-(`gwu.json` in the working directory). Series: `gwu.<cluster>.bytes`, `units`, `plan`, `billed`;
-the Graphs page has a Gateway network section, the Maintenance page the plan control, the user
-pill's Consumed tab the GWU lines.
+| term | definition |
+|---|---|
+| unit | 1 GWU = `cloud18-marketplace-gwu-unit-mbit` Mb/s, 100 by default: a 1000 Mb/s gateway is 10 GWU |
+| capacity | `cloud18-gateway-bandwidth-mbit`, one value per gateway (comma-separated, aligned with the gateway services, one value applies to all), 1000 by default |
+| plan of a cluster | the gateway capacity divided by the clusters present on the gateway (at least one routed app), in GWU; `prov-gateway-units` pins it when you want a fixed plan |
+| consumed | the cluster's traffic in and out through the gateways, in Mb/s, divided by the unit |
+| borrowed / given away | consumed above / below the plan, integrated over the month like DBU and APU |
 
-### Bandwidth against the shared uplink
+replication-manager reads every gateway's HAProxy stats port (`<gateway domain>:8404`), attributes
+the bytes to the cluster named in each backend, handles the counter resets of a gateway reload, and
+derives the rates between two polls. Series: `gwu.<cluster>.mbps`, `plan_mbps`, `units`, `plan`,
+`bytes` (the octets of the month, information), and `gateway.<domain>.mbps`, `capacity_mbps`,
+`utilization_pct`. The Resource Manager page stacks every cluster's bandwidth under the capacity
+line, then the borrowed and the given away bandwidth per cluster: when the first stack reaches the
+line, the shared uplink saturates and every cluster slows down. The Graphs page has a Gateway
+network section, the Maintenance page the plan, the consumption and the pin control, the user pill's
+Consumed tab the GWU lines once a price (`cloud18-marketplace-gwu-price`) is set.
 
-The gateways share one uplink, so what matters is to see when the clusters together saturate it.
-`cloud18-gateway-bandwidth-mbit` declares the capacity of each gateway in Mb/s (comma-separated,
-aligned with the gateway services, one value applies to all, 1000 by default). The Resource Manager
-page stacks every cluster's bandwidth (`gwu.<cluster>.mbps`, in + out, derived between two polls
-of the gateway counters) under that capacity line; the series `gateway.<domain>.mbps`,
-`capacity_mbps` and `utilization_pct` carry the same per gateway. This is tracked, not invoiced:
-the GWU line appears in the statement only when `cloud18-marketplace-gwu-price` is set. Each
-cluster's fair share is the gateway capacity divided by the clusters present on it, those with at
-least one backend
-(`gwu.<cluster>.share_mbps`): above it the cluster **borrows** bandwidth, below it it **gives away**,
-both stacked per cluster on the Resource Manager page. More bandwidth means another gateway with
-its own VIP, shared stick tables and DNS round robin.
+More bandwidth means another gateway with its own VIP, shared stick tables and DNS round robin.
 
 ### Several gateways
 
