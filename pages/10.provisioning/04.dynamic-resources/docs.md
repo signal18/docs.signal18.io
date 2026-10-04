@@ -538,14 +538,15 @@ More bandwidth means another gateway with its own VIP, shared stick tables and D
 
 ### What the back office receives
 
-The bandwidth axis is never invoiced. What is reported is the **traffic volume**: 1 GWU of traffic is
-`cloud18-marketplace-gwu-unit-mb` MB (million octets, 100 by default) in and out through the gateways,
-counted per cluster and per month. Every cluster gets `cloud18-marketplace-gwu-free-units` GWU free each
-month (10 by default, 1 GB); the traffic on top is reported as **borrowed** at the plain
-`cloud18-marketplace-gwu-price` when one is set, nothing is credited below the allowance, and nothing is
-ever blocked. The GWU line is always in the statement; it reaches the back office with the closed month's
-Units statement pushed to GitLab, and shows in the user pill's Consumed tab as a free line plus the
-on-top line.
+Everything is in bits, as every cloud expresses it. Every cluster may hold
+`cloud18-marketplace-gwu-free-units` GWU of gateway bandwidth for free (10 by default, 1 Gb/s).
+Bandwidth held above it is reported to the back office: in the statement as the **borrowed** line,
+integrated over the month like DBU, at the plain `cloud18-marketplace-gwu-price` when one is set,
+nothing credited below the allowance, nothing ever blocked; and as the cumulative traffic moved above
+the allowance in Gbit (`gwu.<cluster>.on_top_gbit`). On a 1 Gb/s gateway nothing can be above the
+allowance; it happens where the gateways give more. The GWU line is always in the statement, reaches the
+back office with the closed month's Units statement pushed to GitLab, and shows in the user pill's
+Consumed tab as a free line plus the on-top line.
 
 ### Several gateways
 
