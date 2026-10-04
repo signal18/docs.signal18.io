@@ -536,6 +536,17 @@ Consumed tab the GWU lines once a price (`cloud18-marketplace-gwu-price`) is set
 
 More bandwidth means another gateway with its own VIP, shared stick tables and DNS round robin.
 
+### What the back office receives
+
+The bandwidth axis is never invoiced. What is reported is the **traffic volume**: 1 GWU of traffic is
+`cloud18-marketplace-gwu-unit-mb` MB (million octets, 100 by default) in and out through the gateways,
+counted per cluster and per month. Every cluster gets `cloud18-marketplace-gwu-free-units` GWU free each
+month (10 by default, 1 GB); the traffic on top is reported as **borrowed** at the plain
+`cloud18-marketplace-gwu-price` when one is set, nothing is credited below the allowance, and nothing is
+ever blocked. The GWU line is always in the statement; it reaches the back office with the closed month's
+Units statement pushed to GitLab, and shows in the user pill's Consumed tab as a free line plus the
+on-top line.
+
 ### Several gateways
 
 `cloud18-gateway-service` and `cloud18-gateway-domain-name` accept comma-separated lists, order
