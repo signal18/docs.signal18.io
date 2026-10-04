@@ -27,7 +27,7 @@ valid TOML before the substitution, so selectors take bare values.
 
 The namespace glues the apps together: every app answers on its service name, so a
 dependent app references another one through its environment variables, e.g.
-`REDIS_CACHE = "redis://{{apps.#(name==erp-cache).host}}:6379"`. The referenced app must
+`REDIS_CACHE = "redis://{{apps.#(name==erpnext-cache).host}}:6379"`. The referenced app must
 exist in the cluster when the dependent one is added (not necessarily provisioned).
 
 A template carries plain default values, never free placeholders: an unresolved key refuses
@@ -73,7 +73,7 @@ with `app-db-schema` / `app-db-user`, or set `app-db-owned` when the objects rea
 the app. On an owned account the provision re-applies the stored password, and setting `app-db-pass` rotates it at once.
 Dropping the app never drops the schema or the user.
 
-Dependent processes share the owner's database: `{{apps.#(name==erp-backend).db.user}}`,
+Dependent processes share the owner's database: `{{apps.#(name==erpnext-backend).db.user}}`,
 `.db.schema`, `.db.password` (as a `secret` variable). A `prov-app-docker-cmd` reads the
 password from its environment variable, never from the key.
 
@@ -123,8 +123,8 @@ written in the service definition, per app or for the cluster.
 ## 10.6.5 Example: ERPNext as linked apps
 
 The `erpnext` templates deploy ERPNext as one container per process, no shared volume:
-two valkey apps (`erp-cache`, `erp-queue`), `erp-backend` (owns the database through
-`app.db` and the site, creates it on the empty schema at first start), `erp-worker`,
-`erp-scheduler`, `erp-websocket`, `erp-frontend` (the https route). The site files live on
+two valkey apps (`erpnext-cache`, `erpnext-queue`), `erpnext-backend` (owns the database through
+`app.db` and the site, creates it on the empty schema at first start), `erpnext-worker`,
+`erpnext-scheduler`, `erpnext-websocket`, `erpnext-frontend` (the https route). The site files live on
 the S3 provider (`rustfs1`), the database is the cluster's MariaDB through the proxy. Add
 them in that order with those names.
