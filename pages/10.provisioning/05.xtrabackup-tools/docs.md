@@ -58,7 +58,7 @@ On the next database reprovision, replication-manager:
 3. Mounts the resulting bundle read-only in the database jobs container.
 4. Adds the bundle to the end of the jobs container `PATH`.
 
-The database container does not mount the bundle and continues to use its configured database image. The setting does not change running containers; reprovision the database service after changing it. A temporary registry outage does not make a database unavailable: when replication-manager cannot confirm a new helper image, it leaves the injection off so the database can start. A recently confirmed helper may remain enabled during a temporary registry outage.
+The database container does not mount the bundle and continues to use its configured database image. The setting does not change running containers; reprovision the database service after changing it. A temporary registry outage does not make a database unavailable: when replication-manager cannot confirm a new helper image, it leaves the injection off so the database can start. A recently confirmed helper may remain enabled during a temporary registry outage. If the helper image has a missing shared library, validation fails, the previous bundle is removed, and the database starts without the injected tools.
 
 ## Kubernetes requirements
 
