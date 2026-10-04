@@ -527,6 +527,17 @@ counters reset by a gateway reload are handled, and the month-to-date totals sur
 the Graphs page has a Gateway network section, the Maintenance page the plan control, the user
 pill's Consumed tab the GWU lines.
 
+### Bandwidth against the shared uplink
+
+The gateways share one uplink, so what matters is to see when the clusters together saturate it.
+`cloud18-gateway-bandwidth-mbit` declares the capacity of each gateway in Mb/s (comma-separated,
+aligned with the gateway services, one value applies to all, 1000 by default). The Resource Manager
+page stacks every cluster's bandwidth (`gwu.<cluster>.mbps`, in + out, derived between two polls
+of the gateway counters) under that capacity line; the series `gateway.<domain>.mbps`,
+`capacity_mbps` and `utilization_pct` carry the same per gateway. This is tracked, not invoiced:
+the GWU line appears in the statement only when `cloud18-marketplace-gwu-price` is set. More
+bandwidth means another gateway with its own VIP, shared stick tables and DNS round robin.
+
 ### Several gateways
 
 `cloud18-gateway-service` and `cloud18-gateway-domain-name` accept comma-separated lists, order
