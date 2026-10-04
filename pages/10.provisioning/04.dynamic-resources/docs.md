@@ -528,9 +528,9 @@ replication-manager reads every gateway's HAProxy stats port (`<gateway domain>:
 the bytes to the cluster named in each backend, handles the counter resets of a gateway reload, and
 derives the rates between two polls. Series: `gwu.<cluster>.mbps`, `plan_mbps`, `units`, `plan`,
 `bytes` (the octets of the month, information), and `gateway.<domain>.mbps`, `capacity_mbps`,
-`utilization_pct`. The Resource Manager page stacks every cluster's bandwidth under the capacity
-line, then the borrowed and the given away bandwidth per cluster: when the first stack reaches the
-line, the shared uplink saturates and every cluster slows down. The Graphs page has a Gateway
+`utilization_pct`. The Resource Manager page gives the gateway its own GWU section, like APU and BKU: consumed GWU per
+cluster under the capacity line, plan, overcommit (borrowed) and undercommit (given away); when the
+consumed stack reaches the capacity, the shared uplink saturates and every cluster slows down. The Graphs page has a Gateway
 network section, the Maintenance page the plan, the consumption and the pin control, the user pill's
 Consumed tab the GWU lines once a price (`cloud18-marketplace-gwu-price`) is set.
 
