@@ -913,3 +913,26 @@ Restic can mount snapshots as a FUSE filesystem for browsing:
 | `backup-restic-metadata-extractor-concurrency` | 2 | Concurrent snapshot metadata extractions |
 | `backup-reconcile-interval` | 600 | Backup metadata reconciliation interval in seconds (0=disabled) |
 | `backup-reconcile-auto-cleanup` | false | Auto-cleanup orphaned metadata during reconciliation |
+
+
+## Local backup encryption (3.1.43)
+
+`backup-encryption = true` encrypts every backup artifact replication-manager writes on its
+own disk: physical backups, logical backups whatever the tool (mysqldump, mydumper, dumpling,
+splitdump, a custom save script) and the local binlog copies. Artifacts are AES-256-CBC in
+the OpenSSL `Salted__` format, so `openssl enc -d -aes-256-cbc -pbkdf2` reads them without
+replication-manager if you ever need to.
+
+The password is the database root password, never a second secret to keep: it is never
+written to the backup metadata, never exposed through the API and never passed on a command
+line. Each artifact records the password version it was written with, and a restore tries, in
+order, the password active at backup time, the recorded version, the current one, then the
+older recorded versions, so a backup taken before a root password rotation stays restorable as
+long as the secret history covers your retention. Plaintext artifacts from before the switch
+stay restorable through their existing paths. This is independent of the restic repository's
+own encryption and does not touch the database files in place.
+
+| setting | default | effect |
+|---|---|---|
+| `backup-encryption` | false | encrypt every new local backup artifact |
+| `monitoring-secret-versioning` | — | keeps the password history the restore relies on |
