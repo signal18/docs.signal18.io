@@ -343,7 +343,9 @@ backup-logical-load-threads = 4
 | ---- | ----- |
 | Description | Compress backups using pgzip |
 | Type | boolean |
-| Default Value | false |
+| Default Value | true (false before 3.1.43) |
+
+Since 3.1.43 backups are compressed unless you set `compress-backups = false`. A cluster that already sets the value keeps it.
 
 ##### `compress-backups-logical` (3.0)
 
