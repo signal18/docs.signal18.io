@@ -262,3 +262,43 @@ Tool names follow six rules, so that a new tool is named by rule and not by tast
 | `cloud18-unregister` | action |  | Disconnect this instance from Cloud18 |
 
 \* required parameter. Reads need the matching `*-show` grant, actions the grant of their REST route (for example `cluster-switchover`, `db-restore`, `cluster-bench`); every tool is one route, see the ACL table in the server.
+
+### 3.8.7 Application templates
+
+`app-add` deploys an application next to the database from a template; `list-app-templates` returns the names the running
+replication-manager knows (they come from the public
+[cloud18-templates](https://github.com/signal18/cloud18-templates) repository). The template name is `<directory>/<file>`,
+for example `postgres/postgres-standby`. Every app gets its plan (cores, memory, disk) from its units, its database access
+from the cluster (`{{app.db.*}}`: a schema and a user created for it), a generated password when the template asks for one
+(`{{app.randompassword}}`) and an https route on the gateway.
+
+| Category | Template | What it deploys |
+| --- | --- | --- |
+| Database tools | `phpmyadmin/phpmyadmin` | phpMyAdmin on the cluster's database |
+| | `adminer/adminer` | Adminer, the https sidecar that manages a database of the cluster (MariaDB, MySQL, PostgreSQL, SQL Server) |
+| Database engines | `postgres/postgres` | PostgreSQL primary, sized by its plan (memory, vacuum), monitored as a server of a `pg-*` cluster |
+| | `postgres/postgres-standby` | PostgreSQL standby of the cluster's primary (WAL streaming, seeded automatically) |
+| | `postgres/postgres-peer` | A second independent PostgreSQL instance, for logical replication |
+| | `mssql/mssql` | Microsoft SQL Server, one instance that owns its data (failover topology) |
+| Caches and messaging | `valkey/valkey` | Valkey (the Redis fork), persisted dataset that moves with the instance |
+| | `memcached/memcached` | Memcached, volatile cache, one instance per agent (flex topology) |
+| | `rabbitmq/rabbitmq` | RabbitMQ broker, queues persisted on a volume that moves with it |
+| Object storage | `rustfs/rustfs` | RustFS, S3 object storage (Apache 2.0, MinIO compatible): the cluster's S3 provider |
+| | `minio/minio` | MinIO (upstream community edition archived in 2026, kept for existing deployments) |
+| | `nginx/nginx-minio` | Nginx front for an object store |
+| Code runtimes (your code from a git repository) | `php/php` | PHP 8.4 on the signal18/php-fpm-84 image (nginx, PHP-FPM, Composer, antivirus) |
+| | `java/java` | Java 21 (maven:3.9-eclipse-temurin-21), built at start |
+| | `nextjs/nextjs` | Next.js / React on node:22-alpine |
+| | `python/python` | Python 3.12 (python:3.12-slim) |
+| | `go/go` | Go 1.24 (golang:1.24), compiled at start |
+| | `dotnet/dotnet` | .NET 8 on Linux (mcr.microsoft.com/dotnet/sdk:8.0) |
+| | `nginx/nginx` | Nginx serving static content |
+| Business applications | `dolibarr/dolibarr` | Dolibarr ERP/CRM |
+| | `erpnext/erpnext-backend`, `erpnext-frontend`, `erpnext-scheduler`, `erpnext-worker`, `erpnext-websocket` | ERPNext (frappe) as linked single-process apps, one container each |
+| | `forgejo/forgejo` | Forgejo, the git forge, one instance that owns its repositories |
+
+Each code runtime template clones a git repository in an init container at start: the public
+[cloud18-template-code](https://github.com/signal18/cloud18-template-code) repository holds a "hello world, I'm connected
+to database server id N" sample for every language, and
+[cloud18-template-config](https://github.com/signal18/cloud18-template-config) the matching server configuration. An
+assistant deploying your own code gives `app-add` the template and, through the app's settings, your repository instead.
