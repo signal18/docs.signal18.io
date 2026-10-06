@@ -153,6 +153,7 @@ Tool names follow six rules, so that a new tool is named by rule and not by tast
 | `get-cluster-alerts` | read | `cluster_name`\*, `module` | Get the open errors and warnings of a cluster, per module |
 | `get-cluster-archive-stats` | read | `cluster_name`\* | Get Restic repository statistics |
 | `get-cluster-health` | read | `cluster_name`\* | Get the high-level health status of a cluster |
+| `get-cluster-tools` | read | `cluster_name`\* | The command line tools replication-manager found for the cluster (database client, dump and binlog clients, mydumper, sysbench, restic) with their versions; they belong to the replication-manager host, `/api/monitor` lists them globally |
 | `get-cluster-last-crash-lost-event` | read | `cluster_name`\*, `server_name`\*, `file` | Get the lost events of the last crash of a server |
 | `get-cluster-local-backup-stats` | read | `cluster_name`\* | Get aggregated backup statistics for a cluster |
 | `get-cluster-price` | read | `cluster_name`\* | Get what a cluster costs this month on this infrastructure, in EUR, as the resource manager integrates it per monitoring period |
