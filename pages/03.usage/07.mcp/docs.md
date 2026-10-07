@@ -298,7 +298,7 @@ from the cluster (`{{app.db.*}}`: a schema and a user created for it), a generat
 | **Development** | Tools | `forgejo/forgejo` | Forgejo, the git forge, one instance that owns its repositories |
 | | | `phpmyadmin/phpmyadmin` | phpMyAdmin on the cluster's database |
 | | | `adminer/adminer` | Adminer, the https sidecar that manages a database of the cluster (MariaDB, MySQL, PostgreSQL, SQL Server) |
-| **Code** | Runtimes (your code from a git repository) | `php/php` | PHP 8.4 on the signal18/php-fpm-84 image (nginx, PHP-FPM, Composer, antivirus) |
+| | Code (your code from a git repository) | `php/php` | PHP 8.4 on the signal18/php-fpm-84 image (nginx, PHP-FPM, Composer, antivirus) |
 | | | `java/java` | Java 21 (maven:3.9-eclipse-temurin-21), built at start |
 | | | `nextjs/nextjs` | Next.js / React on node:22-alpine |
 | | | `python/python` | Python 3.12 (python:3.12-slim) |
