@@ -143,7 +143,7 @@ something else than 200 to an anonymous request (the S3 API of RustFS answers 40
 
 An app **without a route** lives on the cluster network only. By default it is up when `app-port` answers a TCP
 connect. A background process that listens on nothing (ERPNext's worker and scheduler) declares
-`app-monitor-mode = "ping"`: the monitor sends one ICMP echo to the app host instead, and `app-port` only identifies the
+`app-monitor-mode = "ping"`: the monitor sends one ICMP echo to the app host instead (IPv4 when the name has an A record, else IPv6 over ICMPv6), and `app-port` only identifies the
 app. The setting is on the app page (Overview, "Monitor mode") and on the API
 (`POST /api/clusters/{cluster}/apps/{id}/settings/actions/set/app-monitor-mode/ping`). A failed echo opens the
 `APPERR009` state; a monitor that cannot open an ICMP socket says so instead of reporting the app up. The echo
