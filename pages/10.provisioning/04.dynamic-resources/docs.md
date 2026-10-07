@@ -268,8 +268,13 @@ Every monitoring tick, each server's consumption is compared with its configured
 3. Within the plan the step is always free. Past the plan it must fit:
    - the **overcommit envelope** `prov-db-overcommit-pct` (default 50): never above
      ceil(plan × 1.5) DBU per database;
-   - the free pool of the node;
+   - the free pool of the node, from what the node's services really consume;
    - your own veto script `prov-db-resource-raised-over-plan-script`, if set.
+
+   The resource ledger of the Resource Manager page (capacity, plans sold, borrowed) gates a
+   **plan** increase, a sale, never a resource step: a grow above the plan is a loan the node
+   can afford or not, and the sum of every plan sold on the infrastructure says nothing
+   about that. The ledger keeps showing what each cluster holds above its plan.
 4. If the step is refused, nothing changes and the cluster carries the error **ERR00112**
    in the Workload panel with the reason, until a later step succeeds or the load drops.
    To go further, raise the plan or the overcommit percentage.
