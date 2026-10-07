@@ -402,6 +402,10 @@ resources to follow the load in both directions.
   plan by hand), ERR00112 (an automatic grow was refused, with the reason).
 - **WARN0214**: dynamic resources are on but the container is still capped by the docker
   run arguments, the live move cannot take effect.
+- The CPU cap of a database on the OpenSVC process-group slice is written as a plain percent
+  of one core (`200%` = 2 cores, since 3.1.43). A definition written by an earlier release
+  with the `%@all` suffix is rewritten and re-applied within a minute, and a started or
+  restarted container is re-capped once it is up: no reprovision, no manual step.
 - **WARN0215**: the sensor has not reported for more than 3 minutes (a long backup or
   other database job is running in the jobs container, or that container is down), or on
   Kubernetes the sensor prerequisites are missing. Nothing is resized while it stands, and
