@@ -294,8 +294,7 @@ from the cluster (`{{app.db.*}}`: a schema and a user created for it), a generat
 | Framework | `wordpress/wordpress` | WordPress on the cluster's MariaDB or MySQL, wp-content on a volume that moves with it |
 |  | `grav/grav` | Grav, the flat-file CMS, no database |
 | Chat | `mattermost/mattermost` | Mattermost Team Edition on the cluster's PostgreSQL, its database and role created for it |
-| **Ticketing and support** | | |
-| Help desk | `freescout/freescout` | FreeScout help desk and shared mailbox |
+| Ticketing | `freescout/freescout` | FreeScout help desk and shared mailbox |
 |  | `glpi/glpi` | GLPI, IT asset and service management |
 |  | `osticket/osticket` | osTicket support tickets, attachments in the database, no volume |
 | **Development** | | |
