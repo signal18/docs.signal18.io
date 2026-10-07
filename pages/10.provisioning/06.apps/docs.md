@@ -146,7 +146,9 @@ connect. A background process that listens on nothing (ERPNext's worker and sche
 `app-monitor-mode = "ping"`: the monitor sends one ICMP echo to the app host instead, and `app-port` only identifies the
 app. The setting is on the app page (Overview, "Monitor mode") and on the API
 (`POST /api/clusters/{cluster}/apps/{id}/settings/actions/set/app-monitor-mode/ping`). A failed echo opens the
-`APPERR009` state; a monitor that cannot open an ICMP socket says so instead of reporting the app up.
+`APPERR009` state; a monitor that cannot open an ICMP socket says so instead of reporting the app up. The echo
+proves that the instance's network is up: on OpenSVC the address belongs to the pause container of the instance, so a
+background process that exited while its instance stays up is not detected by the ping.
 
 ## 10.6.6 Example: ERPNext as linked apps
 
