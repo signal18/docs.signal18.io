@@ -272,7 +272,9 @@ Every monitoring tick, each server's consumption is compared with its configured
    - your own veto script `prov-db-resource-raised-over-plan-script`, if set.
 
    The resource ledger of the Resource Manager page (capacity, plans sold, borrowed) gates a
-   **plan** increase, a sale, never a resource step: a grow above the plan is a loan the node
+   **plan** increase, a sale, never a resource step. Adding an application or a proxy is such
+   a sale, its reservation in APU (or DBU for a stateful application) must fit the plan pot
+   or the add is refused with the reason, from the API and from the MCP tools alike: a grow above the plan is a loan the node
    can afford or not, and the sum of every plan sold on the infrastructure says nothing
    about that. The ledger keeps showing what each cluster holds above its plan.
 4. If the step is refused, nothing changes and the cluster carries the error **ERR00112**
@@ -493,6 +495,8 @@ directory). The master's records for run 3, condensed:
 | `prov-db-dynamic-resource-can-change-script` | 3.1.42 | | Your feasibility check before a move (prints yes, no or migration) |
 | `prov-db-dynamic-resource-change-script` | 3.1.42 | | Your own resize hook, replaces the native backend |
 | `prov-db-resource-raised-over-plan-script` | 3.1.42 | | Your veto on a grow past the plan (non-zero exit refuses) |
+| `resource-manager-infra-quota-pct` | 3.1.42, dynamic since 3.1.43 | 90 | Share of the metal the plans may add up to (global setting, settable through the API without a restart) |
+| `resource-manager-infra-cpu-cores`, `-memory-mb`, `-disk-gb`, `-iops`, `-network-mbps` | 3.1.42, dynamic since 3.1.43 | 0 | Capacity overrides, 0 = what the agents report (global settings, settable through the API without a restart) |
 
 ## Database releases and the memory resize
 
