@@ -120,7 +120,35 @@ or AWS names.
 `prov-app-start-timeout` (default `2m`) is the container start and image pull timeout
 written in the service definition, per app or for the cluster.
 
-## 10.6.5 Example: ERPNext as linked apps
+## 10.6.5 How an app is monitored
+
+An app **with a route** is probed on each route: over TCP for a `tcp` route, with an HTTP `GET` for an `http` or `https`
+route. The HTTP check reads `/` and expects `200` unless the route carries a monitor block in the template:
+
+```toml
+[[deployment.routes]]
+  cname = "{{app.name}}.{{name}}.{{config.cloud18SubDomain}}-{{config.cloud18SubDomainZone}}.{{config.cloud18Domain}}.cloud18.io"
+  port = "8080"
+  primary = true
+  protocol = "https"
+  [deployment.routes.monitor]
+    path = "/api/method/ping"
+    expect-status = "200"
+```
+
+Use it when the root of the application is slow (ERPNext's `/` renders a full page through its backend) or answers
+something else than 200 to an anonymous request (the S3 API of RustFS answers 403 at its root, its health endpoint
+`/health` answers 200). The route is named by its public URL and the destination port behind the gateway
+(`https://name -> :8080`): the gateway terminates TLS on 443, the destination port is reached on the cluster network only.
+
+An app **without a route** lives on the cluster network only. By default it is up when `app-port` answers a TCP
+connect. A background process that listens on nothing (ERPNext's worker and scheduler) declares
+`app-monitor-mode = "ping"`: the monitor sends one ICMP echo to the app host instead, and `app-port` only identifies the
+app. The setting is on the app page (Overview, "Monitor mode") and on the API
+(`POST /api/clusters/{cluster}/apps/{id}/settings/actions/set/app-monitor-mode/ping`). A failed echo opens the
+`APPERR009` state; a monitor that cannot open an ICMP socket says so instead of reporting the app up.
+
+## 10.6.6 Example: ERPNext as linked apps
 
 The `erpnext` templates deploy ERPNext as one container per process, no shared volume:
 two valkey apps (`erpnext-cache`, `erpnext-queue`), `erpnext-backend` (owns the database through
