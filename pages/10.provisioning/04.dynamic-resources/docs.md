@@ -309,6 +309,13 @@ One axis per tick, in this order: memory, cores, disk, IOPS. A memory shrink low
 InnoDB buffer pool first and the container limit only once the pool has actually released
 the memory, so the database is never squeezed below what it holds.
 
+The CPU axis never shrinks under the plan: the container cap on the orchestrator's slice
+is the plan's contract (tier × cores per DBU) and stays there whatever the configuration
+says, so a configuration under the plan frees nothing and only lowers the thread pool and
+the IO threads inside a cgroup that keeps the plan's cores. The shrink aligns the cores
+down to the plan, like the IOPS, and a configuration found under the plan (after an
+earlier shrink or a manual set) is raised back to it, one move per scale-down window.
+
 ### Per axis: what grows, what shrinks
 
 | axis | grows when | step | shrinks when | shrink target and floor | what moves |
@@ -372,6 +379,17 @@ resources to follow the load in both directions.
 - **Graphs → Consumed DBU**: the bars are the real consumption per axis; the dashed
   **plan** line is your contract; a dotted **configured** line appears when the configured
   resources differ from the plan, marked "(over plan)" when they sit above it.
+- **Graphs → CPU waits** and **IO and memory waits**: what the consumption never shows,
+  whether the service *waited*. The sensor also reads the service cgroup's quota
+  throttling (`cpu.stat`: throttled time per second, in cores, and the share of scheduler
+  periods that hit the quota) and the pressure stalls (`cpu.pressure`, `io.pressure`,
+  `memory.pressure`, "some" = at least one task stalled, "full" = every task), as
+  fractions of wall time, one line per server, series `dbu.<cluster>.<host>.wait_*`.
+  Engine-agnostic, the same files under MariaDB and PostgreSQL. A server that shows a low
+  CPU with rising IO stalls or a semi-synchronous replica wait is not idle: it waits, and
+  it needs concurrency (thread pool groups, IO threads) before it needs cores. These
+  series are collected to decide that, nothing is resized from them yet. The stalls at the
+  service slice also count the jobs sidecar's own waits, a running backup for instance.
 - **Workload panel**: CINF0007 (a server saturates its resources), CINF0008 (a server
   under-uses them), WARN0213 (consumption at the plan for a long time: consider raising the
   plan by hand), ERR00112 (an automatic grow was refused, with the reason).
