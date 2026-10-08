@@ -120,7 +120,7 @@ is yours wherever it happens, and the instance you talk to spends nothing of its
   there (may you create a cluster and why not, free DBU and APU of its plan pot, the default plan a
   cluster takes, the clusters you may still sponsor) and a ready-to-paste MCP server entry carrying
   your **session** on that infrastructure, the same login the dashboard's Enter opens, as you.
-  Nothing is written on the infrastructure. The session expires with the login
+  No account and no token are written on the infrastructure, only that session. It expires with the login
   (`api-token-timeout`) and is a secret like a token. A local admin without a Cloud18 account acts
   as this instance's registered identity; a local user or an API token is refused with the way in.
 - Connect the assistant to the infrastructure's entry and run `cloud18-create-cluster` there,
