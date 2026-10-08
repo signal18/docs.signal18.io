@@ -92,6 +92,16 @@ arbitration-peer-hosts = "192.168.1.20:10005"
 
 ---
 
+##### `arbitration-verdict-streak` (3.1.43)
+
+| Item | Value |
+| ---- | ----- |
+| Description | Consecutive arbitrator answers of the same kind before a cluster changes status: a cluster goes standby after that many `looser` verdicts in a row, and the minority fail-safe (yield, read-only master) fires after that many unreachable answers in a row. A `winner` resets the count. One answer, or two arbitrator instances disagreeing, never moves a cluster. |
+| Type | Integer |
+| Default Value | 3 (1 = act on every answer) |
+
+---
+
 ### 4.7.2.2 Setup example
 
 Give each instance a different `arbitration-external-unique-id` and point each to its peer:
@@ -191,7 +201,7 @@ db-servers-credential = "user:password"
 
 ##### Health check
 
-The arbitrator exposes a `GET /health` endpoint that returns HTTP 200 with `{"status":"ok"}` when the backend database is reachable, or HTTP 503 with `{"status":"failed"}` otherwise. Use this for load balancer health checks when running behind a reverse proxy.
+The arbitrator exposes a `GET /health` endpoint that returns HTTP 200 with `{"status":"ok"}` when the backend database is reachable, or HTTP 503 with `{"status":"failed"}` otherwise. Since 3.1.43 an election request the arbitrator cannot decide, because its store is unreachable, answers HTTP 503 `{"arbitration":"error"}` instead of a `looser` verdict, and replication-manager treats it as an unreachable arbitrator. When the arbitrator is an app behind a Cloud18 gateway, give its route a monitor on `/health`: the gateway then checks it and removes an instance without its store from the rotation. Use this for load balancer health checks when running behind a reverse proxy.
 
 ##### Multi-tenant
 
