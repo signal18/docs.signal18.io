@@ -150,7 +150,23 @@ app. The setting is on the app page (Overview, "Monitor mode") and on the API
 proves that the instance's network is up: on OpenSVC the address belongs to the pause container of the instance, so a
 background process that exited while its instance stays up is not detected by the ping.
 
-## 10.6.6 Example: ERPNext as linked apps
+## 10.6.6 Database engines from templates (PostgreSQL)
+
+A template with `prov-app-configurator = "postgres"` deploys a **database server of the
+cluster**, not an app next to it: the server is monitored, counted in the database plan, and
+driven by the cluster's actions (rolling restart, upgrade, switchover, failover). The template
+gives the deployment definition only; the **shape follows the cluster topology**:
+
+- `replication-active-passive`: one instance that moves with its data, the template's shape,
+  a failover service on every agent over a DRBD volume.
+- `replication-master-slave-pg-stream` and `-pg-logical`: each member has its own data and
+  never moves. The cluster places it on **one agent** (round-robin over `prov-db-agents`) and
+  renders its volume on the cluster's data pool (`prov-db-volume-data`), whatever pool the
+  template names, like a MariaDB server.
+
+Existing services keep their shape until reprovisioned.
+
+## 10.6.7 Example: ERPNext as linked apps
 
 The `erpnext` templates deploy ERPNext as one container per process, no shared volume:
 two valkey apps (`erpnext-cache`, `erpnext-queue`), `erpnext-backend` (owns the database through
