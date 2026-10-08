@@ -113,13 +113,26 @@ assistant can create a cluster there directly, with no subscription or email cha
   nodes (default 2), the proxy (default `haproxy`), the apps from their templates (for example
   `phpmyadmin`), and provisions. Your instance's Cloud18 identity becomes the sponsor of that
   cluster; the provider is informed. This is billable consumption on the infrastructure.
-- `get-cloud18-infrastructure-pool` (infrastructure): the free DBU and APU of the infrastructure's
-  plan pot for your identity, what a creation needs, the default plan, and whether a creation is
-  enabled there. Read it before `cloud18-create-cluster`: when the free units are below the
-  default plan the creation is refused by the infrastructure, the tool says so first. The
-  infrastructure answers from a snapshot refreshed every `cloud18-self-service-cache-seconds`
-  (10 by default): a burst of calls, or a brute force on `GET /api/cloud18/self-service`, costs it
-  one computation per interval.
+**You are the identity.** Your Cloud18 account is valid on every public instance, so a creation
+is yours wherever it happens, and the instance you talk to spends nothing of its own. Three steps:
+
+- `get-cloud18-infrastructures`: for each marketplace infrastructure, your self-service status
+  there (may you create a cluster and why not, free DBU and APU of its plan pot, the default plan a
+  cluster takes, the clusters you may still sponsor) and a ready-to-paste MCP server entry carrying
+  your **session** on that infrastructure, the same login the dashboard's Enter opens, as you.
+  Nothing is written on the infrastructure. The session expires with the login
+  (`api-token-timeout`) and is a secret like a token. A local admin without a Cloud18 account acts
+  as this instance's registered identity; a local user or an API token is refused with the way in.
+- Connect the assistant to the infrastructure's entry and run `cloud18-create-cluster` there,
+  with no `infrastructure` argument: the infrastructure creates the cluster and makes you its
+  sponsor, with the grants to populate, provision and manage it. Your account appears there, and
+  only there.
+- `cloud18-create-cluster-token`, same place: your durable token for that cluster (120 days by
+  default) and the final MCP entry. Only where you created something.
+
+The infrastructure answers the status from a snapshot refreshed every
+`cloud18-self-service-cache-seconds` (10 by default): a burst of calls, or a brute force on
+`GET /api/cloud18/self-service`, costs it one computation per interval.
 - `get-cloud18-cluster` (infrastructure, cluster_name): state, servers, proxies and apps, to
   follow the provisioning.
 - `cloud18-create-cluster-token` (infrastructure, cluster_name, grants, expire_days): once the
@@ -254,18 +267,18 @@ Tool names follow six rules, so that a new tool is named by rule and not by tast
 
 | Tool | Kind | Parameters | What it does |
 | --- | --- | --- | --- |
-| `get-cloud18-cluster` | read | `infrastructure`\*, `cluster_name`\* | Read a cluster on a Cloud18 infrastructure as this instance's Cloud18 identity |
-| `get-cloud18-infrastructure-pool` | read | `infrastructure`\* | The free units of a Cloud18 infrastructure for this identity before proposing a creation: free, usable and planned DBU and APU of the plan pot, the default plan a self-service cluster takes, whether a creation is enabled and why not |
-| `get-cloud18-cluster-price` | read | `infrastructure`\*, `cluster_name`\* | Get what a cluster costs this month on a Cloud18 infrastructure, in EUR, as that infrastructure's resource manager integrates it per monitoring period |
+| `get-cloud18-cluster` | read | `infrastructure`, `cluster_name`\* | Read a cluster on a Cloud18 infrastructure as this instance's Cloud18 identity |
+| `get-cloud18-infrastructures` | read |  | Your access to every marketplace infrastructure as yourself: an MCP entry carrying your session there, and your self-service status (may you create, free DBU and APU, default plan, remaining clusters) |
+| `get-cloud18-cluster-price` | read | `infrastructure`, `cluster_name`\* | Get what a cluster costs this month on a Cloud18 infrastructure, in EUR, as that infrastructure's resource manager integrates it per monitoring period |
 | `get-cloud18-register-status` | read |  | State of the Cloud18 registration started with cloud18-register |
 | `get-cloud18-status` | read |  | Whether this replication-manager instance is registered with Signal18 Cloud18, its URI (domain.subdomain.zone), GitLab user, subscription plan, the CRM API in use, the state of a registration in progress, and whether peers and the marketplace are disabled |
 | `get-cloud18-subscription` | read |  | The current subscription plan of this instance as known by the CRM (the instance must be registered) |
 | `list-cloud18-clusters-for-sale` | read |  | The Cloud18 marketplace catalogue |
-| `list-cloud18-infrastructures` | read | `with_pool` | The infrastructures of the Cloud18 marketplace; with `with_pool` each entry carries its self-service pool for this identity |
+| `list-cloud18-infrastructures` | read |  | The infrastructures of the Cloud18 marketplace |
 | `list-cloud18-subscription-plans` | read |  | The instance subscription plans offered by Signal18 (free, support, support-services, partner) with what each unlocks, as published by the CRM |
 | `cloud18-change-subscription` | action | `plan`\* | Change the subscription plan of this instance |
-| `cloud18-create-cluster` | action | `infrastructure`\*, `cluster_name`\*, `db_image`, `db_count`, `proxy`, `apps`, `confirm` | Create a database cluster on a Cloud18 infrastructure (self-service) |
-| `cloud18-create-cluster-token` | action | `infrastructure`\*, `cluster_name`\*, `label`, `grants`, `expire_days` | Mint, on a Cloud18 infrastructure and as this instance's Cloud18 identity (the sponsor of the cluster), an API token scoped to one cluster there, and return the infrastructure's MCP endpoint configuration to add as a second MCP server |
+| `cloud18-create-cluster` | action | `infrastructure`, `cluster_name`\*, `db_image`, `db_count`, `proxy`, `apps`, `confirm` | Create a database cluster on a Cloud18 infrastructure (self-service), as yourself; empty infrastructure = this instance |
+| `cloud18-create-cluster-token` | action | `infrastructure`, `cluster_name`\*, `label`, `grants`, `expire_days` | Mint, on a Cloud18 infrastructure and as this instance's Cloud18 identity (the sponsor of the cluster), an API token scoped to one cluster there, and return the infrastructure's MCP endpoint configuration to add as a second MCP server |
 | `cloud18-register` | action | `email`\*, `uri`\* | Register this instance with Signal18 Cloud18 (free plan) |
 | `cloud18-register-confirm` | action | `email`\*, `uri`\* | Manual second step of the registration |
 | `cloud18-unregister` | action |  | Disconnect this instance from Cloud18 |
