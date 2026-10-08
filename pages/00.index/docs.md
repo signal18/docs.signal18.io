@@ -64,6 +64,7 @@ taxonomy:
       - 4.4.11. [Sharding Cluster](/architecture/topologies/sharding)
       - 4.4.12. [Staging Cluster](/architecture/topologies/staging)
       - 4.4.13. [Active-Passive Topology](/architecture/topologies/active-passive)
+      - 4.4.14. [PostgreSQL Topologies](/architecture/topologies/postgresql)
    - 4.5. **Configuration Guide**
       - 4.5.1. [Databases](/architecture/configuration-guide/databases)
       - 4.5.2. [Failover](/architecture/configuration-guide/failover)
