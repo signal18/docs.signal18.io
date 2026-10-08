@@ -64,14 +64,22 @@ timeout on every container it defines:
 
 | Setting | Default | Written on |
 | ------- | ------- | ---------- |
-| `prov-db-start-timeout` | `2m` | `container#db` and the jobs sidecar of every database service |
-| `prov-proxy-start-timeout` | `2m` | `container#prx` of every proxy family |
-| `prov-app-start-timeout` | `2m` | `container#app` of every app, per app or for the cluster |
+| `prov-db-start-timeout` | `2m` | `container#db`, the jobs sidecar, the pause and sensor containers of every database service |
+| `prov-proxy-start-timeout` | `2m` | `container#prx`, the pause and sensor containers of every proxy |
+| `prov-app-start-timeout` | `2m` | `container#app`, the init, pause and sensor containers of every app, per app or for the cluster |
 
-A duration (`2m`, `90s`). Settable per cluster from the Config page (Orchestrator, Database VM
-section) or the settings route; the template refresh carries it to the orchestrator without a
-restart, the next start uses it. PostgreSQL engine servers take the app value through their
-template.
+A duration (`2m`, `90s`). The same value is written as the container's `pull_timeout`: the
+orchestrator's own pull budget is 2 minutes, which a large image (ERPNext, Mattermost) exceeds
+after an image purge; raise the app's own `prov-app-start-timeout` (10m) for those. Settable per
+cluster from the Config page (Orchestrator, Database VM section) or the settings route; the
+template refresh carries it to the orchestrator without a restart, the next start uses it.
+PostgreSQL engine servers take the app value through their template.
+
+Every service also carries a start priority in the orchestrator (`DEFAULT.priority`, smaller
+first): databases 10, proxies 20, apps 30, so that a node restarting everything at once serves
+the databases before the proxies that route to them and the apps that connect through the
+proxies. The orchestrator keeps the key only for an API identity holding its `prioritizer`
+grant.
 
 ## 10.2.1.3.2 network
 
