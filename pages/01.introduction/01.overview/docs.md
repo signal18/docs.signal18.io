@@ -5,7 +5,7 @@ taxonomy:
 ---
 ## 1.1.1 Goals
 
-**replication-manager** is an open source database cluster orchestrator that embeds best practices for configuration, deployment, HA operations, maintenance, monitoring, and troubleshooting for MySQL, MariaDB, and Percona. The design hides database clustering complexity while maintaining simplicity similar to Amazon RDS.
+**replication-manager** is an open source database cluster orchestrator that embeds best practices for configuration, deployment, HA operations, maintenance, monitoring, and troubleshooting for MySQL, MariaDB, and Percona, and more recently PostgreSQL. The design hides database clustering complexity while maintaining simplicity similar to Amazon RDS.
 
 **replication-manager** is configurable using nix-style configuration, supports multi-tenancy, provides security through encryption and ACL, and offers API, command line, and web interfaces for database and proxy management.
 
