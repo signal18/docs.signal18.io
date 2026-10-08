@@ -113,6 +113,13 @@ assistant can create a cluster there directly, with no subscription or email cha
   nodes (default 2), the proxy (default `haproxy`), the apps from their templates (for example
   `phpmyadmin`), and provisions. Your instance's Cloud18 identity becomes the sponsor of that
   cluster; the provider is informed. This is billable consumption on the infrastructure.
+- `get-cloud18-infrastructure-pool` (infrastructure): the free DBU and APU of the infrastructure's
+  plan pot for your identity, what a creation needs, the default plan, and whether a creation is
+  enabled there. Read it before `cloud18-create-cluster`: when the free units are below the
+  default plan the creation is refused by the infrastructure, the tool says so first. The
+  infrastructure answers from a snapshot refreshed every `cloud18-self-service-cache-seconds`
+  (10 by default): a burst of calls, or a brute force on `GET /api/cloud18/self-service`, costs it
+  one computation per interval.
 - `get-cloud18-cluster` (infrastructure, cluster_name): state, servers, proxies and apps, to
   follow the provisioning.
 - `cloud18-create-cluster-token` (infrastructure, cluster_name, grants, expire_days): once the
@@ -248,12 +255,13 @@ Tool names follow six rules, so that a new tool is named by rule and not by tast
 | Tool | Kind | Parameters | What it does |
 | --- | --- | --- | --- |
 | `get-cloud18-cluster` | read | `infrastructure`\*, `cluster_name`\* | Read a cluster on a Cloud18 infrastructure as this instance's Cloud18 identity |
+| `get-cloud18-infrastructure-pool` | read | `infrastructure`\* | The free units of a Cloud18 infrastructure for this identity before proposing a creation: free, usable and planned DBU and APU of the plan pot, the default plan a self-service cluster takes, whether a creation is enabled and why not |
 | `get-cloud18-cluster-price` | read | `infrastructure`\*, `cluster_name`\* | Get what a cluster costs this month on a Cloud18 infrastructure, in EUR, as that infrastructure's resource manager integrates it per monitoring period |
 | `get-cloud18-register-status` | read |  | State of the Cloud18 registration started with cloud18-register |
 | `get-cloud18-status` | read |  | Whether this replication-manager instance is registered with Signal18 Cloud18, its URI (domain.subdomain.zone), GitLab user, subscription plan, the CRM API in use, the state of a registration in progress, and whether peers and the marketplace are disabled |
 | `get-cloud18-subscription` | read |  | The current subscription plan of this instance as known by the CRM (the instance must be registered) |
 | `list-cloud18-clusters-for-sale` | read |  | The Cloud18 marketplace catalogue |
-| `list-cloud18-infrastructures` | read |  | The infrastructures of the Cloud18 marketplace |
+| `list-cloud18-infrastructures` | read | `with_pool` | The infrastructures of the Cloud18 marketplace; with `with_pool` each entry carries its self-service pool for this identity |
 | `list-cloud18-subscription-plans` | read |  | The instance subscription plans offered by Signal18 (free, support, support-services, partner) with what each unlocks, as published by the CRM |
 | `cloud18-change-subscription` | action | `plan`\* | Change the subscription plan of this instance |
 | `cloud18-create-cluster` | action | `infrastructure`\*, `cluster_name`\*, `db_image`, `db_count`, `proxy`, `apps`, `confirm` | Create a database cluster on a Cloud18 infrastructure (self-service) |

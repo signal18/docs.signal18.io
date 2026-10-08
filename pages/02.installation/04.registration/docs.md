@@ -377,6 +377,7 @@ When `monitoring-restore-config-on-start` is set, replication-manager:
 | `monitoring-restore-config-on-start` | `false` | server | Clone config from GitLab on startup and wipe local working directory |
 | `cloud18-self-service-clusters` | `false` | server | Let Cloud18 users create clusters on this infrastructure without the subscription chain (see below) |
 | `cloud18-self-service-max-clusters-per-user` | `3` | server | Clusters one Cloud18 identity may sponsor here through self-service |
+| `cloud18-self-service-cache-seconds` | `10` | server | Seconds the self-service status (pool, templates, enabled-script verdict) is served from a snapshot: one computation per interval whatever the request rate on `GET /api/cloud18/self-service`, `0` computes at every request |
 | `cloud18-self-service-clusters-enabled-script` | `""` | server | Your own gate on every self-service creation: a non-zero exit refuses it, its first output line is the reason (see below) |
 | `cloud18-self-service-clusters-can-borrow` | `false` | server | Let a self-service cluster be created on borrowed capacity when the plan pot cannot guarantee its units |
 
