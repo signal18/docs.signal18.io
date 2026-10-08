@@ -55,6 +55,24 @@ pool: define the pool name
 loopback: define  the path to create the loopback file
 directory: define the path to create the service_name directory
 
+## 10.2.1.3.1b Container start timeouts (3.1.43)
+
+The orchestrator's own `start_timeout` for a docker container is **5 seconds**. The nodes purge
+their docker images, and a start that has to pull the image again exceeds that: after a node
+restart every container of the node fails its first start. replication-manager writes a start
+timeout on every container it defines:
+
+| Setting | Default | Written on |
+| ------- | ------- | ---------- |
+| `prov-db-start-timeout` | `2m` | `container#db` and the jobs sidecar of every database service |
+| `prov-proxy-start-timeout` | `2m` | `container#prx` of every proxy family |
+| `prov-app-start-timeout` | `2m` | `container#app` of every app, per app or for the cluster |
+
+A duration (`2m`, `90s`). Settable per cluster from the Config page (Orchestrator, Database VM
+section) or the settings route; the template refresh carries it to the orchestrator without a
+restart, the next start uses it. PostgreSQL engine servers take the app value through their
+template.
+
 ## 10.2.1.3.2 network
 
 Network please check availability of the ip before using them , also some opensvc deployemetn can manage range of dhcp ip and DNS entries   
