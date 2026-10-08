@@ -96,7 +96,7 @@ arbitration-peer-hosts = "192.168.1.20:10005"
 
 | Item | Value |
 | ---- | ----- |
-| Description | Consecutive arbitrator answers of the same kind before a cluster changes status: a cluster goes standby after that many `looser` verdicts in a row, and the minority fail-safe (yield, read-only master) fires after that many unreachable answers in a row. A `winner` resets the count. One answer, or two arbitrator instances disagreeing, never moves a cluster. |
+| Description | Consecutive arbitrator answers of the same kind, in monitoring ticks, before a cluster changes status: a cluster goes standby after that many `looser` verdicts in a row, and the minority fail-safe (yield, read-only master) fires after that many unreachable answers in a row, an arbitrator answering that it has no store counting as unreachable. A `winner` resets the count. One answer, or two arbitrator instances disagreeing, never moves a cluster. The trade-off: a real loss, and the minority fail-safe, act that many ticks later than with `1` (6 seconds with the default ticker), in exchange for immunity to one bad answer. |
 | Type | Integer |
 | Default Value | 3 (1 = act on every answer) |
 
