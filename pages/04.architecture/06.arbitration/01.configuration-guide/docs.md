@@ -60,19 +60,32 @@ When the secret is stored encrypted in the configuration (`hash_...` value produ
 | Type | Integer |
 | Default Value | 0 |
 
+When both instances are standby, the one with the lower id becomes active. With the same id on both sides (the default `0` left on both) neither does: the pair stays standby, and since 3.1.44 the state **GWARN020** names the setting to change.
+
 ##### `arbitration-peer-hosts` (1.0)
 
 | Item | Value |
 | ---- | ----- |
-| Description | Address of the peer replication-manager node. Points to the peer's API port. |
+| Description | Address where the peer replication-manager answers `/api/heartbeat`: its `http-port`, or an `https://` URL in front of it. |
 | Type | String |
 | Default Value | "127.0.0.1:10001" |
 
-Peer communication typically stays on the local network or VPN, so HTTP is sufficient:
+The heartbeat is served by the peer's **`http-port`** (10001 by default, plain HTTP), **not** by its API port `api-port` (10005), which answers 404 on `/api/heartbeat`. An address without a scheme is called over `http://`.
 
 ```toml
-arbitration-peer-hosts = "192.168.1.20:10005"
+# peer reached directly on the local network or VPN
+arbitration-peer-hosts = "192.168.1.20:10001"
+# peer reached through a TLS reverse proxy or gateway in front of its http-port
+arbitration-peer-hosts = "https://repman-b.example.com"
 ```
+
+Check from each host that the address answers: `curl <address>/api/heartbeat` returns `{"uuid":…,"status":"A"}` (or `"S"`). Any other answer reads as a split brain (GWARN006). Since 3.1.44:
+
+- every failed heartbeat keeps its reason, the URL called and the error, in the state **GWARN018** (a 404 says the address is the API port instead of the http-port);
+- an address written without a scheme is retried once over `https://` when the peer refuses plain HTTP (or over `http://` the other way round); the scheme that answers is kept for that peer and the state **GWARN019** gives the value to write;
+- an address written with a scheme is never changed: when the scheme is wrong, GWARN018 says so.
+
+Over `https://` the peer's certificate is verified against the system's trusted authorities.
 
 ##### `arbitration-failed-master-script` (2.1)
 
@@ -106,25 +119,25 @@ arbitration-peer-hosts = "192.168.1.20:10005"
 
 Give each instance a different `arbitration-external-unique-id` and point each to its peer:
 
-**Instance A** (`192.168.1.10:10005`):
+**Instance A** (`192.168.1.10`, http-port 10001):
 ```toml
 arbitration-external = true
 arbitration-external-hosts = "https://arbitrator.signal18.io"
 arbitration-external-secret = "myorg-a7x9k2m"
 arbitration-external-unique-id = 1
-arbitration-peer-hosts = "192.168.1.20:10005"
+arbitration-peer-hosts = "192.168.1.20:10001"
 ```
 
-**Instance B** (`192.168.1.20:10005`):
+**Instance B** (`192.168.1.20`, http-port 10001):
 ```toml
 arbitration-external = true
 arbitration-external-hosts = "https://arbitrator.signal18.io"
 arbitration-external-secret = "myorg-a7x9k2m"
 arbitration-external-unique-id = 2
-arbitration-peer-hosts = "192.168.1.10:10005"
+arbitration-peer-hosts = "192.168.1.10:10001"
 ```
 
-Both instances must use the same `arbitration-external-secret` and `arbitration-external-hosts`.
+Both instances must use the same `arbitration-external-secret` and `arbitration-external-hosts`, a different `arbitration-external-unique-id`, and a peer address that answers `/api/heartbeat` (the http-port, or an `https://` URL in front of it).
 
 ---
 
