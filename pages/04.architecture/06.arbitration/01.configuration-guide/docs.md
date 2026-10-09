@@ -223,3 +223,25 @@ A single arbitrator can serve multiple replication-manager pairs. Each pair is i
 ##### TLS reverse proxy
 
 The arbitrator itself listens on plain HTTP. To expose it securely over the internet, place it behind a TLS reverse proxy (nginx, HAProxy, Caddy, etc.). The replication-manager instances then use `https://` in `arbitration-external-hosts` to reach it.
+
+---
+
+### 4.7.2.5 Bootstrap fallback to the standby (3.1.44)
+
+Every database and proxy fetches its configuration from replication-manager when it starts: the OpenSVC init container, the on-premise provisioning scripts and the Kubernetes init container. They call the instance that provisioned the service. Without a fallback, a restart during a takeover, while that instance is down, cannot fetch anything, and the service starts on the configuration already on its volume.
+
+With `arbitration-external = true`, the two instances of the pair offer each other as a fallback, with nothing to configure:
+
+- Each instance advertises its API URL (`https://<monitoring-address>:<api-port>`) in its `/api/heartbeat` answer. Its peer keeps that URL only when it is a plain `https://host:port` whose host is the one configured in `arbitration-peer-hosts`.
+- The URLs of the pair are passed to every bootstrap as `REPLICATION_MANAGER_URL_DR`:
+  - **OpenSVC:** a key of the namespace `env` config;
+  - **on-premise:** the SSH environment;
+  - **Kubernetes:** written into the init container command.
+- A bootstrap tries `REPLICATION_MANAGER_URL` first, then each URL of the pair not tried yet. It then uses the one that answered for the login, the configuration and the CLI.
+
+Requirements:
+- both instances run 3.1.44 or later;
+- `monitoring-address` of each instance resolves from the database and proxy hosts;
+- both instances accept the same API credentials.
+
+A dead main instance adds about 10 seconds per step to a start, because each attempt is bounded by a 10-second timeout.
