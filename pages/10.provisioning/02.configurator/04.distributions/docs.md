@@ -302,9 +302,10 @@ replication-manager never restores a backup automatically onto a node that holds
 | | MariaDB 10.4+ | MariaDB < 10.4, MySQL | PostgreSQL |
 |---|---|---|---|
 | Installed with this start | `CREATE_TIME` of `mysql.global_priv` close to the start | `CREATE_TIME` of `mysql.user` | initdb time (`pg_control_system()`) close to `pg_postmaster_start_time()` |
-| No user data | no table outside the system schemas and `replication_manager_schema` | same | no database besides `postgres`, no user table |
+| Sees everything | the monitoring account has global `SELECT` (otherwise schemas could be hidden from it) | same | catalogs are not filtered |
+| No user data | no schema besides the system ones and `replication_manager_schema`, even an empty one | same | no database besides `postgres`, no user table |
 
-Both must hold; anything unreadable counts as **not fresh**. A fresh StandAlone node shows the state **CINF0013**. A node that is not fresh is never restored automatically: the rejoin records `restore-refused` (state **WARN0237**) and waits for an explicit reseed from the operator.
+All must hold; anything unreadable counts as **not fresh**. A fresh StandAlone node shows the state **CINF0013**. A node that is not fresh is never restored automatically: the rejoin records `restore-refused` (state **WARN0237**) and waits for an explicit reseed from the operator.
 
 On a fresh node, the restore:
 
