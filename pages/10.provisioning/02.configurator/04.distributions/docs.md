@@ -280,9 +280,61 @@ prov-db-docker-img = "mariadb:11.8"
 
 This ensures a single configuration change triggers the upgrade across all deployment methods. The back office manages this setting as part of the cluster's provisioning configuration.
 
+### 10.3.5.4.8 Upgrade in Place or Rebuild
+
+A rolling upgrade moves each node to the target release in one of two ways, decided by the plan (`GET /api/clusters/{name}/actions/rolling/upgrade/plan`, field `mechanic`):
+
+| Move | Mechanic | What happens to each node |
+|---|---|---|
+| Patch, minor, **major upgrade** (default) | `upgrade` | Restarts on the new image **with its own data directory**; the engine runs `mariadb-upgrade` on that first start. No backup is restored. |
+| Major upgrade with `prov-db-upgrade-major-reprov = true` | `reprov` | Provisioned again from scratch on the new release and reseeded from the master (opt-in) |
+| **Downgrade across a major** | `reprov` | Always rebuilt: a data directory written by the newer major cannot start on the older one |
+
+A `reprov` destroys each node before rebuilding it, so the plan refuses to start unless the rebuild can succeed:
+
+- a backup of the primary newer than the binary log retention exists — **logical** for a downgrade (a physical backup of the newer major does not restore into the older one), with `autorejoin-logical-backup` armed;
+- the dump client (`mariadb-dump`/`mysqldump`) is available, to replay the master's accounts on each rebuilt node.
+
+### 10.3.5.4.9 Rebuilding a Node: Fresh Nodes Only
+
+replication-manager never restores a backup automatically onto a node that holds data. Before an automatic reseed it proves the node is **fresh**, read live on the node:
+
+| | MariaDB 10.4+ | MariaDB < 10.4, MySQL | PostgreSQL |
+|---|---|---|---|
+| Installed with this start | `CREATE_TIME` of `mysql.global_priv` close to the start | `CREATE_TIME` of `mysql.user` | initdb time (`pg_control_system()`) close to `pg_postmaster_start_time()` |
+| No user data | no table outside the system schemas and `replication_manager_schema` | same | no database besides `postgres`, no user table |
+
+Both must hold; anything unreadable counts as **not fresh**. A fresh StandAlone node shows the state **CINF0013**. A node that is not fresh is never restored automatically: the rejoin records `restore-refused` (state **WARN0237**) and waits for an explicit reseed from the operator.
+
+On a fresh node, the restore:
+
+- never loads the backup's raw `mysql` / `sys` system tables — the node keeps the system tables of its own release (loading those of another release breaks it, for example `mysql.proc` column count, error 1805);
+- restores the data, the routines, the events and the triggers logically, per database;
+- replays the master's accounts and grants (`--system=user`) through the system-catalogue replay.
+
+A rolling `reprov` stops on the first node whose reseed fails: the next node is never destroyed, and the master is never switched over or rebuilt after a failure.
+
+### 10.3.5.4.10 Replication TLS Across an Upgrade
+
+MariaDB 11.4 introduced zero-configuration TLS: the server generates its own certificate, and a replica verifies it through the replication password without any CA. An upgrade from an older release (no TLS at all) keeps replicating:
+
+- a replica restarted in place keeps its `master.info`, including `MASTER_SSL=No` from the old release;
+- the switchovers of the upgrade point the replicas at an already upgraded node;
+- any new channel towards a primary that has no TLS yet (`have_ssl` not `YES`) is created with `MASTER_SSL=0` — a new channel on 11.4+ defaults to TLS and would fail with error 2026 against it.
+
+Once every node runs 11.4+, switching `replication-use-ssl` on encrypts the replication at the next switchover or rejoin. See [Replication TLS](/security/configuration-guide#824-database-security-configuration).
+
 ---
 
 ## 10.3.5.5 Configuration Keys
+
+##### `prov-db-upgrade-major-reprov`
+
+| Item | Value |
+| ---- | ----- |
+| Description | Rolling upgrade across a major release: provision each node again from scratch and reseed it from the master instead of restarting it on its data directory with `mariadb-upgrade`. Only fresh nodes are reseeded automatically. |
+| Type | boolean |
+| Default Value | false |
 
 ##### `onpremise-ssh-upgrade-db-script`
 

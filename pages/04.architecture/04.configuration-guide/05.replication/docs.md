@@ -20,9 +20,17 @@ taxonomy:
 
 | Item | Value |
 | ---- | ----- |
-| Description | Replication is created using SSL encryption to replicate from master. |
+| Description | Replicas connect to their primary over TLS (`MASTER_SSL=1`). The CA, emptied CA or `MASTER_SSL=0` of each `CHANGE MASTER` is decided from the primary's certificate: see [Replication TLS](/security/configuration-guide#824-database-security-configuration). |
 | Type | boolean |
 | Default Value | false |   
+
+##### `replication-ssl-ca` (3.1)
+
+| Item | Value |
+| ---- | ----- |
+| Description | The CA file on the database hosts that signed the primaries' certificates (`MASTER_SSL_CA`). See [Replication TLS](/security/configuration-guide#824-database-security-configuration). |
+| Type | string |
+| Default Value | "" |
 
 ##### `replication-master-connect-retry` (2.0), `master-connect-retry` (1.0)
 

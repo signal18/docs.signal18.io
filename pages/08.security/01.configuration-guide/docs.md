@@ -194,23 +194,43 @@ In addition at startup replication-manager monitor will generate in memory extra
 
 | Item | Value |
 | ---- | ----- |
-| Description | Replication is created using SSL encryption to replicate from master. |
+| Description | Replicas connect to their primary over TLS (`MASTER_SSL=1` in every `CHANGE MASTER`). |
 | Type | boolean |
-| Default Value | false |   
+| Default Value | false |
 
-Replication-Manager does not set MASTER_SSL_CA , MASTER_SSL_CERT , MASTER_SSL_KEY in CHANGE MASTER command, instead it relies on MySQL MariaDB to get setup for the replication to be using SSL. with this flag replication just add MASTER_SSL=1 to the replication command.   
+##### `replication-ssl-ca` (3.1)
 
-```
-[client]
-ssl-ca=cacert.pem
-ssl-cert=client-cert.pem
-ssl-key=client-key.pem
+| Item | Value |
+| ---- | ----- |
+| Description | With `replication-use-ssl`, the CA file **on the database hosts** that signed the primaries' certificates (`MASTER_SSL_CA`). Named only when the primary runs a configured certificate. Empty: the CA shipped with the `ssl` tag on provisioned databases, else the replica's own `ssl_ca` when it is the primary's too. |
+| Type | string |
+| Default Value | "" |
 
-[mysqld]
-ssl-ca=cacert.pem
-ssl-cert=server-cert.pem
-ssl-key=server-key.pem
-```
+On MariaDB, the CA a replica verifies its primary with cannot come from any option file: `ssl-ca`/`ssl-cert`/`ssl-key` configure the server side. It lives only in `master.info`, set by `CHANGE MASTER`, which keeps every parameter it does not name. replication-manager therefore decides the TLS material of **every** `CHANGE MASTER` (switchover, failover, rejoin, reseed), reading the primary live:
+
+| Primary | Emitted |
+|---|---|
+| Unreachable | nothing: the channel keeps what it has |
+| No TLS (`have_ssl` not `YES`), `replication-use-ssl` off | `MASTER_SSL=0` — a MariaDB 11.4+ replica defaults to TLS and would not connect |
+| Auto-generated certificate (MariaDB 11.4+, `ssl_cert` empty) | `MASTER_SSL_CA=''` — verified through the replication password (zero-configuration TLS); any CA would break it |
+| Configured certificate, `replication-use-ssl` on | `MASTER_SSL_CA` from `replication-ssl-ca`, else the shipped CA (`ssl` tag, provisioned), else the replica's `ssl_ca` when equal to the primary's; otherwise the channel keeps its CA |
+
+Measured behaviour (MariaDB 12.3 and 10.11), which these rules follow:
+
+- a CA that did not sign the primary's certificate cuts the channel with error 2026 — **with or without** `MASTER_SSL_VERIFY_SERVER_CERT`; a CA file that does not exist is error 2026 too;
+- a primary on its auto-generated certificate is verified with no CA, the replication user authenticating with `mysql_native_password`, `ed25519` or `parsec`;
+- `MASTER_SSL_CERT`/`MASTER_SSL_KEY` are never emitted, `MASTER_SSL_VERIFY_SERVER_CERT` is never forced.
+
+Two security states watch every replication channel (also those set by hand):
+
+| State | Opens when |
+|---|---|
+| **WARN0235** | the channel is encrypted, has no CA, and verification is off or the release has no zero-configuration TLS (MySQL, MariaDB before 11.4): any certificate of the system trust store is accepted as the primary |
+| **WARN0236** | the TLS handshake fails (`Last_IO_Errno` 2026): the CA is missing or did not sign the primary's certificate |
+
+The monitor only reports: a switchover or a rejoin issues the `CHANGE MASTER` that carries the decision. By hand, on the replica: `STOP SLAVE; CHANGE MASTER TO MASTER_SSL_CA='<ca>', MASTER_SSL_VERIFY_SERVER_CERT=1; START SLAVE`.
+
+The `ssl` tag makes provisioned servers use the certificates replication-manager generates (CA shipped at `/etc/mysql/ssl/ca-cert.pem`, server certificate naming every database host). It does not enforce TLS on client connections: that is the separate `strictssl` tag (`require_secure_transport`).
 
 ---
 
