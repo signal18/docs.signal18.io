@@ -84,6 +84,15 @@ restarts; an API token lives until its expiry or revocation and survives restart
 A revoked token is refused immediately. Revoking another user's token needs the
 `token-manage` grant on every cluster the token covers.
 
+**Dashboard, every user's tokens on a cluster** (since 3.1.44): with `token-manage` on a
+cluster, its **Users** tab shows an **API tokens** panel listing every token that covers the
+cluster, whoever owns it: owner, label, clusters, grants, creation, last use (time and
+address), expiry and state (active, expired, or revoked with who revoked it). The token string
+itself is never shown there. The trash icon on an active token revokes it after a confirmation
+naming its owner and label. When the token also covers a cluster where you lack
+`token-manage`, the revoke is refused and the error names that cluster. The Users tab opens
+with `cluster-grant` or `token-manage`; each panel needs its own grant.
+
 ### 8.8.3 Where tokens live
 
 Tokens are stored on the **replication-manager** instance in
