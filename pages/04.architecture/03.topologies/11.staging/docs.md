@@ -45,7 +45,7 @@ What the creation does:
    sides: the two names must differ.
 5. For a staging cluster, **detaches one replica** as the staging server.
 
-The progress is the state CINF0014 on the new cluster; WARN0238 tells the step where it
+The progress is the state CINF0014 on the new cluster; WARN0239 tells the step where it
 stopped and why. A cluster whose creation stopped is kept: fix the cause and reseed it from
 its parent, or drop it.
 
