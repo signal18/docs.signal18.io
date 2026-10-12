@@ -10,6 +10,48 @@ taxonomy:
 
 A staging cluster is a child cluster of a production cluster containing 3 nodes, one replica is detached from replication and proxies track the the status of the standalone node to enable dev team to test on production data  
 
+## Creating a staging or a child cluster (since 3.1.44)
+
+A staging cluster and a child cluster of a cluster are created in one call, on the same
+replication-manager as the parent, on OpenSVC or Kubernetes:
+
+- **Dashboard**: cluster menu **Provision > New Staging Cluster** or **New Child Cluster**.
+  The plan is shown first, or why it is refused.
+- **API**: `POST /api/clusters/{parent}/actions/create-staging` or `create-child`, body
+  `{"name", "dbImage", "dbCount", "confirm"}`; `confirm` false returns the plan.
+- **MCP**: `cluster-create-staging`, `cluster-create-child`.
+
+| | Staging | Child |
+| --- | --- | --- |
+| Use | the dev team tests on production data | test a migration (another release) under the parent's real writes |
+| Default name | `<parent>-staging` | `<parent>-child` |
+| Databases | 3 | 2 |
+| Own replication-source-name | `staging` | `child` |
+| After the seed | one replica detached: 1 Master, 1 Slave, 1 StandAlone, the proxy tracking the StandAlone | every node keeps replicating |
+
+What the creation does:
+
+1. **Checks the parent first**: it must hold a logical backup (mysqldump or mydumper) on its
+   backup server. Without it nothing is created: take a logical backup of the parent first.
+2. **Creates the cluster** with the parent's orchestrator, database image (unless another
+   release is given), DBU per node, proxy type and proxy credential, logical backup tool,
+   and the parent's monitoring and replication accounts (same name, same password), a GTID
+   domain the parent's + 1, the parent as multisource head cluster.
+3. **Bootstraps a regular master-slave** under its own replication-source-name (`staging` or
+   `child`).
+4. **Restores the parent's backup** on its master, data only: the system tables of its own
+   release are kept, no account is loaded from the parent. Its master then replicates from
+   the parent's master under the **parent's** replication-source-name, the same name on both
+   sides: the two names must differ.
+5. For a staging cluster, **detaches one replica** as the staging server.
+
+The progress is the state CINF0014 on the new cluster; WARN0238 tells the step where it
+stopped and why. A cluster whose creation stopped is kept: fix the cause and reseed it from
+its parent, or drop it.
+
+Rights: `cluster-staging` (staging) or `cluster-replication` (child) on the parent, and the
+right to create a cluster.
+
 ## 4.4.12.1 Staging config important setup :
 
 ```
