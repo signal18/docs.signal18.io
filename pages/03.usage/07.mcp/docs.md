@@ -219,6 +219,8 @@ Tool names follow six rules, so that a new tool is named by rule and not by tast
 | `cluster-switchover` | action | `cluster_name`\*, `preferred_master` | Perform a planned, zero-data-loss master change |
 | `cluster-create-staging` | action | `cluster_name`\*, `name`, `db_image`, `db_count`, `confirm` | Create a staging cluster of this cluster, seeded from its latest logical backup, one replica detached for the dev team; `confirm` false returns the plan |
 | `cluster-create-child` | action | `cluster_name`\*, `name`, `db_image`, `db_count`, `confirm` | Create a child cluster replicating live from this cluster, to test a migration (another release) under its writes; `confirm` false returns the plan |
+| `cluster-alter-engine` | action | `cluster_name`\*, `engine_from`\*, `engine_to`\*, `schema_name`, `confirm` | Switch every table of one storage engine to another with ALTER TABLE on the master; other engines untouched; `confirm` false returns the plan |
+| `cluster-alter-table-engine` | action | `cluster_name`\*, `schema_name`\*, `table_name`\*, `engine_to`\*, `confirm` | Switch one table to another storage engine; `confirm` false returns the plan |
 | `cluster-sysbench-cleanup` | action | `cluster_name`\* | Drop the sysbench benchmark schema and data from the cluster |
 | `cluster-sysbench-run` | action | `cluster_name`\*, `test`, `time`, `threads` | Run a sysbench benchmark against the cluster through its proxy (a proxy must be configured) |
 

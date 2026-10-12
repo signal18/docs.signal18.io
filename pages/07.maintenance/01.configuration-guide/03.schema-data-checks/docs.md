@@ -221,3 +221,37 @@ If you run with `failover-divergent-data = false`, make sure your operational pr
 ### 7.2.3.5.4 GUI Setting
 
 The `failover-divergent-data` toggle is available in **Settings → Replication → Failover** under the label *"Failover enable on divergent data"*, allowing it to be changed at runtime without a configuration file edit or restart.
+
+## 7.2.3.6 Storage Engine Switch (since 3.1.44)
+
+**replication-manager** switches tables from one storage engine to another with
+`ALTER TABLE … ENGINE=`, on the cluster's master, binlog on, so the replicas follow. Typical
+use: on a child cluster replicating live from production, move its InnoDB tables to another
+engine (MyRocks, ColumnStore…) and watch how the production writes behave on it.
+
+- **Every table of one engine**: Schema tab, **Switch Storage Engine**, or
+  `POST /api/clusters/{cluster}/actions/alter-engine` with
+  `{"engineFrom": "InnoDB", "engineTo": "RocksDB", "schema": "", "confirm": false}`.
+  Only the tables on `engineFrom` change: Aria, MEMORY, MyISAM or any other engine are never
+  touched. `schema` limits it to one schema.
+- **One table**: click its engine in the Schema tab table, or
+  `POST /api/clusters/{cluster}/schema/{schema}/{table}/actions/alter-engine/{engine}`.
+- **MCP**: `cluster-alter-engine`, `cluster-alter-table-engine`.
+
+`confirm` false returns the plan, nothing is altered:
+
+| In the plan | Meaning |
+| --- | --- |
+| tables | the tables to switch, with their size |
+| skipped | a table already on the target, or one a foreign key involves when the target is not InnoDB (only InnoDB enforces foreign keys) |
+| refusal | the target engine is not available on the master: the configurator tag that installs it is named (`rocksdb`, `mcs`, `s3`, `connect`, `archive`, `blackhole`, `mroonga`, `oqgraph`) |
+
+On confirm, the tables are altered one at a time in the background, on a dedicated
+connection, stopping at the first error; one switch at a time per cluster. The state
+CINF0015 shows the progress, WARN0240 where it stopped (the table keeps its engine).
+
+Each `ALTER TABLE … ENGINE` copies its table and blocks writes to it while it runs: check the
+sizes in the plan. A single table may take up to `db-servers-read-timeout` (3600 s by
+default).
+
+Rights: `db-optimize`. PostgreSQL has no storage engine per table: refused.
