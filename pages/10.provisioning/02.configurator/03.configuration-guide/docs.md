@@ -29,7 +29,26 @@ These settings describe the hardware allocated to each database service. The con
 |---|---|
 | Description | How `prov-db-memory` is split across shared global buffers. Comma-separated `engine:percent` pairs. The `threads` key reserves a share for per-thread buffers (sized by `prov-db-memory-threaded-pct`). |
 | Type | String |
-| Default | `"threads:16,innodb:60,myisam:10,aria:10,rocksdb:1,tokudb:1,s3:1,archive:1,querycache:0"` |
+| Default | `"threads:10,innodb:45,myisam:4,aria:8,rocksdb:1,tokudb:0,s3:1,archive:1,querycache:0,tidesdb:1,pfs:4,fscache:20"` |
+
+**TidesDB** (tag `tidesdb`, since 3.1.44): the tag deploys `engine_tidesdb.cnf`, which loads the
+TideSQL plugin (`ha_tidesdb.so`, with `plugin-maturity=beta`, which it requires) and sizes it
+from the plan:
+
+| Variable | Value |
+| --- | --- |
+| `tidesdb_block_cache_size` | the `tidesdb` share of `prov-db-memory-shared-pct` (raise it from the default 1, taking from `innodb`, when the engine holds data) |
+| `tidesdb_memtable_write_buffer_size` | a quarter of the block cache, between 64 and 256 MB |
+| `tidesdb_flush_threads` | `prov-db-cpu-cores` / 4, at least 1 |
+| `tidesdb_compaction_threads` | `prov-db-cpu-cores` / 2, at least 2 |
+| `tidesdb_data_home_dir` | `/var/lib/mysql/.system/tidesdb`, on the database volume (the plugin's default sits next to the datadir, outside the volume) |
+| `tidesdb_memtable_sync_mode` | `FULL`: every commit synced |
+| `tidesdb_log_level` | `WARN` (the plugin's default `TRACE` writes everything) |
+
+The database image must ship the plugin (built with MariaDB Foundry or TidesDB's installer;
+it is not in the official MariaDB images). Physical backups (mariabackup) do not cover TidesDB
+tables: use logical backups. Tables can be moved to the engine with the storage engine switch
+(7.2.3.6).
 
 ##### `prov-db-memory-threaded-pct`
 
