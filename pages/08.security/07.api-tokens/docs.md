@@ -87,9 +87,10 @@ A revoked token is refused immediately. Revoking another user's token needs the
 **Dashboard, every user's tokens on a cluster** (since 3.1.44): with `token-manage` on a
 cluster, its **Users** tab shows an **API tokens** panel listing every token that covers the
 cluster, whoever owns it: owner, label, clusters, grants, creation, last use (time and
-address), expiry and state (active, expired, or revoked with who revoked it). The token string
-itself is never shown there. The trash icon on an active token revokes it after a confirmation
-naming its owner and label. When the token also covers a cluster where you lack
+address) and expiry, in two tabs. **Active** lists the tokens in use: the trash icon revokes
+one after a confirmation naming its owner and label. **Archive** lists the revoked tokens (when
+and by whom) and the expired ones, kept 90 days as the audit trail. The token string itself is
+never shown there. When the token also covers a cluster where you lack
 `token-manage`, the revoke is refused and the error names that cluster. The Users tab opens
 with `cluster-grant` or `token-manage`; each panel needs its own grant.
 
