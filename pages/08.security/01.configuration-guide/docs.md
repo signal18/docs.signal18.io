@@ -406,3 +406,12 @@ replication-credential = "database/static-creds/repman-replication"
 
 So far, replication-manager is taking care of the monitoring and the replication credentials. When an authentication error state is trigger, replication-manager will presume that the password has been rotated and will fetch Vault secret path again.
 Also, we provide a password rotation service which can be accessible from the replication-manager interface or with an api call. This features is available in both Vault mode. In the config_store_v2 mode, replication-manager will generate a new password and update it in the vault secret and the databases. In the database_engine mode, replication-manager will send a resquest of rotation password to vault services, which will generate all the rotation password in the databases.
+
+**Rotation without Vault (from release 3.1.44).** The same action (`rotate-passwords`, the dashboard's *Rotate Database Credentials*, the MCP tool `cluster-rotate-passwords`) also rotates the passwords when no Vault is configured: replication-manager generates the new passwords, changes them on the databases and keeps them encrypted. It is refused, with the reason, when the new passwords would have no durable place:
+
+- `monitoring-secret-versioning` is off (the default; `backup-encryption` turns it on too): the new passwords would live only in replication-manager's memory, and a restart after the rotation would lose access to every server. Turn it on, or use Vault.
+- no encryption key (`.replication-manager.key`), or `monitoring-save-config` off;
+- `db-servers-credential` or `replication-credential` set in a configuration file (immutable);
+- a database down, or replication stopped on a replica.
+
+The API answers `409` with the reason; the dashboard greys out the action and shows the reason on hover.
