@@ -234,6 +234,22 @@ The `ssl` tag makes provisioned servers use the certificates replication-manager
 
 ---
 
+### 8.2.4.1 Passwords of the accounts replication-manager manages
+
+> **Available since:** replication-manager **v3.1.44**
+
+replication-manager creates or changes database accounts in a few cases: the accounts of app databases (`app-db-auto-create`), the sponsor user at provisioning, the password rotation (`rotate-passwords`), a monitoring credential changed in Vault config store v2 mode, and the Spider shard proxy passwords.
+
+**On MariaDB, the hash is sent, never the password.** MariaDB writes an account statement to the binary log as it receives it, so a password sent in clear would reach the binlogs, the replicas' relay logs and the binlog backups. replication-manager sends `IDENTIFIED BY PASSWORD '<hash>'` (the `mysql_native_password` hash) instead. Consequences:
+
+- The account always uses the `mysql_native_password` authentication plugin, whatever the server's default (an `ed25519` default is not applied to these accounts).
+- Password validation plugins (`simple_password_check`, `cracklib_password_check`) cannot check a password given as a hash. With `strict_password_validation=ON` the server refuses the hash (error 1290): replication-manager then sends the password, which the plugins check, and which reaches the binary log as before.
+- The binary log holds the hash: an unsalted double SHA1, which can be attacked offline. Protect the binlogs and their backups like the accounts themselves.
+
+MySQL and Percona Server rewrite password statements in their binary log themselves: replication-manager sends them the password and their default authentication plugin applies.
+
+**Passwords are masked in what replication-manager shows.** Texts read from the servers can carry a statement with its password: a replica's replication error, the processlist, the error, audit, SQL error and slow logs, the lost-events viewer. replication-manager replaces every password literal in them with `*****` before storing, logging or serving them in the API and the dashboard (`IDENTIFIED BY '...'`, `PASSWORD('...')`, `SET PASSWORD = '...'`, `MASTER_PASSWORD='...'`, `password=...`). Accounts created by earlier releases keep their passwords in the old binlogs and backups: rotate them.
+
 ## 8.2.5 Vault Security Configuration
 
 **replication-manager** provides password obfuscating security by using Vault services.
