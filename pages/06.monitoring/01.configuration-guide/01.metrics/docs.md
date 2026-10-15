@@ -136,3 +136,16 @@ Some Grafana dashboard using such metric names can be found in the share directo
 
 #####  Prometheus URI available 2.1
 http://demo.signal18.io/api/prometheus
+
+The endpoint writes the same series as Graphite, in the Prometheus text format, one line per series:
+
+| Graphite series | Prometheus line |
+|---|---|
+| `mysql.<host>.<name>` | `<name>{instance="<host>"}` |
+| `mysql.<host>.pfs.<digest>` | `pfs_<digest>{instance="<host>"}` |
+| `dbu.<cluster>.<host>.<name>` (`dbu`, `dbu_cpu`, `dbu_mem`, `dbu_io`, `dbu_disk`, `service_cpu`, `service_mem`, `service_io`, `service_disk`) | `<name>{cluster="<cluster>",instance="<host>"}` |
+| `resourcemanager.<CLUSTER>.plan_dbu` | `plan_dbu{cluster="<cluster>"}`, once per cluster |
+
+`<host>` is the database's `hostname` variable, `<cluster>` the cluster name. Characters a Prometheus metric name cannot hold are replaced by `_`.
+
+In 3.1.43 the `dbu.*` series were written with the host as metric name, which makes a Prometheus scrape fail; fixed in the next release ([#2055](https://github.com/signal18/replication-manager/issues/2055)).
