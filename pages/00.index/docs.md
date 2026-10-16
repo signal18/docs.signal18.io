@@ -151,6 +151,7 @@ taxonomy:
     - 12.2. [Testing](/contribute/testing)
     - 12.3. [Report Bugs](/contribute/bugs)
     - 12.4. [Profiling](/contribute/profiling)
+    - 12.5. [Security Fixes and SBOM](/contribute/security-fixes)
 
 13. **HOWTO**
     - 13.1. [Replication Best Practices](/howto/replication-best-practice)
