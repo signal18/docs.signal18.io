@@ -33,39 +33,64 @@ A token can only **narrow** what its owner may do, never extend it:
   `api-credentials-acl-allow` lists grants explicitly, add `token` or `token-create` to the
   users who should issue tokens. The `system` service account can never hold these grants.
 
-### 8.8.0 Prerequisites
+### 8.8.0 Enabling and disabling API tokens
 
-Check these three points before creating a token. When one is missing, the dashboard
-does not show the **API tokens** button and the API answers `403`.
+Two independent settings decide whether a user can create a token. **Both** are needed:
 
-1. **The `token-create` grant.** The default `api-credentials-acl-allow`
-   (`admin:cluster db proxy prov global grant show sale extrole terminal app token,dba:cluster proxy db token-create`)
-   gives `token` to `admin` and `token-create` to `dba`. **But if your configuration sets
-   `api-credentials-acl-allow` explicitly**, which is common for configurations written
-   before 3.1.43 or copied from the sample `config.toml`, that value replaces the default
-   completely: the `token` grant did not exist when it was written, so **nobody can issue
-   tokens** after the upgrade. Add `token` (or `token-create`) to the users who should
-   issue tokens, then restart **replication-manager**:
+| Level | Setting | Default | What it does |
+| --- | --- | --- | --- |
+| Server | `api-user-tokens` | `true` | Turns the feature on or off for the whole **replication-manager**. It gives no right to anyone. |
+| User | the `token-create` grant, in `api-credentials-acl-allow` | `admin` has `token`, `dba` has `token-create` | Lets that user issue tokens for their own account. |
 
-   ```
-   api-credentials-acl-allow = "admin:cluster db proxy prov global grant show sale extrole terminal app token,..."
-   ```
+`api-user-tokens = true` alone is **not** enough: a user without the `token-create` grant
+sees no **API tokens** button in the dashboard, and the API answers
+`403 No token-create grant`.
 
-   The main configuration always wins over cluster-level ACLs. To check, open your User
-   Profile (click your user name in the top bar): the **Grants per cluster** table must
-   show a check mark on the `token-create` row for at least one cluster. A `-` everywhere
-   means the grant is missing.
+#### The trap: an explicit `api-credentials-acl-allow`
 
-   A line `api-credentials-acl-discard-external = "admin:token,..."` in a cluster file is
-   not the cause: **replication-manager** writes there every grant a user did not hold at
-   the last save. It disappears once the grant is given.
-2. **A persistent secret key.** Tokens are signed and stored with the key file of
-   `monitoring-key-path` (default `/etc/replication-manager/.replication-manager.key`,
-   created by `replication-manager keygen`, see [Security configuration](/security/configuration-guide)).
-   Without it the API answers `API tokens are disabled (api-user-tokens) or no persistent secret key is set`.
-3. **`api-user-tokens = true`**, the default.
+The default `api-credentials-acl-allow` is
+`admin:cluster db proxy prov global grant show sale extrole terminal app token,dba:cluster proxy db token-create`.
+**If your configuration sets `api-credentials-acl-allow` itself**, that value replaces
+the default completely. A list written before 3.1.43, or copied from the sample
+`config.toml`, has no `token`: after the upgrade the feature is on, but nobody can use it.
 
-The server and the CLI must both be **3.1.43** or later (see the CLI note below).
+Add `token` (or `token-create`) to the users who should issue tokens in the main
+configuration, then restart **replication-manager**:
+
+```
+api-credentials-acl-allow = "admin:cluster db proxy prov global grant show sale extrole terminal app token,..."
+```
+
+The main configuration always wins over cluster-level ACLs. To check a user, open the
+User Profile (click the user name in the top bar): in **Grants per cluster**, the
+`token-create` row must show a check mark on at least one cluster; a `-` everywhere means
+the grant is missing.
+
+A line `api-credentials-acl-discard-external = "admin:token,..."` in a cluster file is not
+the cause: **replication-manager** records there every grant a user did not hold at the
+last save. It goes away once the grant is given.
+
+#### Disabling API tokens
+
+- **For the whole server**: set `api-user-tokens = false` in the main configuration and
+  restart **replication-manager**. Nobody can issue a token, and **every existing token is
+  refused** at once (`API tokens are disabled`). The tokens are not deleted: set it back to
+  `true` and they work again until their expiry, unless revoked meanwhile.
+- **For one user**: remove `token` / `token-create` from that user's grants (in
+  `api-credentials-acl-allow`, or in the cluster's **Users** tab). They can no longer
+  issue tokens, but **the tokens they already issued keep working**: revoke them from the
+  **API tokens** panel of the cluster's **Users** tab (grant `token-manage`) or with
+  `DELETE /api/tokens/{id}`.
+- **One token**: revoke it (dashboard trash icon, `replication-manager-cli token revoke <id>`
+  or `DELETE /api/tokens/{id}`). It is refused immediately.
+
+#### Other requirements
+
+- **A persistent secret key.** Tokens are signed and stored with the key file of
+  `monitoring-key-path` (default `/etc/replication-manager/.replication-manager.key`,
+  created by `replication-manager keygen`, see [Security configuration](/security/configuration-guide)).
+  Without it the API answers `API tokens are disabled (api-user-tokens) or no persistent secret key is set`.
+- The server and the CLI must both be **3.1.43** or later (see the CLI note below).
 
 ### 8.8.1 Creating a token
 
@@ -194,10 +219,10 @@ them afterwards.
 
 | Setting | Default | Description |
 | --- | --- | --- |
-| `api-user-tokens` | `true` | Allow users to issue tokens. `false` refuses both issuing and authenticating with a token. |
+| `api-user-tokens` | `true` | Server switch of the feature. `false` refuses both issuing and authenticating with a token. It grants nothing: a user also needs the `token-create` grant (see 8.8.0). |
 | `api-user-tokens-default-expire-days` | `120` | Lifetime of a token when none is given. `0` means no expiry. |
 
-Both are server-wide settings.
+Both are server-wide settings of the main configuration file; a change needs a restart.
 
 ### 8.8.5 Security log
 
