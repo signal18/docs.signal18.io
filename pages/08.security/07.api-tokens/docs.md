@@ -66,13 +66,9 @@ User Profile (click the user name in the top bar): in **Grants per cluster**, th
 `token-create` row must show a check mark on at least one cluster; a `-` everywhere means
 the grant is missing.
 
-**Since 3.1.45**, this trap is closed for administrators: while `api-user-tokens` is on, a user
-who holds every `grant-*` grant (`grant` in the ACL, such as `admin`) also holds
-`token-create` and `token-manage`, whatever the explicit list says. To keep an
-administrator from issuing tokens, discard them in the main configuration, with the full
-grant names: `api-credentials-acl-discard = "admin:token-create token-manage"`. And when
-`api-user-tokens` is on but no user can issue a token on a cluster, the config state
-**WARN0249** says so in the cluster's configuration findings.
+**Since 3.1.45**, a cluster where `api-user-tokens` is on but no user holds `token-create`
+shows the config state **WARN0251** in its configuration findings: the explicit list is
+kept as you wrote it, the state tells you to add `token`.
 
 A line `api-credentials-acl-discard-external = "admin:token,..."` in a cluster file is not
 the cause: **replication-manager** records there every grant a user did not hold at the
@@ -85,7 +81,9 @@ last save. It goes away once the grant is given.
   refused** at once (`API tokens are disabled`). The tokens are not deleted: set it back to
   `true` and they work again until their expiry, unless revoked meanwhile.
 - **For one user**: remove `token` / `token-create` from that user's grants (in
-  `api-credentials-acl-allow`, or in the cluster's **Users** tab). They can no longer
+  `api-credentials-acl-allow`, or in the cluster's **Users** tab), or discard them:
+  `api-credentials-acl-discard = "alice:token"` (since 3.1.45 a discard takes the compact
+  name `token` like the allow list; before, write `token-create token-manage`). They can no longer
   issue tokens, but **the tokens they already issued keep working**: revoke them from the
   **API tokens** panel of the cluster's **Users** tab (grant `token-manage`) or with
   `DELETE /api/tokens/{id}`.
