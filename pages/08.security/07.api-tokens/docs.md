@@ -66,6 +66,14 @@ User Profile (click the user name in the top bar): in **Grants per cluster**, th
 `token-create` row must show a check mark on at least one cluster; a `-` everywhere means
 the grant is missing.
 
+**Since 3.1.45**, this trap is closed for administrators: while `api-user-tokens` is on, a user
+who holds every `grant-*` grant (`grant` in the ACL, such as `admin`) also holds
+`token-create` and `token-manage`, whatever the explicit list says. To keep an
+administrator from issuing tokens, discard them in the main configuration, with the full
+grant names: `api-credentials-acl-discard = "admin:token-create token-manage"`. And when
+`api-user-tokens` is on but no user can issue a token on a cluster, the config state
+**WARN0249** says so in the cluster's configuration findings.
+
 A line `api-credentials-acl-discard-external = "admin:token,..."` in a cluster file is not
 the cause: **replication-manager** records there every grant a user did not hold at the
 last save. It goes away once the grant is given.
