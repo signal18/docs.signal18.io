@@ -71,6 +71,18 @@ an MCP server: a bearer narrowed to a subset of their grants and a cluster scope
 directly as `Authorization: Bearer <token>` without the `/api/login` call above, and
 revocable at any time.
 
+Create one with the session JWT obtained above, and use it in place of the JWT:
+
+```
+APITOKEN=$(curl -s -k -X POST -H "Authorization: Bearer ${TOKEN}" -H 'Content-Type: application/json' \
+  --data '{"label":"ci","grants":"","clusters":["*"],"expireDays":30}' \
+  https://127.0.0.1:10005/api/tokens | jq -r '.token')
+
+curl -k -H 'Accept: application/json' -H "Authorization: Bearer ${APITOKEN}" https://127.0.0.1:10005/api/clusters
+```
+
+The fields, the dashboard and CLI ways and the errors are in [API tokens](/security/api-tokens).
+
 ## 3.4.1.2 API documentation
 [Can be browsed online](https://dbaas-fr-2.signal18.io/api-docs/index.html)
 Or by installing the product and point to http://127.0.0.1:10001/api-docs

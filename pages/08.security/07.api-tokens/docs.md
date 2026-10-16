@@ -35,12 +35,67 @@ A token can only **narrow** what its owner may do, never extend it:
 
 ### 8.8.1 Creating a token
 
-**Dashboard**: click your user name in the top bar, then **API tokens** in the User Profile window, then **New token**. Give it a label, pick the
-grants (none selected means every grant you hold), the cluster scope, and the lifetime.
-The token is displayed once with a copy button; the eye icon shows it again later, since
-it is yours.
+A token is created by a user logged in with their username and password (dashboard, API
+login or CLI login), for themselves. The server and the client must both be **3.1.43** or
+later.
 
-**CLI**:
+#### Dashboard
+
+1. Log in to the dashboard with your username and password.
+2. Click your user name in the top bar: the **User Profile** window opens.
+3. Click **API tokens**. The button only shows when you hold the `token-create` grant on
+   at least one cluster; without it, ask an administrator for the grant (see above).
+4. Click **New token**, then fill the **Create API token** form:
+   - **Label**: a name to recognize the token (`ci`, `mcp`, `laptop`…), required.
+   - **Grants**: tick the grants to put in the token; none ticked means every grant you hold.
+   - **Clusters**: **All clusters**, or tick the clusters the token may reach.
+   - **Expires in days**, or **Never expires**.
+5. Click **Create**. The token is displayed with a **Copy** button: copy it now. It stays
+   listed in the **API tokens** window, where the eye icon shows it again and the trash
+   icon revokes it.
+
+#### API
+
+Log in with your username and password to get a session JWT, then post the token request
+with that JWT as the bearer. The response is the token record; its `token` field is the
+API token:
+
+```
+REPMAN=https://repman:10005
+JWT=$(curl -s -k -X POST -H 'Content-Type: application/json' \
+  --data '{"username":"admin","password":"..."}' $REPMAN/api/login | jq -r .token)
+
+APITOKEN=$(curl -s -k -X POST -H "Authorization: Bearer $JWT" -H 'Content-Type: application/json' \
+  --data '{"label":"ci","grants":"db-show proxy","clusters":["belair"],"expireDays":30}' \
+  $REPMAN/api/tokens | jq -r .token)
+
+curl -k -H "Authorization: Bearer $APITOKEN" $REPMAN/api/clusters/belair/topology/servers
+```
+
+The request body:
+
+| Field | Type | Description |
+| --- | --- | --- |
+| `label` | string | Name of the token, required. |
+| `grants` | string | Grant prefixes **separated by spaces** as in the ACL configuration (`"db-show proxy"`); `""` means every grant you hold. |
+| `clusters` | list of strings | Cluster scope (`["belair","flacq"]`); `[]` or `["*"]` means every cluster you can see. |
+| `expireDays` | integer | Lifetime in days; `0` means the server default (`api-user-tokens-default-expire-days`), `-1` never expires. |
+
+A `403` answer gives the reason: `No token-create grant`, `An API token cannot issue tokens,
+log in with your credentials` (the bearer was an API token, not a login JWT), or
+`API tokens are disabled` (`api-user-tokens=false`). A `400` names a grant you do not hold
+or an unknown cluster.
+
+The other calls:
+
+| Method | Path | Purpose |
+| --- | --- | --- |
+| `POST` | `/api/tokens` | create, body above |
+| `GET` | `/api/tokens` | list my tokens |
+| `DELETE` | `/api/tokens/{id}` | revoke |
+| `GET` | `/api/clusters/{name}/tokens` | list every token covering a cluster (grant `token-manage`) |
+
+#### CLI
 
 ```
 replication-manager-cli token create --label ci --grants "db-show proxy" --clusters belair --expire-days 30
@@ -48,18 +103,17 @@ replication-manager-cli token list
 replication-manager-cli token revoke <id>
 ```
 
+`token create` logs in with `--user` and `--password` like any other command.
 `--grants` takes grant prefixes as in the ACL configuration (`db-show`, `proxy`,
 `cluster-switchover`, …); `--expire-days -1` means no expiry; both default to "everything
 I hold" and the server default lifetime.
 
-**API**:
-
-| Method | Path | Purpose |
-| --- | --- | --- |
-| `POST` | `/api/tokens` | create, body `{"label","grants","clusters","expireDays"}` |
-| `GET` | `/api/tokens` | list my tokens |
-| `DELETE` | `/api/tokens/{id}` | revoke |
-| `GET` | `/api/clusters/{name}/tokens` | list every token covering a cluster (grant `token-manage`) |
+The `token` command and the `--api-token` flag exist since the **3.1.43** CLI. The CLI is
+its own package, `replication-manager-client`, and up to 3.1.44 upgrading the server
+package does not upgrade it: check `replication-manager-cli version` and upgrade it
+explicitly (`apt-get install replication-manager-client` or
+`dnf upgrade replication-manager-client`). An older CLI answers `unknown command "token"`
+or `unknown flag: --api-token`.
 
 ### 8.8.2 Using a token
 
