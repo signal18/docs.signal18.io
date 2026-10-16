@@ -45,7 +45,7 @@ does not show the **API tokens** button and the API answers `403`.
    before 3.1.43 or copied from the sample `config.toml`, that value replaces the default
    completely: the `token` grant did not exist when it was written, so **nobody can issue
    tokens** after the upgrade. Add `token` (or `token-create`) to the users who should
-   issue tokens, then reload or restart **replication-manager**:
+   issue tokens, then restart **replication-manager**:
 
    ```
    api-credentials-acl-allow = "admin:cluster db proxy prov global grant show sale extrole terminal app token,..."
