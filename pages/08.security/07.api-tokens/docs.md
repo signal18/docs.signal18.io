@@ -33,6 +33,40 @@ A token can only **narrow** what its owner may do, never extend it:
   `api-credentials-acl-allow` lists grants explicitly, add `token` or `token-create` to the
   users who should issue tokens. The `system` service account can never hold these grants.
 
+### 8.8.0 Prerequisites
+
+Check these three points before creating a token. When one is missing, the dashboard
+does not show the **API tokens** button and the API answers `403`.
+
+1. **The `token-create` grant.** The default `api-credentials-acl-allow`
+   (`admin:cluster db proxy prov global grant show sale extrole terminal app token,dba:cluster proxy db token-create`)
+   gives `token` to `admin` and `token-create` to `dba`. **But if your configuration sets
+   `api-credentials-acl-allow` explicitly**, which is common for configurations written
+   before 3.1.43 or copied from the sample `config.toml`, that value replaces the default
+   completely: the `token` grant did not exist when it was written, so **nobody can issue
+   tokens** after the upgrade. Add `token` (or `token-create`) to the users who should
+   issue tokens, then reload or restart **replication-manager**:
+
+   ```
+   api-credentials-acl-allow = "admin:cluster db proxy prov global grant show sale extrole terminal app token,..."
+   ```
+
+   The main configuration always wins over cluster-level ACLs. To check, open your User
+   Profile (click your user name in the top bar): the **Grants per cluster** table must
+   show a check mark on the `token-create` row for at least one cluster. A `-` everywhere
+   means the grant is missing.
+
+   A line `api-credentials-acl-discard-external = "admin:token,..."` in a cluster file is
+   not the cause: **replication-manager** writes there every grant a user did not hold at
+   the last save. It disappears once the grant is given.
+2. **A persistent secret key.** Tokens are signed and stored with the key file of
+   `monitoring-key-path` (default `/etc/replication-manager/.replication-manager.key`,
+   created by `replication-manager keygen`, see [Security configuration](/security/configuration-guide)).
+   Without it the API answers `API tokens are disabled (api-user-tokens) or no persistent secret key is set`.
+3. **`api-user-tokens = true`**, the default.
+
+The server and the CLI must both be **3.1.43** or later (see the CLI note below).
+
 ### 8.8.1 Creating a token
 
 A token is created by a user logged in with their username and password (dashboard, API
