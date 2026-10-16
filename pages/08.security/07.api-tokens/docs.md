@@ -100,6 +100,8 @@ later.
 
 #### Dashboard
 
+![Creating an API token from the dashboard, in 4 steps](/images/apitokens-create.gif)
+
 1. Log in to the dashboard with your username and password.
 2. Click your user name in the top bar: the **User Profile** window opens.
 3. Click **API tokens**. The button only shows when you hold the `token-create` grant on
@@ -107,7 +109,7 @@ later.
 4. Click **New token**, then fill the **Create API token** form:
    - **Label**: a name to recognize the token (`ci`, `mcp`, `laptop`…), required.
    - **Grants**: tick the grants to put in the token; none ticked means every grant you hold.
-   - **Clusters**: **All clusters**, or tick the clusters the token may reach.
+   - **Clusters**: **Every cluster** (needed for global settings), or tick the clusters the token may reach.
    - **Expires in days**, or **Never expires**.
 5. Click **Create**. The token is displayed with a **Copy** button: copy it now. It stays
    listed in the **API tokens** window, where the eye icon shows it again and the trash
