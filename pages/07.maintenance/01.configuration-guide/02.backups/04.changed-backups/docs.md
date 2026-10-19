@@ -29,7 +29,7 @@ Anything that makes the files differ from the fingerprint:
 - restoring the backup from its archive (the file comes back as a new file);
 - a change of owner or permissions (`chown`, `chmod`), an ACL, or an attribute restore: these update the change time without touching the content.
 
-> Development builds before #2114 changed, at each start, the owner of every file in its working directory, so every registered backup was reported changed after each restart. Replication-manager now leaves the files already owned by its user alone.
+> Development builds before #2114 changed the owner of every file in replication-manager's working directory at each start, so every registered backup was reported changed after each restart. Replication-manager now leaves the files already owned by its user alone.
 
 #### What you see
 
