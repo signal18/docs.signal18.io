@@ -61,6 +61,15 @@ They are used for provisioning new nodes, reseeding broken replicas, and point-i
 
 ### 7.2.2.1 Backup Types
 
+A server's backup directory holds one backup of each type: its tool, compressed or not, encrypted
+or not (for example `mydumper`, `mysqldump.sql.gz`, `mariabackup.xbtream`,
+`mariabackup.xbtream.gz`). Each new backup of a type replaces the one there, whichever server it
+is taken on. The previous backups are kept by the snapshots of the directory in the attached
+archive.
+
+A backup named with an id (`mydumper.1792488325`), written by older releases, is listed as a
+registered backup: it stays as it is until you unregister or delete it.
+
 ##### `backup-logical-type` (2.1)
 
 | Item | Value |
@@ -737,7 +746,7 @@ For direct backup streaming to S3 without Restic:
 | ---- | ----- |
 | Description | Comma-separated tags or templates applied to snapshots |
 | Type | string |
-| Default Value | "tenant,cluster,engine,version,backup-type,backup-tool,line" |
+| Default Value | "tenant,cluster,engine,version,backup-type,backup-tool" |
 
 ##### `backup-restic-host` (3.0)
 
@@ -804,7 +813,7 @@ Zero values or empty strings are omitted from the policy.
 | ---- | ----- |
 | Description | Space-separated tags to always keep during purge |
 | Type | string |
-| Default Value | "line:adhoc adhoc" |
+| Default Value | "" |
 
 ##### `backup-restic-purge-host` (3.0)
 
