@@ -100,6 +100,7 @@ taxonomy:
    - 7.2. **Configuration Guide**
       - 7.2.1. [Scheduler](/maintenance/configuration-guide/scheduler)
       - 7.2.2. [Backups](/maintenance/configuration-guide/backups)
+         - 7.2.2.1. [Binlogs](/maintenance/configuration-guide/backups/binlogs)
          - 7.2.2.4. [Changed Backups](/maintenance/configuration-guide/backups/changed-backups)
       - 7.2.3. [Schema & Data Checks](/maintenance/configuration-guide/schema-data-checks)
       - 7.2.4. [Reseeding](/maintenance/configuration-guide/reseeding)
