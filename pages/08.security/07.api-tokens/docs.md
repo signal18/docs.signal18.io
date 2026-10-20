@@ -87,6 +87,14 @@ last save. It goes away once the grant is given.
   issue tokens, but **the tokens they already issued keep working**: revoke them from the
   **API tokens** panel of the cluster's **Users** tab (grant `token-manage`) or with
   `DELETE /api/tokens/{id}`.
+> **Upgrading to 3.1.45: check your discard lists.** Before 3.1.45 a discard
+> (`api-credentials-acl-discard`, `api-credentials-acl-discard-external`) only removed exact
+> grant names: a compact name such as `admin:db` or `viewer:cluster` removed nothing. Since
+> 3.1.45 a compact name removes every grant it starts (`db` removes every `db-*` grant), as
+> in the allow lists; a full name still removes that grant only. An old entry that did
+> nothing now takes grants away: each such removal is written to the security log
+> (`discard "db" removes the grants [...]`). Remove the entries you did not mean.
+
 - **One token**: revoke it (dashboard trash icon, `replication-manager-cli token revoke <id>`
   or `DELETE /api/tokens/{id}`). It is refused immediately.
 
