@@ -125,10 +125,13 @@ server id: a replica, another replication-manager, a `mysqlbinlog` fetch), the s
 With `backup-binlogs` on, the **primary's** binlogs are copied into its backup directory,
 `<backups>/<cluster>/<server>/`:
 
-1. **At each rotation**, the binlog that just closed is copied.
+1. **At each rotation**, the binlog that just closed is queued for copy; the rotation check never
+   waits. One copy worker per server copies the queued binlogs in order, each once, as soon as
+   no backup, snapshot of the backup directory or failover runs. While it waits, WARN0257 says
+   for what, since when, and how many binlogs are to copy. The queue holds at most
+   `backup-binlogs-keep` binlogs.
 2. **Right after**, the catch-up: every binlog of the last `backup-binlogs-keep` that is missing
-   from the backup directory is copied, as long as the server still has it. Not while a backup
-   runs.
+   from the backup directory is copied, as long as the server still has it.
 3. **Then** the copies older than the keep window are deleted from the backup directory.
 
 How a binlog is copied is `binlog-copy-mode`:
@@ -212,7 +215,10 @@ replication-manager can purge binlogs on the servers themselves (`PURGE BINARY L
 - on the **replicas**, down to the oldest binlog time still on the primary, keeping at least the
   current and the previous binlog, and only for a connected replica.
 
-A binlog purged on the primary before it was copied can no longer be caught up (path 3).
+A binlog still queued for copy (path 3) is never purged by replication-manager: the purge stops
+just before it. The server's own expiry (`binlog_expire_logs_seconds`, `expire_logs_days`) is not
+replication-manager's: a binlog it removes before it was copied can no longer be caught up;
+WARN0257 says when the oldest binlog to copy is the server's oldest.
 
 ##### `force-binlog-purge`
 
