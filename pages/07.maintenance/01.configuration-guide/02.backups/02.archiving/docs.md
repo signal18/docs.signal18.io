@@ -296,8 +296,8 @@ kept in the cluster's working directory, outside the backup directories:
 ```
 
 A backup a newer one replaced stays in the catalogue while a snapshot holds it, shown **only in
-the archive**: a restart or a backups folder switch no longer forgets it, and a restore fetches it
-from its snapshot. The active replication-manager writes the catalogue; a standby never does.
+the archive**: a restart or a backups folder switch no longer forgets it. It is restored from its
+snapshot (a snapback of the backup directory). The active replication-manager writes the catalogue; a standby never does.
 
 **Rebuild from the archives.** Each snapshot carries the records of the backups it holds.
 replication-manager reads them in the snapshots the catalogue does not know: a backup the
