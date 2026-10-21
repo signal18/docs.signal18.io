@@ -35,15 +35,25 @@ What the creation does:
    backup server. Without it nothing is created: take a logical backup of the parent first.
 2. **Creates the cluster** with the parent's orchestrator, database image (unless another
    release is given), DBU per node, proxy type and proxy credential, logical backup tool,
-   and the parent's monitoring and replication accounts (same name, same password), a GTID
-   domain the parent's + 1, the parent as multisource head cluster.
+   and the parent's monitoring and replication accounts (same name, same password), the
+   parent as multisource head cluster. Since 3.1.45:
+   - its GTID domain is the CRC32 of its **own name**, like any cluster (it was the parent's
+     + 1: every child of a parent shared one domain). A plan whose domain is the parent's is
+     refused: choose another name;
+   - its databases are **sized from the DBU** before they are provisioned (1 DBU = 1 core,
+     4 GB, 20 GB, 1000 IOPS): 2 DBU per node give 2 cores, 8 GB, 40 GB and 2000 IOPS, so
+     `innodb_io_capacity_max` 2000 (it kept the defaults, 300 IOPS, whatever the DBU).
 3. **Bootstraps a regular master-slave** under its own replication-source-name (`staging` or
    `child`).
 4. **Restores the parent's backup** on its master, data only: the system tables of its own
-   release are kept, no account is loaded from the parent. Its master then replicates from
-   the parent's master under the **parent's** replication-source-name, the same name on both
-   sides: the two names must differ.
-5. For a staging cluster, **detaches one replica** as the staging server.
+   release are kept, no account is loaded from the parent. Its replicas receive the restore
+   through replication (see [The restore on the master](#the-restore-on-the-master)). Its
+   master then replicates from the parent's master under the **parent's**
+   replication-source-name, the same name on both sides: the two names must differ. Its
+   position combines the backup's position in the parent's domain with its own current
+   position in its own domain.
+5. For a staging cluster, **detaches one replica** as the staging server, once that replica
+   has applied all the master wrote (see below).
 
 The progress is the state CINF0014 on the new cluster; WARN0239 tells the step where it
 stopped and why. A cluster whose creation stopped is kept: fix the cause and reseed it from
@@ -51,6 +61,58 @@ its parent, or drop it.
 
 Rights: `cluster-staging` (staging) or `cluster-replication` (child) on the parent, and the
 right to create a cluster.
+
+## Reseeding a staging or a child cluster from its parent (since 3.1.45)
+
+**Bootstrap Staging From Parent** (API `POST /api/clusters/{staging}/actions/staging-reseed-from-parent`)
+reloads an existing staging cluster with the parent's data of now:
+
+1. **Stops the master's replication from the parent**: its position in the parent's GTID
+   domain stops moving.
+2. **Takes a fresh logical backup of the parent when the last one is behind** that position.
+   A reseed never takes the parent's domain back: the master already holds in its binary
+   log the later transactions of the parent it replicated, and with `gtid_strict_mode` it
+   refuses to write an older one after them (error 1950). The fresh backup is past that
+   position, the parent's domain only moves forward. A new cluster holds none of the
+   parent's domain: its creation does not need it. MariaDB.
+3. **Restores that backup on the master** and points its replication from the parent at the
+   backup's position, as at the creation.
+4. **Refreshes the staging server**: a replica that applied all the master wrote is
+   detached as the new staging server, and the former staging server is reloaded **from the
+   staging master's own backup**, taken after its restore, never from the parent's: it holds
+   the restored data and the master's position in every domain, so the former staging
+   server does not replay the restore through replication.
+
+## The restore on the master
+
+A backup restored on a master with the binary log on goes to every replica through its binary
+log. While it runs (since 3.1.45):
+
+- **The binary logs stay bounded**: on MariaDB 11.4 and later, `max_binlog_total_size` is
+  held at 2G on the master and its replicas, and `slave_connections_needed_for_purge` at 0
+  on the replicas (with the default 1, a server with no replica of its own never purges);
+  MariaDB purges by itself. The values come back at the end: the plan's
+  `max_binlog_total_size` under the dynamic config, the one found otherwise.
+- **The restore pauses on each binary log rotation** until every replica applied the
+  rotated binary log with no delay (`Seconds_Behind_Master` 0). A replica whose replication
+  is stopped, or delayed on purpose (`hosts-delayed`, `MASTER_DELAY`), does not take part.
+  WARN0254 names the replica the restore waits for. There is no timer: a restore can take
+  days.
+- **Semi-sync is paused on the master** (`rpl_semi_sync_master_enabled`,
+  `rpl_semi_sync_source_enabled` on MySQL and Percona 8.0.26 and later) and set back on at
+  the end, only when it was on: the pause already holds the restore for the replicas, and
+  every commit of the restore waited for an acknowledgement (a 858 MB backup took 16m51s
+  with it, 12m37s without).
+- **The restore ends once every replica reached the master's position** read when the
+  restore wrote its last transaction, and a staging replica is detached only then. A
+  replica that makes no progress for 3 turns of 30 s, a broken replication or an SQL error
+  ends that wait.
+
+Outside a restore, `prov-db-binlog-total-size-pct` (default 25) gives `max_binlog_total_size`
+as that share of `prov-db-disk-size`, never under 2G (template variable
+`%%ENV:SVC_CONF_ENV_MAX_BINLOG_TOTAL_SIZE%%`, MariaDB 11.4 and later): the binary logs bounded
+by the plan, not only by `prov-db-expire-log-days`, once the replication ruleset of the
+configurator sets it.
 
 ## 4.4.12.1 Staging config important setup :
 
