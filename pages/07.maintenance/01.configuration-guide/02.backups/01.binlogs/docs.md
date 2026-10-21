@@ -184,10 +184,11 @@ copy queue (more than `backup-binlogs-keep` waiting) are tracked the same way. T
 across restarts and ends with the next backup of the server in the archive: the chain is whole
 from that backup on.
 
-Snapshots are purged by the archive's time-based retention (`backup-keep-*`) like any other.
-The binlog chain is complete for as long as the retention keeps every snapshot: set
-`backup-keep-within` (for example `7d`) to the point-in-time restore window you need.
-`backup-keep-last` counts the binlog-only snapshots too.
+The binlog-only snapshots are purged by their own tagged policy, `trigger:binlogs` in
+`backup-keep-tag-policies` (default `keep-within=1d`), counted apart from the backups: they never
+push a backup out of `backup-keep-last`. Those taken since the last backup are always kept; the
+policy sets how long the older ones stay, the point-in-time restore window before the last
+backup. See Archiving, tagged purge policies.
 
 Without an archive, the copies beyond the window are deleted at once.
 
