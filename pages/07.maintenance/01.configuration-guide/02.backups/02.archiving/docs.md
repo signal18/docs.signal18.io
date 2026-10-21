@@ -227,9 +227,8 @@ This retention policy keeps:
 - Last 12 monthly backups
 - Last 3 yearly backups
 
-The retention is time-based and counts snapshots, whatever took them. Each snapshot is the
-backup directory at that time, so it restores on its own. Every snapshot carries a `trigger:`
-tag saying what took it:
+Each snapshot is the backup directory at that time, so it restores on its own. Every snapshot
+carries a `trigger:` tag saying what took it:
 
 | Tag | Taken by |
 | --- | -------- |
@@ -237,6 +236,48 @@ tag saying what took it:
 | `trigger:manual` | the Archive action of one backup |
 | `trigger:snapback` | a snapback, of the backup directory before it is put back |
 | `trigger:binlogs` | a binlog-only snapshot: binlog copies leaving `backup-binlogs-keep` that no snapshot holds yet (see Binlogs) |
+
+#### Tagged purge policies (3.1)
+
+The `backup-keep-*` values above are the **default policy**. A **tagged policy** keeps the
+snapshots carrying its tag by its own keep values, counted apart: the binlog-only snapshots never
+push a backup out of `backup-keep-last`. A snapshot falls under the first tagged policy whose tag
+it carries, else under the default one.
+
+##### `backup-keep-tag-policies` (3.1)
+
+| Item | Value |
+| ---- | ----- |
+| Description | The cluster's tagged policies: rules separated by `;`, each a tag then its keep values (`keep-last`, `keep-hourly`, `keep-daily`, `keep-weekly`, `keep-monthly`, `keep-yearly`, `keep-within`, `keep-within-hourly` ... `keep-within-yearly`) |
+| Type | string |
+| Default Value | `trigger:binlogs keep-within=1d` |
+
+```toml
+backup-keep-tag-policies = "trigger:binlogs keep-within=1d; trigger:snapback keep-last=1"
+```
+
+Under the `trigger:binlogs` policy, the binlog-only snapshots taken since the last backup are
+always kept, whatever its keep values: a binlog only extends a backup, so the binlog chain from
+the last backup is never cut. The keep values decide how long the older ones stay, the
+point-in-time restore window before the last backup.
+
+**An archive's own policies.** Each archive that purges has a `purge-policies` setting, in the
+same form. Empty, the cluster's policies apply (`backup-keep-*` and `backup-keep-tag-policies`).
+Set, they replace them for that archive; a `*` rule replaces the default policy too:
+
+```toml
+[[mycluster.archive]]
+name = "archive-bucket"
+plugin = "archive-restic-s3"
+purge-policies = "* keep-daily=30 keep-monthly=12; trigger:binlogs keep-within=7d"
+```
+
+With tagged policies, replication-manager decides which snapshots stay, counting as restic
+forget does (per host and paths, or `purge-group-by` for a restic archive), and deletes the
+others by id: the same for restic and for the plugin archives (plakar, PBS). The purge options
+of the archive still apply: always kept tag, host/tag/path filters, prune. Without any tagged
+policy, the archive applies `backup-keep-*` its own way, as before. In the GUI: Archive
+settings, Retention policy, **Tagged policies**; and in an archive's **Purge options**.
 
 The retention purge always applies, a snapback included. Only the deletion of one snapshot that
 a snapback holding a backup directory at an older snapshot needs (the one it is at, or its latest
