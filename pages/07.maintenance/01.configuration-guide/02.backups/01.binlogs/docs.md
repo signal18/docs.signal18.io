@@ -32,7 +32,7 @@ what it reads, where the result goes, and the settings that drive it.
   │ 4. Purge on servers          │ │ Security plugins             │ │ Backup directory             │
   │ PURGE BINARY LOGS on the     │ │ cleartext password,          │ │ <backups>/<cluster>/<server>/│
   │ primary and the replicas     │ │ credit card leak ...         │ │ binary-logs.meta.json,       │
-  │ (force-binlog-purge*)        │ │ (binlog_events input)        │ │ snapshot to the archive,     │
+  │ (force-binlog-purge*)        │ │ (binlog_events input)        │ │ in the next backup snapshot, │
   └──────────────────────────────┘ └──────────────────────────────┘ │ copies beyond keep purged    │
                                                                     └──────────────────────────────┘
 ```
@@ -149,8 +149,9 @@ How it ends up in the backup directory:
   directory, encrypted to `<binlog>.enc` with its integrity sidecar, and the plain copy is removed.
   A failed copy is removed from the staging folder.
 - Each copied binlog is listed in `binary-logs.meta.json` of the backup directory.
-- After a rotation copy, the backup directory is snapshotted into the attached archive (the
-  catch-up copies are not, to avoid one snapshot per missing binlog).
+- A binlog copy takes no snapshot: the snapshot taken after the next backup holds the backup
+  directory with the binlogs copied since the previous backup. Until then they are only in the
+  backup directory.
 
 ##### `backup-binlogs` (2.1)
 
