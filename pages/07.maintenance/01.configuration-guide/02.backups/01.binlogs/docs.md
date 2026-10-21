@@ -132,7 +132,9 @@ With `backup-binlogs` on, the **primary's** binlogs are copied into its backup d
    `backup-binlogs-keep` binlogs.
 2. **Right after**, the catch-up: every binlog of the last `backup-binlogs-keep` that is missing
    from the backup directory is copied, as long as the server still has it.
-3. **Then** the copies older than the keep window are deleted from the backup directory.
+3. **Then** the copies older than the keep window are deleted from the backup directory. With
+   an archive attached, a copy is only deleted once a snapshot of the archive holds it, so no
+   binlog is ever lost: see below.
 
 How a binlog is copied is `binlog-copy-mode`:
 
@@ -156,9 +158,38 @@ How it ends up in the backup directory:
 - Each copied binlog is listed in `binary-logs.meta.json` of the backup directory.
 - A binlog copy and a snapshot of the backup directory never run together: a copy waits for the
   snapshot in progress, a snapshot waits for the copy in progress.
-- A binlog copy takes no snapshot: the snapshot taken after the next backup holds the backup
-  directory with the binlogs copied since the previous backup. Until then they are only in the
-  backup directory.
+- A binlog copy takes no snapshot of its own. A snapshot is the whole backup directory: the
+  one taken after a backup holds the backup with the binlog copies in the directory at that time.
+
+With an archive attached, a binlog copy that leaves the keep window and that no snapshot holds
+yet is kept while a **binlog-only snapshot** of the backup directory, tagged `trigger:binlogs`,
+is taken; once it succeeds the copies beyond the window are deleted. With no backup in between,
+a snapshot is so taken every `backup-binlogs-keep` binlogs at most, and every binlog copied is in
+a snapshot of the archive. Each of these snapshots also holds the last backup of the directory:
+it restores on its own. After a restart, the snapshots holding the copies are not known: the
+first deletion takes a snapshot first. While copies wait for it, WARN0258 says how many, the
+oldest and since when.
+
+**Better lose binlogs than backups.** The binlog copy never stops, and the purge policy always
+applies. The binlog-only snapshot is not taken when:
+
+- `backup-archive-remove-original` is on: it would hold binlogs without their backup;
+- the disk of the backup directory is over `backup-disk-treshold-warn`;
+- the last one failed (it is tried again at the next copy beyond the window).
+
+The copies beyond the window are then deleted anyway, and the **binlog continuity** of the server
+in the archive is lost: WARN0259 gives the server, the binlogs in no snapshot, why and since when.
+A point-in-time restore from a backup taken before them stops there. Binlogs dropped from the
+copy queue (more than `backup-binlogs-keep` waiting) are tracked the same way. The state is kept
+across restarts and ends with the next backup of the server in the archive: the chain is whole
+from that backup on.
+
+Snapshots are purged by the archive's time-based retention (`backup-keep-*`) like any other.
+The binlog chain is complete for as long as the retention keeps every snapshot: set
+`backup-keep-within` (for example `7d`) to the point-in-time restore window you need.
+`backup-keep-last` counts the binlog-only snapshots too.
+
+Without an archive, the copies beyond the window are deleted at once.
 
 ##### `backup-binlogs` (2.1)
 

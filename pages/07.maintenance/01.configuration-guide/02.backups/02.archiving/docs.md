@@ -227,6 +227,21 @@ This retention policy keeps:
 - Last 12 monthly backups
 - Last 3 yearly backups
 
+The retention is time-based and counts snapshots, whatever took them. Each snapshot is the
+backup directory at that time, so it restores on its own. Every snapshot carries a `trigger:`
+tag saying what took it:
+
+| Tag | Taken by |
+| --- | -------- |
+| `trigger:backup` | a backup, once it is in the backup directory |
+| `trigger:manual` | the Archive action of one backup |
+| `trigger:snapback` | a snapback, of the backup directory before it is put back |
+| `trigger:binlogs` | a binlog-only snapshot: binlog copies leaving `backup-binlogs-keep` that no snapshot holds yet (see Binlogs) |
+
+The retention purge always applies, a snapback included. Only the deletion of one snapshot that
+a snapback holding a backup directory at an older snapshot needs (the one it is at, or its latest
+one) is refused: snap back to the latest snapshot or release the snapback first.
+
 ## 7.2.2.2.3 Restic Task Management
 
 **replication-manager 3.1** includes task queue management for restic operations. Long-running backup operations are tracked and can be:
