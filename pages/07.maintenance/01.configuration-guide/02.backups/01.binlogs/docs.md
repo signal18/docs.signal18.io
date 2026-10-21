@@ -143,12 +143,16 @@ How a binlog is copied is `binlog-copy-mode`:
 
 How it ends up in the backup directory:
 
-- **Without backup encryption**, the binlog is written straight into the backup directory under its
+- Every copy is first written into a staging folder `.binlog.partial/` of the backup directory,
+  and only moved into the backup directory once complete: the directory, and so its snapshots,
+  only ever holds complete binlogs. A failed copy is removed from the staging folder.
+- **Without backup encryption**, the complete copy is moved into the backup directory under its
   own name.
-- **With backup encryption**, it is copied into a staging folder `.binlog.partial/` of the backup
-  directory, encrypted to `<binlog>.enc` with its integrity sidecar, and the plain copy is removed.
-  A failed copy is removed from the staging folder.
+- **With backup encryption**, it is encrypted to `<binlog>.enc` with its integrity sidecar, and
+  the plain copy is removed.
 - Each copied binlog is listed in `binary-logs.meta.json` of the backup directory.
+- A binlog copy and a snapshot of the backup directory never run together: a copy waits for the
+  snapshot in progress, a snapshot waits for the copy in progress.
 - A binlog copy takes no snapshot: the snapshot taken after the next backup holds the backup
   directory with the binlogs copied since the previous backup. Until then they are only in the
   backup directory.
