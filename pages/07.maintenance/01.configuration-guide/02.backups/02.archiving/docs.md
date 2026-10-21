@@ -283,7 +283,45 @@ The retention purge always applies, a snapback included. Only the deletion of on
 a snapback holding a backup directory at an older snapshot needs (the one it is at, or its latest
 one) is refused: snap back to the latest snapshot or release the snapback first.
 
-## 7.2.2.2.3 Restic Task Management
+## 7.2.2.2.3 Backup Catalogue (3.1)
+
+A backup directory holds one backup of each type: each new backup of a type replaces the one
+there, and the history is the snapshots of the directory in the archive. The **backup catalogue**
+is the list of the backups replication-manager knows, and the snapshots holding each one. It is
+kept in the cluster's working directory, outside the backup directories:
+
+```
+<working-dir>/<cluster>/backup-catalogue/backups.json            every backup
+<working-dir>/<cluster>/backup-catalogue/archives/<archive>.json every snapshot of the archive and its backups
+```
+
+A backup a newer one replaced stays in the catalogue while a snapshot holds it, shown **only in
+the archive**: a restart or a backups folder switch no longer forgets it, and a restore fetches it
+from its snapshot. The active replication-manager writes the catalogue; a standby never does.
+
+**Rebuild from the archives.** Each snapshot carries the records of the backups it holds.
+replication-manager reads them in the snapshots the catalogue does not know: a backup the
+catalogue lacks joins it, only in the archive; a backup it has gets the snapshot when it records
+none of that archive. The rebuild runs:
+
+- at the first start with no catalogue, and when a standby becomes active, about a minute later;
+- from the archive's **Backup catalogue** row in the Archive settings (**Rebuild**), or the API:
+  `POST /api/clusters/{cluster}/archive-actions/rebuild-catalogue/{archive}` (every readable
+  archive without `{archive}`), with the `db-backup` grant.
+
+It reads the archive plugins that list a snapshot's content (plakar, PBS) and the attached restic
+archive. One runs at a time, CINF0021 while it runs; the row shows the outcome of the last one.
+
+**When the catalogue and an archive differ** (WARN0260): a snapshot the plugin cannot list is not
+read, so the backups only in it stay unknown; a snapshot the catalogue records that the archive no
+longer has means its backups point to a copy that no longer exists. replication-manager never
+fixes it silently: **Drop missing** on the Backup catalogue row (or
+`POST /api/clusters/{cluster}/archive-actions/drop-missing-snapshots/{archive}`) lists the archive
+again and takes out each snapshot still gone; a backup whose only copy it was leaves the backup
+list. Nothing is deleted in the archive. A purge, of the archive's plugin or of restic, keeps the
+catalogue right by itself: the backups recording a snapshot it deleted lose it.
+
+## 7.2.2.2.4 Restic Task Management
 
 **replication-manager 3.1** includes task queue management for restic operations. Long-running backup operations are tracked and can be:
 
@@ -293,7 +331,7 @@ one) is refused: snap back to the latest snapshot or release the snapback first.
 
 Task status is visible in the web UI under server details.
 
-## 7.2.2.2.4 Automatic Cleanup Workflow
+## 7.2.2.2.5 Automatic Cleanup Workflow
 
 When `backup-restic-purge-oldest-on-disk-space` is enabled:
 
@@ -307,7 +345,7 @@ When `backup-restic-purge-oldest-on-disk-space` is enabled:
 3. Process repeats until disk usage drops below critical threshold
 4. Normal backup operations resume
 
-## 7.2.2.2.5 Performance Considerations
+## 7.2.2.2.6 Performance Considerations
 
 - Restic operations are I/O intensive, especially `prune` and `check`
 - Set `backup-restic-timeout` appropriately for repository size
