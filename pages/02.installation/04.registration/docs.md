@@ -400,6 +400,10 @@ it in *Settings → Cloud → Self-Service Clusters* or with `cloud18-self-servi
   sold) cannot hold it. Declare the capacity with `resource-manager-infra-cpu-cores` and
   `resource-manager-infra-memory-mb` when your agents do not report it; an unknown capacity
   does not gate.
+- **A self-service client comes before a cluster for sale** (3.1.45): the plans of your
+  clusters shared for sale (`cloud18-shared`) do not block a self-service creation. The
+  status shows them apart in the pool (`forSaleDbu`, `forSaleApu`); a refusal says how much
+  of the planned units is for sale.
 - **Borrowed capacity**: with `cloud18-self-service-clusters-can-borrow`, a pool that cannot
   guarantee the units asks the over-commit pot instead (capacity minus every plan minus what
   is already borrowed). The cluster is then created **without guarantee**, the self-service
@@ -409,7 +413,7 @@ it in *Settings → Cloud → Self-Service Clusters* or with `cloud18-self-servi
   pool. It receives the identity and the orchestrator as arguments and the pool figures in
   the environment (`REPMAN_IDENTITY`, `REPMAN_ORCHESTRATOR`, `REPMAN_SPONSORED_CLUSTERS`,
   `REPMAN_NEEDED_DBU`, `REPMAN_NEEDED_APU`, `REPMAN_FREE_DBU`, `REPMAN_FREE_APU`,
-  `REPMAN_BORROW_DBU`, `REPMAN_BORROW_APU`). A non-zero exit refuses the creation and the
+  `REPMAN_FOR_SALE_DBU`, `REPMAN_FOR_SALE_APU`, `REPMAN_BORROW_DBU`, `REPMAN_BORROW_APU`). A non-zero exit refuses the creation and the
   first line it prints is the reason shown to the user; a script that does not answer within
   30 s refuses too. It can only refuse more than the switch, never open what the switch closes.
 - **Born dynamic**: on OpenSVC and Kubernetes a self-service cluster starts with
