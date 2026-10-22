@@ -237,14 +237,12 @@ Resources are counted in **DBU** (Database Units): 1 DBU = 1 core, 4 GB of memor
   **ERR00119** for the disk, the most dangerous (a volume grown past a declared disk that each
   start reads back, and every size computed from the plan with it, the binlog limits first),
   **WARN0266** for the others. Remove the key from `cluster.d` to let the dynamic configuration
-  own it, in this order: a start without the key takes the setting's **default** (4G of memory,
-  20G of disk, 1 core, 300 IOPS), not the running value.
-  1. Note the four running values (Configurator, or the cluster's `config` in the API).
-  2. Turn **Apply Dynamic Config** and **Apply Dynamic Resource Resize** off.
-  3. Comment the keys out in `cluster.d`, restart replication-manager.
-  4. Set the four values back (Configurator or API): no longer in a file, they are saved in the
-     dynamic configuration and kept across restarts.
-  5. Turn both switches back on.
+  own it, then restart: since **3.1.45** the running value of a resource set in a file is saved
+  in the dynamic configuration too, so the start without the key keeps it. Before, it took the
+  setting's **default** (4G of memory, 20G of disk, 1 core, 300 IOPS): on an older version, or
+  before the cluster has saved its configuration once on 3.1.45, note the four values, turn
+  **Apply Dynamic Config** and **Apply Dynamic Resource Resize** off, remove the keys, restart,
+  set the values back, and turn both switches back on.
 
 ## Turning it on
 
