@@ -321,7 +321,32 @@ again and takes out each snapshot still gone; a backup whose only copy it was le
 list. Nothing is deleted in the archive. A purge, of the archive's plugin or of restic, keeps the
 catalogue right by itself: the backups recording a snapshot it deleted lose it.
 
-## 7.2.2.2.4 Restic Task Management
+## 7.2.2.2.4 Snapback (3.1.45)
+
+A **snapback** puts a server's backup directory back exactly as it was in a snapshot of the
+attached archive (restic, plakar or Proxmox Backup Server), to restore from what it held then.
+Ask it from the **Maintenance** tab, the rewind button on a snapshot of the attached archive, or
+through the API: `POST /api/clusters/{cluster}/archive-actions/snapback/{snapshot}` (the
+`db-restore` grant). It runs in the background: the directory as it is now is snapshotted first,
+which is its latest snapshot, then emptied, then the snapshot is restored into it, and the
+server's backups are read again; it never takes twice the directory's size on disk. It is refused
+while a backup is written, while the backups folder moves, while a snapback of the server runs, or
+without room for the snapshot.
+
+While the directory is not at its latest snapshot, the **archive is read-only for that server**
+(WARN0255): no backup is written in its backup directory nor pushed to the archive, and the
+snapshot it stands on and its latest one cannot be deleted by hand. Two ways out, each offered as
+a button next to WARN0255 in the **Health** alerts, or WARN0256 when a snapback failed:
+
+- **Snapback to latest**: the directory back as it was before the snapback, its backups open again
+  (`.../archive-actions/snapback/{latest snapshot}`).
+- **Release**: the directory kept as it is and its backups opened again; its next backup's snapshot
+  is its new latest one (`POST /api/clusters/{cluster}/archive-actions/snapback-release/{server}`).
+
+The snapback state is kept across a restart: a snapback running when replication-manager stops
+reads as failed (WARN0256) and names the latest snapshot to snap back to.
+
+## 7.2.2.2.5 Restic Task Management
 
 **replication-manager 3.1** includes task queue management for restic operations. Long-running backup operations are tracked and can be:
 
@@ -331,7 +356,7 @@ catalogue right by itself: the backups recording a snapshot it deleted lose it.
 
 Task status is visible in the web UI under server details.
 
-## 7.2.2.2.5 Automatic Cleanup Workflow
+## 7.2.2.2.6 Automatic Cleanup Workflow
 
 When `backup-restic-purge-oldest-on-disk-space` is enabled:
 
@@ -345,7 +370,7 @@ When `backup-restic-purge-oldest-on-disk-space` is enabled:
 3. Process repeats until disk usage drops below critical threshold
 4. Normal backup operations resume
 
-## 7.2.2.2.6 Performance Considerations
+## 7.2.2.2.7 Performance Considerations
 
 - Restic operations are I/O intensive, especially `prune` and `check`
 - Set `backup-restic-timeout` appropriately for repository size
