@@ -280,7 +280,9 @@ to watch is a replica left disconnected longer than the budget's worth of binlog
 or let replication-manager reseed it.
 
 A binlog still queued for copy (path 3) is never purged by replication-manager: the purge stops
-just before it. The server's own expiry (`binlog_expire_logs_seconds`, `expire_logs_days`) is not
+just before it. Since **3.1.45** the size limit it sets on MariaDB 11.4 and up (`max_binlog_total_size`)
+never drops under the binlogs still queued for copy either: the server purges by size by itself,
+and would otherwise remove a binlog before its copy reached the archive. The server's own expiry (`binlog_expire_logs_seconds`, `expire_logs_days`) is not
 replication-manager's: a binlog it removes before it was copied can no longer be caught up;
 WARN0257 says when the oldest binlog to copy is the server's oldest.
 
