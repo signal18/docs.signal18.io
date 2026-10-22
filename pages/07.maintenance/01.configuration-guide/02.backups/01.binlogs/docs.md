@@ -259,8 +259,9 @@ follows the disk, from the first of these that is known:
 Half, so that the other half stays for the data, temporary files and a restore. The budget is
 recomputed as the data grows and after a disk resize, and it never goes below two binlog files
 (2 x `max_binlog_size`): WARN0264 says when the data leaves no more room. On MariaDB 11.4 and up
-it is set as `max_binlog_total_size`; under the dynamic configuration the plan sets that variable
-instead (`prov-db-binlog-total-size-pct`).
+it is set as `max_binlog_total_size`. Under the dynamic configuration the plan sets that variable
+instead: `prov-db-binlog-total-size-pct` of the plan's disk, set live on every MariaDB 11.4+ server
+whether `force-binlog-purge` is on or not.
 
 **Replicas and the purge, by version**
 
