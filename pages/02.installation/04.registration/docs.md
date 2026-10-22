@@ -400,10 +400,12 @@ it in *Settings → Cloud → Self-Service Clusters* or with `cloud18-self-servi
   sold) cannot hold it. Declare the capacity with `resource-manager-infra-cpu-cores` and
   `resource-manager-infra-memory-mb` when your agents do not report it; an unknown capacity
   does not gate.
-- **A self-service client comes before a cluster for sale** (3.1.45): the plans of your
-  clusters shared for sale (`cloud18-shared`) do not block a self-service creation. The
-  status shows them apart in the pool (`forSaleDbu`, `forSaleApu`); a refusal says how much
-  of the planned units is for sale.
+- **A self-service client comes before a cluster for sale** (3.1.45): a cluster you share
+  for sale (`cloud18-shared`) keeps only its floor in the pool, 1 DBU per database node and
+  1 APU (its BKU plan counts whole); its plan above the floor does not block a self-service
+  creation. The status shows that part apart (`forSaleDbu`, `forSaleApu`) and a refusal
+  gives the free and releasable figures. Over-commit is not involved: it is measured on the
+  resources the services use, not on plans.
 - **Borrowed capacity**: with `cloud18-self-service-clusters-can-borrow`, a pool that cannot
   guarantee the units asks the over-commit pot instead (capacity minus every plan minus what
   is already borrowed). The cluster is then created **without guarantee**, the self-service
