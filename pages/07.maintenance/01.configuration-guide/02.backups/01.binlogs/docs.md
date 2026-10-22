@@ -241,11 +241,42 @@ client package of your database version is advised.
 
 replication-manager can purge binlogs on the servers themselves (`PURGE BINARY LOGS`):
 
-- on the **primary**, when its binlogs take more than `force-binlog-purge-total-size` GB, and only
-  while at least `force-binlog-purge-min-replica` replicas are connected (otherwise a warning says
-  why it waits);
+- on the **primary**, when its binlogs take more than the **binlog budget**, and only while at
+  least `force-binlog-purge-min-replica` replicas are connected (otherwise a warning says why it
+  waits);
 - on the **replicas**, down to the oldest binlog time still on the primary, keeping at least the
   current and the previous binlog, and only for a connected replica.
+
+**The binlog budget** is `force-binlog-purge-total-size` when set (GB). At `0`, the default, it
+follows the disk, from the first of these that is known:
+
+| Known | Budget |
+| ---- | ----- |
+| the plan's disk (`prov-db-disk-size`, a provisioned cluster) and the database size (the schema monitor) | (plan disk - data) / 2 |
+| the data disk's free space: reported by the jobs script (on premise, while SSH is available), else `information_schema.DISKS` | binlogs now + half the free space |
+| nothing | 30 GB |
+
+Half, so that the other half stays for the data, temporary files and a restore. The budget is
+recomputed as the data grows and after a disk resize, and it never goes below two binlog files
+(2 x `max_binlog_size`): WARN0264 says when the data leaves no more room. On MariaDB 11.4 and up
+it is set as `max_binlog_total_size`; under the dynamic configuration the plan sets that variable
+instead (`prov-db-binlog-total-size-pct`).
+
+**Replicas and the purge, by version**
+
+| Database | Who purges by size | A connected replica (IO thread running), even lagging | A disconnected replica (stopped, down, IO error) |
+| ---- | ---- | ---- | ---- |
+| MariaDB 11.4 and up | the server itself (`max_binlog_total_size`, set from the budget, or by the plan under the dynamic configuration) | **safe**: the server never purges a binlog a replica's dump thread is reading | **at risk**: the server purges past the budget whatever it still needs; WARN0265 names it, and it needs a reseed unless it reconnects first |
+| MariaDB before 11.4, MySQL, Percona | replication-manager (`PURGE BINARY LOGS`) | **safe** | **safe**: the purge stops at the oldest binlog any replica still reads (WARN0107), the primary keeps more than the budget |
+
+On MariaDB 11.4 and up the server also purges by size only while `slave_connections_needed_for_purge`
+replicas (1 by default) are connected: with every replica disconnected, nothing is purged by size.
+Only the server's own expiry by time (`binlog_expire_logs_seconds`, `expire_logs_days`), not
+replication-manager's, can remove a binlog a replica still needs on any version.
+
+So an active replica is never broken by the purge, on any version. On MariaDB 11.4 and up, the one
+to watch is a replica left disconnected longer than the budget's worth of binlogs: bring it back,
+or let replication-manager reseed it.
 
 A binlog still queued for copy (path 3) is never purged by replication-manager: the purge stops
 just before it. The server's own expiry (`binlog_expire_logs_seconds`, `expire_logs_days`) is not
@@ -264,9 +295,9 @@ WARN0257 says when the oldest binlog to copy is the server's oldest.
 
 | Item | Value |
 | ---- | ----- |
-| Description | Size of the primary's binlogs, in GB, above which they are purged |
+| Description | The binlog budget in GB: the primary's binlogs beyond it are purged; 0 follows the disk (see above) |
 | Type | integer |
-| Default Value | 30 |
+| Default Value | 0 (30 before 3.1.45) |
 
 ##### `force-binlog-purge-min-replica`
 
