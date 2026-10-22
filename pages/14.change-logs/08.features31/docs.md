@@ -118,6 +118,8 @@ taxonomy:
 
 #### 14.8.0.1.8 Scheduler
 
+* **Version 3.1.45 - Job dispatch through the API by default**: `scheduler-jobs-mode` now defaults to `api`. The dbjobs script on each database host checks its tasks and reports their states through the replication-manager API; nothing is written in the database for the jobs any more, so a client's own backups no longer carry replication-manager's job rows and a restore never has to sort them out. Over SSH (on premise) the script follows the new mode at its next run. In a jobs container (OpenSVC, Kubernetes) the mode is part of the server's configuration: redeploy the database services' configuration, or set `scheduler-jobs-mode = "sql"` to keep the former mode. [See documentation](/maintenance/overview)
+
 * **Enhanced Scheduler System**: Comprehensive task scheduling with cron support for database maintenance, backups, and administrative operations
 
 * **Dual-Mode Job Dispatch (sql/api)**: New `scheduler-jobs-mode` configuration. In `api` mode, tasks are dispatched via REST API cookies instead of polling the SQL jobs table, removing the need for the `replication_manager_schema.jobs` table on database hosts. The dbjobs script authenticates via JWT and checks task availability through the replication-manager API. Default mode remains `sql` for full backward compatibility. [See documentation](/maintenance/overview#6-1-8-job-dispatch-modes-since-3-x)
