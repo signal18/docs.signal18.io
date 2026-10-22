@@ -105,8 +105,17 @@ log. While it runs (since 3.1.45):
   with it, 12m37s without).
 - **The restore ends once every replica reached the master's position** read when the
   restore wrote its last transaction, and a staging replica is detached only then. A
-  replica that makes no progress for 3 turns of 30 s, a broken replication or an SQL error
-  ends that wait.
+  replica whose applied position does not move for 90 s, a broken replication or an SQL
+  error ends that wait.
+
+**Cancelling a restore**: a running logical reseed, from the parent or from the cluster's own
+backup, single file or splitdump, stops with
+`GET /api/clusters/{cluster}/servers/{server}/actions/job-cancel/reseedmysqldump`, also while
+it is paused on a rotation. The binary log limit and semi-sync come back at once, without
+waiting for the replicas. The data is then incomplete: the server's replication stays stopped,
+WARN0252 says so until a reseed of that server ends. A reseed from the parent refused before
+anything was loaded (no parent backup, no parent master, a reseed already running) starts the
+master's replication from the parent again.
 
 Outside a restore, `prov-db-binlog-total-size-pct` (default 25) gives `max_binlog_total_size`
 as that share of `prov-db-disk-size`, never under 2G (template variable
