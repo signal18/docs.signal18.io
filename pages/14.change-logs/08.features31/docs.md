@@ -64,6 +64,8 @@ taxonomy:
 
 #### 14.8.0.1.3 Backup Enhancements
 
+* **Version 3.1.45 - Dynamic resources: no resource set in a file, binlogs out of the disk follow**: under the dynamic configuration a resource set in `cluster.d` (`prov-db-cpu-cores`, `prov-db-memory`, `prov-db-disk-iops`, `prov-db-disk-size`) is never moved, since each start reads it back: ERR00119 for the disk, WARN0266 for the others, until the key is removed from the file. The disk follow sizes on the data without the binary logs, plus the plan's binlog share (`prov-db-binlog-total-size-pct`): the binary logs no longer grow the plan and the volume. [See documentation](/provisioning/dynamic-resources)
+
 * **Version 3.1.45 - The binlog budget follows the disk**: with `force-binlog-purge`, the primary's binlogs are purged past a budget that `force-binlog-purge-total-size` now sets only when given (GB). Its default, 0, is (plan disk - data) / 2 on a provisioned cluster, else the binlogs plus half the free space of the data disk (reported by the jobs script, else `information_schema.DISKS`), else 30 GB as before; never below two binlog files (WARN0264). A fixed 30 GB filled small data disks. Under the dynamic configuration the plan's `max_binlog_total_size` (`prov-db-binlog-total-size-pct` of the disk) is now set live on the running servers; it was only written in their configuration file. A connected replica is never broken by the purge, on any version. On MariaDB 11.4+ a disconnected replica needing a binlog beyond the budget is flagged (WARN0265): the server purges by size and it would need a reseed. [See documentation](/maintenance/configuration-guide/backups/binlogs)
 
 * **Restic Task Management**: Background task queue for backup operations with pause/resume/cancel support via API

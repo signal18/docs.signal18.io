@@ -229,6 +229,22 @@ Resources are counted in **DBU** (Database Units): 1 DBU = 1 core, 4 GB of memor
 - On OpenSVC, the cap must live on the process group, not on the docker run arguments:
   set `prov-db-docker-run-args-limit = false` and rolling-restart once so the containers
   are recreated resize-ready. Until then WARN0214 tells you the live move cannot bind.
+- **No resource set in the configuration files** (`cluster.d`): `prov-db-cpu-cores`,
+  `prov-db-memory`, `prov-db-disk-iops` and `prov-db-disk-size` must be left to the dynamic
+  configuration. A value set in a file is immutable: each start reads it back, whatever the
+  dynamic configuration moved it to. Since **3.1.45** the dynamic configuration never moves a
+  resource set in a file (no grow, shrink, follow nor plan alignment on it), and says so:
+  **ERR00119** for the disk, the most dangerous (a volume grown past a declared disk that each
+  start reads back, and every size computed from the plan with it, the binlog limits first),
+  **WARN0266** for the others. Remove the key from `cluster.d` to let the dynamic configuration
+  own it, in this order: a start without the key takes the setting's **default** (4G of memory,
+  20G of disk, 1 core, 300 IOPS), not the running value.
+  1. Note the four running values (Configurator, or the cluster's `config` in the API).
+  2. Turn **Apply Dynamic Config** and **Apply Dynamic Resource Resize** off.
+  3. Comment the keys out in `cluster.d`, restart replication-manager.
+  4. Set the four values back (Configurator or API): no longer in a file, they are saved in the
+     dynamic configuration and kept across restarts.
+  5. Turn both switches back on.
 
 ## Turning it on
 
@@ -290,13 +306,19 @@ peak usage plus the safety margin, never under the plan. Only a genuine IO bottl
 
 **Disk follows usage both ways.** The declared `prov-db-disk-size` is what the volume's quota
 bounds. Since **3.1.43**, when the measured datadir of a node is over the configured disk, the
-configuration follows reality: `prov-db-disk-size` becomes the largest node's usage in whole
+configuration follows reality: `prov-db-disk-size` becomes the largest node's data in whole
 gigabytes, no rounding to the unit, within the plan for free, past the plan through the same
 envelope as the other axes. And when every node has stayed well under the configured disk
 for `prov-db-scale-down-config-in-plan-speed`, the disk shrinks back in one move, aligned to
 the unit, to the larger of the **plan's disk** and the peak usage plus the safety margin: the
 plan is the floor, a database never gets less disk than its plan promises, whatever the
 undercommit allowed on cores and memory.
+
+Since **3.1.45** the data a follow sizes on excludes the binary logs, and the plan's binlog share
+is added on top: disk = (datadir used - binlogs) / (1 - `prov-db-binlog-total-size-pct`). With
+the default 25 %, 6 GB of data gives an 8 GB disk, 2 GB of it for the binary logs, which
+`max_binlog_total_size` bounds to that share. Before, the binary logs were counted as data: they
+grew the plan and the volume, grown to exactly what was used, with no room left.
 
 ## How a shrink happens
 
