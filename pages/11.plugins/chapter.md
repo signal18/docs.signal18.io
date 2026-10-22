@@ -21,6 +21,8 @@ replication-manager ships three tiers of plugins:
 
 Registering your instance is free and takes less than two minutes. Benefits include community plugins, configuration backup and restore, cluster role sharing, direct chat with the Signal18 team and partners, and Cloud18 marketplace access. See [Registration & SSO](/getting-started/registration) in the Getting Started guide for the full details, GitLab object mapping, secret storage model, and team management.
 
+**Archive plugins** (since v3.1.45) keep a cluster's backups out of the backup directory: restic on a local folder, SFTP or S3 for everyone, plakar and Proxmox Backup Server as signed enterprise plugins. See [Archive Plugins](archive-plugins).
+
 **Enterprise plugins** are built into the binary and run on every instance. On **paid plans** (Support, Partner), the Signal18 back office pushes frequent updates — no new release required. On the **free plan** the embedded defaults are used, refreshed only with each new release.
 
 Enterprise plugins cover four areas:

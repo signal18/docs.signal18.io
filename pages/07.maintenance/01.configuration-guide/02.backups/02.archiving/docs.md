@@ -5,6 +5,8 @@ taxonomy:
 ---
 ### 7.2.2.2.0.1 Archiving Backups
 
+> Since **v3.1.45** a cluster has a list of archives, each made from an archive plugin (restic local, SFTP or S3, plakar, Proxmox Backup Server). The `backup-restic-*` settings below are migrated into archive 1 at load. See [Archive Plugins](/plugins/archive-plugins).
+
 ##### `backup-restic` (2.1)                                            
 
 | Item | Value |
