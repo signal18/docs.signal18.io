@@ -355,9 +355,9 @@ scheduler-db-servers-log-batch-size = 5
 
 ## 7.1.10 Job Dispatch Modes (since 3.x)
 
-replication-manager supports two modes for dispatching maintenance tasks to database hosts. The mode is controlled by `scheduler-jobs-mode`.
+replication-manager supports two modes for dispatching maintenance tasks to database hosts. The mode is controlled by `scheduler-jobs-mode`, `api` by default since 3.1.45 (`sql` before).
 
-### 7.1.10.1 SQL Mode (default)
+### 7.1.10.1 SQL Mode
 
 ```toml
 scheduler-jobs-mode = "sql"
@@ -369,11 +369,17 @@ This mode requires:
 - A working SQL connection to the database
 - The `replication_manager_schema` database and `jobs` table (created automatically)
 
-### 7.1.10.2 API Mode
+### 7.1.10.2 API Mode (default since 3.1.45)
 
 ```toml
 scheduler-jobs-mode = "api"
 ```
+
+The default since 3.1.45: replication-manager writes nothing in the database for its jobs. A cluster
+that used the sql default before moves to the api mode at the upgrade. Over SSH (on-premise) the
+dbjobs script reads the mode at each run. In a jobs container (OpenSVC, Kubernetes) the mode is in
+the server's configuration: redeploy the database services' configuration so their dbjobs script
+uses the api mode too, or set `scheduler-jobs-mode = "sql"` to keep the former mode.
 
 In API mode, replication-manager sets cookie files (trigger signals) instead of inserting SQL rows. The dbjobs script discovers pending tasks by calling the replication-manager REST API, executes them, and reports completion back via the API.
 
