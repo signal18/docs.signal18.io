@@ -321,6 +321,18 @@ again and takes out each snapshot still gone; a backup whose only copy it was le
 list. Nothing is deleted in the archive. A purge, of the archive's plugin or of restic, keeps the
 catalogue right by itself: the backups recording a snapshot it deleted lose it.
 
+### Proxmox Backup Server archives are encrypted (3.1.45)
+
+A Proxmox Backup Server archive (`archive-pbs`) is encrypted on the replication-manager side
+before anything reaches the PBS. When a PBS archive is added without an `encryption-key`, the
+plugin generates one (a `proxmox-backup-client` key file, no passphrase) and replication-manager
+stores it as the archive's secret, encrypted, never sent back by the API. Keep a copy of that
+key with your configuration backup: without it the snapshots cannot be restored.
+
+Set `no-encrypt` on the archive to keep its snapshots in clear. An archive with neither a key nor
+`no-encrypt`, one added before 3.1.45, raises **WARN0263**: give it a key to encrypt its next
+snapshots (those already taken stay as they are; a PBS keeps both kinds).
+
 ## 7.2.2.2.4 Snapback (3.1.45)
 
 A **snapback** puts a server's backup directory back exactly as it was in a snapshot of the
