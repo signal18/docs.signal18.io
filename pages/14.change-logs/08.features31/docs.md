@@ -118,7 +118,7 @@ taxonomy:
 
 #### 14.8.0.1.8 Scheduler
 
-* **Version 3.1.45 - Job dispatch through the API by default**: `scheduler-jobs-mode` now defaults to `api`. The dbjobs script on each database host checks its tasks and reports their states through the replication-manager API; nothing is written in the database for the jobs any more, so a client's own backups no longer carry replication-manager's job rows and a restore never has to sort them out. Over SSH (on premise) the script follows the new mode at its next run. In a jobs container (OpenSVC, Kubernetes) the mode is part of the server's configuration: redeploy the database services' configuration, or set `scheduler-jobs-mode = "sql"` to keep the former mode. [See documentation](/maintenance/overview)
+* **Version 3.1.45 - Job dispatch through the API by default**: `scheduler-jobs-mode` now defaults to `api`. The dbjobs script on each database host checks its tasks and reports their states through the replication-manager API; nothing is written in the database for the jobs any more, so a client's own backups no longer carry replication-manager's job rows and a restore never has to sort them out. Over SSH (on premise) the script follows the new mode at its next run. In a jobs container (OpenSVC, Kubernetes) the mode is in the dbjobs script replication-manager renders for each server: run a jobs upgrade (`actions/rolling/jobs-upgrade`) after the upgrade, or set `scheduler-jobs-mode = "sql"` to keep the former mode. [See documentation](/maintenance/overview)
 
 * **Enhanced Scheduler System**: Comprehensive task scheduling with cron support for database maintenance, backups, and administrative operations
 

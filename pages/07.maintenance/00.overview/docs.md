@@ -378,8 +378,9 @@ scheduler-jobs-mode = "api"
 The default since 3.1.45: replication-manager writes nothing in the database for its jobs. A cluster
 that used the sql default before moves to the api mode at the upgrade. Over SSH (on-premise) the
 dbjobs script reads the mode at each run. In a jobs container (OpenSVC, Kubernetes) the mode is in
-the server's configuration: redeploy the database services' configuration so their dbjobs script
-uses the api mode too, or set `scheduler-jobs-mode = "sql"` to keep the former mode.
+the dbjobs script replication-manager renders for each server: run a jobs upgrade (API
+`actions/rolling/jobs-upgrade`) after the upgrade so the script uses the api mode too, or set
+`scheduler-jobs-mode = "sql"` to keep the former mode.
 
 In API mode, replication-manager sets cookie files (trigger signals) instead of inserting SQL rows. The dbjobs script discovers pending tasks by calling the replication-manager REST API, executes them, and reports completion back via the API.
 
