@@ -18,7 +18,7 @@ jobs:
       - name: Install pandoc and LaTeX
         run: |
           sudo apt-get update -qq
-          sudo apt-get install -y pandoc texlive-xetex texlive-fonts-recommended texlive-fonts-extra
+          sudo apt-get install -y pandoc librsvg2-bin texlive-xetex texlive-fonts-recommended texlive-fonts-extra
 
       - name: Collect and order docs.md files
         run: |
