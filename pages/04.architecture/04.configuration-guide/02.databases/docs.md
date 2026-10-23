@@ -67,6 +67,46 @@ If you want to exclude the database, you need to put the host address within `db
 | Type          | integer |
 | Default Value | 15 |
 
+##### `db-servers-monitor-extra-port` (3.1.46)
+
+| Item          | Value |
+| ----          | ----- |
+| Description   | Port of replication-manager's own connections to the databases, usually MariaDB's `extra_port`. `db-servers-hosts` keeps the service port, the one applications, proxies and replication use. |
+| Type          | integer |
+| Default Value | 0 (the port of `db-servers-hosts`) |
+| Example       | 3307 |
+
+Available from replication-manager 3.1.46. It can be changed live in **Settings → Monitoring → Database Servers Monitor Extra Port**, and the value is kept across restarts.
+
+**Why an extra port.** When a database reaches `max_connections`, new connections are refused with error 1040, including replication-manager's: it can no longer see the server it is supposed to watch. MariaDB's `extra_port` is a second listener with its own connection limit (`extra_max_connections`). Monitoring through it keeps replication-manager connected while the service port is full.
+
+**What moves and what doesn't.** Only replication-manager's own SQL connections go to the extra port:
+
+| Uses `db-servers-monitor-extra-port` | Keeps the port of `db-servers-hosts` |
+| ---- | ----- |
+| Monitoring checks and the connection pool replication-manager keeps on each server | HAProxy, ProxySQL and MaxScale backends |
+| | Replication (`CHANGE MASTER TO ... MASTER_PORT`), rejoin and reseed |
+| | Backup tools |
+| | The server's name in the GUI and the API (`host:port`) |
+
+! Do not put the extra port in `db-servers-hosts`. replication-manager writes that port into the proxies: with HAProxy in `runtimeapi` mode, the write backend would be repointed to the extra port, sending application writes there, and a read backend left on the service port would no longer match any server and disappear from the dashboard.
+
+**Enable the extra port on MariaDB** (not dynamic, a restart of the database is needed):
+
+```
+[mariadb]
+extra_port = 3307
+extra_max_connections = 10
+```
+
+Size `extra_max_connections` for replication-manager: it keeps a pool of about two connections per server, plus one per check and one per job that runs (backups, schema checks). Databases provisioned by replication-manager with the `threadpool` tag already have `extra_port = 3307` and `extra_max_connections = 10`.
+
+**When the extra port does not answer.** If the extra port refuses the connection, times out, or is full (error 1040), replication-manager monitors the server on the service port and raises **WARN0267** ("monitoring extra port ... unusable ..., monitoring on the service port ... until it answers again"). It tries the extra port again after one minute and goes back to it as soon as it answers; WARN0267 then closes. A misconfigured extra port never makes a healthy server look down, and never triggers a failover. An access denied error is not a reason to fall back: the same credentials are used on both ports.
+
+On the dashboard, a server monitored on another port than its service port shows as `host:3306 (monitored on :3307)`.
+
+Not used through an SSH tunnel (`tunnel-host`), nor for PostgreSQL.
+
 ##### `db-servers-tls-ca-cert` (2.0)
 
 | Item          | Value |

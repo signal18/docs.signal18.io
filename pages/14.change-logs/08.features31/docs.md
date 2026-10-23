@@ -8,6 +8,8 @@ taxonomy:
 
 #### 14.8.0.1.1 Monitoring Enhancements
 
+* **Version 3.1.46 - Monitoring through MariaDB extra_port**: new `db-servers-monitor-extra-port` moves replication-manager's own connections to the database's `extra_port`, so it keeps monitoring when `max_connections` is reached. `db-servers-hosts` keeps the service port for proxies and replication. If the extra port fails, monitoring falls back to the service port with WARN0267 and retries after one minute. [See documentation](/architecture/configuration-guide/databases)
+
 * **Version 3.1.42 - Schema plugins SCH0003 / SCH0004**: `plugin-schema-duplicate-index` flags redundant indexes (leftmost-prefix rule, uniqueness respected, InnoDB implicit primary-key suffix handled) with a `DROP INDEX` remediation each; `plugin-schema-auto-increment-exhaustion` flags AUTO_INCREMENT counters past 95 % (configurable) of the column type capacity with the widening `ALTER`. Plugin wire v4 carries indexes, auto-increment and column extra on the schema snapshot. [See documentation](/plugins/schema-plugins)
 
 * **Version 3.1.42 - Graphs page in sections and every Top gauge over time**: the Graphs page is organised in Workload, Replication, Resources, InnoDB and Memory sections; the Top page gauges and per-instance bar graphs (Queries, Rows, Transactions, Swap, Cache Miss) get a time series each, plus a replication parallelism chart (binlog group commit size vs parallel workers) and threads connected.
