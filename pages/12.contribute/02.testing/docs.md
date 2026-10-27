@@ -64,3 +64,21 @@ Test returns some JSON structure that get useful informations for debugging
 PASS
 FAIL
 ERR
+SKIP
+
+#### 10.2.0.1.2 Test targets
+
+A test can declare the setup it applies to. When the cluster does not match, the test does not run: its result is `SKIP`, and the log says why, for example `Skip testGroupReplicationPrimaryLoss: number-nodes-target 3, cluster has 2`. A test without targets runs on every cluster.
+
+| Target | The cluster must have |
+|---|---|
+| topology-target | one of the listed topologies (`master-slave`, `multi-master-grprep`, ...), as declared in its configuration |
+| number-nodes-target | at least this many database servers |
+| flavor-target | one of the listed flavors: `mariadb`, `mysql`, `percona`, `postgresql` |
+| orchestrator-target | one of the listed orchestrators. Only tests of orchestrator mechanics have one: a functional test runs whatever the orchestrator |
+| dbu-target | at least this many DBU per database server |
+| config-variable-target | each listed configuration variable at the given value, for example `topology-staging = true` |
+
+So `ALL` can run on any cluster: a group replication test is skipped on a master-slave cluster, a staging test on a cluster without `topology-staging`.
+
+A skipped test is not a tested setup: in test mode, the results sent to Cloud18 leave it out.
