@@ -77,7 +77,9 @@ Every test declares the setups it applies to, as one or more targets. A target i
 | flavor-target | one of the listed flavors: `mariadb`, `mysql`, `percona`, `postgresql` |
 | orchestrator-target | one of the listed orchestrators. Only tests of orchestrator mechanics have one: a functional test runs whatever the orchestrator |
 | dbu-target | at least this many DBU per database server |
-| config-variable-target | each listed configuration variable at the given value, for example `topology-staging = true` |
+| config-variable-must-have | each listed configuration variable already at the given value, for example `arbitration-external = true`: a setting that describes the architecture, which the test never sets |
+
+A test can also declare **config-variable-must-set**: the configuration variables it runs with, for example `check-replication-state = true`. The runner sets them before the test the way the API does, and restores the configuration after it. A value that cannot be set leaves the test unrun, with the result `ERR`.
 
 So `ALL` can run on any cluster: a group replication test is skipped on a master-slave cluster, a staging test on a cluster without `topology-staging`.
 
