@@ -68,9 +68,9 @@ SKIP
 
 #### 10.2.0.1.2 Test targets
 
-A test can declare the setup it applies to. When the cluster does not match, the test does not run: its result is `SKIP`, and the log says why, for example `Skip testGroupReplicationPrimaryLoss: number-nodes-target 3, cluster has 2`. A test without targets runs on every cluster.
+Every test declares the setups it applies to, as one or more targets. A target is a set of conditions that must all hold; the test runs when the cluster matches at least one of its targets. A switchover test can so apply to a master-slave cluster from 2 nodes and to a Galera cluster from 3 nodes on MariaDB. When the cluster matches none, the test does not run: its result is `SKIP`, and the log says why, for example `Skip testGroupReplicationPrimaryLoss: number-nodes-target 3, cluster has 2`. A test that applies everywhere declares one empty target; a new test without a declaration fails the unit tests.
 
-| Target | The cluster must have |
+| Condition | The cluster must have |
 |---|---|
 | topology-target | one of the listed topologies (`master-slave`, `multi-master-grprep`, ...), as declared in its configuration |
 | number-nodes-target | at least this many database servers |
