@@ -265,6 +265,17 @@ Item | Value |
 | Type | boolean |
 | Default Value | true |
 
+The database jobs keep their logs, checkpoints and locks on the database host, in `<datadir>/.system/jobs`. The configuration replication-manager generates hides `.system` from the databases (`ignore_db_dirs=.system`). A MariaDB server configured without it would list `.system` as a database, `#mysql50#.system`, on which `mariadb-dump --all-databases` and `mysqlcheck --all-databases` fail (error 1102, "Incorrect database name"). So on a MariaDB server whose `ignore_db_dirs` does not name `.system`, the jobs use `/var/lib/replication-manager-jobs` instead, as with the `nosplitpath` tag. MySQL and Percona list no hidden folder as a database.
+
+A `.system` folder left from an earlier version can be moved out of the datadir once no job runs, or hidden by adding to the server configuration (restart needed):
+
+```
+[mariadb]
+ignore_db_dirs=.system
+```
+
+While the folder is listed, a logical backup names its databases instead of `--all-databases`, so the backup still runs.
+
 ##### `scheduler-jobs-ssh-cron` (2.1)
 
 Item | Value |
