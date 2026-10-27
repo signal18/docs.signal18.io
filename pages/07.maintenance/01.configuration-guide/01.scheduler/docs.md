@@ -267,6 +267,8 @@ Item | Value |
 
 The database jobs keep their logs, checkpoints and locks on the database host, in `<datadir>/.system/jobs`. The configuration replication-manager generates hides `.system` from the databases (`ignore_db_dirs=.system`). A MariaDB server configured without it would list `.system` as a database, `#mysql50#.system`, on which `mariadb-dump --all-databases` and `mysqlcheck --all-databases` fail (error 1102, "Incorrect database name"). So on a MariaDB server whose `ignore_db_dirs` does not name `.system`, the jobs use `/var/lib/replication-manager-jobs` instead, as with the `nosplitpath` tag. MySQL and Percona list no hidden folder as a database.
 
+A physical reseed or flashback stages the backup in `<datadir>/.system`, which must be on the datadir's disk. When `.system` did not exist before, the restore removes it when it ends, whether it succeeded or failed, or at the next job run once every process of a killed restore is gone. A `.system` that was already there is never removed.
+
 A `.system` folder left from an earlier version can be moved out of the datadir once no job runs, or hidden by adding to the server configuration (restart needed):
 
 ```
