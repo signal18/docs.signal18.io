@@ -152,7 +152,8 @@ background process that exited while its instance stays up is not detected by th
 
 A **web service** declares `app-monitor-mode = "https"` (or `"http"`): the monitor sends a GET to
 `https://<app-host>:<app-port><app-monitor-path>` and expects `app-monitor-expect-status` (default path `/`, default
-status `200`, a comma list such as `200,204`). This is the check that sees a service that accepts connections and
+status `200`, a comma list such as `200,204`). Redirects are followed and the final status is compared: a page that
+answers `302` to its login page is checked with the login page's status (usually `200`). This is the check that sees a service that accepts connections and
 never answers, which `port` and `ping` report up. No answer within the monitor timeout opens `APPERR001`, a wrong status
 `APPERR002`. A full `app-host` name (`status.example.com`) is called as is; a short one on the app's cluster address.
 `app-monitor-mode = "https-cert"` adds a verified look at the certificate: an invalid certificate (chain, name), or one
