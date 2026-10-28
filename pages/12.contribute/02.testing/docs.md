@@ -81,6 +81,8 @@ Every test declares the setups it applies to, as one or more targets. A target i
 
 A test can also declare **config-variable-must-set**: the configuration variables it runs with, for example `check-replication-state = true`. The runner sets them before the test the way the API does, and restores the configuration after it. A value that cannot be set leaves the test unrun, with the result `ERR`.
 
+On MySQL and Percona, every test also needs the `mysqlgtid` tag in `prov-db-tags`, except with group replication. Provisioning adds that tag, so a MySQL cluster without it is not a setup clients run: its tests are skipped, with the reason `a MySQL cluster declares the mysqlgtid tag (prov-db-tags)`.
+
 So `ALL` can run on any cluster: a group replication test is skipped on a master-slave cluster, a staging test on a cluster without `topology-staging`.
 
 A skipped test is not a tested setup: in test mode, the results sent to Cloud18 leave it out.

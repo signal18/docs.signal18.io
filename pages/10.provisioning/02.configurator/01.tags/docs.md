@@ -78,7 +78,7 @@ prov-db-tags = "innodb,noquerycache,threadpool,slow,pfs,semisync,row,ssl,docker,
 | `nologslaveupdates` | Disable `log_slave_updates` on replicas |
 | `multidomains` | Enable multi-domain replication (unique domain IDs per cluster) |
 | `gtidstrict` | Enable GTID strict mode |
-| `mysqlgtid` | Use MySQL-compatible GTID format |
+| `mysqlgtid` | MySQL and Percona replicate on GTID (`gtid-mode=ON`, `enforce-gtid-consistency=ON`). Added by itself when a MySQL or Percona cluster is provisioned (not with group replication, whose tag has GTID already). It is never added to a running cluster: turning GTID on for running servers is a procedure for you to run. Without it, a failover is positional: the replicas wait in maintenance on the dead master, and a rejoin has no GTID position |
 | `idempotent` | Set `slave_exec_mode=IDEMPOTENT` |
 | `lossyconv` | Allow lossy type conversions on replicas |
 | `readonly` | Set server to read-only mode |
