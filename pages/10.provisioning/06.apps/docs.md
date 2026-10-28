@@ -150,6 +150,21 @@ app. The setting is on the app page (Overview, "Monitor mode") and on the API
 proves that the instance's network is up: on OpenSVC the address belongs to the pause container of the instance, so a
 background process that exited while its instance stays up is not detected by the ping.
 
+A **web service** declares `app-monitor-mode = "https"` (or `"http"`): the monitor sends a GET to
+`https://<app-host>:<app-port><app-monitor-path>` and expects `app-monitor-expect-status` (default path `/`, default
+status `200`, a comma list such as `200,204`). This is the check that sees a service that accepts connections and
+never answers, which `port` and `ping` report up. No answer within the monitor timeout opens `APPERR001`, a wrong status
+`APPERR002`. A full `app-host` name (`status.example.com`) is called as is; a short one on the app's cluster address.
+The app page shows the path and expected status fields when the mode is http or https.
+
+### Monitor-only apps
+
+To watch a web service that runs elsewhere (another gateway, another team's server), add an app with **Monitor only**
+ticked in the add dialog (Cluster, Add monitor, type app): host and port, no image, no template. Then set its monitor
+mode (usually `https`), path and expected status on the app page. A monitor-only app is never provisioned (provision,
+unprovision, start, stop and restart refuse it), reserves no plan unit, and publishes nothing on the cluster's gateway.
+Its states and alerts are those of any app.
+
 ## 10.6.6 Database engines from templates (PostgreSQL)
 
 A template with `prov-app-configurator = "postgres"` deploys a **database server of the
