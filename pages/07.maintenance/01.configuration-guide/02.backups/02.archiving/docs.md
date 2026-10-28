@@ -391,3 +391,51 @@ When `backup-restic-purge-oldest-on-disk-space` is enabled:
 - Network timeouts may occur with S3 for large repositories
 - Purge operations can take significant time on full disks
 - Monitor restic task status via API to track progress
+
+## 7.2.2.2.8 Cloud18 Archive Offers (3.1)
+
+A replication-manager registered to Cloud18 shows the archive offers of the Cloud18 marketplace in
+the cluster's archive settings, row **Cloud18 offers**: each offer with its partner, its data center
+and its price per month (or per BAU). The list comes from Cloud18 with the instance's other
+marketplace data; nothing is set by hand. The API gives the same list:
+`GET /api/clusters/{cluster}/archive-offers` (the `cluster-show-backups` grant).
+
+Three kinds of offer:
+
+- **S3 providers reached with the Cloud18 SSO**: **Use** adds the S3 provider to the cluster, with no
+  key, and opens the archive form already filled in (plakar S3, that provider). replication-manager
+  gets short-lived keys from the provider with its Cloud18 login, the account it is registered with,
+  and writes in a folder of its own in the offer's bucket: another account never sees it. An
+  instance that is not registered, or whose Cloud18 login is refused, cannot use them (the row says
+  why).
+- **S3 offers whose keys Cloud18 issues**: **Request**. Cloud18 creates the cluster's own bucket and
+  S3 user, then the S3 provider arrives with the cluster's configuration a few minutes later (with
+  its bucket). The offer then shows **Add an archive**.
+- **Proxmox Backup Server offers**: **Request**. Cloud18 creates the cluster's own access on the
+  partner's datastore, then the archive arrives with the cluster's configuration (plugin
+  `archive-pbs`, the cluster's namespace). It is added, not attached: attach it in **Attached
+  archive** to send the backups there.
+
+An offer can also read:
+
+| Shown | Meaning |
+| ---- | ----- |
+| requested | Cloud18 is creating the access: it arrives with the cluster's configuration |
+| on request | Cloud18 does not deliver this offer automatically: ask Cloud18 support |
+| not yet | the offer is not complete in the catalogue (for example no bucket yet) |
+| an S3 provider / an archive of this name is another one | the cluster already has a provider or an archive of the offer's name: rename it to receive the offer |
+| the S3 providers are set in the configuration file | the provider list is fixed by `s3-provider` in a config file: add the provider there |
+
+An archive on an offer is invoiced like any archive: per BAU, at the offer's price.
+
+##### `cloud18-archive-offer-requests` (3.1)
+
+| Item | Value |
+| ---- | ----- |
+| Description | The archive offers whose access the cluster asks Cloud18 for, comma-separated offer names (at most 16). Set by **Request**; Cloud18 reads it from the cluster's configuration and delivers the S3 provider or the archive. |
+| Type | string |
+| Default Value | "" |
+
+The keys of a delivered S3 provider are saved encrypted with the instance's key, as any S3 provider.
+See also [S3](../s3) and [Archive Plugins](/plugins/archive-plugins).
+
