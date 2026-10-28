@@ -213,7 +213,10 @@ On MariaDB, the CA a replica verifies its primary with cannot come from any opti
 | Unreachable | nothing: the channel keeps what it has |
 | No TLS (`have_ssl` not `YES`), `replication-use-ssl` off | `MASTER_SSL=0` — a MariaDB 11.4+ replica defaults to TLS and would not connect |
 | Auto-generated certificate (MariaDB 11.4+, `ssl_cert` empty) | `MASTER_SSL_CA=''` — verified through the replication password (zero-configuration TLS); any CA would break it |
-| Configured certificate, `replication-use-ssl` on | `MASTER_SSL_CA` from `replication-ssl-ca`, else the shipped CA (`ssl` tag, provisioned), else the replica's `ssl_ca` when equal to the primary's; otherwise the channel keeps its CA |
+| Configured certificate, `replication-use-ssl` on | `MASTER_SSL_CA` from `replication-ssl-ca`, else the shipped CA (`ssl` tag, provisioned), else the replica's `ssl_ca` when equal to the primary's and an absolute path; otherwise the channel keeps its CA |
+| Configured certificate, the replica's `ssl_ca` a relative path (MySQL's auto-generated `ca.pem`) | `MASTER_SSL_CA=''` — each MySQL node generates its own CA under that same name: naming it would be error 2026. The link is encrypted, not verified (WARN0235) |
+
+On MySQL 8 without TLS, the replication user (`caching_sha2_password`) needs the primary's public key: replication-manager adds `GET_MASTER_PUBLIC_KEY=1` (`GET_SOURCE_PUBLIC_KEY=1` from 8.0.23) to its `CHANGE MASTER`, else replicas fail with error 2061. A replica whose IO thread keeps retrying with an error opens **WARN0269** (the server, the channel and the error) and leaves the read pool.
 
 Measured behaviour (MariaDB 12.3 and 10.11), which these rules follow:
 
