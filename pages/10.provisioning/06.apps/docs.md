@@ -157,7 +157,8 @@ answers `302` to its login page is checked with the login page's status (usually
 never answers, which `port` and `ping` report up. No answer within the monitor timeout opens `APPERR001`, a wrong status
 `APPERR002`. A full `app-host` name (`status.example.com`) is called as is; a short one on the app's cluster address.
 `app-monitor-mode = "https-cert"` adds a verified look at the certificate: an invalid certificate (chain, name), or one
-that expires within `app-monitor-cert-expire-days` (default 14), opens `APPERR010` and shows the app in warning. The app
+that expires within `app-monitor-cert-expire-days` (default 14), opens `APPERR010` and shows the app in warning: an invalid certificate never makes the app fail, the service still
+answers. Use it with the public name the certificate carries as the app host. The app
 page shows the path, expected status and certificate fields for these modes.
 
 ### Monitor-only apps
