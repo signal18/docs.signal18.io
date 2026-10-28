@@ -169,15 +169,11 @@ mode (usually `https`), path and expected status on the app page. A monitor-only
 unprovision, start, stop and restart refuse it), reserves no plan unit, and publishes nothing on the cluster's gateway.
 Its states and alerts are those of any app.
 
-### Restarting a flex app
+### Restarting an app with several instances
 
-A flex app (`prov-app-ha-topology = flex`) runs one instance per node. On OpenSVC v3, Restart on the app page (or
-`POST /api/clusters/{cluster}/apps/{app}/actions/restart`) restarts it **rolling**: one node at a time, the next instance
-only once the previous one is up again, so the service never has all its instances down. The call answers at once
-(202) and the restart goes on in the background; the orchestrator log shows each step, and an instance that does not
-come back within the app's start timeout (`prov-app-start-timeout`, default 2m) stops the restart there, the other
-instances untouched. A second restart of the same app is refused while one runs. Restart with a node
-(`.../actions/restart/{node}`) restarts that instance only. A failover app (one instance) restarts as before.
+On OpenSVC v3, Restart on the app page (or `POST /api/clusters/{cluster}/apps/{app}/actions/restart`) restarts every
+instance of the app; the orchestrator does it one instance at a time, each after the previous one is back up, so a
+flex app keeps serving. `.../actions/restart/{node}` restarts the instance on that node only.
 
 ## 10.6.6 Database engines from templates (PostgreSQL)
 
