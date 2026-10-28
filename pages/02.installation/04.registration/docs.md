@@ -380,6 +380,7 @@ When `monitoring-restore-config-on-start` is set, replication-manager:
 | `cloud18-self-service-cache-seconds` | `10` | server | Seconds the self-service status (pool, templates, enabled-script verdict) is served from a snapshot: one computation per interval whatever the request rate on `GET /api/cloud18/self-service`, `0` computes at every request |
 | `cloud18-self-service-clusters-enabled-script` | `""` | server | Your own gate on every self-service creation: a non-zero exit refuses it, its first output line is the reason (see below) |
 | `cloud18-self-service-clusters-can-borrow` | `false` | server | Let a self-service cluster be created on borrowed capacity when the plan pot cannot guarantee its units |
+| `cloud18-self-service-clusters-can-consume-for-sale` | `true` | server | Let a self-service cluster take the plans your clusters for sale hold above their floors (see below); off, only the free pool counts, at creation and in the Cloud18 quote |
 
 ### Self-service clusters
 
@@ -401,11 +402,17 @@ it in *Settings → Cloud → Self-Service Clusters* or with `cloud18-self-servi
   `resource-manager-infra-memory-mb` when your agents do not report it; an unknown capacity
   does not gate.
 - **A self-service client comes before a cluster for sale** (3.1.45): a cluster you share
-  for sale (`cloud18-shared`) keeps only its floor in the pool, 1 DBU per database node and
-  1 APU (its BKU plan counts whole); its plan above the floor does not block a self-service
-  creation. The status shows that part apart (`forSaleDbu`, `forSaleApu`) and a refusal
-  gives the free and releasable figures. Over-commit is not involved: it is measured on the
-  resources the services use, not on plans.
+  for sale (`cloud18-shared`) keeps only its floor in the pool, the plan it would hold with
+  every plan lowered as far as the plan rules allow: 1 DBU per database node, 1 APU per proxy
+  and per running app instance (a failover app 1, a load-balanced app 1 per node it runs on,
+  a stateful app none), a plan you locked (immutable) whole, and its BKU plan whole. Its plan
+  above the floor does not block a self-service creation, so the offer stays on sale with a
+  lower plan without losing a proxy or an app. The status shows that part apart
+  (`forSaleDbu`, `forSaleApu`) and a refusal gives the free and releasable figures. The
+  Cloud18 quote counts the same room, so a partner is never shown full when a creation would
+  pass. Set `cloud18-self-service-clusters-can-consume-for-sale = false` to keep your clusters
+  for sale out of it: only the free pool counts then. Over-commit is not involved: it is
+  measured on the resources the services use, not on plans.
 - **Borrowed capacity**: with `cloud18-self-service-clusters-can-borrow`, a pool that cannot
   guarantee the units asks the over-commit pot instead (capacity minus every plan minus what
   is already borrowed). The cluster is then created **without guarantee**, the self-service
