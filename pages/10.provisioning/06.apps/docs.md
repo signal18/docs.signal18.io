@@ -155,7 +155,9 @@ A **web service** declares `app-monitor-mode = "https"` (or `"http"`): the monit
 status `200`, a comma list such as `200,204`). This is the check that sees a service that accepts connections and
 never answers, which `port` and `ping` report up. No answer within the monitor timeout opens `APPERR001`, a wrong status
 `APPERR002`. A full `app-host` name (`status.example.com`) is called as is; a short one on the app's cluster address.
-The app page shows the path and expected status fields when the mode is http or https.
+`app-monitor-mode = "https-cert"` adds a verified look at the certificate: an invalid certificate (chain, name), or one
+that expires within `app-monitor-cert-expire-days` (default 14), opens `APPERR010` and shows the app in warning. The app
+page shows the path, expected status and certificate fields for these modes.
 
 ### Monitor-only apps
 
