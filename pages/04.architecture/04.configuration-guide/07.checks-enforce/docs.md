@@ -138,9 +138,9 @@ It was found that it can be used  keeping default non strict mode when slave res
 
 | Item          | Value |
 | ----          | ----- |
-| Description   | Automatically activate replication heartbeat on slave. |
+| Description   | Set the heartbeat period of each replica's managed channel to `force-slave-heartbeat-time` when it is longer or off. The change stops and starts the channel once (`STOP SLAVE`, `CHANGE MASTER ... MASTER_HEARTBEAT_PERIOD`, `START SLAVE`), only while both its threads run, and opens CINF0023 naming the server, the channel and both periods; a failure raises WARN0268 and is not retried while the period stays the same. Without it, a longer period raises WARN0050 while `failover-falsepositive-heartbeat` is on. GUI: Settings, Replication, Enforce Replication Heartbeat. |
 | Type          | Boolean |
-| Default Value | true |
+| Default Value | false |
 
 ##### `force-slave-heartbeat-retry` (1.1)
 
@@ -154,7 +154,7 @@ It was found that it can be used  keeping default non strict mode when slave res
 
 | Item          | Value |
 | ----          | ----- |
-| Description   | Replication heartbeat time. |
+| Description   | Heartbeat period, in seconds, that `force-slave-heartbeat` sets and that replication-manager uses in its `CHANGE MASTER`. A replica with a longer period raises WARN0050 while `failover-falsepositive-heartbeat` is on, as a failover decision waits up to one period. GUI: Settings, Replication, Replication Heartbeat Period. |
 | Type          | Integer |
 | Default Value | 3 |   
 
