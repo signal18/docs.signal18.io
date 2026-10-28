@@ -27,6 +27,8 @@ The failover is cancelled (ERR00028) while a direct replica of the master receiv
 
 While the master is suspect or failed, each replica shows how long ago it last received from the master (CINF0022).
 
+GUI: Settings, Failover, "Failover Cancelled While Replicas Receive" (`failover-falsepositive-heartbeat`) and "Failover Replica Receive Margin" (`failover-falsepositive-heartbeat-timeout`).
+
 A master that is really dead stops sending: once its replicas' last receive is older than that window, the failover goes on. A failover decision therefore waits up to one heartbeat period: a replica whose heartbeat period is above `force-slave-heartbeat-time`, or off, raises WARN0050. Lower its period, or let `force-slave-heartbeat` set it.
 
 Before replication-manager issue 2208 was fixed, this check read the global status `Slave_received_heartbeats`, which counts only MariaDB's default connection and does not exist on MySQL 5.7+: it never cancelled a failover on a named channel or on MySQL.
