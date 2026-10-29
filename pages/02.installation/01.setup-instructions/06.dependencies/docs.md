@@ -58,6 +58,7 @@ replication-manager actively tracks tool versions at runtime. On every monitorin
 | `WARN0120` | MyDumper not found or version unreadable |
 | `WARN0121` | Restic not found or version unreadable |
 | `WARN0167` | Sysbench not found or version unreadable |
+| `WARN0270` | The last benchmark failed, with sysbench's error (3.1.47) |
 
 These warnings appear in the cluster dashboard and clear automatically when the tool becomes available.
 
@@ -137,6 +138,8 @@ yum install sysbench        # RHEL/CentOS
 ```toml
 sysbench-binary-path = "/usr/bin/sysbench"
 ```
+
+To benchmark a cluster that requires TLS (`require_secure_transport=ON`), use sysbench 1.1 or later (3.1.47). The Docker images ship it, built from upstream: the distribution packages (1.0) can only use TLS with a client certificate, which servers with MariaDB's automatic TLS refuse. replication-manager then connects sysbench with TLS whenever the master needs it, without checking the server's certificate unless the cluster's TLS settings verify it. A failed benchmark raises `WARN0270` with sysbench's error, until a benchmark runs through.
 
 ### 2.1.11.4.7 Restic FUSE Mount (Backup Browsing)
 

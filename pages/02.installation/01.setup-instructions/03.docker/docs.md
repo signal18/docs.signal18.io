@@ -41,7 +41,7 @@ Rootless variants (run as non-root user `repman`, UID/GID 10001:10001) are avail
 | `restic` | latest | Snapshot-based backup archiving |
 | `haproxy` | distro | TCP/HTTP load-balancing proxy |
 | `proxysql` | 2.7.3 | Advanced MySQL-protocol proxy |
-| `sysbench` | distro | Benchmarking and load injection |
+| `sysbench` | 1.1 (built from upstream, 3.1.47) | Benchmarking and load injection, TLS included |
 | `grafana` | 8.1 | Metrics dashboards |
 | `gotty-client` | 1.10 | Browser terminal sessions |
 | `openssh-client` | distro | Remote scripting via SSH |
