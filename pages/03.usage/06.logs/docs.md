@@ -22,13 +22,14 @@ log-file = "/var/log/replication-manager.log"
 
 ### 3.7.2.2 Derived Logs
 
-When `log-file` is set, three specialised logs are created automatically beside it by appending a suffix to the base name:
+When `log-file` is set, four specialised logs are created automatically beside it by appending a suffix to the base name:
 
 | File | Suffix | Content |
 |---|---|---|
 | Main log | *(base)* | General monitoring, HA operations, API |
-| Security log | `-security` | Authentication, authorisation, credential access |
+| Security log | `-security` | Authentication, authorisation, credential access, API logins (see 3.7.2.6) |
 | Workload log | `-workload` | Performance spikes, slow query events |
+| Schema log | `-schema` | Schema changes and schema advisor findings |
 | Maintenance log | `-maintenance` | Backups, SST, tasks, purge, orchestrator provisioning |
 
 Example: if `log-file = /var/log/replication-manager.log` then:
@@ -37,8 +38,11 @@ Example: if `log-file = /var/log/replication-manager.log` then:
 /var/log/replication-manager.log
 /var/log/replication-manager-security.log
 /var/log/replication-manager-workload.log
+/var/log/replication-manager-schema.log
 /var/log/replication-manager-maintenance.log
 ```
+
+When `log-file` is empty, no file is written: the output goes to stdout only (journald for a package install, `docker logs` for a container). In a container, read the `log-file` key of `/etc/replication-manager/config.toml` to find the files.
 
 ### 3.7.2.3 Per-Cluster SQL Logs
 
@@ -66,6 +70,33 @@ When the embedded Graphite backend is enabled:
 ```
 {monitoring-datadir}/carbonapi.log
 ```
+
+### 3.7.2.6 API Logins in the Security Log
+
+replication-manager writes no HTTP access log: it does not record each API request. What it records is every login, in the security log and the main log:
+
+| Event | When | Logged |
+|---|---|---|
+| `api_auth_failure` | Wrong credentials on `POST /api/login` | Always |
+| `api_account_locked` | Third failed login within 3 minutes | Always |
+| `api_login_success` | Successful login: password (`/api/login`), Sign in with Cloud18, Cloud18 token | When `monitoring-log-api-login` is on |
+| `api_secret_login_success` | Successful `secret-login` (dbjobs and service accounts) | When `monitoring-log-api-login` is on |
+
+Each line carries the user and the source address (`remote_addr`). Behind a gateway or a load balancer, that address is the gateway's.
+
+```
+{"event":"api_login_success","user":"alice","remote_addr":"10.0.0.1:54321","msg":"API login successful"}
+```
+
+| Setting | Default | Since | Content |
+|---|---|---|---|
+| `monitoring-log-api-login` | `true` | 3.1.47 (`false` before) | Log successful logins |
+| `monitoring-log-api-login-silent-users` | `system` | | Comma-separated users whose successful logins are not logged |
+
+- API tokens are checked on each call and never log in: calls made with a token add no line.
+- The `system` account, which dbjobs uses to poll, is silenced by default. Add any other account that logs in on every run (a script, a monitoring probe) to `monitoring-log-api-login-silent-users`.
+- Failed logins and lockouts are always logged, whatever the setting.
+- Both settings are in the GUI: Global Settings, **Log API Login** and **Log API Login Silent Users**. To turn login logging off: `monitoring-log-api-login = false`.
 
 ---
 
@@ -341,20 +372,27 @@ zgrep -h 'failover' /var/log/replication-manager.log* | sort -k1,2
 
 ## 3.7.9 Accessing Logs via the REST API
 
-In-memory log buffers (last ~200 entries per cluster) are available through the API without reading the log files:
+The log panels of the web interface read in-memory buffers: the last 200 lines of each log, kept in memory only and lost at every restart. The log files (3.7.2) are the history; the buffers are the live view. The API serves the same buffers:
 
 | Endpoint | Content |
 |---|---|
-| `GET /api/clusters/{name}/log` | General cluster log |
-| `GET /api/clusters/{name}/log-task` | Task and backup log |
-| `GET /api/clusters/{name}/log-security` | Security events |
-| `GET /api/clusters/{name}/log-workload` | Workload spikes |
+| `GET /api/global/http-logs` | Server-wide log (not tied to a cluster) |
+| `GET /api/clusters/{name}/topology/logs` | Every log type of the cluster |
+| `GET /api/clusters/{name}/topology/logs/{logType}` | One log type: `general`, `task`, `security`, `workload`, `ddl`, `schema`, `variable-change`, `sysbench` |
 
-These endpoints require authentication. Use the admin or dba credential:
+For `general` and `task`, adding `?since=` and/or `?until=` (RFC 3339) reads the history from the log file instead of the buffer, filtered with `level` (`ERR,WARN,INFO,DBG`), `module`, `text` and `limit`.
+
+`/api/clusters/{name}/topology/http-logs[/{logType}]` is the older name of the same endpoints, deprecated.
+
+These endpoints require a bearer token: a login JWT (`POST /api/login`) or an API token (see Security, API Tokens):
 
 ```bash
-curl -sk -u admin:repman \
-  https://localhost:10005/api/clusters/mycluster/log | jq .
+TOKEN=$(curl -sk -X POST -d '{"username":"admin","password":"..."}' \
+  https://localhost:10005/api/login | jq -r .token)
+curl -sk -H "Authorization: Bearer $TOKEN" \
+  https://localhost:10005/api/clusters/mycluster/topology/logs/general | jq .
+curl -sk -H "Authorization: Bearer $TOKEN" \
+  "https://localhost:10005/api/clusters/mycluster/topology/logs/general?since=2026-10-28T08:00:00Z&level=ERR,WARN" | jq .
 ```
 
 ---
