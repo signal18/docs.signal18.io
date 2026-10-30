@@ -412,9 +412,10 @@ Also, we provide a password rotation service which can be accessible from the re
 
 **Rotation without Vault (from release 3.1.44).** The same action (`rotate-passwords`, the dashboard's *Rotate Database Credentials*, the MCP tool `cluster-rotate-passwords`) also rotates the passwords when no Vault is configured: replication-manager generates the new passwords, changes them on the databases and keeps them encrypted. It is refused, with the reason, when the new passwords would have no durable place:
 
-- `monitoring-secret-versioning` is off (the default; `backup-encryption` turns it on too): the new passwords would live only in replication-manager's memory, and a restart after the rotation would lose access to every server. Turn it on, or use Vault.
-- no encryption key (`.replication-manager.key`), or `monitoring-save-config` off;
-- `db-servers-credential` or `replication-credential` set in a configuration file (immutable);
+- `monitoring-secret-versioning` turned off and no Vault entry: the new passwords would live only in replication-manager's memory, and a restart after the rotation would lose access to every server. Turn it back on, or use Vault. From release 3.1.47 it is **on by default** (before, it was off unless `backup-encryption` was on).
+- no encryption key (`.replication-manager.key`), or `monitoring-save-config` off. The versions are kept encrypted only: without the key, a credential change from the dashboard or the API is refused as well;
 - a database down, or replication stopped on a replica.
+
+**Credential versions (from release 3.1.47).** A rotation, or a credential changed from the dashboard or the API, never rewrites the configuration: the configuration keeps the starting value, and the new value is a version, encrypted, in the cluster's `secret_store.json` (and in each enabled Vault entry). A restart, a configuration reload or a database tag change runs on the latest version. This includes `db-servers-credential` and `replication-credential` set in a configuration file: they are rotated as versions; editing the value in the file makes the edit the current version at the next start. After upgrading to 3.1.47, every cluster starts writing `secret_store.json`, its first version being the current value.
 
 The API answers `409` with the reason; the dashboard greys out the action and shows the reason on hover.

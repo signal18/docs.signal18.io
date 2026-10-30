@@ -946,4 +946,4 @@ own encryption and does not touch the database files in place.
 | setting | default | effect |
 |---|---|---|
 | `backup-encryption` | false | encrypt every new local backup artifact |
-| `monitoring-secret-versioning` | — | keeps the password history the restore relies on |
+| `monitoring-secret-versioning` | true (from 3.1.47; turned on by `backup-encryption` before) | keeps the password history the restore relies on |
