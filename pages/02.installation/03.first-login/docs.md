@@ -130,6 +130,14 @@ To log in with SSO:
 
 The role and grants assigned to an SSO user are managed entirely through the replication-manager GUI and API — not through GitLab group roles. See [Cluster Role Sharing](../registration#cluster-role-sharing-with-external-users) for the full role and grant model.
 
+### Logout of a Sign in with Cloud18 session (3.1.48)
+
+When you signed in with **Sign in with Cloud18** (password, Google or GitLab at the Cloud18 sign-in page), **Logout** ends your Cloud18 session too: replication-manager closes it at the Cloud18 identity service, and you land on the login page, which asks you to sign in again, on this instance and on every other instance using Cloud18 sign-in. No "Do you want to log out?" page is shown any more.
+
+If the Cloud18 identity service cannot be reached at that moment, it shows its own "Do you want to log out?" page: click **Logout** there, otherwise your Cloud18 session stays open and the next visit signs you in again.
+
+A logout does not end your session at the identity provider behind Cloud18 (Google, GitLab): the next **Sign in with Google** can go through without asking for your password. Sign out of that provider to prevent it.
+
 ---
 
 ## 2.5.6 Encrypt Your Clear Passwords
