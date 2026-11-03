@@ -435,7 +435,9 @@ Some tasks can run either locally (by replication-manager) or remotely (by the d
 | Log collection (errorlog/slowquery/auditlog) | Remote | No — reads local log files |
 | ZFS snapback | Remote | No — requires ZFS commands |
 | Optimize | Remote | Yes — can run as SQL from repman |
-| Logical backup (mysqldump/mydumper) | Local | Yes — can run on DB host to avoid version mismatch |
+| Logical backup (mysqldump) | Local | Yes — can run on DB host to avoid version mismatch |
+| Logical backup (mydumper) | Local | No — runs in replication-manager (3.1.48: listing it has no effect) |
+| Reseed / Flashback (logical, mysqldump) | Local | No — replication-manager runs the restore (3.1.48: listing it has no effect) |
 | Stop / Start / Restart | Remote | Yes — orchestrator API (OpenSVC/K8S) or SQL SHUTDOWN handles it locally |
 
 ```toml
