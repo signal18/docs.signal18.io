@@ -445,6 +445,8 @@ Some tasks can run either locally (by replication-manager) or remotely (by the d
 scheduler-jobs-exec-remote = "mysqldump,optimize"
 ```
 
+Since 3.1.48, a task listed in `scheduler-jobs-exec-remote` that can not be forced remote ("No" above, or an unknown name) is ignored and raises the configuration warning WARN0279, which names it and the tasks that can be listed.
+
 When a task is forced remote, the dbjobs script runs the command on the database host using the local client binaries. This avoids client/server version mismatch issues (e.g. mysqldump version must match the server version).
 
 ### 7.1.10.6 Job State Persistence
