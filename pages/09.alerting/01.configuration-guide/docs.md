@@ -88,6 +88,19 @@ echo "$(date) $1 changed from $2 to $3" >> /var/log/repman-alerts.log
 
 Email alerts require a reachable SMTP server. The mail alert fires for all state transitions.
 
+**Who receives the alert emails** (from 3.1.48, grant `alert-mail-receiver`):
+
+- the addresses of `mail-to`;
+- every user of the cluster holding the grant `alert-mail-receiver` (its user name is the address),
+  even when `mail-to` is empty;
+- on Cloud18, the owner and ops addresses of the cluster that are not users of the cluster.
+
+To add a user who should not get the alerts, give the user its grants without
+`alert-mail-receiver` (the **alert** group in the user grant editor). To let a user receive them,
+tick it. After the upgrade, the users who received the alerts through a Cloud18 role (owner, DbOps,
+External DbOps or SysOps, sponsor) hold the grant: nothing changes until you remove it, and a
+removal is kept.
+
 ##### `mail-from`
 
 | | |
@@ -100,7 +113,7 @@ Email alerts require a reachable SMTP server. The mail alert fires for all state
 
 | | |
 |---|---|
-| Description | Comma-separated list of recipient addresses. Leave empty to disable email alerting. |
+| Description | Comma-separated list of recipient addresses, in addition to the users holding `alert-mail-receiver`. Email alerting is off when it is empty and no user holds the grant. |
 | Type | String |
 | Default | `""` |
 | Example | `"ops@example.com,dba@example.com"` |
