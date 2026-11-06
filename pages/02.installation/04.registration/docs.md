@@ -55,7 +55,8 @@ before installing anything** → use the web page, from any connected machine:
    **subscription plan**. Click **Register instance**.
 4. The instance appears in **Your instances** with two GitLab links. Wait a
    few minutes, then open the **delivery** link (`-pull` project): Signal18
-   has dropped the plugin binaries and the license files there.
+   has dropped the plugin binaries there — including your **signed licence
+   plugin** (and, for older releases, the `license.json` licence file).
 5. Follow **2.5.12** below to bring those files into your air-gapped
    production and configure the instance.
 
@@ -477,36 +478,76 @@ See [Security — Configuration Guide](/security/configuration-guide) for key ge
 
 ---
 
-## 2.5.12 Air-Gapped / PCI DSS — Offline License
+## 2.5.12 Air-Gapped / PCI DSS — Offline Licence
 
-Some production environments allow **no outbound network at all** — typically
-a PCI DSS cardholder data environment (CDE), where **PCI DSS v4.0 Requirement 1**
-mandates network security controls restricting all traffic into and out of the
-CDE to what is strictly necessary (req. 1.3.1/1.3.2), or any comparably
-segmented / air-gapped zone. There, the replication-manager instance can reach
-neither the Signal18 SSO nor any Signal18 service at runtime. Registration still works — it simply happens
-**from your work network**, and everything Signal18 delivers reaches the
-instance as files through your own deposit procedure.
+**Air-gapped** means the replication-manager instance runs with **no outbound
+network**, on purpose. It is a legitimate and common security choice — typically a
+PCI DSS cardholder-data environment, where **PCI DSS v4.0 Requirement 1** restricts
+all traffic into and out of the zone (req. 1.3.1/1.3.2), or any comparably isolated
+network. The balance for staying offline is that the instance reaches none of the
+Cloud18 infrastructure at runtime, so:
 
-The plan-gated features (enterprise plugins, arbitration eligibility) are then
-unlocked by an **offline license**: a small signed file that replication-manager
-verifies locally against the plugin-signing public key already embedded for
-plugin verification. The license:
+- you lose the **plugins Cloud18 delivers continuously** — the community and
+  enterprise security/workload advisories and the CVE and compliance refreshes an
+  online instance picks up automatically; and
+- you lose the **live proof of your entitlement**, the signed licence that unlocks
+  the advanced features — **cluster arbitration** today, and what comes next (for
+  example the enterprise disk driver).
 
-- is bound to **one instance identity** (`domain.subdomain.zone`) — copied to
-  any other instance, it is rejected;
-- carries the **subscription plan** of that instance — the plan loaded is
-  exactly the signed one;
-- **never expires** on the instance — refreshed only on signing-key rotation
-  or plan change;
-- never blocks monitoring: a missing or invalid license leaves the instance on
-  the `free` plan and raises a warning.
+Air-gapped delivery gives both back as **signed files** you carry in by hand: you
+prepare everything from a connected work network, and Signal18 builds and signs the
+plugins **and** your licence against your support contract, for you to deposit into
+the isolated zone. Because the licence is bound to that contract, the set-up starts
+by linking you to Cloud18 and checking it:
+
+```
+  You — on a connected work network          Signal18 — Cloud18
+  ─────────────────────────────────          ───────────────────
+  1  Sign up on signal18.io  ──────────────▶  Cloud18 account
+  2  Open the Cloud18 section,
+     declare your instance    ────────────▶  identity  domain.subdomain.zone
+     (domain / sub-domain / zone)                    │
+                                                      ▼
+                                            3  Back office prepares the technical
+                                               delivery: builds + signs the
+                                               plugins and your licence plugin
+                                               for your version
+                                                      │
+                                                      ▼
+                                            4  Checks your support contract in the
+                                               ERP — the plan and its end date set
+                                               the licence
+                                                      │
+  5  Collect the signed files  ◀───────────────────── delivery ready
+     (plugins + licence)
+     │
+     ▼
+  6  Deposit into the air-gapped zone, start, verify
+```
+
+The licence itself is a **signed plugin** (`plugin-licence`): replication-manager
+verifies it locally against the plugin-signing public key already embedded for
+plugin verification, with no network. It:
+
+- is bound to **one instance identity** (`domain.subdomain.zone`) — it does not
+  apply to any other instance;
+- carries the **expiry of your support contract**: a warning is raised as it nears,
+  a **two-month renewal grace** keeps full function just after the end date, and
+  only once that grace elapses is the advanced feature set held back — **monitoring
+  is never cut**;
+- never blocks monitoring: without a valid licence the instance simply runs the
+  community (`free`) feature set.
+
+> Releases older than the licence plugin read the previous signed **file**
+> (`license.json` + `license.sig`, via `cloud18-license-file`); it is delivered
+> alongside the plugin for them, so an older instance keeps working until you
+> upgrade to the plugin.
 
 ### Requirements
 
-- **replication-manager v3.1.41 or newer** (offline license verification is not
-  in v3.1.40 and earlier; until v3.1.41 is released, a nightly build dated
-  2026-08-19 or later carries it).
+- For the **licence plugin**: **replication-manager v3.1.48 or newer**.
+- For the legacy **licence file** (`license.json`): v3.1.41 or newer — delivered
+  alongside the plugin so an instance still on an older release keeps working.
 - The on-premise package must include the plugin binaries and the embedded
   plugin-signing public key (standard in the packages).
 
@@ -514,13 +555,14 @@ plugin verification. The license:
 
 1. **Declare each instance from your work network** using the
    [Web Console](#registering-via-the-web-console-no-replication-manager-needed)
-   (one sub-domain per instance). Your domain must match your registered
-   client name at Signal18 — licenses are only issued for known clients.
-2. **Collect the delivery**: shortly after registration, Signal18 drops into
-   the instance's `-pull` GitLab project the `plugins/` binaries for your
-   version/platform and the instance's offline license
-   (`license.json` + `license.sig`). Clone the `-pull` project from your work
-   network.
+   (one sub-domain per instance). Your domain must match your registered client
+   name at Signal18 — licences are only issued for known clients **under a support
+   contract** (the back office reads its plan and end date from the ERP).
+2. **Collect the delivery**: shortly after registration, Signal18 drops into the
+   instance's `-pull` GitLab project the `plugins/` binaries for your
+   version/platform — **including the signed `plugin-licence`** (and its `.sig`),
+   and, for older releases, the `license.json` + `license.sig`. Clone the `-pull`
+   project from your work network.
 3. **Deposit into the production zone** through your standard change-management
    procedure (everything is Ed25519-signed and re-verified locally).
 4. **Configure the instance**:
@@ -529,19 +571,18 @@ plugin verification. The license:
 cloud18-domain          = "yourcompany"
 cloud18-sub-domain      = "prod1"        # identical to the declaration
 cloud18-sub-domain-zone = "fr-1"
-cloud18-license-file    = "/etc/replication-manager/license.json"
 ```
 
-   Copy **both** `license.json` and `license.sig` into the **same directory**,
-   keeping their exact names. There is **no configuration setting for the
-   `.sig` file**: replication-manager automatically looks for the detached
-   signature next to the file named by `cloud18-license-file`
-   (`license.json` → `license.sig` in the same directory). If the signature
-   file is missing or does not match, the license is rejected and the plan
-   falls back to `free` with a warning.
-   Place the `plugins/` directory in the instance plugin location.
-5. **Start and verify**: the subscription plan shows the licensed plan,
-   enterprise plugins load, and no license warning is raised (a warning means
-   the declared identity does not match the signed one).
+   Place the `plugins/` directory — with `plugin-licence` **and** its `.sig` — in
+   the instance plugin location. The licence loads and is verified like any other
+   plugin; there is **no extra setting** for it.
+   *Older releases, before the plugin:* also copy `license.json` and `license.sig`
+   into the same directory and set
+   `cloud18-license-file = "/etc/replication-manager/license.json"`
+   (replication-manager finds the detached `.sig` next to it).
+5. **Start and verify**: arbitration and the enterprise plugins are available, and
+   no licence warning is raised. A warning means the declared identity does not
+   match the signed one, or the support contract has lapsed past its two-month
+   renewal grace.
 
 No outbound network is ever required in production.
