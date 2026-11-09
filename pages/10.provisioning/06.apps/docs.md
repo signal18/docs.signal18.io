@@ -161,6 +161,29 @@ that expires within `app-monitor-cert-expire-days` (default 14), opens `APPERR01
 answers. Use it with the public name the certificate carries as the app host. The app
 page shows the path, expected status and certificate fields for these modes.
 
+### How often an app is checked
+
+Each check runs on its own interval. A check that passes runs again once its interval has elapsed, and its last result
+stands in between. A check that fails runs at every monitoring tick (`monitoring-ticker`, 2 s by default) until it
+passes again, so a failure is confirmed in a few seconds (`app-error-debounce-threshold` checks in a row) and a recovery
+is seen at the next tick.
+
+| Setting | Where | Applies to | Default |
+|---|---|---|---|
+| `interval` in the route's monitor block | template `[deployment.routes.monitor]`, app page Routes (Edit, "Check interval"), API `apps/{id}/deployment/routes/index/{i}/monitor.interval/modify` | the route's local and external check, HTTP and TCP | the app's `app-monitor-interval` |
+| `app-monitor-interval` | app page Overview ("Check interval"), API `apps/{id}/settings/actions/set/app-monitor-interval/{seconds}` | the check of an app without a route, and the default of its routes | 60 s |
+
+Values are in seconds; `0` or empty means the default. Checks run on monitoring ticks, so an interval is rounded up to
+the next tick (with a 30 s tick, a 45 s interval runs every 60 s). A check runs within a second of its interval, so an interval
+at or below the monitoring tick checks at every tick, as before this setting existed. An HTTP route's external check goes through the public gateway, so a short interval
+adds one request to the gateway's access log at each run.
+
+```toml
+  [deployment.routes.monitor]
+    path = "/health"
+    interval = 30
+```
+
 ### Monitor-only apps
 
 To watch a web service that runs elsewhere (another gateway, another team's server), add an app with **Monitor only**
