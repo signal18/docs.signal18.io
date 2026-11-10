@@ -330,9 +330,21 @@ backup-logical-load-threads = 4
 
 | Item | Value |
 | ---- | ----- |
-| Description | Extra mysql client options for restore |
+| Description | Extra options of the mysql client that loads a logical backup (a restore, a reseed) |
 | Type | string |
-| Default Value | "--force --batch" |
+| Default Value | "--batch" (3.1.49; "--force --batch" before) |
+
+Without `--force` the client stops at the first error, and the restore or reseed fails with
+the client's error in the job state and in the log. With `--force` the client goes on after
+an error and still reports success: a load whose connection dropped at its first statement
+loaded nothing, yet the reseed reported "completed" and started replication. From 3.1.49:
+
+- the direct reseed from the primary (`autorejoin-mysqldump`, reseed from the primary) never
+  uses `--force`, whatever this setting says;
+- add `--force` only for an older MySQL or Percona backup file whose `CHANGE MASTER` with a
+  binary log position is refused by a channel on auto-position (error 1776), or take a new
+  backup;
+- the client's errors are logged at ERROR.
 
 ##### `backup-mysqlbinlog-path` (2.1)
 
