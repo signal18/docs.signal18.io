@@ -199,3 +199,122 @@ Names must be unique across proxy types in the same Kubernetes cluster. A
 retained PVC from a previous proxy type also counts as a name collision. Use a
 different name, unprovision the conflicting workload, or deliberately remove
 the retained PVC after confirming that its data is no longer needed.
+
+## In-Cluster replication-manager Connectivity
+
+### Example: Using a Headless Service for SST Connectivity
+
+This is **one possible deployment approach**, not a requirement. It applies when
+a single replication-manager Pod runs inside the cluster and database Pods have
+to reach it by a stable DNS name (see `monitoring-address`).
+
+The replication-manager API listens on known ports (`http-port` 10001 and
+`api-port` 10005 by default). Physical backup (SST) streaming can also use a TCP
+receiver port that replication-manager allocates dynamically for each transfer.
+A regular ClusterIP Service only routes traffic to the ports listed in its spec,
+so a connection from a database Pod to a dynamic receiver port through that
+Service name, for example
+`repman-incluster.repman-system.svc.cluster.local:44975`, is not routed to the
+replication-manager Pod.
+
+A Headless Service (`clusterIP: None`) has no virtual IP. Its DNS name resolves
+directly to the IP of the selected Pod, so a database Pod connects straight to
+replication-manager on whatever port the receiver opened, provided the Pod
+network allows it.
+
+#### Example Service
+
+The names, namespace, labels and ports below are an example. Adapt them to your
+own deployment: the `selector` must match the labels of your replication-manager
+Pod, and the ports must match your `http-port` and `api-port`.
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: repman-incluster-direct
+  namespace: repman-system
+spec:
+  clusterIP: None
+  selector:
+    app: repman-incluster
+  ports:
+    - name: http
+      port: 10001
+      targetPort: 10001
+    - name: api
+      port: 10005
+      targetPort: 10005
+```
+
+This Service is created in addition to the regular replication-manager Service,
+which can stay in place for other clients.
+
+#### Example configuration
+
+Point `monitoring-address` at the headless Service name:
+
+```toml
+monitoring-address = "repman-incluster-direct.repman-system.svc.cluster.local"
+```
+
+replication-manager uses `monitoring-address` when it generates the database job
+configuration, so the `dbjobs` scripts connect back to this name. For servers
+that already exist, the two places that use the address are updated differently:
+
+- The bootstrap URL used by the init container to fetch the configuration is
+  embedded in the Kubernetes Deployment when the server is provisioned.
+  Existing Deployments retain that URL until their specification is updated
+  (for example, through reprovisioning).
+- The generated `dbjobs` configuration can be refreshed without a full
+  reprovision.
+
+#### Verification
+
+Check that the Service is headless:
+
+```bash
+kubectl -n repman-system get svc repman-incluster-direct -o jsonpath='{.spec.clusterIP}{"\n"}'
+```
+
+```
+None
+```
+
+Check that its endpoint is the expected replication-manager Pod:
+
+```bash
+kubectl -n repman-system get endpoints repman-incluster-direct
+kubectl -n repman-system get pod -l app=repman-incluster -o wide
+```
+
+The endpoint IP must be the IP of the replication-manager Pod.
+
+Check that the name resolves from a database Pod (run from the `dbjobs`
+container, `<server>-dbjobs`):
+
+```bash
+kubectl -n k8s-mdb exec <db-pod> -c <server>-dbjobs -- \
+  getent ahostsv4 repman-incluster-direct.repman-system.svc.cluster.local
+```
+
+Check that the `dbjobs` script uses the intended hostname:
+
+```bash
+kubectl -n k8s-mdb exec <db-pod> -c <server>-dbjobs -- \
+  grep -E '^readonly REPLICATION_MANAGER_(URL|HOST|ADDR)' /docker-entrypoint-initdb.d/dbjobs_new
+```
+
+A successful physical backup is an additional end-to-end validation of the
+dynamic receiver port.
+
+#### Limitations
+
+- The example assumes a single replication-manager Pod selected by the Service.
+  A Headless Service that selects several replication-manager Pods does not
+  guarantee that a database Pod reaches the Pod that opened the SST receiver.
+- NetworkPolicy and the Pod network must allow traffic from the database Pods to
+  the replication-manager Pod on the required TCP ports, including the dynamic
+  receiver ports.
+- Other networking approaches may also work. A Headless Service is not a
+  universal requirement.
