@@ -98,6 +98,38 @@ replication-manager places database Pods.
 > creates the PVC. Changing `prov-kube-storage-class` does not modify or
 > migrate an existing PVC. Existing PVCs keep their original StorageClass.
 
+#### Volume size
+
+`prov-db-disk-size` sets the size of the database volume and
+`prov-proxy-disk-size` the size of the proxy volume. As on every other
+orchestrator, the value is a number of gigabytes (1 GiB = 1024³ bytes) with an
+optional unit `G` or `T`, and the PVC requests that size in binary units:
+
+| Setting | Volume requested from Kubernetes |
+| ------- | -------------------------------- |
+| `20`, `20G`, `20g`, `20GB` | `20Gi` |
+| `1T` | `1024Gi` |
+
+Quantities that carry a Kubernetes byte unit — `20Gi`, `512Mi`, `500M`,
+`1.5G` — keep the meaning they have in Kubernetes (`500M` is 500 × 10⁶ bytes)
+where they reach the PVC. They are not portable to OpenSVC. An empty, zero,
+negative or unrecognized value (for example `500MB`) is logged as a warning and
+the volume requests `20Gi`.
+
+Configuration measurement (`measurement`, enabled by default in provisioning
+builds) checks these settings when the configuration is loaded: a size in the
+gigabyte form is normalized to a number of gigabytes (`20G` is stored as `20`),
+and a value it does not accept, such as `20Gi`, is replaced by the default with
+a configuration warning before provisioning. Kubernetes-only quantities
+therefore reach the PVC only when `measurement` is disabled or the setting is
+changed at runtime through the API.
+
+> **Important:** the size is applied when replication-manager creates the PVC.
+> Upgrading, or changing `prov-db-disk-size` or `prov-proxy-disk-size`, does not
+> resize or migrate an existing PVC. Earlier releases sent a bare `20` to
+> Kubernetes as 20 bytes and `20G` as 20 × 10⁹ bytes; PVCs created that way
+> keep the size they were created with.
+
 #### Troubleshooting
 
 **PVC remains `Pending`**
@@ -131,7 +163,8 @@ the note above.
 
 ### Proxy Storage and StorageClass Selection
 
-Set `prov-proxy-disk-size` for the proxy PVC and
+Set `prov-proxy-disk-size` for the proxy PVC (it follows the same size rule as
+`prov-db-disk-size`, see [Volume size](#volume-size)) and
 `prov-kube-proxy-storage-class` when a specific Kubernetes StorageClass is
 required. The PVC is retained when a proxy is unprovisioned, so configuration
 and state can be reused by a later same-type provisioning.
