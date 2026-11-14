@@ -94,7 +94,7 @@ replication-manager can deploy database services into a Kubernetes cluster using
 
 - A running Kubernetes cluster (1.20+)
 - `kubectl` configured and working on the replication-manager host
-- Sufficient RBAC permissions to create namespaces, deployments, services, and PersistentVolumeClaims
+- Sufficient RBAC permissions to create namespaces, deployments, services, and PersistentVolumeClaims, and to read Pods and Deployments in each database namespace (see [Database lifecycle](../../../10.provisioning/01.orchestrators/03.kubernetes))
 
 ### 2.1.10.3.2 Configure replication-manager for Kubernetes
 
