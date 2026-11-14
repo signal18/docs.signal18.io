@@ -47,6 +47,8 @@ The REST API authenticates all requests against a configurable credential list (
 - `api-credentials-acl-allow` / `api-credentials-acl-allow-external`
 - `api-credentials-acl-discard` / `api-credentials-acl-discard-external`
 
+To ban a compromised user, rotate its password: its sessions end, its API tokens are revoked, and the new password is kept in replication-manager's versioned store and copied to the server credential stores (Vault, OpenSVC, Kubernetes). See [Password Rotation and Credential Stores](/security/password-rotation).
+
 ### 8.1.2.7 ACL Grants Reference
 
 Grants control what actions a user can perform. They are assigned via `api-credentials-acl-allow` (space-separated list). Shorthand prefixes expand to all grants in the group (e.g. `db` grants all `db-*` grants).
@@ -96,6 +98,8 @@ Grants control what actions a user can perform. They are assigned via `api-crede
 | `cluster-show-backups` | View backup list |
 | `cluster-show-jobs` | View job status |
 | `cluster-show-agents` | View orchestrator agents |
+| `cluster-rotate-passwords` | Rotate passwords, a user's password included ([ban a compromised user](/security/password-rotation)) |
+| `cluster-server-credentials` | Change the instance's server secrets and server credential stores (needed on every cluster) |
 
 #### Proxy Grants (`proxy`)
 
