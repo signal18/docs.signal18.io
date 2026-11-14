@@ -158,18 +158,24 @@ mode, and provision again.
 
 ## Database lifecycle: stop, start, restart and unprovision
 
-replication-manager does not run two database processes on the same data volume.
-`ReadWriteOnce` does not guarantee that by itself: it limits how many *nodes* attach
-a volume, not how many Pods on one node mount it, and the database Pod is pinned to one
-node. So when replication-manager replaces a database, it waits for the previous Pod to
-be gone before it starts the next one.
+`ReadWriteOnce` does not keep two database Pods apart by itself: it limits how many *nodes*
+attach a volume, not how many Pods on one node mount it, and the database Pod is pinned to
+one node. replication-manager therefore protects the operations it starts in two ways:
+
+- before a guarded Start (from zero replicas) or the creation of a missing Deployment, it
+  waits until no Pod, terminating ones included, references the database PVC;
+- the database Deployment uses the Kubernetes `Recreate` strategy, so a replacement managed
+  by the Deployment stops the old Pod before the new one starts.
+
+This is not a distributed lock and not storage fencing: it does not protect against other
+actors, as described in *Limits of the protection* below.
 
 ### What to expect
 
 | Operation | What replication-manager does |
 | --------- | ----------------------------- |
 | Stop | Scales the database Deployment to zero replicas and returns. The Pod then terminates (graceful stop). |
-| Start | From zero replicas: waits until no Pod references the database PVC (terminating Pods included), then scales to one replica. It returns once the scale-up is requested, not when the database accepts connections. On a Deployment that already runs at one replica, Start changes nothing. |
+| Start | From zero replicas: waits until no Pod references the database PVC (terminating Pods included), then scales to one replica. It returns once the scale-up is requested, not when the database accepts connections. On a Deployment that already runs, Start does not wait for the PVC: it still sends a request for one replica (a `replicas: 1` patch), which changes nothing when the Deployment is already at one replica. |
 | Restart, force re-pull, rolling restart, image change | The database Deployment uses the `Recreate` strategy: the old Pod stops, then the new one starts. Expect downtime: the old Pod's graceful stop plus the new Pod's start. |
 | Unprovision | Requests the deletion of the Deployment (foreground) and of the Service, then waits until the Deployment is gone. The PVC is kept. |
 | Provision | When the Deployment does not exist yet, waits the same way for any Pod still using the PVC (for example after an unprovision that did not complete), then creates it. |
@@ -183,9 +189,11 @@ New database Deployments are created with the `Recreate` strategy. Deployments c
 an earlier release use the Kubernetes default `RollingUpdate` strategy. Their next restart, force re-pull or configuration update switches them to
 `Recreate`; the switch alone does not replace any Pod.
 
-Two Starts issued at the same time do not conflict: the second one stops waiting at its next
-check (every 2 seconds) once the first has scaled the Deployment up, and sends no scale-up
-request of its own.
+A Start that is waiting reads the Deployment again before each check (every 2 seconds). If it
+then sees that another operation has already scaled the Deployment to one replica, it stops
+waiting and skips its own scale-up request. This is the only case covered. It does not know
+who scaled the Deployment or whether that was safe, so it does not make concurrent Starts, or
+changes made by other tools or people, safe in general.
 
 ### The 90-second limit
 
