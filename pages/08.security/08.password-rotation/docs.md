@@ -24,8 +24,12 @@ they receive the new value as well (see 8.9.3).
 a key button (**rotate password**). Confirm: the next window shows the new password with a
 copy button. **Copy it now**: it is shown once, never logged, and nobody can read it later.
 
-Since **3.1.50**, when the user's login is an email address, the new password is **mailed to
-that user as a one-time link** instead, and the window says so: you do not see it (see 8.9.7).
+Since **3.1.50**, the new password is **mailed to you as a one-time link** instead, when your
+login is an email address and your role covers the user's level: a user of the instance's list
+needs you to be **sysops or extsysops**; a user of a cluster's own list also accepts **dbops,
+extdbops or sponsor** of that cluster. The window then says where it was mailed, and the
+password is not on the screen. It is never mailed to the rotated account itself: if that
+account is compromised, its mailbox may be too (see 8.9.7).
 
 **With the API:**
 
@@ -46,8 +50,8 @@ The answer carries the new password once:
 | `tokensError` | Set when the token revocation could not be saved. **The ban is not complete**: rotate again once the cause is fixed. |
 | `persistError` | Set when the new password could not be written to disk. It is in force, but a restart would bring the old one back: fix the cause and rotate again. |
 | `etcFile` | The user list is set in a configuration file under `/etc`: `written`, or why it was not written (see 8.9.4). |
-| `revealMailedTo`, `revealExpires` | Since 3.1.50: the new password was mailed to the user as a one-time link, valid until `revealExpires`; `password` is then empty (see 8.9.7). |
-| `revealError` | Since 3.1.50: why the password was not mailed (no address, no mail server, links off); `password` then carries it, shown once. |
+| `revealMailedTo`, `revealExpires` | Since 3.1.50: the new password was mailed to you (the connected user) as a one-time link, valid until `revealExpires`; `password` is then empty (see 8.9.7). |
+| `revealError` | Since 3.1.50: why the password was not mailed (your login has no email, your role does not cover the level, no mail server, links off); `password` then carries it, shown once. |
 | `storesBehindCount`, `storesBehind` | Server credential stores already behind when you rotated: they may still hold the old password until they catch up (see 8.9.3). The names are given to the instance's owners only. |
 
 A rotation that fails half-way keeps what it did: the password stays rotated where it was
@@ -206,8 +210,8 @@ forwarded and kept in mailboxes for years; the mail carries a link that works **
 
     https://<api-public-url>/reveal#<code>
 
-- **Who gets one:** a rotated user whose login is an email address (the person who rotated
-  it does not see the new password), the recipients of the **credentials mails** (sponsor,
+- **Who gets one:** the person who rotates a password (at their login's email, when their
+  role covers the level, see 8.9.0), the recipients of the **credentials mails** (sponsor,
   DBA, sysadmin: the server addresses stay in the mail, the password is behind the link, one
   link per recipient), and the recipients of a cluster's **Vault token**.
 - **Opening it:** the page asks for a click before showing anything, so a mail scanner that
