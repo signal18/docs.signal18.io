@@ -308,6 +308,166 @@ the Role above, which also included `list` on `deployments`, `get` on `pods`,
 Role and RoleBinding above have not themselves been validated end to end against Kubernetes
 RBAC enforcement.
 
+### Upgrading replication-manager from an earlier release
+
+Earlier releases started and stopped a database with a `patch` of its Deployment only: they
+did not read the Deployment or list Pods for that. Restart, forced re-pull and the image
+update already read the Deployment (`get` on `deployments`) before they patched it; that read
+is required while `prov-db-docker-run-args-limit` is enabled, which is the default, and is
+skipped with a warning when it is disabled. The manifest view lists Pods. What is new is the
+Deployment read on Start, Provision and Unprovision, and the Pod list that guards Start and
+Provision. An older operation that worked does not show that a Role grants everything the new
+ones need, in every database namespace and for the identity replication-manager uses: grants
+can differ by namespace, by verb and by identity. Do not infer the permissions from what
+worked before. Verify the effective permissions, as described below, **before** you deploy
+the new release.
+
+What the new release needs, in each database namespace:
+
+| Operation | `get` on `deployments` (`apps`) | `list` on `pods` |
+| --------- | :-----------------------------: | :--------------: |
+| Start from zero replicas | needed | needed |
+| Provision (creation of a missing Deployment) | needed | needed |
+| Unprovision | needed, to wait until the Deployment is gone | not needed |
+
+The guarded operations are the ones that wait for Pods to release the PVC: Start and
+Provision. Without `list` on `pods` they are refused. Unprovision only reads the Deployment: it
+fails without `get` on `deployments`, after it has already requested the deletions. A rolling
+upgrade or a rolling re-provision is built on these operations, so it stops too. Reading the
+Deployment is not new for restart, forced re-pull and the rolling upgrade's image update: they
+already read it before patching it, and a Role without `get` on `deployments` already made the
+image update fail before this release. What this release adds is that read on Start,
+Provision and Unprovision, and the Pod list.
+
+The permissions belong to the identity replication-manager uses, not to the person who runs
+`kubectl`, and they are checked in each database namespace (the namespace is the cluster
+name). That identity is the ServiceAccount of the replication-manager Pod when it runs in
+the cluster, and the user of the kubeconfig named by `kube-config` when it runs outside. Do
+not assume that it lives in the database namespace: a Role in the replication-manager
+namespace grants nothing in the database namespaces.
+
+To verify them, run these for every database namespace, as the identity replication-manager
+uses:
+
+```
+kubectl auth can-i get deployments.apps -n <cluster-name> --as=system:serviceaccount:<replication-manager-namespace>:<replication-manager-serviceaccount>
+kubectl auth can-i list pods -n <cluster-name> --as=system:serviceaccount:<replication-manager-namespace>:<replication-manager-serviceaccount>
+```
+
+Both must answer `yes`. `--as` needs the right to impersonate that ServiceAccount. For an
+identity that comes from a kubeconfig, run the same commands with
+`--kubeconfig <the kube-config file>` and without `--as`. To see everything the identity may
+do in a namespace, use `--list`:
+
+```
+kubectl auth can-i --list -n <cluster-name> --as=system:serviceaccount:<replication-manager-namespace>:<replication-manager-serviceaccount>
+```
+
+A `ClusterRole` bound with a `ClusterRoleBinding` counts too, so trust the answer, not the
+presence of a Role in the namespace. This checks Kubernetes RBAC only: it does not prove that
+replication-manager is configured with the identity you checked.
+
+### A rolling upgrade that stops midway
+
+The rolling upgrade runs in the background. The upgrade request answers `202 Accepted` before
+any server has been stopped, so that response says nothing about the outcome: check the
+cluster state and the replication-manager log.
+
+A rolling upgrade restarts the replicas first, then switches over, then restarts the former
+primary. For each server it stops the database, updates its Deployment to the new image with
+the pull policy `Always` (so that the image is pulled), and starts it again. That Start is
+the guarded Start described above. When the identity lacks `list` on `pods`, the Start is
+refused, nothing is scaled up, and the upgrade does not go on:
+
+- the log shows a line that starts with `Cannot start database <server>: not allowed to list Pods in namespace <cluster-name>`;
+- replication-manager then waits for the server to rejoin, which cannot happen, and the
+  upgrade gives up when that wait expires (about two minutes in our test) with a line that
+  starts with `Rolling upgrade (pull): <server> does not restart`;
+- the first replica is left **stopped**, with its Deployment at zero replicas, already on the
+  new image and with the pull policy `Always`;
+- the primary, and every server the upgrade had not reached, stay on the old version and keep
+  running, so the cluster runs without that replica until you act;
+- nothing is deleted and the PVC is untouched.
+
+In our test (MySQL 8.4, one primary and one replica, a Role without `list` on `pods`) this is
+what happened. A Role that lacks `get` on `deployments` also stops the upgrade, but earlier,
+and this requirement is not new: the image update reads the Deployment first (the log line
+starts with `Cannot fetch Kubernetes deployment <server>`), so the replica is left stopped on
+its old image. That case was not part of our test.
+
+### Recovering a stopped server after a failed rolling upgrade
+
+Do these steps in this order. Do not delete the database PVC or the Deployment, and do not
+force-delete a Pod, to speed it up.
+
+1. **Correct the Role first.** Grant the missing permission and check it with the commands
+   above, for the identity replication-manager really uses. Starting the server before that
+   only fails again.
+2. **Check that the previous Pod is gone and that nothing else uses the volume.** The
+   affected server's data volume claim is `<cluster-name>-<server-name>-claim`. This lists
+   each Pod with the claims it uses; no Pod may reference that claim:
+
+   ```
+   kubectl get pods -n <cluster-name> -o custom-columns='POD:.metadata.name,PVC:.spec.volumes[*].persistentVolumeClaim.claimName'
+   ```
+
+   If a Pod of that server is still `Terminating`, examine it first and give it time:
+   `kubectl describe pod <pod-name> -n <cluster-name>` shows its node and the state of its
+   containers. Do not remove it until you know that its node is reachable and its database
+   process has stopped. *The 90-second limit* describes the same situation.
+3. **Start the stopped server** from the replication-manager GUI or API. Do not rely on the
+   HTTP status of the Start request (see *The Start API response* below).
+4. **Verify the result**, on that server and on the primary:
+   - the Deployment is at one replica and the Pod's containers are ready
+     (`kubectl get deployment <server-name> -n <cluster-name>` and
+     `kubectl get pods -n <cluster-name>`);
+   - the database accepts connections and `SELECT VERSION()` answers the release you expect;
+   - replication is healthy: the IO and SQL threads run without error and the lag falls back
+     to zero (`SHOW REPLICA STATUS`, or `SHOW SLAVE STATUS` on older servers);
+   - its GTID position catches up with the primary's (`gtid_slave_pos` against
+     `gtid_current_pos` on MariaDB, `gtid_executed` on MySQL and Percona);
+   - the image and pull policy in the Deployment are the ones you expect:
+     `kubectl get deployment <server-name> -n <cluster-name> -o jsonpath='{range .spec.template.spec.containers[*]}{.name}{" "}{.image}{" "}{.imagePullPolicy}{"\n"}{end}'`;
+   - the image in the running Pod is the one you expect:
+     `kubectl get pod -n <cluster-name> -l tag=<server-name> -o jsonpath='{range .items[*].status.containerStatuses[*]}{.name}{" "}{.image}{"\n"}{end}'`.
+5. **Reconcile the partly done upgrade.** The cluster is now in the state a rolling upgrade
+   passes through: that replica is on the new release, the primary and the other servers are
+   on the old one. Decide whether to finish the upgrade or to stay there for now, and check
+   each server's image and release before you do. Asking for the same rolling upgrade again
+   to finish the remaining servers has not been validated end to end by our tests: treat it
+   as unconfirmed, and verify the state after each server.
+
+   Check the pull policy of the server that was left behind. It keeps the pull policy
+   `Always` that the upgrade set for its pull phase, so every start of its Pod asks the
+   registry about the image. The policy goes back to the cluster's steady-state policy when
+   the upgrade's final phase runs on that server, or when you use the server's Restart
+   action, which applies it again from the `prov-kube-image-force-pull` setting (off by
+   default). A rolling restart does not change the pull policy. A restart replaces the Pod
+   and means downtime for that server, so plan it.
+
+   If the upgrade stopped on a missing `get` on `deployments` instead, the Deployment was
+   never changed, so there is no image or pull policy to reconcile.
+
+replication-manager never force-deletes a Pod, and none of these steps needs you to.
+
+### The Start API response
+
+The Start action of a database server can answer HTTP `200` although the Start itself
+failed: the request handler runs the Start and does not return its error to the caller. The
+error is only written to the replication-manager log, for example when the guard is refused
+the permission to list Pods. The Start action has always behaved like this; the guarded Start
+makes a refusal possible, so it matters more now, but the response behaviour itself is not
+new. Other actions report their errors in other ways: do not take any HTTP status as proof of
+the result.
+
+After a Start, a Provision or a step of an upgrade, verify the real state:
+
+- `kubectl get deployment <server-name> -n <cluster-name>` shows one replica wanted and ready,
+  not `0/0`;
+- `kubectl get pods -n <cluster-name>` shows the Pod running with all its containers ready;
+- the server leaves the failed state in replication-manager and answers SQL;
+- the replication-manager log has no `Cannot start database <server>` line for it.
+
 ### Limits of the protection
 
 The protection covers operations started by replication-manager. It does not cover
@@ -321,7 +481,21 @@ force-deletes anything.
 The waits cannot be cancelled: a Start, Provision or Unprovision that is waiting holds the
 operation that called it until the wait succeeds, fails, or reaches the 90 seconds, and
 stopping or removing the cluster in replication-manager meanwhile does not interrupt it.
-It was tested with MariaDB 11.8 on one Kubernetes cluster, with local storage.
+
+What was tested: the database lifecycle described on this page was tested on one Kubernetes
+cluster (version 1.37) with local storage, with MariaDB 11.8 on a single server, MySQL 8.4 on a
+single server and on two servers, and Percona Server 8.0 on a single server. The two-server
+MySQL tests needed a manual workaround: replication-manager did not create the replication
+user on Kubernetes (an existing issue, not changed here), so it was created by hand on both
+servers. Their rolling restart ended with the roles of the primary and the replica swapped;
+whether the `Recreate` strategy changes that compared with the former `RollingUpdate` was not
+established. It was not tested with Percona on several servers, with PostgreSQL on
+Kubernetes, or through an automatic failover.
+
+The Percona 8.0 lifecycle itself behaved like the others. A separate, known problem is not
+part of this protection and is not changed by it: the Percona image reads its configuration
+from `/etc/my.cnf.d`, while replication-manager writes the generated database configuration
+to `/etc/mysql/conf.d`, so that configuration is not loaded by Percona.
 
 ## Kubernetes Proxy Provisioning (Version 3.1.42)
 
