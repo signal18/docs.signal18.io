@@ -118,12 +118,12 @@ change is a security event. Three kinds of store:
 | **OpenSVC** | the secret `system/sec/repman`, keys `<instance name>_<key>`, through the agent of a cluster you name (a cluster on OpenSVC) | The administrators of the OpenSVC system namespace. |
 | **Kubernetes** | the Secret `repman-system` of the namespace you give, keys `<instance name>_<key>`, through the client of a cluster you name (a cluster on Kubernetes) | Whoever reads Secrets in that namespace. Give the cluster's client the narrowest role: create, get and patch on that Secret. |
 
-**On a Cloud18 marketplace partner, these copies are not a choice** (since **3.1.50**): the
-Cloud18 vault entry is always on, and each orchestrator your clusters run on gets its store
-by itself, `cloud18-opensvc` or `cloud18-kubernetes`, written through one of your clusters on
-it, always on. They cannot be switched off. The OpenSVC store also keeps the user list under
-`<api host>_api-credentials`, the key Cloud18 support reads. On-prem, you add the stores you
-want, or none.
+**Some copies are not a choice** (since **3.1.50**): when your clusters run on OpenSVC or
+Kubernetes, the server secrets are always copied there, by a store replication-manager adds
+by itself (`cloud18-opensvc`, `cloud18-kubernetes`), written through one of your clusters on
+it. On a Cloud18 marketplace partner, the Cloud18 vault entry is always on too. These stores
+cannot be switched off. The OpenSVC store also keeps the user list under
+`<api host>_api-credentials`, the key Cloud18 support reads.
 
 Every change of a server secret, a rotation included, is written to each store that is on,
 in the background: a store that is down never blocks a rotation or the monitoring. In
