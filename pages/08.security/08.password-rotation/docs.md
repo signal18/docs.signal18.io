@@ -24,6 +24,9 @@ they receive the new value as well (see 8.9.3).
 a key button (**rotate password**). Confirm: the next window shows the new password with a
 copy button. **Copy it now**: it is shown once, never logged, and nobody can read it later.
 
+Since **3.1.50**, when the user's login is an email address, the new password is **mailed to
+that user as a one-time link** instead, and the window says so: you do not see it (see 8.9.7).
+
 **With the API:**
 
 ```
@@ -43,6 +46,8 @@ The answer carries the new password once:
 | `tokensError` | Set when the token revocation could not be saved. **The ban is not complete**: rotate again once the cause is fixed. |
 | `persistError` | Set when the new password could not be written to disk. It is in force, but a restart would bring the old one back: fix the cause and rotate again. |
 | `etcFile` | The user list is set in a configuration file under `/etc`: `written`, or why it was not written (see 8.9.4). |
+| `revealMailedTo`, `revealExpires` | Since 3.1.50: the new password was mailed to the user as a one-time link, valid until `revealExpires`; `password` is then empty (see 8.9.7). |
+| `revealError` | Since 3.1.50: why the password was not mailed (no address, no mail server, links off); `password` then carries it, shown once. |
 | `storesBehindCount`, `storesBehind` | Server credential stores already behind when you rotated: they may still hold the old password until they catch up (see 8.9.3). The names are given to the instance's owners only. |
 
 A rotation that fails half-way keeps what it did: the password stays rotated where it was
@@ -193,3 +198,30 @@ writes the new value into the file:
 - **A store list set in a configuration file** (`server-secret-kv` pinned in `config.toml`) is
   not saved by replication-manager: a rename made while replication-manager is stopped is not
   copied to the new name.
+
+### 8.9.7 One-time password links
+
+Since **3.1.50** replication-manager **never puts a password in a mail**. A mail is copied,
+forwarded and kept in mailboxes for years; the mail carries a link that works **once**:
+
+    https://<api-public-url>/reveal#<code>
+
+- **Who gets one:** a rotated user whose login is an email address (the person who rotated
+  it does not see the new password), the recipients of the **credentials mails** (sponsor,
+  DBA, sysadmin: the server addresses stay in the mail, the password is behind the link, one
+  link per recipient), and the recipients of a cluster's **Vault token**.
+- **Opening it:** the page asks for a click before showing anything, so a mail scanner that
+  opens the link burns nothing. After the click the secret is shown once and deleted from the
+  server: copy it to a safe place (a password manager) at once. Opening the link again says it
+  was already opened. If you did not open it yourself, someone else saw the secret: tell your
+  administrator, who rotates the password again.
+- **Expiry:** 24 hours by default (`api-secret-reveal-expire-hours`).
+- **Where the secrets wait:** in replication-manager's working directory, encrypted with the
+  instance's key, never pushed to git. Only a fingerprint of each link's code is kept.
+- **Requirements:** a mail server (`mail-smtp-addr`, `mail-from`) and an **API Public URL**
+  (`api-public-url`) that the recipients can reach, in https. Without them, a rotated password
+  is shown once to the person who rotated it, as before.
+- **Turning it off:** `api-secret-reveal = false` (global settings, **Mail Passwords as
+  One-time Links**). A rotated password is then shown to the person who rotated it, and the
+  credentials mails are **not sent**: a password is never mailed in clear.
+
