@@ -28,7 +28,8 @@ Since **3.1.50**, the new password is **mailed to you as a one-time link** inste
 login is an email address and your role covers the user's level: a user of the instance's list
 needs you to be **sysops or extsysops**; a user of a cluster's own list also accepts **dbops,
 extdbops or sponsor** of that cluster. The window then says where it was mailed, and the
-password is not on the screen. It is never mailed to the rotated account itself: if that
+password is not on the screen. Signed in as the local `admin`, your email is the account the
+instance is registered with (the one the user menu shows). It is never mailed to the rotated account itself: if that
 account is compromised, its mailbox may be too (see 8.9.7).
 
 **With the API:**
