@@ -442,8 +442,14 @@ force-delete a Pod, to speed it up.
    registry about the image. The policy goes back to the cluster's steady-state policy when
    the upgrade's final phase runs on that server, or when you use the server's Restart
    action, which applies it again from the `prov-kube-image-force-pull` setting (off by
-   default). A rolling restart does not change the pull policy. A restart replaces the Pod
-   and means downtime for that server, so plan it.
+   default). A rolling restart does the same through its definition refresh, which runs
+   unless `prov-orchestrator-deployment-upgrade-on-start` is turned off (it is on by
+   default): the refresh keeps the Deployment's image reference and sets the pull policy
+   from `prov-kube-image-force-pull`. If the refresh fails, a warning is logged and the
+   rolling restart continues; with the setting off, the refresh is skipped and the pull
+   policy is left as it is. Only a rolling upgrade deliberately changes the image
+   reference, and a mutable tag that is pulled again can resolve to a different image
+   digest. A restart replaces the Pod and means downtime for that server, so plan it.
 
    If the upgrade stopped on a missing `get` on `deployments` instead, the Deployment was
    never changed, so there is no image or pull policy to reconcile.
@@ -484,13 +490,27 @@ stopping or removing the cluster in replication-manager meanwhile does not inter
 
 What was tested: the database lifecycle described on this page was tested on one Kubernetes
 cluster (version 1.37) with local storage, with MariaDB 11.8 on a single server, MySQL 8.4 on a
-single server and on two servers, and Percona Server 8.0 on a single server. The two-server
-MySQL tests needed a manual workaround: replication-manager did not create the replication
-user on Kubernetes (an existing issue, not changed here), so it was created by hand on both
-servers. Their rolling restart ended with the roles of the primary and the replica swapped;
-whether the `Recreate` strategy changes that compared with the former `RollingUpdate` was not
-established. It was not tested with Percona on several servers, with PostgreSQL on
-Kubernetes, or through an automatic failover.
+single server and on two servers, and Percona Server 8.0 on a single server.
+
+The first two-server MySQL tests needed a manual workaround: replication-manager did not
+create the replication user on Kubernetes (an existing issue, not changed here), so it was
+created by hand on both servers. In a later fresh two-server MySQL 8.4.11 provisioning,
+replication-manager created the replication user itself and replication started without the
+workaround; that was one run, so do not read it as a general fix.
+
+Rolling restart: in those first tests the two-server MySQL rolling restart ended with the
+roles of the primary and the replica swapped (no data was lost). The rolling restart has
+since been changed to run the same sequence as on OpenSVC: stop the server, wait until
+replication-manager sees it down, refresh the definition, start it and wait for its rejoin.
+This new sequence was tested on MySQL 8.4.11 with one primary and one replica, twice: once on
+a build that also contained a separate, not yet released configuration change, and once on
+the code this page documents. Both times the original primary was restored and replication
+and data were intact. Two tests do not show that a swap cannot happen; the cause of the
+earlier swap is not established, and neither is whether the `Recreate` strategy changes it
+compared with the former `RollingUpdate`. In the second test the previous Pod's containers
+had already finished when each new one started, so the check described above did not have to
+wait. The new sequence was tested on MySQL 8.4.11 only. It was not tested with Percona on
+several servers, with PostgreSQL on Kubernetes, or through an automatic failover.
 
 The Percona 8.0 lifecycle itself behaved like the others. A separate, known problem is not
 part of this protection and is not changed by it: the Percona image reads its configuration
