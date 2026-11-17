@@ -96,6 +96,14 @@ If the active instance goes down, the standby detects the peer is unreachable (s
 
 >Failover in a **replication-manager** cluster requires arbitration. If the arbitrator cannot be contacted, you can use the command line or API to failover manually — but make sure all other replication-manager instances are stopped first.
 
+##### Who fails over when the master dies (3.1.50)
+
+Both instances detect a master failure. While the standby can still reach the active instance (no split brain), it **leaves the failover to the active**: it does not ask the arbitrator and does not promote a replica, and its *Running in passive mode* state (`ERR00022`) stays open until the active has elected a new master. The active runs the failover, records the crash and rejoins the old master when it comes back. The standby fails over only after it has lost its active peer (split brain) and the arbitrator elects it.
+
+Before 3.1.50, the standby that detected the failure first could win the arbitration and fail over under a healthy active, which left the active without a crash record and the old master unrejoined.
+
+**Known limitation.** The standby treats the active as alive as long as the active's API answers its heartbeat. If the active's API answers while its monitoring loop is stuck (paused, deadlocked, or blocked on a database), the standby keeps waiting and the failover is delayed until the active recovers or stops answering. A delayed failover is the lesser harm compared with two instances failing over at once.
+
 ---
 
 ### 4.7.1.5 Split-brain master protection
