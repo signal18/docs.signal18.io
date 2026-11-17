@@ -237,3 +237,30 @@ forwarded and kept in mailboxes for years; the mail carries a link that works **
   One-time Links**). A rotated password is then shown to the person who rotated it, and the
   credentials mails are **not sent**: a password is never mailed in clear.
 
+
+### 8.9.8 Database services and the admin password
+
+Since **3.1.50**, a rotation of the admin password no longer stops a database service from
+fetching its configuration.
+
+- **Before:** the init container of each database service (OpenSVC) logged in to
+  replication-manager as `admin`, with the password copied into the namespace's secret at
+  provisioning. After an admin password change that copy was old: the init container fetched
+  nothing and the database started on its old files, with no state saying so. Restarts, dynamic
+  configuration changes and upgrades were affected.
+- **Now:** the init container logs in with the cluster's **jobs key**, the key the database jobs
+  already use (it is derived from replication-manager's own key, it is not a password). Its
+  environment holds neither the admin login nor its password: only the jobs key, mounted
+  read-only. It downloads `replication-manager-cli` from replication-manager, then fetches its
+  own server's configuration, and nothing else.
+- **Getting there:** the new service definition is written when the database's definition is
+  refreshed (the server's **Update OpenSVC template** action, or a rolling restart that refreshes
+  the definitions), then the database restarts. Until then the old definition keeps the admin
+  login, and replication-manager keeps its copy current: after each admin password change, and
+  each time replication-manager starts or becomes the active monitor, it rewrites the copy where
+  it differs.
+- **Proxies** still log in with the admin login, kept current the same way.
+- **Kubernetes:** the init container still sends the admin login (`REPMAN_AUTH_HEADER`), kept
+  current the same way; the move to the jobs key comes later.
+- **What the init container did** is written in `/bootstrap/init-status` in the service's volume:
+  `fetched`, `not-needed` or `failed`, with the reason.
