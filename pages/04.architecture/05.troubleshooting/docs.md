@@ -182,3 +182,4 @@ tail -f /var/log/replication-manager.log | grep -E 'DEBUG|topology|rejoin|failov
 | Daemon crashed | `panic.log` — JSON stacktrace |
 | Proxy not updated after failover | Main log — search `[proxy]`, `[haproxy]`, `[proxysql]` module tags |
 | Config not taking effect | `<cluster>.toml`, `cache.toml`, `immutable.toml` in the datadir — check which layer wins |
+| No backup, log collection or config check on a server; state `WARN0324` (since 3.1.50) | The server's jobs container has not reached replication-manager for 10 minutes. Read that container's log. On a stock MySQL or Percona image, the usual cause is a missing `socat`: set `prov-db-docker-xtrabackup-img` (`auto`), then refresh the service definition and restart the database. Also check the container's network path to replication-manager and its clock. |
