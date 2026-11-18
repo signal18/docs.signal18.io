@@ -129,6 +129,62 @@ that cluster.
 This is expected — changing the setting does not migrate an existing PVC. See
 the note above.
 
+### Database volume layout and generated configuration
+
+replication-manager generates a configuration tree for every database server (`my.cnf`, `conf.d`, `replication-manager.d`, `custom.d`, `ssl`, `dbjob.cnf`). On OpenSVC that tree is the service directory `etc/mysql`. On Kubernetes the database PersistentVolumeClaim (PVC) plays the same role: it holds the data, the generated configuration and the initialization files in separate directories, and the generated `/etc/mysql` is mounted whole into the database and the `dbjobs` containers.
+
+| Directory on the volume | Mounted at | In |
+|---|---|---|
+| `data` | `/var/lib/mysql` | init, database and `dbjobs` containers |
+| `etc/mysql` | `/etc/mysql` | init, database and `dbjobs` containers |
+| `init` | `/docker-entrypoint-initdb.d` | init and `dbjobs` containers |
+
+Because the database container reads `/etc/mysql/my.cnf` from the volume, the options replication-manager generates (GTID mode, binary log, paths, memory, TLS) apply whatever the database image contains, and the `dbjobs` container can run backup tools against the same `my.cnf`. Before this layout only `conf.d` was installed, so an image that did not already include `/etc/mysql/conf.d` ignored the generated configuration (for example Percona Server 8.0 started with `gtid_mode = OFF`).
+
+#### Which volumes use it
+
+Only a PVC created by this version of replication-manager, which records the layout as the annotation `replication-manager.signal18.io/pvc-layout: service-dirs-v1`. A PVC without the annotation was created by an earlier version and keeps the behaviour it had, unchanged:
+- the volume root is the datadir (`/var/lib/mysql`);
+- only `/etc/mysql/conf.d` is mounted (from `.system/conf.d` on the volume) in the init and database containers, and the `dbjobs` container gets no `/etc/mysql` from the volume;
+- only the generated `conf.d` fragments are installed, not `my.cnf`, `custom.d`, `ssl` or `dbjob.cnf`; `/docker-entrypoint-initdb.d` is mounted from `.system/init`.
+
+Such a volume is not migrated automatically and is never reinterpreted as the new layout; moving it is an explicit operation that does not exist yet. An annotation value this version does not know is refused: the database is not provisioned on that volume.
+
+To see which layout a volume has (`<namespace>` is the Kubernetes namespace of the cluster; replication-manager uses the cluster name as the namespace):
+
+    kubectl -n <namespace> get pvc -o custom-columns='NAME:.metadata.name,LAYOUT:.metadata.annotations.replication-manager\.signal18\.io/pvc-layout'
+
+An empty `LAYOUT` column means a volume of the earlier layout.
+
+#### Configuration lifecycle
+
+At every start of the Pod, the init container (`<server>-init`) asks replication-manager whether a new configuration is needed and, if so, fetches the configuration generated for the server and installs it on the volume:
+
+| Event | What happens |
+|---|---|
+| First start on a new volume | the configuration is fetched and the whole `etc/mysql` tree is installed; the database starts only if the installed tree has a non-empty `my.cnf` and a `conf.d` with entries |
+| Configuration changed in replication-manager | at the next Pod start the tree is fetched again: `conf.d` and `replication-manager.d` are cleared and rewritten from the generated tree; files you added under `custom.d` or elsewhere in `/etc/mysql` stay, and a generated file of the same name is overwritten |
+| Stop then Start, restart of the Pod | the same volume is mounted again; the installed configuration and the data are kept |
+| Fetch fails after a first successful install | nothing is replaced and the database starts on the last installed configuration |
+| First fetch fails, or the installed tree has no `my.cnf` or an empty `conf.d` | the init container exits with an error, the Pod stays in `Init` and Kubernetes retries |
+
+#### Requirements
+
+- The generated tree must contain a `my.cnf`. replication-manager generates it for the platform tags `docker`, `pkg`, `rpm` and `deb`; the default `prov-db-tags` include `docker`. With none of these tags there is no `my.cnf`, and the init container does not let the database start.
+- replication-manager must be reachable from the Pod at the first start.
+
+#### Troubleshooting
+
+A Pod stuck in `Init`:
+
+    kubectl -n <namespace> logs <pod> -c <server>-init
+
+`ERROR: no usable configuration in /etc/mysql ...` means the first fetch failed or the tags above are missing.
+
+#### Sensitive content
+
+The generated tree includes the `ssl` directory, which holds the server's TLS certificates and keys. The volume therefore contains key material, as the OpenSVC service directory does: give the volume, the nodes that hold it and `exec` access to the database Pods the access controls you give a secret.
+
 ### Proxy Storage and StorageClass Selection
 
 Set `prov-proxy-disk-size` for the proxy PVC and
