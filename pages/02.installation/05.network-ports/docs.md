@@ -53,10 +53,10 @@ db-servers-connect-timeout = 5
 
 ## 2.7.4 replication-manager SST / Backup Streaming
 
-replication-manager implements its own **State Snapshot Transfer (SST)** mechanism for reseeding crashed or new replica nodes — separate from Galera SST. This uses a `socat`-based streaming pipeline:
+replication-manager implements its own **State Snapshot Transfer (SST)** mechanism for reseeding crashed or new replica nodes — separate from Galera SST. It is a TCP streaming pipeline (`replication-manager-cli stream` on the database side from 3.1.52, `socat` before):
 
 1. replication-manager writes a job into the `replication_manager_schema.jobs` table on the donor node
-2. The donor cron script streams the backup (mariabackup/xtrabackup xbstream) via `socat` back to replication-manager
+2. The donor cron script streams the backup (mariabackup/xtrabackup xbstream) back to replication-manager
 3. replication-manager opens a TCP listener on the repman host to receive the stream
 4. The joiner node (receiver) listens on **port 4444** by default
 

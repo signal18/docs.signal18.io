@@ -73,7 +73,7 @@ Not all jobs run the same way. Some are executed **logically** by replication-ma
 | Task | Execution | How | Why |
 |---|---|---|---|
 | Logical backup (mysqldump/mydumper) | Logical | repman executes the dump binary locally, connects to DB over TCP | SQL-based dump, no filesystem access needed |
-| Physical backup (mariabackup/xtrabackup) | Remote | dbjobs script runs backup tool on DB host, streams via socat | Requires local access to InnoDB data files |
+| Physical backup (mariabackup/xtrabackup) | Remote | dbjobs script runs backup tool on DB host, streams it to replication-manager (replication-manager-cli; socat before 3.1.52) | Requires local access to InnoDB data files |
 | Physical restore (reseed) | Remote | dbjobs script receives stream, unpacks and prepares backup locally | Requires local access to data directory |
 | Optimize | Remote | dbjobs script runs `mysqlcheck -o` on DB host | Batched via local client binary with `--skip-write-binlog` |
 | Analyze | Logical | repman sends `ANALYZE TABLE` SQL via connection | Pure SQL command, no local access needed |
@@ -229,23 +229,41 @@ The dbjobs script requires the following packages **on each database host** (or 
 
 | Package | Required for | Install |
 |---|---|---|
-| **socat** | All data streaming: config delivery, backup streaming, script upgrades, log shipping, jobs-check. Without socat, dbjobs cannot communicate with replication-manager. | `apt install socat` (Debian/Ubuntu), `yum install socat` (RHEL/CentOS) |
+| **replication-manager-cli** (from 3.1.52) | Every call and every data stream to replication-manager: config delivery, backup streaming, script upgrades, log shipping, jobs-check | Delivered by replication-manager (see below), nothing to install |
 | **bash** | The dbjobs script requires bash (not sh/dash) | Included in all standard distros |
 | **MariaDB/MySQL client** | SQL job execution, `mariadbd --print-defaults` for config tracking | Installed with the database server |
 | **gzip** | Compressing/decompressing streamed data | Included in all standard distros |
 
-> `socat` is **not** part of minimal Linux installations but is included as a dependency of MariaDB Server packages (used by Galera SST). On on-premise deployments, verify it is installed on every database host before enabling the scheduler. Docker images built by replication-manager include socat by default.
+### 7.1.6.1 replication-manager-cli: the only way from the jobs to replication-manager (from 3.1.52)
+
+From 3.1.52 the dbjobs script talks to replication-manager only through `replication-manager-cli`. It signs every call and every stream with the cluster's jobs key. `socat` and `openssl` are no longer needed, so a stock `mysql` or `percona/percona-server` image runs the jobs as it is. The `prov-db-docker-xtrabackup-img` bundle is still needed there for physical backups (xtrabackup and xbstream).
+
+**Where the CLI comes from:**
+
+| Orchestrator | Delivery |
+|---|---|
+| OpenSVC | the service bootstrap downloads it from replication-manager at each start, next to the script |
+| Kubernetes | the init container copies it next to the script |
+| On-premise (SSH) | before each run, replication-manager copies its own CLI into the server's jobs directory when it is absent or another version (checked against a checksum marker, the copy verified before it replaces the old one). Only a host of replication-manager's own OS and architecture gets it: any other host gets a job error naming both platforms, and the CLI of that platform can be installed by hand on the jobs user's `PATH` |
+
+The script looks for the CLI beside itself, then in the jobs directory, then on the `PATH`. Without it the script stops at once with one clear error and runs no job: there is no fallback. replication-manager then raises `WARN0324` (the jobs of a server silent for 10 minutes).
+
+**After upgrading replication-manager:** a running container keeps the CLI it got at its last start, and a jobs script upgrade does not bring a new CLI. So replication-manager does not push the new script to a container whose CLI is older. Instead it raises `WARN0325` on that server, and the jobs go on with their current script, with `socat`, until the database service restarts. The restart brings the new CLI and the new script together, and the warning closes. After a monitor-only upgrade, expect `WARN0325` on every database whose service has not restarted since.
+
+> Before 3.1.52, the dbjobs script needs `socat` on each database host. It is not part of minimal Linux installations, but it comes as a dependency of the MariaDB Server packages (used by Galera SST).
 
 ---
 
 ## 7.1.8 How Results Are Streamed Back
 
-Tasks that produce output (backups, log fetches) stream their data back to replication-manager using `socat`. replication-manager opens a TCP listener on a port from `scheduler-db-servers-sender-ports` and records that address in the job row. The script reads the address from the row and pipes the output directly:
+Tasks that produce output (backups, log fetches) stream their data back to replication-manager. replication-manager opens a TCP listener on a port from `scheduler-db-servers-sender-ports` and gives its address to the script, through the job row in SQL mode or the `receive-task` API in API mode. The script pipes the output to it through `replication-manager-cli` (from 3.1.52; `socat` before):
 
 ```bash
 # Example: stream a physical backup back to replication-manager
-mariabackup --stream=xbstream ... | socat -u stdio TCP:$ADDRESS
+mariabackup --stream=xbstream ... | replication-manager-cli stream --job --to $ADDRESS
 ```
+
+The stream is two-way. When replication-manager closes it first (the backup was cancelled or failed), the CLI ends at once. A dump client still running then gets a 10-second grace period and is stopped, which ends any lock it holds.
 
 replication-manager writes the received stream to:
 - **Logs** (error log, slow query log): `{datadir}/{cluster}/{host_port}/`
@@ -267,9 +285,11 @@ scheduler-db-servers-sender-ports = "4000,4001,4002"  # port pool; one per concu
 
 ## 7.1.9 How Job Execution Logs Are Pushed via the API
 
-In addition to streaming bulk data (backups) over TCP/socat, the dbjobs script reports execution logs back to replication-manager through encrypted REST API calls. This mechanism is used for error logs, slow query logs, optimize output, and all other job status reporting.
+In addition to streaming bulk data (backups) over TCP, the dbjobs script reports execution logs back to replication-manager through encrypted REST API calls. This mechanism is used for error logs, slow query logs, optimize output, and all other job status reporting.
 
 ### 7.1.9.1 Authentication and Authorization
+
+> From 3.1.52 the calls below are made by `replication-manager-cli` on the script's behalf, signed with the cluster's jobs key, not with the database password. The flow below describes older scripts.
 
 The dbjobs script authenticates with replication-manager using the database server password:
 

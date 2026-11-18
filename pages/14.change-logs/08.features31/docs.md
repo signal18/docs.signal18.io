@@ -124,6 +124,8 @@ taxonomy:
 
 #### 14.8.0.1.8 Scheduler
 
+* **Version 3.1.52 - Database jobs through replication-manager-cli, no socat or openssl**: the dbjobs script makes every call and every stream to replication-manager through `replication-manager-cli`, signed with the cluster's jobs key. Stock MySQL and Percona Server images need neither `socat` nor `openssl` any more. On-premise SSH hosts get the CLI copied by replication-manager. A container started before the upgrade keeps its script until its database service restarts (`WARN0325`). A cancelled dump stops within its grace period, ending its lock.
+
 * **Version 3.1.45 - Job dispatch through the API by default**: `scheduler-jobs-mode` now defaults to `api`. The dbjobs script on each database host checks its tasks and reports their states through the replication-manager API; nothing is written in the database for the jobs any more, so a client's own backups no longer carry replication-manager's job rows and a restore never has to sort them out. Over SSH (on premise) the script follows the new mode at its next run. In a jobs container (OpenSVC, Kubernetes) the mode is in the dbjobs script replication-manager renders for each server: run a jobs upgrade (`actions/rolling/jobs-upgrade`) after the upgrade, or set `scheduler-jobs-mode = "sql"` to keep the former mode. [See documentation](/maintenance/overview)
 
 * **Enhanced Scheduler System**: Comprehensive task scheduling with cron support for database maintenance, backups, and administrative operations

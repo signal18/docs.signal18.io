@@ -23,11 +23,11 @@ The reseed flow depends on the job dispatch mode ([see Job Dispatch Modes](/main
 **SQL mode** (default):
 1. replication-manager opens a TCP receiver on a port from `scheduler-db-servers-sender-ports`
 2. Inserts a reseed task into the `replication_manager_schema.jobs` table with the receiver address
-3. The dbjobs script picks up the task, receives the backup stream via `socat`, prepares it, and restores
+3. The dbjobs script picks up the task, receives the backup stream (through `replication-manager-cli` from 3.1.52, `socat` before), prepares it, and restores
 
 **API mode**:
 1. replication-manager sets a reseed cookie (`@cookie_waitreseedxtrabackup` or `@cookie_waitreseedmariabackup`)
-2. The dbjobs script checks `needs/{task}` API → opens a local `socat` listener
+2. The dbjobs script checks `needs/{task}` API → opens a local listener (`replication-manager-cli stream --listen` from 3.1.52, `socat` before) and reports the task waiting once the listener is open
 3. Calls `receive-task/{task}` API → replication-manager opens a TCP receiver
 4. Backup stream flows, dbjobs prepares and restores
 

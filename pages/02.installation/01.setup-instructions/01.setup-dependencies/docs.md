@@ -21,7 +21,13 @@ Internet Explorer Web browser is reported as not functioning with the web gui.
 
 The following packages are required **on each database host** (or inside each database container) for the dbjobs maintenance script to function:
 
-* **socat** — required for all data streaming between database hosts and replication-manager (config delivery, backup streaming, script upgrades, log shipping, jobs-check). Without socat, dbjobs cannot communicate with replication-manager. Included as a dependency of MariaDB Server packages (used by Galera SST). Verify with `which socat` or install via `apt install socat` (Debian/Ubuntu) or `yum install socat` (RHEL/CentOS). Docker images include socat by default.
+* **replication-manager-cli** (from 3.1.52): the dbjobs script makes every call to replication-manager and every data stream through it (config delivery, backup streaming, script upgrades, log shipping, jobs-check). You install nothing:
+  * on OpenSVC, the service bootstrap downloads it from replication-manager;
+  * on Kubernetes, the init container copies it next to the script;
+  * on on-premise hosts run over SSH, replication-manager copies it into the jobs directory before each run, when it is absent or another version. The host must have replication-manager's own OS and architecture. On any other host, install the CLI of that platform by hand on the jobs user's `PATH`.
+
+  Neither `socat` nor `openssl` is needed any more.
+* **socat** (before 3.1.52 only): older dbjobs scripts stream through `socat`. Verify with `which socat` or install it via `apt install socat` (Debian/Ubuntu) or `yum install socat` (RHEL/CentOS).
 * **bash** — the dbjobs script requires bash (not sh/dash)
 * **MariaDB or MySQL client** — `mariadb` / `mysql` CLI for SQL job execution
 
