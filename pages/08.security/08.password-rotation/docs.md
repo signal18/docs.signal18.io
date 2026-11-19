@@ -100,6 +100,24 @@ encrypted.
 The clocks of the two monitors must stay close (NTP): versions are ordered by time when
 two monitors' stores are merged.
 
+**The Cloud18 vault of a cluster.** A cluster of an instance registered with Cloud18 gets
+the Cloud18 vault as a credential store, listed in the cluster's **Database Credentials**
+settings with a Cloud18 badge. Each version of the cluster's secrets is then also written
+there, under the instance's name (8.9.3) and the cluster's name. It signs in with the
+instance's Cloud18 identity: there is nothing to set.
+
+- **On by default** (nightly builds from 2026-11-19 and the next release): the entry is
+  created **on** when no other credential store of the cluster is on, and **off** next to one
+  that is, so a cluster never starts writing to a second store on its own.
+- **Your switch afterwards:** the cluster's sponsor (and any user with the cluster settings
+  grant) can switch it off or on. Cloud18 changes its address and folder, never its switch.
+- **Created off by an earlier build:** an entry that came off stays off. Switch it on in the
+  cluster's Database Credentials settings to start writing there.
+- Its settings come from Cloud18 and it cannot be removed. Switched off, it keeps what it
+  already holds.
+- A vault that cannot be reached never blocks the monitoring: the entry is shown **behind**
+  (WARN0271) and retried until it holds the current secrets.
+
 ### 8.9.3 Server credential stores
 
 The **server secrets** are the instance's own credentials: the user list `api-credentials`,
