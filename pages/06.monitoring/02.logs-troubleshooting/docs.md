@@ -35,6 +35,10 @@ All of these are set in the global (non-cluster) section of the configuration fi
 | `3` | Failover debugging — shows decision logic |
 | `5–7` | Full trace — every SQL sent to monitored servers, every monitoring tick |
 
+### 6.3.2.2 Cluster logs in the dashboard
+
+On a cluster's **Dashboard**, the **Logs** section shows each log of the cluster in its own tab: **Cluster Logs** (the HA log: monitoring, failover, switchover, rejoin; first and default), **Job Logs**, **Security Logs**, **Workload Logs**, **DDL Change Logs**, **Schema Logs** and **Variable Change Logs**. The "?" next to a tab name explains what the log holds, a badge gives the number of entries it currently holds, and the gear of the section opens the settings of the selected log. The dashboard remembers the selected tab, so a refresh comes back on it. The **Monitoring > Schema** page shows the same tabs; **Maintenance > Job Logs** keeps the job log next to the backups and jobs.
+
 ---
 
 ## 6.3.3 Per-Cluster Diagnostic Files

@@ -161,7 +161,7 @@ The script receives a unified diff on stdin:
 
 Auto-changing variables (GTID positions, InnoDB adaptive, auto-sized at startup) are automatically excluded using `GLOBAL_VALUE_ORIGIN` on MariaDB 10.1+ and `performance_schema.variables_info` on MySQL 8.0+. Additional exclusions can be configured via `monitoring-variable-change-ignore`.
 
-The DDL change log viewer and variable change log viewer are available in the dashboard under their respective accordion panels.
+The DDL changes and the variable changes are shown on the cluster's Dashboard, in the **DDL Change Logs** and **Variable Change Logs** tabs of the **Logs** section (see [Cluster logs in the dashboard](/monitoring/logs-troubleshooting)).
 
 On MariaDB 10.1+, the ignore list is automatically enriched by querying `GLOBAL_VALUE_ORIGIN = 'AUTO'`. On MySQL 8.0+, `performance_schema.variables_info` is used instead. You can customize the static ignore list via `monitoring-variable-change-ignore` in the GUI settings.
 
