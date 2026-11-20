@@ -43,22 +43,17 @@ Pick your situation:
 **Global Settings → Register**, fill email / password / domain / sub-domain /
 zone, click the link in the confirmation email, done (details in 2.5.7).
 
-**Your production is air-gapped (PCI DSS) — or you want to declare instances
-before installing anything** → use the web page, from any connected machine:
+**Your production is air-gapped (PCI DSS)** → your licences come with your
+support contract, one per seat, nothing to declare:
 
-1. Open `https://api.crm.ovh-fr-2.signal18.cloud18.io/register-instance`.
-2. **Sign in** with your Signal18 account — or create one: you receive a
-   confirmation email from GitLab, click its link, the page continues alone.
-3. Under **Register a new instance**, fill: **Domain** = your Signal18 client
-   name (mandatory — as given by Signal18), **Sub-domain** = your choice, one
-   per instance (e.g. `prod1`), **Zone** = your choice (e.g. `fr-1`), and your
-   **subscription plan**. Click **Register instance**.
-4. The instance appears in **Your instances** with two GitLab links. Wait a
-   few minutes, then open the **delivery** link (`-pull` project): Signal18
-   has dropped the plugin binaries there — including your **signed licence
-   plugin** (and, for older releases, the `license.json` licence file).
-5. Follow **2.5.12** below to bring those files into your air-gapped
-   production and configure the instance.
+1. Sign in to your member page, **Resources → Licences**
+   (`https://www.signal18.io/members#resources`).
+2. Each seat has its licence, bound to its URI `company.YYYYMM.seat` (for
+   example `acme.202612.1`): on the instance that uses it set
+   `cloud18-domain = "acme"`, `cloud18-sub-domain = "202612"`,
+   `cloud18-sub-domain-zone = "1"`.
+3. Load the package with `replication-manager license-pull <file>`, or in
+   **Setup → Cloud18 → Support Plugins Package** (see **2.5.12** below).
 
 Made a typo? **Unregister** the instance in the list and register it again.
 
@@ -307,22 +302,10 @@ Open **Global Settings → Register** in the replication-manager dashboard. Clic
 
 The Register button is disabled while Cloud18 is already connected. Disconnect first to re-register.
 
-### Registering via the Web Console (no replication-manager needed)
+### The former web console
 
-The registration flow is also available as a standalone self-service web page —
-useful when no replication-manager is reachable from a connected network (see
-the air-gapped section below), or to manage instances before any installation:
-
-`https://api.crm.ovh-fr-2.signal18.cloud18.io/register-instance`
-
-1. **Sign in** with your Signal18 SSO email and password (or create an
-   account — GitLab sends a confirmation email and the page continues
-   automatically once the link is clicked).
-2. **Your instances** — the full lifecycle in one place: the list of your
-   registered instances with plan and project links, **Register instance**
-   (identity + subscription plan, active immediately), and **Unregister**
-   (deletes the instance's GitLab projects and deactivates its subscription —
-   to fix a typo, unregister then re-register).
+The standalone page `/register-instance` on the CRM is no longer used: an
+air-gapped client's licences are on its member page, **Resources → Licences**.
 
 ---
 
