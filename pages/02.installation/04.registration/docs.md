@@ -46,8 +46,9 @@ zone, click the link in the confirmation email, done (details in 2.5.7).
 **Your production is air-gapped (PCI DSS)** → your licences come with your
 support contract, one per seat, nothing to declare:
 
-1. Sign in to your member page, **Resources → Licences**
-   (`https://www.signal18.io/members#resources`).
+1. Your packages are in your GitLab project **`<company>/licences`** (one
+   `<company>.<YYYYMM>.<seat>.tar.gz` per seat); your member page, **Resources → Licences**
+   (`https://www.signal18.io/members#resources`), links each one.
 2. Each seat has its licence, bound to its URI `company.YYYYMM.seat` (for
    example `acme.202612.1`): on the instance that uses it set
    `cloud18-domain = "acme"`, `cloud18-sub-domain = "202612"`,
@@ -305,7 +306,8 @@ The Register button is disabled while Cloud18 is already connected. Disconnect f
 ### The former web console
 
 The standalone page `/register-instance` on the CRM is no longer used: an
-air-gapped client's licences are on its member page, **Resources → Licences**.
+air-gapped client's licences are in its GitLab project `<company>/licences`, linked from its member
+page, **Resources → Licences**.
 
 ---
 
