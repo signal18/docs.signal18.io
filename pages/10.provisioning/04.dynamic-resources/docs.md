@@ -562,6 +562,28 @@ are not affected by the policy and stay immediate.
   only until the next restart. Leave `prov-db-cpu-cores` and `prov-db-memory` out of the
   static file when you enable dynamic resources.
 
+## Apps: live resize of an APU plan
+
+With **Apply App Resize Live** on (Settings > Dynamic config, `prov-app-dynamic-resource`, off
+by default), changing an app's memory, cores or units (its APU shape) no longer waits for a
+reprovision. The app follows the same path as a database server:
+
+- **The container cap moves on the orchestrator.** On OpenSVC v3 the app's cgroup slice gets
+  the new memory and CPU quota on every node of the app, with no restart. This needs the cap
+  on the slice (`prov-db-docker-run-args-limit` off), as for databases; with the docker cap
+  on, the resize waits for the reprovision.
+- **The configuration follows.** An app whose template names a configurator
+  (`prov-app-configurator`, e.g. `php`) has its files rendered again from the new size.
+- **The app reloads.** The template's `APP_RELOAD_COMMAND` runs on each node, next to the
+  app's processes. The `php` template uses it to rewrite the php-fpm pool and php.ini and
+  reload php-fpm gracefully (USR2): requests in flight finish, none is refused.
+
+A grow moves the cap first and the configuration after; a shrink does the reverse, so the
+app never runs a configuration larger than its container. A failed live resize shows as
+`APPERR011` on the app until the next one succeeds. Each step is logged with the command that
+replays it by hand (`om <app service> instance pg update`,
+`om <app service> instance run --rid task#reload`).
+
 ## GWU: the gateway network unit (3.1.43)
 
 The Cloud18 gateways share one uplink, so the bandwidth every cluster takes through them is
