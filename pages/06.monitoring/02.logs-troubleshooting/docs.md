@@ -39,6 +39,16 @@ All of these are set in the global (non-cluster) section of the configuration fi
 
 On a cluster's **Dashboard**, the **Logs** section shows each log of the cluster in its own tab: **Cluster Logs** (the HA log: monitoring, failover, switchover, rejoin; first and default), **Job Logs**, **Security Logs**, **Workload Logs**, **DDL Change Logs**, **Schema Logs** and **Variable Change Logs**. The "?" next to a tab name explains what the log holds, a badge gives the number of entries it currently holds, and the gear of the section opens the settings of the selected log. The dashboard remembers the selected tab, so a refresh comes back on it. The **Monitoring > Schema** page shows the same tabs; **Maintenance > Job Logs** keeps the job log next to the backups and jobs.
 
+At instance level (the clusters list and the instance **Dashboard**), the **Logs** section has three tabs, readable by the users with the `global-admin-show` grant: **Global Logs** (the monitor's own events, first and default), **Security Logs** (API logins, refused logins and tokens, account lockouts, refused global settings) and **Access Logs** (each API call: method, path, status, duration, user and address; never the query string, a token or a secret value carried in the path). Both new logs are kept in memory only, within a bounded size; the full security history stays in the security log file.
+
+| Setting | Effect |
+|---|---|
+| `log-security-length` | Security events kept in memory for the Security Logs tab. Default: `200` (`0` = default). |
+| `log-api-access` | Keep the API access log for the Access Logs tab. Default: `true`. |
+| `log-api-access-length` | API calls kept in memory for the Access Logs tab. Default: `500` (`0` = default). |
+
+These are instance settings, changed live from the global settings (HTTP & API).
+
 ---
 
 ## 6.3.3 Per-Cluster Diagnostic Files
