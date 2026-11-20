@@ -566,7 +566,8 @@ are not affected by the policy and stay immediate.
 
 With **Apply App Resize Live** on (Settings > Dynamic config, `prov-app-dynamic-resource`, off
 by default), changing an app's memory, cores or units (its APU shape) no longer waits for a
-reprovision. The app follows the same path as a database server:
+reprovision, in every sizing mode (unit or manual: the mode chooses the shape, not how it
+reaches the container). The app follows the same path as a database server:
 
 - **The container cap moves on the orchestrator.** On OpenSVC v3 the app's cgroup slice gets
   the new memory and CPU quota on every node of the app, with no restart. This needs the cap
