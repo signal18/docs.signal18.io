@@ -258,7 +258,7 @@ backup-logical-load-threads = 4
 
 ###### The shipped default on newer MyLoader releases
 
-Two options of the shipped default were removed or neutralised by newer MyLoader releases: `--innodb-optimize-keys` is refused or unknown from 0.19.1 (renamed `--optimize-keys`), and `--overwrite-tables` has no effect from 0.20.1 (the restore stops on the first existing table) and is unknown from 1.0.0 (replaced by `--drop-table`). When the value is the shipped default, a logical reseed with myloader reads the version of the myloader that runs (the executable at `backup-myloader-path`, not the MyDumper that took the backup) and adapts the options for that restore only:
+Two options of the shipped default were removed or neutralised by newer MyLoader releases: `--innodb-optimize-keys` is refused or unknown from 0.19.1 (renamed `--optimize-keys`), and `--overwrite-tables` has no effect from 0.20.1 (the restore stops on the first existing table) and is unknown from 1.0.0 (replaced by `--drop-table`). When the value is the shipped default, a logical reseed with myloader reads the version of the myloader that runs (`backup-myloader-path` when it is configured, otherwise the `myloader` found on the `PATH`, otherwise the bundled executable; not the MyDumper that took the backup) and adapts the options for that restore only:
 
 | MyLoader that runs | `--overwrite-tables` | `--innodb-optimize-keys=skip` |
 | ------------------ | -------------------- | ----------------------------- |
@@ -271,7 +271,7 @@ Two options of the shipped default were removed or neutralised by newer MyLoader
 What is adapted:
 
 * The adaptation applies to the logical replica reseed, including the automatic seed of a fresh node. The reseed task does not record who asked for it, so every caller of that path receives it, not only a reseed an operator requests.
-* It does not apply to a restore on the master, to the seeding of a staging cluster from its parent, to the rejoin of a failed master by logical backup, to a point-in-time restore or to the staging refresh: those keep the options exactly as configured.
+* It does not apply to a restore on the master, to the seeding of a staging cluster from its parent, to the rejoin of a failed master by logical backup, to a point-in-time restore, to the staging refresh or to the configured staging server: the new default-option adaptation does not apply to those paths, and their existing argument handling is unchanged.
 
 How to opt out, or to choose your own options:
 
