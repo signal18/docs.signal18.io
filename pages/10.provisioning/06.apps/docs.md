@@ -222,3 +222,25 @@ two valkey apps (`erpnext-cache`, `erpnext-queue`), `erpnext-backend` (owns the 
 `erpnext-scheduler`, `erpnext-websocket`, `erpnext-frontend` (the https route). The site files live on
 the S3 provider (`rustfs1`), the database is the cluster's MariaDB through the proxy. Add
 them in that order with those names.
+
+## 10.6.8 Sandbox runtime and trusted apps
+
+The containers that run an app's image (the app, its jobs sidecar, its reload task) run under
+the docker runtime `prov-app-docker-runtime`, set by the administrator of the instance only
+(Setup, Cloud18, Marketplace, Apps). Its default `auto` is the gVisor sandbox (`runsc-hostnet`)
+on a Cloud18 instance and the node's default runtime otherwise; `none` turns it off. The runtime
+must be registered on every node that runs apps.
+
+Some apps are not clients' apps: an application of the instance itself, its own code, that is
+too slow under the sandbox. The administrator can **trust** such an app: its containers then run
+under the node's default runtime, every other app stays in the sandbox.
+
+- In the app's settings, the **Trusted (no sandbox runtime)** switch. It is shown to the
+  instance's local `admin` account (or a person in admin mode) only, and to everyone while the app
+  is trusted. A cluster user, even one who can change the app's settings, cannot change it.
+- Or the global setting `prov-app-docker-trusted`: a comma-separated list of app ids (`ap...`,
+  as the API and the app's page name them).
+
+The change applies at the next definition refresh (or provisioning) of the app. While a trusted
+app runs outside the sandbox, the security warning `WARN0329` names it in the cluster's security
+state. Trust only an app whose code you own: a trusted app runs directly on the node's kernel.
