@@ -256,6 +256,30 @@ backup-logical-load-threads = 4
 | Type | string |
 | Default Value | "--overwrite-tables --verbose=3 --innodb-optimize-keys=skip --max-threads-for-schema-creation=1 --max-threads-for-index-creation=1" |
 
+###### The shipped default on newer MyLoader releases
+
+Two options of the shipped default were removed or neutralised by newer MyLoader releases: `--innodb-optimize-keys` is refused or unknown from 0.19.1 (renamed `--optimize-keys`), and `--overwrite-tables` has no effect from 0.20.1 (the restore stops on the first existing table) and is unknown from 1.0.0 (replaced by `--drop-table`). When the value is the shipped default, a logical reseed with myloader reads the version of the myloader that runs (`backup-myloader-path` when it is configured, otherwise the `myloader` found on the `PATH`, otherwise the bundled executable; not the MyDumper that took the backup) and adapts the options for that restore only:
+
+| MyLoader that runs | `--overwrite-tables` | `--innodb-optimize-keys=skip` |
+| ------------------ | -------------------- | ----------------------------- |
+| up to 0.18.1, or version unknown | kept | kept |
+| 0.19.1 to 0.19.3 | kept | `--optimize-keys=SKIP` |
+| 0.20.1 and later | `--drop-table=DROP` | `--optimize-keys=SKIP` |
+
+`--drop-table=DROP` drops each table and view of the backup before it is loaded (`DROP TABLE IF EXISTS`, `DROP VIEW IF EXISTS`), as `--overwrite-tables` did: objects of the target that are not in the backup are left alone. The adaptation is logged in the job log (`the shipped default of backup-myloader-options adapted for this release`). The configuration is never rewritten: the saved value stays the shipped default.
+
+What is adapted:
+
+* The adaptation applies to the logical replica reseed, including the automatic seed of a fresh node. The reseed task does not record who asked for it, so every caller of that path receives it, not only a reseed an operator requests.
+* It does not apply to a restore on the master, to the seeding of a staging cluster from its parent, to the rejoin of a failed master by logical backup, to a point-in-time restore, to the staging refresh or to the configured staging server: the new default-option adaptation does not apply to those paths, and their existing argument handling is unchanged.
+
+How to opt out, or to choose your own options:
+
+* Set `backup-myloader-options` explicitly in the configuration file, even to the same text as the default. A value that is set is never rewritten: when it holds `--overwrite-tables` or `--innodb-optimize-keys` and the myloader release rejects or ignores it, the job log gives a warning that names the option and its replacement, and the restore runs with your value.
+* A value set through the API that is exactly the shipped default cannot be told from an untouched default and is adapted. A different value set through the API is left as it is.
+
+Limits to know: only the two options above are adapted. MyLoader releases below 0.18.1, and any other option of your own, are not covered, and the rejoin of a failed master by logical backup keeps its previous behaviour.
+
 ##### `backup-mydumper-regex` (3.0)
 
 | Item | Value |

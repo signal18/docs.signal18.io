@@ -92,6 +92,8 @@ taxonomy:
 
 #### 14.8.0.1.5 Backup & Restore
 
+* **MyLoader reseed with the shipped options on newer releases**: a logical replica reseed adapts the shipped `backup-myloader-options` to the myloader release that runs (`--drop-table=DROP` from 0.20.1, `--optimize-keys=SKIP` from 0.19.1); an explicitly configured value is never changed. [See documentation](/maintenance/configuration-guide/backups)
+
 * **Cross-Cluster User Restore**: Restore backups between clusters while merging database USERS tables
 
 #### 14.8.0.1.6 Provisioning
