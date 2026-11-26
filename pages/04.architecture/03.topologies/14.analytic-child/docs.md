@@ -126,7 +126,7 @@ runs its init again.
 |---|---|
 | CINF0017 | the plugin runs: GTID captured and applied, lag, rows |
 | CINF0030 | the last merge of the staging, the next one |
-| WARN0242 / WARN0243 | the plugin is stopped and will restart / an apply fails and is retried (an index refused, with the reason, is an apply failure) |
+| WARN0242 / WARN0243 | the plugin is stopped and will restart (an index whose query is refused stops it, with the reason) / an apply fails and is retried |
 | WARN0340 | a chosen table stayed as it was, with the reason (schema state) |
 | WARN0341 | a DDL on the parent is not applied to the copy: apply it on the child, or seed again |
 | ERR00130 | the source is refused: its binlog cannot carry a full copy (the reason is given) |
