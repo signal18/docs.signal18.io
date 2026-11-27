@@ -35,6 +35,38 @@ The MCP tool is `cluster-create-child`. The destination plugin's manifest gives 
 default database image, the configurator tags its servers need, and whether the child has one
 database.
 
+## A DuckDB child
+
+*Available from replication-manager 4.0.1.*
+
+A **DuckDB child** is an analytic child whose copies are MariaDB DuckDB-engine tables: columnar
+tables you query with plain MariaDB SQL, for reports and analytics, while the parent keeps its
+InnoDB tables and its load. The destination is `duckdb`, an **enterprise plugin**: it runs on a
+seat whose plan includes the enterprise plugins.
+
+- **Image**: MariaDB's own public image `ghcr.io/mariadb/duckdb`, at the parent's exact release
+  (a parent on 11.8.9 gives `ghcr.io/mariadb/duckdb:11.8.9`): the engine must match its server
+  release. If MariaDB publishes no DuckDB image for that release, the child's creation stops when
+  its database does not come up, with WARN0239 naming the image: upgrade the parent to a release
+  that has one, or give the image yourself.
+- **One database**: the copies are written out of the child's binlog, so the child has no
+  replica.
+- **Tables**: a table needs a primary key and the utf8mb4, utf8mb3 or ascii character set; a
+  partitioned table, a generated, invisible or BIT column are refused. A refused table stays
+  InnoDB on the child, replicated natively, with WARN0340 giving the reason.
+- **Large tables**: set the merge interval to 3600 for tables of a few million rows or more
+  (below).
+
+From an AI assistant (MCP), in a few calls:
+
+1. `cluster-create-child` with `cluster_name` (the parent), `destination=duckdb`,
+   `tables=shop.*` and `confirm=false`: the plan;
+2. the same with `confirm=true`: the child is created, seeded from the parent's last logical
+   backup, and fed;
+3. optionally `cluster-set-analytic-index` on the child for a denormalized table (below).
+
+The prompt `deploy-duckdb-child` walks the assistant through it.
+
 ## Settings (Setup > High Availability > Analytic Child)
 
 | Setting | Default | What it does |
