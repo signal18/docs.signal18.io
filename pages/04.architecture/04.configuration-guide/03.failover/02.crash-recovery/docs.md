@@ -76,11 +76,28 @@ GTID is behind and semi-sync replication status at election was desynced, we can
 
 The flashback reverses the transactions the old master committed and no replica received. repman replays the reversed events with the binary log off for that session, so the rewind itself takes no new GTID. The old master's binary log still holds the lost transactions, though, past the position it rejoins at: with `gtid_strict_mode=ON` MariaDB refuses that position (error 1947), and without strict mode the server still counts them in its `gtid_current_pos`.
 
-So, when the old master was asynchronous at the failover and its lost events were saved first (`autorejoin-backup-binlog`), repman runs on it `RESET MASTER`, then `SET GLOBAL gtid_binlog_state` to the rejoin position, then `SET GLOBAL gtid_slave_pos` to the same position, and points it at the new master. Every statement is in the logs.
+So repman runs on it `RESET MASTER`, then `SET GLOBAL gtid_binlog_state` to the rejoin position, then `SET GLOBAL gtid_slave_pos` to the same position, and points it at the new master. Every statement is in the logs. It does so only when every one of these checks, made on the live server right before, holds:
 
-What it costs: the binary logs of that server are deleted. The lost transactions stay saved by repman in the crash directory (the binlog, its decoded `.sql` and `.flashback.sql`). A point-in-time restore of that server from a backup taken before the rejoin cannot replay past the reset: repman shows a warning (WARN0364, and a binlog gap when a backup archive is attached) until the next backup of that server.
+- the old master was not in semi-sync at the failover;
+- its lost events were copied first (`autorejoin-backup-binlog`);
+- the flashback replayed exactly the transactions saved;
+- they are no more than `autorejoin-async-flashback-drop-binlog-max-transactions` (below);
+- its binary log carries one GTID domain only (no multi-source, no writes of another cluster);
+- past the rejoin position, its binary log holds only those transactions, written by the old master itself;
+- nobody reads its binary log: no replica, child cluster or replication feed connected to it.
 
-Set it to `false` to keep the old master's binary log as it is, for instance when you must keep its binlogs for an audit or an external consumer. With `gtid_strict_mode=ON` the flashback rejoin then fails and repman falls back to the other rejoin methods (a reseed).
+If one fails, the binary log is kept, a warning (WARN0365) names the check and its values, and the rejoin falls back to the other methods (a reseed) as before.
+
+What it costs: the binary logs of that server are deleted. The lost transactions stay saved by repman in the crash directory (the binlog, its decoded `.sql` and `.flashback.sql`). A point-in-time restore of that server from a backup taken before the rejoin cannot replay past the reset: repman shows a warning (WARN0364: how many transactions, the GTID, where their copy is) and a binlog gap when a backup archive is attached, until the next backup of that server.
+
+##### `autorejoin-async-flashback-drop-binlog-max-transactions` (4.0.1)
+| Item          | Value |
+| ----          | ----- |
+| Description   | Most lost transactions the binary log drop above is done for; above it the binary log is kept and the rejoin falls back to a reseed. 0 means the default. |
+| Type          | integer |
+| Default Value | 10000 |
+
+Set `autorejoin-async-flashback-drop-binlog` to `false` to keep the old master's binary log as it is, for instance when you must keep its binlogs for an audit or an external consumer. With `gtid_strict_mode=ON` the flashback rejoin then fails and repman falls back to the other rejoin methods (a reseed).
 
 The drop never runs when the old master was in semi-sync at the failover: MariaDB truncates the transactions no replica acknowledged when the server restarts as a semi-sync replica, so its binary log is not past the rejoin position.
 
