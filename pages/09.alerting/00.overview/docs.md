@@ -20,6 +20,8 @@ replication-manager continuously monitors cluster state and emits alerts the mom
 | **Mattermost** | Webhook with message attachments |
 | **Pushover** | Mobile push notifications (app token + user token) |
 | **Custom script** | Shell script or binary called on each alert/resolve event |
+| **Prometheus Alertmanager** | v2 API, fired, resent while open, resolved (4.0.1, see [9.4](/alerting/alertmanager-telegram)) |
+| **Telegram** | Bot API, plain text or MarkdownV2 (4.0.1, see [9.4](/alerting/alertmanager-telegram)) |
 
 ---
 

@@ -115,6 +115,7 @@ taxonomy:
 9. **Alerting**
    - 9.1. [Overview](/alerting/overview)
    - 9.2. [Configuration Guide](/alerting/configuration-guide)
+   - 9.4. [Alertmanager, Telegram and the Alert Queues](/alerting/alertmanager-telegram)
 
 10. **Provisioning**
     - 10.1. [Overview](/provisioning/overview)
