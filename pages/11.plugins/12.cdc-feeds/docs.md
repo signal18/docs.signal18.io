@@ -29,6 +29,7 @@ These are never changed by replication-manager; they are your choice:
 | Setting | Default | Meaning |
 |---|---|---|
 | `replication-plugin-feed-source-cluster` | (empty) | The PostgreSQL cluster to read. Empty: no feed. |
+| `replication-plugin-feed-enabled` | `true` | Feed Running: the start and stop of the feed. Stopped, its position and its slot are kept, and it resumes from the slot. |
 | `replication-plugin-feed-database` | | The PostgreSQL database (one per feed). |
 | `replication-plugin-feed-tables` | | Comma-separated `schema.table` or `schema.*`. |
 | `replication-plugin-feed-create-source-objects` | `false` | Allows the feed to create its publication and its replication slot `repman_<cluster>` on PostgreSQL. Without it, the feed tells you the exact statement to run. |
@@ -60,4 +61,4 @@ PostgreSQL's logical decoding carries no DDL. When a carried table changes on Po
 ### Actions
 
 - **New Initial Load**: the rejoin of the feed. Its MariaDB tables are emptied and copied again from a new snapshot, then the changes follow.
-- **Drop Slot and Publication on Source**: with the feed switched off (source cluster empty), drops the slot and the publication the feed created, nothing else, and shows the statements run.
+- **Drop Slot and Publication on Source**: with the feed stopped, drops the slot and the publication the feed created, nothing else, and shows the statements run.
