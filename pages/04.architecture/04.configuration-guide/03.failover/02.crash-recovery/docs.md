@@ -6,6 +6,34 @@ taxonomy:
 
 ## 4.5.2.2.1 Crash recovery
 
+### What a failover guarantees, and what it does not
+
+A failover chooses availability: the cluster keeps serving from a replica, at the cost of the
+transactions the old master had not sent to any replica yet. **replication-manager** then follows one
+rule, whatever the replication mode:
+
+- **The new master is the truth.** When the old master comes back, it rejoins by rewinding what no
+  other server has (flashback), or by a reseed from the new master.
+- **What was lost is kept, not replayed.** With `autorejoin-backup-binlog`, the old master's lost
+  transactions are saved before the rejoin and shown in the lost events viewer, with the exact command
+  to replay them by hand.
+- **You decide.** replication-manager never replays a lost transaction by itself.
+
+**Why not replay them automatically?** Semi-synchronous replication is a guarantee between the master
+and a replica: an acknowledgement proves the transaction reached a replica. There is no such
+guarantee between the master and the client: nothing tells the server, or replication-manager,
+whether the application received its OK. A lost transaction may have been retried by the client on
+the new master, or seen as missing and done again by a user. A payment replayed afterwards would be
+charged twice. Only the application, or you, can tell whether a lost transaction was already redone,
+compensated or cancelled.
+
+**Semi-sync reduces what is lost, it does not remove it.** With MariaDB's default wait point
+(`AFTER_COMMIT`), a transaction is committed on the master before a replica acknowledges it; with
+`AFTER_SYNC`, a transaction written to the binary log is still committed by crash recovery when the
+old master restarts. In both cases the old master can come back ahead of the new master, and the
+rejoin rewinds it.
+
+
 **replication-manager** <1.1 release only rejoin failed master that get equal GTID at election time in such case it can re-attach to the cluster
 
 ##### `autorejoin` (0.7)
