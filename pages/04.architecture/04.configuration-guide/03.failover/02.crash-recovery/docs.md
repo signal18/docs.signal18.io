@@ -67,6 +67,23 @@ GTID is behind and semi-sync replication status at election was desynced, we can
 | Default Value | false |
 
 
+##### `autorejoin-async-flashback-drop-binlog` (4.0.1)
+| Item          | Value |
+| ----          | ----- |
+| Description   | After the flashback of an old master that replicated asynchronously, drop its binary log and set its GTID state to the position it rejoins at. |
+| Type          | boolean |
+| Default Value | true |
+
+The flashback reverses the transactions the old master committed and no replica received. repman replays the reversed events with the binary log off for that session, so the rewind itself takes no new GTID. The old master's binary log still holds the lost transactions, though, past the position it rejoins at: with `gtid_strict_mode=ON` MariaDB refuses that position (error 1947), and without strict mode the server still counts them in its `gtid_current_pos`.
+
+So, when the old master was asynchronous at the failover and its lost events were saved first (`autorejoin-backup-binlog`), repman runs on it `RESET MASTER`, then `SET GLOBAL gtid_binlog_state` to the rejoin position, then `SET GLOBAL gtid_slave_pos` to the same position, and points it at the new master. Every statement is in the logs.
+
+What it costs: the binary logs of that server are deleted. The lost transactions stay saved by repman in the crash directory (the binlog, its decoded `.sql` and `.flashback.sql`). A point-in-time restore of that server from a backup taken before the rejoin cannot replay past the reset: repman shows a warning (WARN0364, and a binlog gap when a backup archive is attached) until the next backup of that server.
+
+Set it to `false` to keep the old master's binary log as it is, for instance when you must keep its binlogs for an audit or an external consumer. With `gtid_strict_mode=ON` the flashback rejoin then fails and repman falls back to the other rejoin methods (a reseed).
+
+The drop never runs when the old master was in semi-sync at the failover: MariaDB truncates the transactions no replica acknowledged when the server restarts as a semi-sync replica, so its binary log is not past the rejoin position.
+
 GTID is ahead but semi-sync replication si not used, status at election is unknown, we restore the joiner via mysqldump from the new leader when replication-manager settings use the rejoin-mysqldump flag.
 
 ##### `autorejoin-mysqldump ` (1.1)
